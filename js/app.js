@@ -38,6 +38,7 @@ class MOEBuddy {
         if (this.isOpen) {
             this.closeChat();
         } else {
+            panel.style.display = 'block';
             panel.style.transform = 'translateY(0)';
             toggleButton.style.display = 'none';
             this.isOpen = true;
@@ -48,7 +49,13 @@ class MOEBuddy {
         const panel = document.getElementById('moeBuddyPanel');
         const toggleButton = document.getElementById('toggleBuddy');
         
-        panel.style.transform = 'translateY(100%)';
+        panel.style.transform = 'translateY(20px)';
+        panel.style.opacity = '0';
+        setTimeout(() => {
+            panel.style.display = 'none';
+            panel.style.transform = 'translateY(0)';
+            panel.style.opacity = '1';
+        }, 300);
         toggleButton.style.display = 'flex';
         this.isOpen = false;
     }
@@ -221,34 +228,37 @@ class LearningPlatform {
     
     animateProgressBars() {
         // Animate main progress bar
-        const progressBar = document.querySelector('.bg-gradient-to-r.from-green-400');
+        const progressBar = document.querySelector('.bg-gradient-to-r.from-green-400.to-blue-500');
         if (progressBar) {
             setTimeout(() => {
                 progressBar.style.width = `${this.currentProgress}%`;
             }, 500);
         }
         
-        // Animate timeline master progress
-        const timelineProgress = document.querySelector('.w-3\\/5');
+        // Animate timeline master progress - fix selector
+        const timelineProgress = document.querySelector('.w-16 .bg-blue-400');
         if (timelineProgress) {
             setTimeout(() => {
-                timelineProgress.classList.add('transition-all', 'duration-1000');
+                timelineProgress.classList.add('transition-all');
+                timelineProgress.style.transitionDuration = '1000ms';
             }, 1000);
         }
     }
     
     setupInteractiveElements() {
-        // Add hover effects to cards
-        const cards = document.querySelectorAll('.bg-white\\/90');
+        // Add hover effects to cards - fix selector
+        const cards = document.querySelectorAll('[class*="bg-white/90"]');
         cards.forEach(card => {
             card.classList.add('hover-lift');
+            card.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
+            
             card.addEventListener('mouseenter', () => {
                 card.style.transform = 'translateY(-4px)';
                 card.style.boxShadow = '0 20px 40px -10px rgba(0, 0, 0, 0.15)';
             });
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'translateY(0)';
-                card.style.boxShadow = '';
+                card.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
             });
         });
         
@@ -257,25 +267,25 @@ class LearningPlatform {
     }
     
     setupButtonHandlers() {
-        // Continue Reading button
-        const continueBtn = document.querySelector('button:contains("Continue Reading")');
-        if (continueBtn) {
-            continueBtn.addEventListener('click', () => {
-                this.showNotification('Opening detailed lesson content...', 'info');
-            });
-        }
-        
-        // Start Assessment button  
-        const assessmentBtn = document.querySelector('button:contains("Start Assessment")');
-        if (assessmentBtn) {
-            assessmentBtn.addEventListener('click', () => {
-                this.showNotification('Loading timeline drag & drop activity...', 'success');
-            });
-        }
+        // Find buttons by text content instead of CSS selector
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(btn => {
+            if (btn.textContent.includes('Continue Reading')) {
+                btn.addEventListener('click', () => {
+                    this.showNotification('Opening detailed lesson content...', 'info');
+                });
+            }
+            if (btn.textContent.includes('Start Assessment')) {
+                btn.addEventListener('click', () => {
+                    this.showNotification('Loading timeline drag & drop activity...', 'success');
+                });
+            }
+        });
     }
     
     startStreakAnimation() {
-        const streakBoxes = document.querySelectorAll('.w-4.h-4.bg-purple-400');
+        // Fix selector for streak boxes
+        const streakBoxes = document.querySelectorAll('.bg-purple-400.rounded-sm');
         streakBoxes.forEach((box, index) => {
             setTimeout(() => {
                 box.style.animation = 'pulse 2s infinite';
@@ -327,16 +337,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 2000);
 });
 
-// Utility function for button text selection (since CSS :contains doesn't exist)
-document.querySelectorAll('button').forEach(button => {
-    if (button.textContent.includes('Continue Reading')) {
-        button.addEventListener('click', () => {
-            new LearningPlatform().showNotification('Opening detailed lesson content...', 'info');
-        });
-    }
-    if (button.textContent.includes('Start Assessment')) {
-        button.addEventListener('click', () => {
-            new LearningPlatform().showNotification('Loading timeline drag & drop activity...', 'success');
-        });
-    }
-});
+// This is now handled in the LearningPlatform setupButtonHandlers method
+// Removed duplicate button handlers

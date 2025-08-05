@@ -27,6 +27,50 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure main content takes available space */
+main {
+  flex: 1;
+}
+
+/* Ensure proper container widths */
+.max-w-6xl {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Fix potential layout shifts */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure grid containers work properly */
+.grid {
+  display: grid;
+}
+
+/* Profile image styling */
+.profile-image {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure profile images are circular and well-positioned */
+.profile-container img {
+  object-fit: cover;
+  object-position: center center;
 }
 
 /* Elements - Base HTML elements */
@@ -53,6 +97,8 @@ input {
 /* Components - UI components */
 .buddy-chat-bubble {
   animation: bounceIn 0.5s ease-out;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .progress-bar {
@@ -61,6 +107,59 @@ input {
 
 .achievement-glow {
   box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+/* Fix layout issues */
+.card-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Ensure consistent spacing */
+.dashboard-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Fix floating elements */
+.floating-chat {
+  position: fixed;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Chat panel animations */
+#moeBuddyPanel {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#moeBuddyPanel.show {
+  opacity: 1;
+  transform: translateY(0) !important;
+}
+
+#moeBuddyPanel.hide {
+  opacity: 0;
+  transform: translateY(20px) !important;
+}
+
+/* Footer styling */
+footer {
+  margin-top: 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Ensure chat doesn't overlap footer on small screens */
+@media (max-height: 800px) {
+  #moeBuddyPanel {
+    max-height: calc(100vh - 200px);
+  }
+  
+  #chatMessages {
+    max-height: 200px;
+  }
 }
 
 /* Utilities - Helper classes */
@@ -136,11 +235,26 @@ input {
     left: 1rem;
   }
   
-  .grid.md\\:grid-cols-3 {
-    grid-template-columns: 1fr;
+  /* Fix grid layouts on mobile */
+  .grid {
+    gap: 1rem;
   }
   
-  .grid.md\\:grid-cols-2 {
-    grid-template-columns: 1fr;
+  /* Stack cards vertically on mobile */
+  @media (max-width: 768px) {
+    .md\:grid-cols-3,
+    .md\:grid-cols-2 {
+      grid-template-columns: 1fr !important;
+    }
+    
+    .md\:col-span-2 {
+      grid-column: span 1 !important;
+    }
+  }
+  
+  /* Better mobile spacing */
+  .max-w-6xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
