@@ -1,0 +1,146 @@
+/* ITCSS Structure - Isaac's Learning Platform */
+
+/* Settings - Variables and config */
+:root {
+  --color-primary: #E3F2FD;
+  --color-secondary: #E8F5E8;
+  --color-accent: #FFE0E6;
+  --color-text: #4A5568;
+  --color-white: #FFFFFF;
+  --border-radius: 1.5rem;
+  --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Tools - Utility classes */
+.font-nunito {
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Generic - Box sizing, normalize */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Elements - Base HTML elements */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input {
+  font-family: inherit;
+}
+
+/* Objects - Layout patterns */
+.card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Components - UI components */
+.buddy-chat-bubble {
+  animation: bounceIn 0.5s ease-out;
+}
+
+.progress-bar {
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.achievement-glow {
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+/* Utilities - Helper classes */
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Animations */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(20px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom scrollbar for chat */
+#chatMessages::-webkit-scrollbar {
+  width: 4px;
+}
+
+#chatMessages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#chatMessages::-webkit-scrollbar-thumb {
+  background: #CBD5E0;
+  border-radius: 2px;
+}
+
+#chatMessages::-webkit-scrollbar-thumb:hover {
+  background: #A0AEC0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  #moeBuddyPanel {
+    width: calc(100vw - 2rem);
+    right: 1rem;
+    left: 1rem;
+  }
+  
+  .grid.md\\:grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .grid.md\\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
