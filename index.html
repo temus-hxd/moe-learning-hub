@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isaac's Block Academy - Singapore History Quest</title>
+    <title>Isaac's Gaming Academy - Singapore History Campaign</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts - Game Style -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Modern Gaming -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -20,38 +20,51 @@
 <body class="min-h-screen font-nunito">
     
     <!-- Top Navigation Bar -->
-    <nav class="card mx-4 mt-4 p-4" style="background: var(--color-white); border-radius: 0px;">
+    <nav class="card mx-4 mt-4 p-4">
         <div class="flex items-center justify-between max-w-6xl mx-auto">
             
-            <!-- Left: Game Companion -->
+            <!-- Left: Game Buddy -->
             <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 flex items-center justify-center" style="background: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                    <i data-lucide="gamepad-2" class="w-6 h-6 text-white"></i>
+                <div class="w-14 h-14 rounded-full flex items-center justify-center relative" style="background: var(--color-primary); box-shadow: var(--shadow-button); border: 3px solid var(--color-text);">
+                    <i data-lucide="gamepad-2" class="w-7 h-7 text-white relative z-10"></i>
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold font-pixel" style="color: var(--color-text); font-size: 12px;">BLOCK BUDDY</h3>
-                    <p class="text-xs font-cyber" style="color: var(--color-text);">Quest Assistant</p>
+                    <h3 class="text-xl font-bold font-modern" style="color: var(--color-text);">GameBuddy</h3>
+                    <p class="text-sm font-modern" style="color: var(--color-text); opacity: 0.8;">🎮 Your Fun Learning Friend!</p>
                 </div>
             </div>
             
-            <!-- Center: Quest Progress -->
+            <!-- Center: Progress Bar -->
             <div class="flex-1 max-w-md mx-8">
-                <div class="h-6 relative" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                    <div class="h-full transition-all duration-500" style="width: 68%; background: var(--color-primary); border-right: 2px solid var(--color-text);"></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <span class="text-xs font-bold font-pixel" style="color: var(--color-text); font-size: 8px;">SINGAPORE QUEST - 68%</span>
+                <div class="text-center mb-2">
+                    <span class="text-lg font-bold font-modern" style="color: var(--color-text);">🌟 PROGRESS 🌟</span>
+                </div>
+                <div class="h-6 relative rounded-full overflow-hidden" style="background: var(--color-bg-card); border: 3px solid var(--color-text); box-shadow: var(--shadow-button);">
+                    <div class="h-full transition-all duration-1000 rounded-full relative overflow-hidden" style="width: 68%; background: var(--gradient-rainbow);">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent transform -skew-x-12 animate-pulse"></div>
                     </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="text-sm font-bold font-modern" style="color: var(--color-text);">68%</span>
+                    </div>
+                </div>
+                <div class="text-center mt-1">
+                    <span class="text-sm font-bold font-modern" style="color: var(--color-text);">Singapore Adventure!</span>
                 </div>
             </div>
             
             <!-- Right: Player Profile -->
             <div class="flex items-center space-x-3">
                 <div class="text-right">
-                    <h3 class="text-lg font-bold font-pixel" style="color: var(--color-text); font-size: 12px;">ISAAC CHEN</h3>
-                    <p class="text-xs font-cyber" style="color: var(--color-accent);">🏆 QUEST MASTER • LVL 7</p>
+                    <h3 class="text-xl font-bold font-modern" style="color: var(--color-text);">Isaac Chen</h3>
+                    <p class="text-sm font-modern" style="color: var(--color-accent);">🏆 Super Student • Level 7</p>
                 </div>
-                <div class="w-12 h-12 overflow-hidden profile-container" style="border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky); background: var(--color-diamond);">
+                <div class="w-16 h-16 rounded-full overflow-hidden profile-container relative" style="background: var(--color-success); box-shadow: var(--shadow-button); border: 4px solid var(--color-text);">
                     <img src="img/isaac-photo.png" alt="Isaac Chen" class="w-full h-full object-cover profile-image">
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent"></div>
+                    <div class="absolute -top-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center" style="background: var(--color-accent); border: 2px solid var(--color-text);">
+                        <span class="text-xs font-bold">7</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,165 +75,173 @@
         
         <!-- Welcome Message -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold font-pixel mb-2" style="color: var(--color-text); text-shadow: 3px 3px 0px var(--color-accent);">WELCOME BACK, ISAAC! 🎮</h1>
-            <p class="text-lg font-cyber" style="color: var(--color-text);">Ready to continue your Singapore Independence Quest?</p>
+            <div class="inline-block p-6 rounded-3xl mb-4" style="background: var(--color-bg-card); border: 4px solid var(--color-text); box-shadow: var(--shadow-cartoon);">
+                <h1 class="text-5xl font-bold font-modern mb-2" style="color: var(--color-text);">
+                    🎉 Hey Isaac! 🎉
+                </h1>
+                <p class="text-xl font-modern" style="color: var(--color-secondary);">Ready for more Singapore fun? Let's go! 🚀</p>
+            </div>
         </div>
 
         <!-- Dashboard Cards Grid -->
         <div class="grid md:grid-cols-3 gap-6 mb-8">
             
-            <!-- Current Quest Card -->
+            <!-- Fun Learning Card -->
             <div class="md:col-span-2 card p-6">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 flex items-center justify-center" style="background: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                            <i data-lucide="sword" class="w-5 h-5 text-white"></i>
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center relative" style="background: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: var(--shadow-button);">
+                            <i data-lucide="star" class="w-6 h-6 text-white relative z-10"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold font-pixel" style="color: var(--color-text); font-size: 16px;">CURRENT QUEST</h3>
-                            <p class="text-sm font-cyber" style="color: var(--color-text);">🏛️ Nationalism & Self-Government</p>
+                            <h3 class="text-2xl font-bold font-modern" style="color: var(--color-text);">🎯 Current Adventure</h3>
+                            <p class="text-lg font-modern" style="color: var(--color-secondary);">🏛️ Singapore Story Time!</p>
                         </div>
                     </div>
-                    <span class="px-3 py-1 text-sm font-bold font-pixel" style="background: var(--color-primary); color: var(--color-white); border: 2px solid var(--color-text); box-shadow: var(--shadow-blocky); font-size: 10px;">⚡ ACTIVE</span>
+                    <span class="px-4 py-2 text-sm font-bold font-modern rounded-full" style="background: var(--color-success); color: white; border: 3px solid var(--color-text); box-shadow: var(--shadow-button);">
+                        🔥 ACTIVE
+                    </span>
                 </div>
                 
-                <div class="p-4 mb-4" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                    <h4 class="font-bold font-pixel mb-2" style="color: var(--color-text); font-size: 14px;">🏛️ THE PEOPLE'S ACTION PARTY FORMATION (1954)</h4>
-                    <p class="font-cyber text-sm mb-3" style="color: var(--color-text);">🎯 Mission: Learn about the key political movements that shaped Singapore's path to independence.</p>
+                <div class="p-4 mb-4 rounded-2xl" style="background: var(--color-bg-card); border: 3px solid var(--color-text); box-shadow: var(--shadow-button);">
+                    <h4 class="font-bold font-modern mb-2 text-2xl" style="color: var(--color-text);">🏛️ The People's Action Party (1954)</h4>
+                    <p class="font-modern text-lg mb-3" style="color: var(--color-text);">🎯 Let's learn about Singapore's cool political history!</p>
                     
-                    <!-- Interactive Timeline Preview -->
-                    <div class="flex items-center space-x-2 mb-3">
-                        <div class="w-4 h-4" style="background: var(--color-primary); border: 2px solid var(--color-text);"></div>
-                        <div class="flex-1 h-2" style="background: var(--color-primary); border: 1px solid var(--color-text);"></div>
-                        <div class="w-4 h-4" style="background: var(--color-white); border: 2px solid var(--color-text);"></div>
-                        <div class="flex-1 h-2" style="background: var(--color-white); border: 1px solid var(--color-text);"></div>
-                        <div class="w-4 h-4" style="background: var(--color-white); border: 2px solid var(--color-text);"></div>
+                    <!-- Fun Progress Dots -->
+                    <div class="flex items-center justify-center space-x-4 mb-4">
+                        <div class="w-4 h-4 rounded-full animate-bounce" style="background: var(--color-success); border: 2px solid var(--color-text); animation-delay: 0s;"></div>
+                        <div class="w-4 h-4 rounded-full animate-bounce" style="background: var(--color-accent); border: 2px solid var(--color-text); animation-delay: 0.1s;"></div>
+                        <div class="w-4 h-4 rounded-full animate-bounce" style="background: var(--color-secondary); border: 2px solid var(--color-text); animation-delay: 0.2s;"></div>
+                        <div class="w-4 h-4 rounded-full animate-bounce" style="background: var(--color-primary); border: 2px solid var(--color-text); animation-delay: 0.3s;"></div>
+                        <div class="w-4 h-4 rounded-full animate-bounce" style="background: var(--color-purple); border: 2px solid var(--color-text); animation-delay: 0.4s;"></div>
                     </div>
                     
-                    <div class="flex space-x-2">
-                        <button class="px-4 py-2 text-sm font-bold font-pixel text-white" style="background: var(--color-secondary); font-size: 10px;">
-                            ▶️ CONTINUE QUEST
+                    <div class="flex space-x-3">
+                        <button class="px-6 py-3 text-lg font-bold font-modern text-white rounded-2xl" style="background: var(--color-primary); border: 3px solid var(--color-text); box-shadow: var(--shadow-button);">
+                            ▶️ CONTINUE
                         </button>
-                        <button class="px-4 py-2 text-sm font-bold font-pixel" style="background: var(--color-white); color: var(--color-text); font-size: 10px;">
-                            📜 VIEW TIMELINE
+                        <button class="px-6 py-3 text-lg font-bold font-modern rounded-2xl" style="background: var(--color-accent); color: var(--color-text); border: 3px solid var(--color-text); box-shadow: var(--shadow-button);">
+                            📊 TIMELINE
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Battle Challenge Card -->
+            <!-- Fun Quiz Card -->
             <div class="card p-6">
                 <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 flex items-center justify-center" style="background: var(--color-primary); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                        <i data-lucide="target" class="w-5 h-5 text-white"></i>
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center relative animate-pulse" style="background: var(--color-purple); border: 3px solid var(--color-text); box-shadow: var(--shadow-button);">
+                        <i data-lucide="zap" class="w-6 h-6 text-white relative z-10"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold font-pixel" style="color: var(--color-text); font-size: 16px;">BATTLE CHALLENGE</h3>
-                        <p class="text-sm font-cyber" style="color: var(--color-text);">⚔️ Test your knowledge</p>
+                        <h3 class="text-2xl font-bold font-modern" style="color: var(--color-text);">🎮 Fun Quiz!</h3>
+                        <p class="text-lg font-modern" style="color: var(--color-purple);">⚡ Show what you know!</p>
                     </div>
                 </div>
                 
-                <div class="p-4 mb-4" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                    <h4 class="font-bold font-pixel mb-2" style="color: var(--color-text); font-size: 14px;">🎯 DRAG & DROP TIMELINE</h4>
-                    <p class="font-cyber text-sm mb-3" style="color: var(--color-text);">🎮 Match historical events to their correct dates</p>
+                <div class="p-4 mb-4 rounded-2xl" style="background: var(--color-bg-card); border: 3px solid var(--color-text); box-shadow: var(--shadow-button);">
+                    <h4 class="font-bold font-modern mb-2 text-xl" style="color: var(--color-text);">🎯 Drag & Drop Game!</h4>
+                    <p class="font-modern text-lg mb-3" style="color: var(--color-text);">💫 Match events to dates - it's super fun!</p>
                     
-                    <!-- Mini Assessment Preview -->
-                    <div class="space-y-2 mb-3">
-                        <div class="p-2" style="background: var(--color-white); border: 3px dashed var(--color-text);">
-                            <span class="text-xs font-pixel" style="color: var(--color-text); font-size: 8px;">📦 DROP EVENTS HERE</span>
+                    <!-- Fun Game Preview -->
+                    <div class="space-y-3 mb-4">
+                        <div class="p-3 rounded-xl border-3 border-dashed" style="border-color: var(--color-text); background: var(--color-bg-secondary);">
+                            <span class="text-sm font-bold font-modern" style="color: var(--color-text);">📦 Drop Zone - Put events here!</span>
                         </div>
-                        <div class="flex space-x-1">
-                            <div class="px-2 py-1 text-xs font-pixel" style="background: var(--color-secondary); color: white; border: 2px solid var(--color-text); font-size: 8px;">PAP FORMATION</div>
-                            <div class="px-2 py-1 text-xs font-pixel" style="background: var(--color-accent); color: white; border: 2px solid var(--color-text); font-size: 8px;">INDEPENDENCE</div>
+                        <div class="flex space-x-2">
+                            <div class="px-3 py-2 text-sm font-bold font-modern text-white rounded-full" style="background: var(--color-primary); border: 2px solid var(--color-text); box-shadow: var(--shadow-button);">PAP Start</div>
+                            <div class="px-3 py-2 text-sm font-bold font-modern text-white rounded-full" style="background: var(--color-secondary); border: 2px solid var(--color-text); box-shadow: var(--shadow-button);">Freedom!</div>
                         </div>
                     </div>
                     
-                    <button class="w-full py-2 text-sm font-bold font-pixel text-white" style="background: var(--color-primary); font-size: 10px;">
-                        ⚔️ START BATTLE
+                    <button class="w-full py-3 text-xl font-bold font-modern text-white rounded-2xl" style="background: var(--color-success); border: 3px solid var(--color-text); box-shadow: var(--shadow-button);">
+                        🎮 START GAME!
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Achievements & Stats Row -->
+        <!-- Achievements & Analytics Row -->
         <div class="grid md:grid-cols-2 gap-6">
             
-            <!-- Trophy Collection Card -->
+            <!-- Achievement Showcase Card -->
             <div class="card p-6">
                 <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 flex items-center justify-center" style="background: var(--color-accent); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                        <i data-lucide="award" class="w-5 h-5 text-white"></i>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center relative overflow-hidden" style="background: var(--color-accent);">
+                        <i data-lucide="trophy" class="w-5 h-5 text-white relative z-10"></i>
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-pulse"></div>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold font-pixel" style="color: var(--color-text); font-size: 16px;">TROPHY COLLECTION</h3>
-                        <p class="text-sm font-cyber" style="color: var(--color-text);">🏆 Your achievements</p>
+                        <h3 class="text-xl font-bold font-modern text-white">Achievement Hub</h3>
+                        <p class="text-sm font-tech text-slate-300">🎖️ Your accomplishments</p>
                     </div>
                 </div>
                 
                 <div class="space-y-3">
-                    <div class="flex items-center space-x-3 p-3" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                        <div class="w-8 h-8 flex items-center justify-center" style="background: var(--color-accent); border: 2px solid var(--color-text);">
+                    <div class="flex items-center space-x-3 p-3 rounded-xl" style="background: var(--color-bg-secondary); border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--color-accent);">
                             <i data-lucide="search" class="w-4 h-4 text-white"></i>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-semibold font-pixel" style="color: var(--color-text); font-size: 12px;">🕵️ HISTORY DETECTIVE</h4>
-                            <p class="text-xs font-cyber" style="color: var(--color-text);">Completed 5 analytical quests</p>
+                            <h4 class="font-semibold font-modern text-white">🕵️ Investigation Expert</h4>
+                            <p class="text-xs font-tech text-slate-300">Completed 5 analysis challenges</p>
                         </div>
-                        <span class="px-2 py-1 text-xs font-bold font-pixel" style="background: var(--color-accent); color: white; border: 2px solid var(--color-text); font-size: 8px;">✨ NEW!</span>
+                        <span class="px-3 py-1 text-xs font-bold font-tech text-white rounded-full" style="background: var(--color-accent);">✨ New!</span>
                     </div>
                     
-                    <div class="flex items-center space-x-3 p-3" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                        <div class="w-8 h-8 flex items-center justify-center" style="background: var(--color-secondary); border: 2px solid var(--color-text);">
-                            <i data-lucide="timer" class="w-4 h-4 text-white"></i>
+                    <div class="flex items-center space-x-3 p-3 rounded-xl" style="background: var(--color-bg-secondary); border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background: var(--color-secondary);">
+                            <i data-lucide="clock" class="w-4 h-4 text-white"></i>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-semibold font-pixel" style="color: var(--color-text); font-size: 12px;">⏰ TIMELINE MASTER</h4>
-                            <p class="text-xs font-cyber" style="color: var(--color-text);">Progress: 3/5 challenges</p>
+                            <h4 class="font-semibold font-modern text-white">⏰ Timeline Specialist</h4>
+                            <p class="text-xs font-tech text-slate-300">Progress: 3/5 challenges</p>
                         </div>
-                        <div class="w-16 h-3" style="background: var(--color-white); border: 2px solid var(--color-text);">
-                            <div class="w-3/5 h-full" style="background: var(--color-secondary);"></div>
+                        <div class="w-16 h-2 rounded-full" style="background: var(--color-bg-secondary); border: 1px solid rgba(255, 255, 255, 0.2);">
+                            <div class="w-3/5 h-full rounded-full" style="background: var(--gradient-primary);"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Player Stats Card -->
+            <!-- Analytics Dashboard Card -->
             <div class="card p-6">
                 <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 flex items-center justify-center" style="background: var(--color-diamond); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                        <i data-lucide="activity" class="w-5 h-5 text-white"></i>
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center relative overflow-hidden" style="background: var(--color-primary);">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5 text-white relative z-10"></i>
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-pulse"></div>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold font-pixel" style="color: var(--color-text); font-size: 16px;">PLAYER STATS</h3>
-                        <p class="text-sm font-cyber" style="color: var(--color-text);">📊 Your game data</p>
+                        <h3 class="text-xl font-bold font-modern text-white">Analytics Hub</h3>
+                        <p class="text-sm font-tech text-slate-300">📊 Performance insights</p>
                     </div>
                 </div>
                 
                 <div class="space-y-4">
-                    <div class="p-4" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                    <div class="p-4 rounded-xl" style="background: var(--color-bg-secondary); border: 1px solid rgba(255, 255, 255, 0.1);">
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm font-bold font-pixel" style="color: var(--color-text); font-size: 10px;">🔥 QUEST STREAK</span>
-                            <span class="text-2xl font-bold font-pixel" style="color: var(--color-accent);">7 DAYS</span>
+                            <span class="text-sm font-bold font-modern text-slate-300">🔥 Learning Streak</span>
+                            <span class="text-2xl font-bold font-modern bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">7 Days</span>
                         </div>
                         <div class="flex space-x-1">
-                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
-                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
-                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
-                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
-                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
-                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
-                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
+                            <div class="w-4 h-4 rounded-sm" style="background: var(--color-accent); box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);"></div>
+                            <div class="w-4 h-4 rounded-sm" style="background: var(--color-accent); box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);"></div>
+                            <div class="w-4 h-4 rounded-sm" style="background: var(--color-accent); box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);"></div>
+                            <div class="w-4 h-4 rounded-sm" style="background: var(--color-accent); box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);"></div>
+                            <div class="w-4 h-4 rounded-sm" style="background: var(--color-accent); box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);"></div>
+                            <div class="w-4 h-4 rounded-sm" style="background: var(--color-accent); box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);"></div>
+                            <div class="w-4 h-4 rounded-sm" style="background: var(--color-accent); box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);"></div>
                         </div>
                     </div>
                     
                     <div class="grid grid-cols-2 gap-3">
-                        <div class="text-center p-3" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                            <div class="text-2xl font-bold font-pixel" style="color: var(--color-primary);">85%</div>
-                            <div class="text-xs font-cyber" style="color: var(--color-text);">🎯 Accuracy</div>
+                        <div class="text-center p-4 rounded-xl" style="background: var(--color-bg-secondary); border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="text-2xl font-bold font-modern bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">85%</div>
+                            <div class="text-xs font-tech text-slate-300">🎯 Accuracy Rate</div>
                         </div>
-                        <div class="text-center p-3" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
-                            <div class="text-2xl font-bold font-pixel" style="color: var(--color-secondary);">24</div>
-                            <div class="text-xs font-cyber" style="color: var(--color-text);">🎮 Quests Done</div>
+                        <div class="text-center p-4 rounded-xl" style="background: var(--color-bg-secondary); border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div class="text-2xl font-bold font-modern bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">24</div>
+                            <div class="text-xs font-tech text-slate-300">🚀 Missions Complete</div>
                         </div>
                     </div>
                 </div>
@@ -228,7 +249,7 @@
         </div>
     </main>
 
-    <!-- Block Buddy Chat Panel (Floating) - Game Style -->
+    <!-- NexusAI Chat Panel (Floating) - Modern Style -->
     <div id="moeBuddyPanel" class="fixed bottom-6 right-6 w-[28rem] h-[34rem] transform translate-y-full transition-transform duration-300 z-50 flex flex-col card">
         <!-- Header -->
         <div class="p-5 flex-shrink-0" style="border-bottom: 3px solid var(--color-text);">
