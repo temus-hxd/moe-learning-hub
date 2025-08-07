@@ -7,16 +7,19 @@
   --color-accent: #F093FB;       /* Soft pink */
   --color-success: #4FACFE;      /* Light blue */
   --color-warning: #FFD93D;      /* Warm yellow */
+  --color-danger: #F56565;       /* Red for notifications */
   --color-text: #FFFFFF;         /* White text */
   --color-text-muted: #B8C6DB;   /* Muted text */
-  --color-text-dark: #2D3748;    /* Dark text for light backgrounds */
-  --color-bg-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%); /* Blue to purple */
-  --color-bg-card: rgba(255, 255, 255, 0.1); /* Glass cards */
-  --color-bg-card-solid: rgba(255, 255, 255, 0.95); /* Solid cards */
+  --color-text-dark: #E2E8F0;    /* Light text for dark backgrounds */
+  --color-white: rgba(45, 55, 72, 0.9); /* Dark surface instead of white */
+  --color-bg-primary: linear-gradient(135deg, #1A202C 0%, #2D3748 100%); /* Dark gradient */
+  --color-bg-card: rgba(45, 55, 72, 0.8); /* Dark glass cards */
+  --color-bg-card-solid: rgba(26, 32, 44, 0.95); /* Dark solid cards */
   --border-radius: 1rem;         /* Smooth rounded corners */
-  --shadow-subtle: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-medium: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-subtle: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  --shadow-blocky: 4px 4px 0px rgba(0, 0, 0, 0.3);
   --gradient-primary: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
   --gradient-accent: linear-gradient(135deg, #F093FB 0%, #F5576C 100%);
   --gradient-success: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%);
@@ -41,7 +44,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Nunito', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 400;
   line-height: 1.6;
   margin: 0;
@@ -49,9 +52,9 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
   position: relative;
-  color: var(--color-text);
+  background: linear-gradient(135deg, #0F0F23 0%, #000000 100%);
+  color: white;
 }
 
 @keyframes gradientShift {
@@ -60,22 +63,6 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.3) 2px, transparent 2px),
-    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
-    radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
-  background-size: 80px 80px, 120px 120px, 60px 60px;
-  pointer-events: none;
-  z-index: -1;
-  animation: float 20s ease-in-out infinite;
-}
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
@@ -186,9 +173,11 @@ button:active {
 input {
   font-family: inherit;
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow-modern);
+  box-shadow: var(--shadow-subtle);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
+  background: rgba(26, 32, 44, 0.8);
+  border: 1px solid rgba(102, 126, 234, 0.3);
   color: var(--color-text);
 }
 
@@ -217,7 +206,8 @@ input:focus {
 
 .card-solid {
   background: var(--color-bg-card-solid);
-  color: var(--color-text-dark);
+  color: var(--color-text);
+  border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .card-solid:hover {
@@ -271,7 +261,7 @@ input:focus {
 
 #moeBuddyPanel.hide {
   opacity: 0;
-  transform: translateY(20px) !important;
+  transform: translateY(-100%) !important;
 }
 
 /* Footer styling */
@@ -350,12 +340,12 @@ footer {
 }
 
 #chatMessages::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #CBD5E0, #A0AEC0);
+  background: linear-gradient(135deg, #4A5568, #2D3748);
   border-radius: 3px;
 }
 
 #chatMessages::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #A0AEC0, #718096);
+  background: linear-gradient(135deg, #667EEA, #764BA2);
 }
 
 /* Chat panel specific styles */
