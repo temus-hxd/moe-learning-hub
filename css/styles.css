@@ -211,20 +211,42 @@ footer {
 
 /* Custom scrollbar for chat */
 #chatMessages::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
 #chatMessages::-webkit-scrollbar-track {
   background: transparent;
+  border-radius: 3px;
 }
 
 #chatMessages::-webkit-scrollbar-thumb {
-  background: #CBD5E0;
-  border-radius: 2px;
+  background: linear-gradient(135deg, #CBD5E0, #A0AEC0);
+  border-radius: 3px;
 }
 
 #chatMessages::-webkit-scrollbar-thumb:hover {
-  background: #A0AEC0;
+  background: linear-gradient(135deg, #A0AEC0, #718096);
+}
+
+/* Chat panel specific styles */
+#moeBuddyPanel {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.1);
+}
+
+/* Notification badge pulse */
+@keyframes notification-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.notification-badge {
+  animation: notification-pulse 2s infinite;
 }
 
 /* Responsive design */

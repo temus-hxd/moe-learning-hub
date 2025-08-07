@@ -61,11 +61,8 @@ class MOEBuddy {
     }
     
     addWelcomeMessage() {
-        const welcomeMsg = {
-            role: 'assistant',
-            content: "Hi Isaac! I noticed you're studying the PAP formation. Want me to find some primary source documents about Singapore's political landscape in 1954?"
-        };
-        this.chatMessages.push(welcomeMsg);
+        // Don't add to chatMessages array since it's already in HTML
+        // Just ensure the initial message is there
     }
     
     async sendMessage() {
@@ -96,15 +93,31 @@ class MOEBuddy {
         const messageDiv = document.createElement('div');
         
         if (role === 'user') {
-            messageDiv.className = 'bg-blue-500 text-white rounded-2xl p-3 mb-3 ml-8 buddy-chat-bubble';
-            messageDiv.style.textAlign = 'right';
+            messageDiv.className = 'flex justify-end mb-4';
+            messageDiv.innerHTML = `
+                <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl px-4 py-3 max-w-[80%] buddy-chat-bubble">
+                    <p class="text-sm leading-relaxed">${message}</p>
+                </div>
+            `;
         } else {
-            messageDiv.className = 'bg-blue-50 rounded-2xl p-3 mb-3 mr-8 buddy-chat-bubble';
+            messageDiv.className = 'flex justify-start mb-4';
+            messageDiv.innerHTML = `
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 max-w-[85%] border border-blue-100 buddy-chat-bubble">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-6 h-6 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <i data-lucide="sparkles" class="w-3 h-3 text-white"></i>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">${message}</p>
+                    </div>
+                </div>
+            `;
         }
         
-        messageDiv.innerHTML = `<p class="text-sm">${message}</p>`;
         chatContainer.appendChild(messageDiv);
         chatContainer.scrollTop = chatContainer.scrollHeight;
+        
+        // Re-initialize icons for new messages
+        lucide.createIcons();
         
         // Add to messages array
         this.chatMessages.push({ role, content: message });
@@ -114,19 +127,27 @@ class MOEBuddy {
         const chatContainer = document.getElementById('chatMessages');
         const thinkingDiv = document.createElement('div');
         thinkingDiv.id = 'thinking-indicator';
-        thinkingDiv.className = 'bg-gray-100 rounded-2xl p-3 mb-3 mr-8';
+        thinkingDiv.className = 'flex justify-start mb-4';
         thinkingDiv.innerHTML = `
-            <div class="flex items-center space-x-2">
-                <div class="flex space-x-1">
-                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
-                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style="animation-delay: 0.1s"></div>
-                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+            <div class="bg-gray-100 rounded-2xl p-4 max-w-[85%] border border-gray-200">
+                <div class="flex items-center space-x-3">
+                    <div class="w-6 h-6 bg-gray-400 rounded-lg flex items-center justify-center">
+                        <i data-lucide="bot" class="w-3 h-3 text-white"></i>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="flex space-x-1">
+                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                        </div>
+                        <span class="text-xs text-gray-500 font-medium">MOE Buddy is thinking...</span>
+                    </div>
                 </div>
-                <span class="text-xs text-gray-500">MOE Buddy is thinking...</span>
             </div>
         `;
         chatContainer.appendChild(thinkingDiv);
         chatContainer.scrollTop = chatContainer.scrollHeight;
+        lucide.createIcons();
     }
     
     hideThinking() {
@@ -330,6 +351,15 @@ class LearningPlatform {
 document.addEventListener('DOMContentLoaded', () => {
     const moeBuddy = new MOEBuddy();
     const platform = new LearningPlatform();
+    
+    // Add quick action button handlers
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('quick-action')) {
+            const action = e.target.getAttribute('data-action');
+            document.getElementById('chatInput').value = action;
+            moeBuddy.sendMessage();
+        }
+    });
     
     // Add some interactive demo features
     setTimeout(() => {

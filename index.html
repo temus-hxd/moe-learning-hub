@@ -228,34 +228,58 @@
         </div>
     </main>
 
-    <!-- MOE Buddy Chat Panel (Floating) -->
-    <div id="moeBuddyPanel" class="fixed bottom-6 right-6 w-80 bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-blue-100 transform translate-y-0 transition-transform duration-300 z-50" style="display: none;">
-        <div class="p-4 border-b border-gray-100">
+    <!-- MOE Buddy Chat Panel (Floating) - Improved Size & Layout -->
+    <div id="moeBuddyPanel" class="fixed bottom-6 right-6 w-[28rem] h-[34rem] bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-blue-100 transform translate-y-full transition-transform duration-300 z-50 flex flex-col">
+        <!-- Header -->
+        <div class="p-5 border-b border-gray-100 flex-shrink-0">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-lg flex items-center justify-center">
-                        <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                    <div class="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <i data-lucide="bot" class="w-5 h-5 text-white"></i>
                     </div>
-                    <h4 class="font-bold text-gray-800">MOE Buddy</h4>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-lg">MOE Buddy</h4>
+                        <p class="text-xs text-gray-500">Always here to help with Singapore History!</p>
+                    </div>
                 </div>
-                <button id="closeBuddy" class="text-gray-400 hover:text-gray-600">
-                    <i data-lucide="x" class="w-4 h-4"></i>
+                <button id="closeBuddy" class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 p-2 rounded-lg transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
         </div>
         
-        <div class="h-64 p-4 overflow-y-auto" id="chatMessages">
-            <div class="bg-blue-50 rounded-2xl p-3 mb-3">
-                <p class="text-sm text-gray-700">Hi Isaac! I noticed you're studying the PAP formation. Want me to find some primary source documents about Singapore's political landscape in 1954?</p>
+        <!-- Chat Messages Area -->
+        <div class="flex-1 p-5 overflow-y-auto" id="chatMessages">
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 mb-4 border border-blue-100">
+                <div class="flex items-start space-x-3">
+                    <div class="w-6 h-6 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <i data-lucide="sparkles" class="w-3 h-3 text-white"></i>
+                    </div>
+                    <p class="text-sm text-gray-700 leading-relaxed">Hi Isaac! I noticed you're studying the PAP formation. Want me to find some primary source documents about Singapore's political landscape in 1954?</p>
+                </div>
             </div>
         </div>
         
-        <div class="p-4 border-t border-gray-100">
-            <div class="flex space-x-2">
+        <!-- Input Area -->
+        <div class="p-5 border-t border-gray-100 flex-shrink-0">
+            <div class="flex space-x-3">
                 <input type="text" id="chatInput" placeholder="Ask me anything about Singapore History..." 
-                       class="flex-1 px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-blue-400">
-                <button id="sendMessage" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl">
+                       class="flex-1 px-4 py-3 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all duration-200">
+                <button id="sendMessage" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-5 py-3 rounded-2xl transition-all duration-200 hover:scale-105 shadow-lg">
                     <i data-lucide="send" class="w-4 h-4"></i>
+                </button>
+            </div>
+            
+            <!-- Quick Action Buttons -->
+            <div class="flex space-x-2 mt-3">
+                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-xl text-xs font-medium transition-colors quick-action" data-action="What were the main causes of PAP formation?">
+                    📊 PAP Causes
+                </button>
+                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-xl text-xs font-medium transition-colors quick-action" data-action="Find primary sources about 1954 Singapore politics">
+                    📄 Primary Sources
+                </button>
+                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-xl text-xs font-medium transition-colors quick-action" data-action="Create a timeline of Singapore's independence">
+                    ⏱️ Timeline Help
                 </button>
             </div>
         </div>
@@ -264,70 +288,10 @@
     <!-- MOE Buddy Toggle Button -->
     <button id="toggleBuddy" class="fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-200 z-40">
         <i data-lucide="message-circle" class="w-6 h-6 text-white"></i>
-    </button>
-
-    <!-- Footer -->
-    <footer class="mt-16 bg-white/80 backdrop-blur-sm border-t border-gray-100">
-        <div class="max-w-6xl mx-auto px-6 py-8">
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Left: Platform Info -->
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-500 rounded-xl flex items-center justify-center">
-                            <i data-lucide="graduation-cap" class="w-5 h-5 text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-800">Isaac's Learning Hub</h3>
-                            <p class="text-sm text-gray-500">Singapore History Learning Platform</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-600">Personalized learning experience powered by AI to help students master Singapore's rich history.</p>
-                </div>
-                
-                <!-- Center: Quick Links -->
-                <div class="space-y-4">
-                    <h4 class="font-bold text-gray-800">Learning Resources</h4>
-                    <div class="space-y-2">
-                        <a href="#" class="block text-sm text-gray-600 hover:text-blue-600 transition-colors">Timeline Activities</a>
-                        <a href="#" class="block text-sm text-gray-600 hover:text-blue-600 transition-colors">Primary Sources</a>
-                        <a href="#" class="block text-sm text-gray-600 hover:text-blue-600 transition-colors">Assessment Tools</a>
-                        <a href="#" class="block text-sm text-gray-600 hover:text-blue-600 transition-colors">Study Progress</a>
-                    </div>
-                </div>
-                
-                <!-- Right: Study Stats -->
-                <div class="space-y-4">
-                    <h4 class="font-bold text-gray-800">Isaac's Progress</h4>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-600">Current Level</span>
-                            <span class="text-sm font-semibold text-purple-600">History Detective</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-600">Study Streak</span>
-                            <span class="text-sm font-semibold text-green-600">7 days</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-600">Lessons Completed</span>
-                            <span class="text-sm font-semibold text-blue-600">24/35</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Bottom Bar -->
-            <div class="mt-8 pt-6 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-xs text-gray-500 mb-4 md:mb-0">© 2024 Isaac's Learning Hub. Enhancing education through personalized AI assistance.</p>
-                <div class="flex items-center space-x-4">
-                    <span class="text-xs text-gray-400">Powered by</span>
-                    <div class="flex items-center space-x-2">
-                        <div class="w-4 h-4 bg-gradient-to-r from-blue-400 to-purple-500 rounded-sm"></div>
-                        <span class="text-xs font-semibold text-gray-600">MOE Buddy AI</span>
-                    </div>
-                </div>
-            </div>
+        <div class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+            <span class="text-white text-xs font-bold">1</span>
         </div>
-    </footer>
+    </button>
 
     <!-- Scripts -->
     <script>
