@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isaac's Learning Hub - Singapore History</title>
+    <title>Isaac's Block Academy - Singapore History Quest</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts - Rounded -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Game Style -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
@@ -17,40 +17,40 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-gradient-to-br from-blue-50 via-green-50 to-pink-50 min-h-screen font-nunito">
+<body class="min-h-screen font-nunito">
     
     <!-- Top Navigation Bar -->
-    <nav class="bg-white/80 backdrop-blur-sm shadow-lg rounded-b-3xl mx-4 mt-4 p-4">
+    <nav class="card mx-4 mt-4 p-4" style="background: var(--color-white); border-radius: 0px;">
         <div class="flex items-center justify-between max-w-6xl mx-auto">
             
-            <!-- Left: MOE Buddy -->
+            <!-- Left: Game Companion -->
             <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 bg-gradient-to-r from-blue-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-                    <i data-lucide="bot" class="w-6 h-6 text-white"></i>
+                <div class="w-12 h-12 flex items-center justify-center" style="background: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                    <i data-lucide="gamepad-2" class="w-6 h-6 text-white"></i>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-gray-700">MOE Buddy</h3>
-                    <p class="text-xs text-gray-500">Your Learning Assistant</p>
+                    <h3 class="text-lg font-bold font-pixel" style="color: var(--color-text); font-size: 12px;">BLOCK BUDDY</h3>
+                    <p class="text-xs font-cyber" style="color: var(--color-text);">Quest Assistant</p>
                 </div>
             </div>
             
-            <!-- Center: Progress -->
+            <!-- Center: Quest Progress -->
             <div class="flex-1 max-w-md mx-8">
-                <div class="bg-gray-100 rounded-full h-3 relative overflow-hidden">
-                    <div class="bg-gradient-to-r from-green-400 to-blue-500 h-full rounded-full transition-all duration-500" style="width: 68%"></div>
+                <div class="h-6 relative" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                    <div class="h-full transition-all duration-500" style="width: 68%; background: var(--color-primary); border-right: 2px solid var(--color-text);"></div>
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <span class="text-xs font-semibold text-gray-600">Singapore History - 68%</span>
+                        <span class="text-xs font-bold font-pixel" style="color: var(--color-text); font-size: 8px;">SINGAPORE QUEST - 68%</span>
                     </div>
                 </div>
             </div>
             
-            <!-- Right: Profile -->
+            <!-- Right: Player Profile -->
             <div class="flex items-center space-x-3">
                 <div class="text-right">
-                    <h3 class="text-lg font-bold text-gray-700">Isaac Chen</h3>
-                    <p class="text-xs text-gray-500">History Detective • Level 7</p>
+                    <h3 class="text-lg font-bold font-pixel" style="color: var(--color-text); font-size: 12px;">ISAAC CHEN</h3>
+                    <p class="text-xs font-cyber" style="color: var(--color-accent);">🏆 QUEST MASTER • LVL 7</p>
                 </div>
-                <div class="w-12 h-12 rounded-xl shadow-lg overflow-hidden border-2 border-white profile-container">
+                <div class="w-12 h-12 overflow-hidden profile-container" style="border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky); background: var(--color-diamond);">
                     <img src="img/isaac-photo.png" alt="Isaac Chen" class="w-full h-full object-cover profile-image">
                 </div>
             </div>
@@ -62,165 +62,165 @@
         
         <!-- Welcome Message -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-800 mb-2">Good Morning, Isaac! 🌅</h1>
-            <p class="text-lg text-gray-600">Ready to explore Singapore's journey to independence?</p>
+            <h1 class="text-4xl font-bold font-pixel mb-2" style="color: var(--color-text); text-shadow: 3px 3px 0px var(--color-accent);">WELCOME BACK, ISAAC! 🎮</h1>
+            <p class="text-lg font-cyber" style="color: var(--color-text);">Ready to continue your Singapore Independence Quest?</p>
         </div>
 
         <!-- Dashboard Cards Grid -->
         <div class="grid md:grid-cols-3 gap-6 mb-8">
             
-            <!-- Current Lesson Card -->
-            <div class="md:col-span-2 bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-blue-100">
+            <!-- Current Quest Card -->
+            <div class="md:col-span-2 card p-6">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
-                            <i data-lucide="book-open" class="w-5 h-5 text-white"></i>
+                        <div class="w-10 h-10 flex items-center justify-center" style="background: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                            <i data-lucide="sword" class="w-5 h-5 text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-gray-800">Current Lesson</h3>
-                            <p class="text-sm text-gray-500">Nationalism & Self-Government</p>
+                            <h3 class="text-xl font-bold font-pixel" style="color: var(--color-text); font-size: 16px;">CURRENT QUEST</h3>
+                            <p class="text-sm font-cyber" style="color: var(--color-text);">🏛️ Nationalism & Self-Government</p>
                         </div>
                     </div>
-                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">In Progress</span>
+                    <span class="px-3 py-1 text-sm font-bold font-pixel" style="background: var(--color-primary); color: var(--color-white); border: 2px solid var(--color-text); box-shadow: var(--shadow-blocky); font-size: 10px;">⚡ ACTIVE</span>
                 </div>
                 
-                <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-4 mb-4">
-                    <h4 class="font-bold text-gray-800 mb-2">The People's Action Party Formation (1954)</h4>
-                    <p class="text-gray-600 text-sm mb-3">Learn about the key political movements that shaped Singapore's path to independence.</p>
+                <div class="p-4 mb-4" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                    <h4 class="font-bold font-pixel mb-2" style="color: var(--color-text); font-size: 14px;">🏛️ THE PEOPLE'S ACTION PARTY FORMATION (1954)</h4>
+                    <p class="font-cyber text-sm mb-3" style="color: var(--color-text);">🎯 Mission: Learn about the key political movements that shaped Singapore's path to independence.</p>
                     
                     <!-- Interactive Timeline Preview -->
                     <div class="flex items-center space-x-2 mb-3">
-                        <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
-                        <div class="flex-1 h-1 bg-blue-200 rounded"></div>
-                        <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
-                        <div class="flex-1 h-1 bg-gray-200 rounded"></div>
-                        <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
+                        <div class="w-4 h-4" style="background: var(--color-primary); border: 2px solid var(--color-text);"></div>
+                        <div class="flex-1 h-2" style="background: var(--color-primary); border: 1px solid var(--color-text);"></div>
+                        <div class="w-4 h-4" style="background: var(--color-white); border: 2px solid var(--color-text);"></div>
+                        <div class="flex-1 h-2" style="background: var(--color-white); border: 1px solid var(--color-text);"></div>
+                        <div class="w-4 h-4" style="background: var(--color-white); border: 2px solid var(--color-text);"></div>
                     </div>
                     
                     <div class="flex space-x-2">
-                        <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors">
-                            Continue Reading
+                        <button class="px-4 py-2 text-sm font-bold font-pixel text-white" style="background: var(--color-secondary); font-size: 10px;">
+                            ▶️ CONTINUE QUEST
                         </button>
-                        <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-xl text-sm font-semibold transition-colors">
-                            View Timeline
+                        <button class="px-4 py-2 text-sm font-bold font-pixel" style="background: var(--color-white); color: var(--color-text); font-size: 10px;">
+                            📜 VIEW TIMELINE
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Assessment Card -->
-            <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-green-100">
+            <!-- Battle Challenge Card -->
+            <div class="card p-6">
                 <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
-                        <i data-lucide="brain" class="w-5 h-5 text-white"></i>
+                    <div class="w-10 h-10 flex items-center justify-center" style="background: var(--color-primary); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                        <i data-lucide="target" class="w-5 h-5 text-white"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">Quick Check</h3>
-                        <p class="text-sm text-gray-500">Test your knowledge</p>
+                        <h3 class="text-xl font-bold font-pixel" style="color: var(--color-text); font-size: 16px;">BATTLE CHALLENGE</h3>
+                        <p class="text-sm font-cyber" style="color: var(--color-text);">⚔️ Test your knowledge</p>
                     </div>
                 </div>
                 
-                <div class="bg-gradient-to-r from-green-50 to-teal-50 rounded-2xl p-4 mb-4">
-                    <h4 class="font-bold text-gray-800 mb-2">Drag & Drop Timeline</h4>
-                    <p class="text-gray-600 text-sm mb-3">Match historical events to their correct dates</p>
+                <div class="p-4 mb-4" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                    <h4 class="font-bold font-pixel mb-2" style="color: var(--color-text); font-size: 14px;">🎯 DRAG & DROP TIMELINE</h4>
+                    <p class="font-cyber text-sm mb-3" style="color: var(--color-text);">🎮 Match historical events to their correct dates</p>
                     
                     <!-- Mini Assessment Preview -->
                     <div class="space-y-2 mb-3">
-                        <div class="bg-white rounded-lg p-2 shadow-sm border-2 border-dashed border-gray-300">
-                            <span class="text-xs text-gray-500">Drop events here</span>
+                        <div class="p-2" style="background: var(--color-white); border: 3px dashed var(--color-text);">
+                            <span class="text-xs font-pixel" style="color: var(--color-text); font-size: 8px;">📦 DROP EVENTS HERE</span>
                         </div>
                         <div class="flex space-x-1">
-                            <div class="bg-blue-100 text-blue-700 px-2 py-1 rounded-lg text-xs">PAP Formation</div>
-                            <div class="bg-purple-100 text-purple-700 px-2 py-1 rounded-lg text-xs">Independence</div>
+                            <div class="px-2 py-1 text-xs font-pixel" style="background: var(--color-secondary); color: white; border: 2px solid var(--color-text); font-size: 8px;">PAP FORMATION</div>
+                            <div class="px-2 py-1 text-xs font-pixel" style="background: var(--color-accent); color: white; border: 2px solid var(--color-text); font-size: 8px;">INDEPENDENCE</div>
                         </div>
                     </div>
                     
-                    <button class="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-xl text-sm font-semibold transition-colors">
-                        Start Assessment
+                    <button class="w-full py-2 text-sm font-bold font-pixel text-white" style="background: var(--color-primary); font-size: 10px;">
+                        ⚔️ START BATTLE
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Achievement & Analytics Row -->
+        <!-- Achievements & Stats Row -->
         <div class="grid md:grid-cols-2 gap-6">
             
-            <!-- Achievement Card -->
-            <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-pink-100">
+            <!-- Trophy Collection Card -->
+            <div class="card p-6">
                 <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center">
-                        <i data-lucide="trophy" class="w-5 h-5 text-white"></i>
+                    <div class="w-10 h-10 flex items-center justify-center" style="background: var(--color-accent); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                        <i data-lucide="award" class="w-5 h-5 text-white"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">Achievements</h3>
-                        <p class="text-sm text-gray-500">Your learning milestones</p>
+                        <h3 class="text-xl font-bold font-pixel" style="color: var(--color-text); font-size: 16px;">TROPHY COLLECTION</h3>
+                        <p class="text-sm font-cyber" style="color: var(--color-text);">🏆 Your achievements</p>
                     </div>
                 </div>
                 
                 <div class="space-y-3">
-                    <div class="flex items-center space-x-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl p-3">
-                        <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center">
-                            <i data-lucide="target" class="w-4 h-4 text-white"></i>
+                    <div class="flex items-center space-x-3 p-3" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                        <div class="w-8 h-8 flex items-center justify-center" style="background: var(--color-accent); border: 2px solid var(--color-text);">
+                            <i data-lucide="search" class="w-4 h-4 text-white"></i>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-semibold text-gray-800">History Detective</h4>
-                            <p class="text-xs text-gray-600">Completed 5 analytical tasks</p>
+                            <h4 class="font-semibold font-pixel" style="color: var(--color-text); font-size: 12px;">🕵️ HISTORY DETECTIVE</h4>
+                            <p class="text-xs font-cyber" style="color: var(--color-text);">Completed 5 analytical quests</p>
                         </div>
-                        <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-lg text-xs font-semibold">New!</span>
+                        <span class="px-2 py-1 text-xs font-bold font-pixel" style="background: var(--color-accent); color: white; border: 2px solid var(--color-text); font-size: 8px;">✨ NEW!</span>
                     </div>
                     
-                    <div class="flex items-center space-x-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-3">
-                        <div class="w-8 h-8 bg-blue-400 rounded-lg flex items-center justify-center">
-                            <i data-lucide="clock" class="w-4 h-4 text-white"></i>
+                    <div class="flex items-center space-x-3 p-3" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                        <div class="w-8 h-8 flex items-center justify-center" style="background: var(--color-secondary); border: 2px solid var(--color-text);">
+                            <i data-lucide="timer" class="w-4 h-4 text-white"></i>
                         </div>
                         <div class="flex-1">
-                            <h4 class="font-semibold text-gray-800">Timeline Master</h4>
-                            <p class="text-xs text-gray-600">Progress: 3/5 challenges</p>
+                            <h4 class="font-semibold font-pixel" style="color: var(--color-text); font-size: 12px;">⏰ TIMELINE MASTER</h4>
+                            <p class="text-xs font-cyber" style="color: var(--color-text);">Progress: 3/5 challenges</p>
                         </div>
-                        <div class="w-16 h-2 bg-gray-200 rounded-full">
-                            <div class="w-3/5 h-full bg-blue-400 rounded-full"></div>
+                        <div class="w-16 h-3" style="background: var(--color-white); border: 2px solid var(--color-text);">
+                            <div class="w-3/5 h-full" style="background: var(--color-secondary);"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Analytics Card -->
-            <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-6 border border-purple-100">
+            <!-- Player Stats Card -->
+            <div class="card p-6">
                 <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center">
-                        <i data-lucide="bar-chart-3" class="w-5 h-5 text-white"></i>
+                    <div class="w-10 h-10 flex items-center justify-center" style="background: var(--color-diamond); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                        <i data-lucide="activity" class="w-5 h-5 text-white"></i>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-800">Your Analytics</h3>
-                        <p class="text-sm text-gray-500">Learning insights</p>
+                        <h3 class="text-xl font-bold font-pixel" style="color: var(--color-text); font-size: 16px;">PLAYER STATS</h3>
+                        <p class="text-sm font-cyber" style="color: var(--color-text);">📊 Your game data</p>
                     </div>
                 </div>
                 
                 <div class="space-y-4">
-                    <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-4">
+                    <div class="p-4" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm font-semibold text-gray-700">Study Streak</span>
-                            <span class="text-2xl font-bold text-purple-600">7 days</span>
+                            <span class="text-sm font-bold font-pixel" style="color: var(--color-text); font-size: 10px;">🔥 QUEST STREAK</span>
+                            <span class="text-2xl font-bold font-pixel" style="color: var(--color-accent);">7 DAYS</span>
                         </div>
                         <div class="flex space-x-1">
-                            <div class="w-4 h-4 bg-purple-400 rounded-sm"></div>
-                            <div class="w-4 h-4 bg-purple-400 rounded-sm"></div>
-                            <div class="w-4 h-4 bg-purple-400 rounded-sm"></div>
-                            <div class="w-4 h-4 bg-purple-400 rounded-sm"></div>
-                            <div class="w-4 h-4 bg-purple-400 rounded-sm"></div>
-                            <div class="w-4 h-4 bg-purple-400 rounded-sm"></div>
-                            <div class="w-4 h-4 bg-purple-400 rounded-sm"></div>
+                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
+                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
+                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
+                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
+                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
+                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
+                            <div class="w-4 h-4" style="background: var(--color-accent); border: 1px solid var(--color-text);"></div>
                         </div>
                     </div>
                     
                     <div class="grid grid-cols-2 gap-3">
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-gray-800">85%</div>
-                            <div class="text-xs text-gray-600">Accuracy Rate</div>
+                        <div class="text-center p-3" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                            <div class="text-2xl font-bold font-pixel" style="color: var(--color-primary);">85%</div>
+                            <div class="text-xs font-cyber" style="color: var(--color-text);">🎯 Accuracy</div>
                         </div>
-                        <div class="text-center">
-                            <div class="text-2xl font-bold text-gray-800">24</div>
-                            <div class="text-xs text-gray-600">Lessons Done</div>
+                        <div class="text-center p-3" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                            <div class="text-2xl font-bold font-pixel" style="color: var(--color-secondary);">24</div>
+                            <div class="text-xs font-cyber" style="color: var(--color-text);">🎮 Quests Done</div>
                         </div>
                     </div>
                 </div>
@@ -228,21 +228,21 @@
         </div>
     </main>
 
-    <!-- MOE Buddy Chat Panel (Floating) - Improved Size & Layout -->
-    <div id="moeBuddyPanel" class="fixed bottom-6 right-6 w-[28rem] h-[34rem] bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-blue-100 transform translate-y-full transition-transform duration-300 z-50 flex flex-col">
+    <!-- Block Buddy Chat Panel (Floating) - Game Style -->
+    <div id="moeBuddyPanel" class="fixed bottom-6 right-6 w-[28rem] h-[34rem] transform translate-y-full transition-transform duration-300 z-50 flex flex-col card">
         <!-- Header -->
-        <div class="p-5 border-b border-gray-100 flex-shrink-0">
+        <div class="p-5 flex-shrink-0" style="border-bottom: 3px solid var(--color-text);">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-                        <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+                    <div class="w-10 h-10 flex items-center justify-center" style="background: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+                        <i data-lucide="gamepad-2" class="w-5 h-5 text-white"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold text-gray-800 text-lg">MOE Buddy</h4>
-                        <p class="text-xs text-gray-500">Always here to help with Singapore History!</p>
+                        <h4 class="font-bold font-pixel text-lg" style="color: var(--color-text); font-size: 14px;">BLOCK BUDDY</h4>
+                        <p class="text-xs font-cyber" style="color: var(--color-text);">🎮 Your quest companion!</p>
                     </div>
                 </div>
-                <button id="closeBuddy" class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 p-2 rounded-lg transition-colors">
+                <button id="closeBuddy" class="p-2 transition-colors" style="color: var(--color-text); border: 2px solid var(--color-text); background: var(--color-white);">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -250,46 +250,46 @@
         
         <!-- Chat Messages Area -->
         <div class="flex-1 p-5 overflow-y-auto" id="chatMessages">
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 mb-4 border border-blue-100">
+            <div class="p-4 mb-4" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
                 <div class="flex items-start space-x-3">
-                    <div class="w-6 h-6 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <i data-lucide="sparkles" class="w-3 h-3 text-white"></i>
+                    <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5" style="background: var(--color-secondary); border: 2px solid var(--color-text);">
+                        <i data-lucide="zap" class="w-3 h-3 text-white"></i>
                     </div>
-                    <p class="text-sm text-gray-700 leading-relaxed">Hi Isaac! I noticed you're studying the PAP formation. Want me to find some primary source documents about Singapore's political landscape in 1954?</p>
+                    <p class="text-sm font-cyber leading-relaxed" style="color: var(--color-text);">🎮 Hi Isaac! I noticed you're on the PAP formation quest. Want me to find some primary source documents about Singapore's political landscape in 1954?</p>
                 </div>
             </div>
         </div>
         
         <!-- Input Area -->
-        <div class="p-5 border-t border-gray-100 flex-shrink-0">
+        <div class="p-5 flex-shrink-0" style="border-top: 3px solid var(--color-text);">
             <div class="flex space-x-3">
-                <input type="text" id="chatInput" placeholder="Ask me anything about Singapore History..." 
-                       class="flex-1 px-4 py-3 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all duration-200">
-                <button id="sendMessage" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-5 py-3 rounded-2xl transition-all duration-200 hover:scale-105 shadow-lg">
+                <input type="text" id="chatInput" placeholder="🎮 Ask about your Singapore quest..." 
+                       class="flex-1 px-4 py-3 text-sm font-cyber focus:outline-none transition-all duration-200" style="border: 3px solid var(--color-text); color: var(--color-text); background: var(--color-white);">
+                <button id="sendMessage" class="text-white px-5 py-3 transition-all duration-200" style="background: var(--color-secondary);">
                     <i data-lucide="send" class="w-4 h-4"></i>
                 </button>
             </div>
             
             <!-- Quick Action Buttons -->
             <div class="flex space-x-2 mt-3">
-                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-xl text-xs font-medium transition-colors quick-action" data-action="What were the main causes of PAP formation?">
-                    📊 PAP Causes
+                <button class="px-3 py-1.5 text-xs font-bold font-pixel transition-colors quick-action" data-action="What were the main causes of PAP formation?" style="background: var(--color-white); color: var(--color-text); border: 2px solid var(--color-text); font-size: 8px;">
+                    📊 PAP QUEST
                 </button>
-                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-xl text-xs font-medium transition-colors quick-action" data-action="Find primary sources about 1954 Singapore politics">
-                    📄 Primary Sources
+                <button class="px-3 py-1.5 text-xs font-bold font-pixel transition-colors quick-action" data-action="Find primary sources about 1954 Singapore politics" style="background: var(--color-white); color: var(--color-text); border: 2px solid var(--color-text); font-size: 8px;">
+                    📄 SOURCES
                 </button>
-                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-xl text-xs font-medium transition-colors quick-action" data-action="Create a timeline of Singapore's independence">
-                    ⏱️ Timeline Help
+                <button class="px-3 py-1.5 text-xs font-bold font-pixel transition-colors quick-action" data-action="Create a timeline of Singapore's independence" style="background: var(--color-white); color: var(--color-text); border: 2px solid var(--color-text); font-size: 8px;">
+                    ⏱️ TIMELINE
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- MOE Buddy Toggle Button -->
-    <button id="toggleBuddy" class="fixed bottom-6 right-6 w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-200 z-40">
-        <i data-lucide="message-circle" class="w-6 h-6 text-white"></i>
-        <div class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
-            <span class="text-white text-xs font-bold">1</span>
+    <!-- Block Buddy Toggle Button -->
+    <button id="toggleBuddy" class="fixed bottom-6 right-6 w-16 h-16 flex items-center justify-center hover:scale-110 transition-transform duration-200 z-40" style="background: var(--color-secondary); border: 4px solid var(--color-text); box-shadow: var(--shadow-blocky);">
+        <i data-lucide="gamepad-2" class="w-6 h-6 text-white"></i>
+        <div class="absolute -top-1 -right-1 w-4 h-4 flex items-center justify-center" style="background: var(--color-danger); border: 2px solid var(--color-text);">
+            <span class="text-white text-xs font-bold font-pixel">1</span>
         </div>
     </button>
 

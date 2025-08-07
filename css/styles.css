@@ -1,19 +1,30 @@
-/* ITCSS Structure - Isaac's Learning Platform */
+/* ITCSS Structure - Isaac's Blocky Learning Adventure */
 
 /* Settings - Variables and config */
 :root {
-  --color-primary: #E3F2FD;
-  --color-secondary: #E8F5E8;
-  --color-accent: #FFE0E6;
-  --color-text: #4A5568;
-  --color-white: #FFFFFF;
-  --border-radius: 1.5rem;
-  --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --color-primary: #4CAF50;      /* Minecraft green */
+  --color-secondary: #2196F3;    /* Roblox blue */
+  --color-accent: #FF9800;       /* Minecraft orange/gold */
+  --color-danger: #F44336;       /* Redstone red */
+  --color-diamond: #00BCD4;      /* Diamond cyan */
+  --color-text: #2C2C2C;         /* Dark charcoal */
+  --color-white: #F5F5F5;        /* Off-white */
+  --border-radius: 0px;          /* Sharp corners for blocky feel */
+  --shadow-blocky: 4px 4px 0px rgba(0, 0, 0, 0.3), 2px 2px 0px rgba(0, 0, 0, 0.1);
+  --shadow-pressed: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Tools - Utility classes */
+.font-pixel {
+  font-family: 'Press Start 2P', monospace;
+}
+
+.font-cyber {
+  font-family: 'Orbitron', monospace;
+}
+
 .font-nunito {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Orbitron', monospace; /* Override for game feel */
 }
 
 /* Generic - Box sizing, normalize */
@@ -22,16 +33,32 @@
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Orbitron', monospace;
   font-weight: 400;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.4;
   margin: 0;
   padding: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(45deg, #2E7D32 25%, #388E3C 25%, #388E3C 50%, #2E7D32 50%, #2E7D32 75%, #388E3C 75%, #388E3C);
+  background-size: 20px 20px;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(0deg, rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Ensure main content takes available space */
@@ -57,41 +84,88 @@ img {
   display: grid;
 }
 
-/* Profile image styling */
+/* Profile image styling - Game Character Style */
 .profile-image {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 .profile-image:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
 }
 
-/* Ensure profile images are circular and well-positioned */
+/* Ensure profile images are blocky and game-like */
 .profile-container img {
   object-fit: cover;
   object-position: center center;
+  border-radius: var(--border-radius);
+}
+
+.profile-container {
+  transition: all 0.1s ease;
+}
+
+.profile-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
 }
 
 /* Elements - Base HTML elements */
 button {
   font-family: inherit;
   cursor: pointer;
-  border: none;
+  border: 3px solid var(--color-text);
   outline: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-blocky);
+  transition: all 0.1s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: translateY(0px);
+  box-shadow: var(--shadow-pressed);
 }
 
 input {
   font-family: inherit;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-blocky);
+  transition: all 0.1s ease;
+}
+
+input:focus {
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
 }
 
 /* Objects - Layout patterns */
 .card {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  background: var(--color-white);
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow-soft);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-blocky);
+  border: 3px solid var(--color-text);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3), 4px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.card:active {
+  transform: translateY(0px);
+  box-shadow: var(--shadow-pressed);
 }
 
 /* Components - UI components */

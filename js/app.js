@@ -84,7 +84,7 @@ class MOEBuddy {
             this.addMessageToChat(response, 'assistant');
         } catch (error) {
             this.hideThinking();
-            this.addMessageToChat("Sorry Isaac, I'm having trouble connecting right now. Try asking again in a moment!", 'assistant');
+            this.addMessageToChat("🔧 Connection lost to the quest server, Isaac! Try your command again in a moment - Block Buddy will be back online soon! 🎮", 'assistant');
         }
     }
     
@@ -95,19 +95,19 @@ class MOEBuddy {
         if (role === 'user') {
             messageDiv.className = 'flex justify-end mb-4';
             messageDiv.innerHTML = `
-                <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl px-4 py-3 max-w-[80%] buddy-chat-bubble">
+                <div class="text-white px-4 py-3 max-w-[80%] buddy-chat-bubble font-cyber" style="background: var(--color-secondary); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
                     <p class="text-sm leading-relaxed">${message}</p>
                 </div>
             `;
         } else {
             messageDiv.className = 'flex justify-start mb-4';
             messageDiv.innerHTML = `
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-4 max-w-[85%] border border-blue-100 buddy-chat-bubble">
+                <div class="p-4 max-w-[85%] buddy-chat-bubble" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
                     <div class="flex items-start space-x-3">
-                        <div class="w-6 h-6 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <i data-lucide="sparkles" class="w-3 h-3 text-white"></i>
+                        <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5" style="background: var(--color-secondary); border: 2px solid var(--color-text);">
+                            <i data-lucide="zap" class="w-3 h-3 text-white"></i>
                         </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">${message}</p>
+                        <p class="text-sm font-cyber leading-relaxed" style="color: var(--color-text);">${message}</p>
                     </div>
                 </div>
             `;
@@ -129,18 +129,18 @@ class MOEBuddy {
         thinkingDiv.id = 'thinking-indicator';
         thinkingDiv.className = 'flex justify-start mb-4';
         thinkingDiv.innerHTML = `
-            <div class="bg-gray-100 rounded-2xl p-4 max-w-[85%] border border-gray-200">
+            <div class="p-4 max-w-[85%]" style="background: var(--color-white); border: 3px solid var(--color-text); box-shadow: var(--shadow-blocky);">
                 <div class="flex items-center space-x-3">
-                    <div class="w-6 h-6 bg-gray-400 rounded-lg flex items-center justify-center">
-                        <i data-lucide="bot" class="w-3 h-3 text-white"></i>
+                    <div class="w-6 h-6 flex items-center justify-center" style="background: var(--color-secondary); border: 2px solid var(--color-text);">
+                        <i data-lucide="gamepad-2" class="w-3 h-3 text-white"></i>
                     </div>
                     <div class="flex items-center space-x-2">
                         <div class="flex space-x-1">
-                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
-                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                            <div class="w-2 h-2 animate-pulse" style="background: var(--color-secondary); border: 1px solid var(--color-text);"></div>
+                            <div class="w-2 h-2 animate-pulse" style="background: var(--color-secondary); border: 1px solid var(--color-text); animation-delay: 0.2s"></div>
+                            <div class="w-2 h-2 animate-pulse" style="background: var(--color-secondary); border: 1px solid var(--color-text); animation-delay: 0.4s"></div>
                         </div>
-                        <span class="text-xs text-gray-500 font-medium">MOE Buddy is thinking...</span>
+                        <span class="text-xs font-bold font-pixel" style="color: var(--color-text); font-size: 8px;">🎮 BLOCK BUDDY PROCESSING...</span>
                     </div>
                 </div>
             </div>
@@ -171,44 +171,44 @@ class MOEBuddy {
                 messages: [
                     {
                         role: 'system',
-                        content: `You are MOE Buddy, a friendly AI learning assistant for Isaac Chen, a 14-year-old analytical student in Singapore studying Secondary 2 History.
+                        content: `You are Block Buddy, an epic game companion AI for Isaac Chen, a 14-year-old quest master in Singapore exploring the Singapore Independence Quest game.
 
-ISAAC'S PROFILE:
-- Highly analytical and methodical
-- Visual and kinesthetic learner  
-- Prefers reading/writing activities
-- Works best independently
-- Enjoys detailed timelines and cause-effect relationships
-- Currently studying Singapore's path to independence
+ISAAC'S PLAYER PROFILE:
+- Level 7 Quest Master 🏆
+- Analytical strategist who loves solving quest puzzles
+- Visual learner who prefers timeline challenges and cause-effect missions
+- Currently on the Singapore Independence Quest campaign
+- Prefers solo gameplay with detailed quest logs
 
-CURRENT LESSON CONTEXT:
-- Topic: Nationalism & Self-Government
-- Focus: People's Action Party Formation (1954)
-- Learning stage: During lesson phase
-- Has completed pre-assessment showing good foundational knowledge
+CURRENT QUEST CONTEXT:
+- Campaign: Singapore Independence Quest
+- Current Mission: People's Action Party Formation (1954)
+- Quest Status: Active
+- Player has completed tutorial and basic knowledge challenges
 
-YOUR PERSONALITY:
-- Friendly but professional tone
-- Use Isaac's name occasionally
-- Encourage analytical thinking
-- Provide structured, detailed responses
-- Reference specific historical facts and dates
-- Suggest primary sources and deeper exploration
-- Keep responses concise but informative (2-3 sentences max)
+YOUR PERSONALITY AS BLOCK BUDDY:
+- Epic game companion with enthusiasm 🎮
+- Use gaming terminology (quests, missions, achievements, levels)
+- Encourage strategic thinking for quest completion
+- Provide quest hints and power-ups
+- Reference game mechanics like timelines, battles, and collectibles
+- Keep responses exciting but helpful (2-3 sentences max)
+- Use gaming emojis and terminology
 
-ADAPTIVE FEATURES TO REFERENCE:
-- Personalized timeline activities
-- Primary source document suggestions  
-- Cause-and-effect analysis tools
-- Self-paced learning modules
-- Progress tracking and badges
+GAME FEATURES TO REFERENCE:
+- Timeline Battle Challenges
+- Primary Source Collection mini-games
+- Cause-and-Effect Strategy puzzles
+- Solo Campaign mode
+- Achievement system and trophies
 
-SINGAPORE CONTEXT:
-- Use Singapore spelling and context
-- Reference local historical sites and figures
-- Mention connections to present-day Singapore when relevant
+SINGAPORE QUEST WORLD:
+- Use Singapore context as the game world setting
+- Reference historical figures as NPCs
+- Mention quest locations based on real Singapore places
+- Connect past events to present-day Singapore as "endgame content"
 
-Respond as MOE Buddy would to Isaac's question about Singapore History.`
+Respond as Block Buddy would to Isaac's quest-related questions in this epic Singapore History adventure game!`
                     },
                     ...this.chatMessages.slice(-5), // Keep last 5 messages for context
                     {
@@ -291,14 +291,14 @@ class LearningPlatform {
         // Find buttons by text content instead of CSS selector
         const buttons = document.querySelectorAll('button');
         buttons.forEach(btn => {
-            if (btn.textContent.includes('Continue Reading')) {
+            if (btn.textContent.includes('CONTINUE QUEST')) {
                 btn.addEventListener('click', () => {
-                    this.showNotification('Opening detailed lesson content...', 'info');
+                    this.showNotification('🎮 Loading quest details...', 'info');
                 });
             }
-            if (btn.textContent.includes('Start Assessment')) {
+            if (btn.textContent.includes('START BATTLE')) {
                 btn.addEventListener('click', () => {
-                    this.showNotification('Loading timeline drag & drop activity...', 'success');
+                    this.showNotification('⚔️ Initializing timeline battle...', 'success');
                 });
             }
         });
@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Add some interactive demo features
     setTimeout(() => {
-        platform.showNotification('Welcome back, Isaac! Ready to continue your Singapore History journey?', 'info');
+        platform.showNotification('🎮 Welcome back, Quest Master Isaac! Ready to continue your Singapore Independence adventure?', 'info');
     }, 2000);
 });
 
