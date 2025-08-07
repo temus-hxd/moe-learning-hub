@@ -49,7 +49,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--color-bg-primary);
+  background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
   position: relative;
   color: var(--color-text);
 }
