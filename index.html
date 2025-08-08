@@ -13,6 +13,8 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Mermaid for diagrams -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     
     <style>
         :root {
@@ -123,6 +125,16 @@
             .desktop-layout { flex-direction: column; }
             .chat-area { height: 50vh; border-left: none; border-top: 2px solid var(--border-color); }
         }
+
+        /* Notebook Glass Modal */
+        .glass-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,.55); backdrop-filter: blur(8px); z-index: 1000; }
+        .glass-modal { width: min(96vw, 1100px); height: min(92vh, 760px); background: rgba(15,15,23,.78); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; box-shadow: 0 24px 80px rgba(0,0,0,.5); color: var(--text-primary); display: flex; flex-direction: column; overflow: hidden; }
+        .glass-header { display:flex; align-items:center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,.08); }
+        .glass-body { display:flex; gap: 16px; padding: 16px; height: 100%; }
+        .glass-col { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 12px; padding: 16px; overflow: auto; }
+        .glass-close { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); color: #fff; border-radius: 8px; padding: 8px 12px; }
+        .notes-textarea { width: 100%; height: calc(100% - 8px); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: #fff; border-radius: 10px; resize: none; padding: 12px; outline: none; }
+        .mermaid { background: rgba(255,255,255,.04); border-radius: 10px; padding: 12px; }
     </style>
 </head>
 <body>
@@ -208,7 +220,7 @@
                             <div class="flex space-x-3">
                                 <a href="screen2.html" class="academy-btn">Interactive Learning</a>
                                 <a href="screen1.html" class="academy-btn secondary">Take Pre‑Assessment</a>
-                                <button class="academy-btn" style="background: linear-gradient(145deg, #10b981, #059669); border-color: rgba(16, 185, 129, 0.3);" onmouseover="this.style.boxShadow='0 6px 20px rgba(16, 185, 129, 0.4)'" onmouseout="this.style.boxShadow=''">Review Notes</button>
+                                <button id="openNotebook" class="academy-btn" style="background: linear-gradient(145deg, #10b981, #059669); border-color: rgba(16, 185, 129, 0.3);" onmouseover="this.style.boxShadow='0 6px 20px rgba(16, 185, 129, 0.4)'" onmouseout="this.style.boxShadow=''">Review Notes</button>
                             </div>
                         </div>
                     </div>
@@ -331,9 +343,98 @@
         </div>
     </div>
 
+    <!-- Notebook Glass Modal -->
+    <div id="notebookOverlay" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="notebookTitle" aria-hidden="true">
+        <div class="glass-modal">
+            <div class="glass-header">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="notebook-text" class="w-5 h-5"></i>
+                    <h3 id="notebookTitle" class="text-lg font-semibold">Science Discovery Notes</h3>
+                </div>
+                <button id="closeNotebook" class="glass-close">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="glass-body">
+                <!-- Lecture column -->
+                <div class="glass-col" style="flex: 2">
+                    <h4 class="text-xl font-bold mb-3">Lecture: From Cells to Evolution</h4>
+                    <p class="text-white/85 mb-3">Today we’ll build the chain of ideas that connects early microscopy to modern biology. Keep an eye on how tools (like microscopes and X‑ray cameras) unlocked new ways of seeing.</p>
+                    <div class="mermaid mb-4">
+flowchart LR
+  subgraph Foundations
+    A["Microscopy<br/>Hooke & Leeuwenhoek"] --> B["Cell Theory<br/>Schleiden & Schwann"]
+  end
+  B --> C["Heredity Questions"]
+  C --> D["DNA Structure<br/>Double Helix"]
+  D --> E["Gene Expression<br/>From DNA to Protein"]
+  E --> F["Traits & Variation"]
+  F --> G["Natural Selection<br/>Evolution"]
+                    </div>
+
+                    <h5 class="font-semibold mt-4 mb-2">Key Ideas</h5>
+                    <ul class="list-disc pl-5 space-y-1 text-white/85">
+                        <li>Cells are the basic unit of life; organisms can be single‑celled or multicellular.</li>
+                        <li>DNA stores heritable information; structure suggests how it copies itself.</li>
+                        <li>Photosynthesis turns light energy into chemical energy, sustaining food webs.</li>
+                        <li>Variation + selection over many generations leads to adaptation.</li>
+                    </ul>
+
+                    <div class="mermaid my-4">
+sequenceDiagram
+  participant L as Light (Sun)
+  participant P as Plant Cell
+  participant C as Chloroplast
+  L->>P: Photons
+  P->>C: CO2 + H2O
+  C-->>P: Glucose + O2
+  P-->>World: Oxygen for respiration
+                    </div>
+
+                    <h5 class="font-semibold mt-4 mb-2">Quick Checks</h5>
+                    <ol class="list-decimal pl-5 space-y-1 text-white/85">
+                        <li>Why did microscopy change how scientists defined “life”?</li>
+                        <li>How does DNA’s shape hint at copying mechanisms?</li>
+                        <li>What inputs/outputs connect photosynthesis and respiration?</li>
+                        <li>How does variation feed natural selection?</li>
+                    </ol>
+                </div>
+                <!-- Notes column -->
+                <div class="glass-col" style="flex: 1">
+                    <h4 class="text-lg font-semibold mb-2">Isaac’s Notes</h4>
+                    <textarea class="notes-textarea" placeholder="Write your notes here... (mockup; not saved)"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Mermaid init
+        if (window.mermaid) { mermaid.initialize({ startOnLoad: false, theme: 'dark' }); }
         // Initialize Lucide icons
         lucide.createIcons();
+
+        // Notebook modal wiring
+        const openNotebook = document.getElementById('openNotebook');
+        const notebookOverlay = document.getElementById('notebookOverlay');
+        const closeNotebook = document.getElementById('closeNotebook');
+        if (openNotebook && notebookOverlay && closeNotebook) {
+            const renderMermaid = () => {
+                if (window.mermaid) {
+                    const blocks = notebookOverlay.querySelectorAll('.mermaid');
+                    blocks.forEach(b => { b.removeAttribute('data-processed'); });
+                    mermaid.init(undefined, blocks);
+                }
+            };
+            openNotebook.addEventListener('click', () => {
+                notebookOverlay.style.display = 'flex';
+                renderMermaid();
+                lucide.createIcons();
+            });
+            closeNotebook.addEventListener('click', () => notebookOverlay.style.display = 'none');
+            notebookOverlay.addEventListener('click', (e) => { if (e.target === notebookOverlay) notebookOverlay.style.display = 'none'; });
+            document.addEventListener('keydown', function escHandler(e){ if (e.key === 'Escape'){ notebookOverlay.style.display = 'none'; }});
+        }
         
         // Global functions for inline event handlers
         function handleEnterKey(event) {
