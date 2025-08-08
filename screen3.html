@@ -1045,6 +1045,176 @@ Keep responses supportive and data-driven (2-3 sentences max)!`
                 }, 100);
             });
         });
+
+        // Confetti Effect - Only trigger when coming from achievements
+        class ConfettiSystem {
+            constructor() {
+                this.particles = [];
+                this.canvas = null;
+                this.ctx = null;
+                this.colors = ['#FFD93D', '#4FACFE', '#F093FB', '#00C896', '#FF6B6B'];
+                this.isActive = false;
+                
+                // Check if we came from achievements link
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('from') === 'achievements') {
+                    this.init();
+                    this.startConfetti();
+                }
+            }
+
+            init() {
+                this.canvas = document.createElement('canvas');
+                this.canvas.style.position = 'fixed';
+                this.canvas.style.top = '0';
+                this.canvas.style.left = '0';
+                this.canvas.style.width = '100%';
+                this.canvas.style.height = '100%';
+                this.canvas.style.pointerEvents = 'none';
+                this.canvas.style.zIndex = '9999';
+                document.body.appendChild(this.canvas);
+
+                this.ctx = this.canvas.getContext('2d');
+                this.resize();
+                
+                window.addEventListener('resize', () => this.resize());
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            createParticle() {
+                return {
+                    x: Math.random() * this.canvas.width,
+                    y: -20,
+                    vx: (Math.random() - 0.5) * 3,
+                    vy: Math.random() * 3 + 2,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() - 0.5) * 10,
+                    color: this.colors[Math.floor(Math.random() * this.colors.length)],
+                    size: Math.random() * 8 + 4,
+                    gravity: 0.1,
+                    life: 1.0,
+                    decay: Math.random() * 0.02 + 0.005,
+                    shape: Math.random() > 0.5 ? 'circle' : 'square'
+                };
+            }
+
+            updateParticle(particle) {
+                particle.vy += particle.gravity;
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                particle.rotation += particle.rotationSpeed;
+                particle.life -= particle.decay;
+                
+                // Add some air resistance
+                particle.vx *= 0.99;
+                
+                return particle.life > 0 && particle.y < this.canvas.height + 50;
+            }
+
+            drawParticle(particle) {
+                this.ctx.save();
+                this.ctx.globalAlpha = particle.life;
+                this.ctx.translate(particle.x, particle.y);
+                this.ctx.rotate(particle.rotation * Math.PI / 180);
+                
+                this.ctx.fillStyle = particle.color;
+                
+                if (particle.shape === 'circle') {
+                    this.ctx.beginPath();
+                    this.ctx.arc(0, 0, particle.size / 2, 0, Math.PI * 2);
+                    this.ctx.fill();
+                } else {
+                    this.ctx.fillRect(-particle.size/2, -particle.size/2, particle.size, particle.size);
+                }
+                
+                this.ctx.restore();
+            }
+
+            startConfetti() {
+                this.isActive = true;
+                
+                // Play celebration sound
+                this.playSound();
+                
+                // Create initial burst
+                for (let i = 0; i < 50; i++) {
+                    this.particles.push(this.createParticle());
+                }
+                
+                // Continue adding particles for 3 seconds
+                let particleInterval = setInterval(() => {
+                    if (this.isActive) {
+                        for (let i = 0; i < 5; i++) {
+                            this.particles.push(this.createParticle());
+                        }
+                    }
+                }, 100);
+                
+                setTimeout(() => {
+                    this.isActive = false;
+                    clearInterval(particleInterval);
+                }, 3000);
+                
+                // Start animation loop
+                this.animate();
+                
+                // Auto-cleanup after 10 seconds
+                setTimeout(() => {
+                    this.cleanup();
+                }, 10000);
+            }
+
+            animate() {
+                if (!this.canvas) return;
+                
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Update and draw particles
+                this.particles = this.particles.filter(particle => {
+                    const isAlive = this.updateParticle(particle);
+                    if (isAlive) {
+                        this.drawParticle(particle);
+                    }
+                    return isAlive;
+                });
+                
+                // Continue animation if we have particles or are still active
+                if (this.particles.length > 0 || this.isActive) {
+                    requestAnimationFrame(() => this.animate());
+                } else {
+                    this.cleanup();
+                }
+            }
+
+            playSound() {
+                try {
+                    const audio = new Audio('sounds/yey.mp3');
+                    audio.volume = 0.7; // Set volume to 70%
+                    audio.play().catch(e => {
+                        console.log('Audio play failed (browser policy):', e);
+                    });
+                } catch (error) {
+                    console.log('Audio setup failed:', error);
+                }
+            }
+
+            cleanup() {
+                if (this.canvas) {
+                    document.body.removeChild(this.canvas);
+                    this.canvas = null;
+                    this.ctx = null;
+                }
+                this.particles = [];
+                this.isActive = false;
+            }
+        }
+
+        // Initialize confetti system
+        const confetti = new ConfettiSystem();
     </script>
 </body>
 </html>
