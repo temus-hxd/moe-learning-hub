@@ -1052,13 +1052,13 @@
                 // Pick consistent image based on hint content
                 let imgSrc = '';
                 if (message.includes('Cell') || message.includes('microscope')) {
-                    imgSrc = 'generated_images/hints_science/recraft_20250808_120318_0_123baba7-39f7-4213-b346-8fc9cf73f9e1.png';
+                    imgSrc = 'generated_images/hints_people/recraft_20250808_120901_0_a9eee3d1-f6a8-43e0-9aa2-990153b1799f.png';
                 } else if (message.includes('DNA')) {
-                    imgSrc = 'generated_images/hints_science/recraft_20250808_120322_0_eef172a5-4dc5-4e8f-90f7-163cdb12f3b6.png';
+                    imgSrc = 'generated_images/hints_people/recraft_20250808_120907_0_b65c050b-cf1d-4b2b-b7ff-35892209e4a4.png';
                 } else if (message.includes('Photosynthesis') || message.includes('plants')) {
-                    imgSrc = 'generated_images/hints_science/recraft_20250808_120327_0_fbcafc86-16a3-4417-900b-50d63dac2ff2.png';
+                    imgSrc = 'generated_images/hints_people/recraft_20250808_120912_0_484c4263-e2dc-478d-95d8-1e3e50c6f500.png';
                 } else if (message.includes('Evolution')) {
-                    imgSrc = 'generated_images/hints_science/recraft_20250808_120333_0_3413f2d9-9e4d-4473-aca4-80e1f53f8bf0.png';
+                    imgSrc = 'generated_images/hints_people/recraft_20250808_120918_0_4a7ef25d-63f5-4347-b937-b9fad9769514.png';
                 }
 
                 // Fun factual tidbits
@@ -1093,8 +1093,8 @@
                 const listHtml = factList.map(f => `<li class="mb-1">• ${f}</li>`).join('');
 
                 body.innerHTML = `
-                    <div class="flex items-start gap-4">
-                        ${imgSrc ? `<img src="${imgSrc}" alt="Hint Art" class="w-20 h-20 rounded-lg object-cover flex-shrink-0"/>` : ''}
+                    <div class="flex items-start gap-5">
+                        ${imgSrc ? `<img src="${imgSrc}" alt="Hint Art" class="w-60 h-60 rounded-xl object-cover flex-shrink-0 shadow-2xl"/>` : ''}
                         <div>
                             <p class="text-base text-white mb-3">${message}</p>
                             <ul class="text-sm text-white/80 leading-relaxed">${listHtml}</ul>
