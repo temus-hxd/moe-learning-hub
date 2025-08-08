@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCIENCE INVADERS - Isaac's Knowledge Blaster</title>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000011;
+            color: #00ff00;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        #gameCanvas {
+            background: linear-gradient(180deg, #000011 0%, #000033 100%);
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #00ffff;
+        }
+        
+        .hud {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 16px;
+            color: #00ff00;
+            z-index: 100;
+        }
+        
+        .question-display {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            color: #ffff00;
+            background: rgba(0,0,0,0.8);
+            padding: 10px 20px;
+            border: 2px solid #ffff00;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+        
+        .instructions {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #00ffff;
+        }
+        
+        .game-over {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: #ff0000;
+            padding: 30px;
+            border: 3px solid #ff0000;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+            z-index: 200;
+        }
+        
+        .victory {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 50, 0, 0.9);
+            color: #00ff00;
+            padding: 30px;
+            border: 3px solid #00ff00;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+            z-index: 200;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            margin: 10px;
+            font-size: 14px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .btn:hover {
+            background: #ff3742;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    
+    <div class="hud">
+        <div>SCORE: <span id="score">0</span></div>
+        <div>LEVEL: <span id="level">1</span></div>
+        <div>LIVES: <span id="lives">3</span></div>
+    </div>
+    
+    <div id="questionDisplay" class="question-display">
+        Ready to defend science! Shoot the correct answers!
+    </div>
+    
+    <div class="instructions">
+        ARROW KEYS: Move | SPACEBAR: Shoot | Destroy the CORRECT answer capsules!
+    </div>
+    
+    <div id="instructionScreen" class="victory" style="display: block;">
+        <h2 style="color: #00ffff;">🚀 SCIENCE INVADERS 👾</h2>
+        <div style="text-align: left; margin: 20px 0; font-size: 14px; line-height: 1.6;">
+            <p><strong style="color: #ffff00;">MISSION:</strong> Defend science by shooting the CORRECT answers!</p>
+            <p><strong style="color: #ffff00;">CONTROLS:</strong></p>
+            <p>• ⬅️➡️ Arrow Keys: Move your spaceship</p>
+            <p>• SPACEBAR: Shoot lasers</p>
+            <p><strong style="color: #ffff00;">GAMEPLAY:</strong></p>
+            <p>• Read the science question at the top</p>
+            <p>• Shoot the GREEN answer capsule (correct answer)</p>
+            <p>• Avoid shooting RED capsules (wrong answers)</p>
+            <p>• Destroy purple kamikaze enemies for bonus points</p>
+            <p>• Don't let enemies reach the bottom!</p>
+            <p><strong style="color: #ff4444;">⚠️ Wrong answers = lose a life!</strong></p>
+        </div>
+        <button class="btn" onclick="startGame()">🚀 START MISSION</button>
+        <button class="btn" onclick="window.location.href='index.html'">⬅️ BACK TO MENU</button>
+    </div>
+    
+    <div id="gameOver" class="game-over">
+        <h2>GAME OVER!</h2>
+        <p>Science defended for <span id="finalScore">0</span> points!</p>
+        <button class="btn" onclick="restartGame()">DEFEND AGAIN</button>
+        <button class="btn" onclick="window.location.href='index.html'">MAIN MENU</button>
+    </div>
+    
+    <div id="victory" class="victory">
+        <h2>SCIENCE SAVED!</h2>
+        <p>Excellent work, Isaac!</p>
+        <p>Final Score: <span id="victoryScore">0</span></p>
+        <button class="btn" onclick="nextLevel()">NEXT CHALLENGE</button>
+        <button class="btn" onclick="window.location.href='index.html'">MAIN MENU</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Game state
+        let game = {
+            running: false, // Start paused for instructions
+            score: 0,
+            level: 1,
+            lives: 3,
+            currentQuestion: 0,
+            questionActive: false,
+            correctAnswer: -1,
+            frameCount: 0,
+            started: false
+        };
+        
+        // Player spaceship
+        let player = {
+            x: 400,
+            y: 550,
+            width: 40,
+            height: 30,
+            speed: 5,
+            color: '#00ffff'
+        };
+        
+        // Game arrays
+        let bullets = [];
+        let invaders = [];
+        let kamikazes = [];
+        let particles = [];
+        let stars = [];
+        
+        // Science questions with multiple choice
+        const questions = [
+            {
+                question: "What did Robert Hooke discover in 1665?",
+                answers: ["Atoms", "Cell walls", "DNA", "Bacteria"],
+                correct: 1
+            },
+            {
+                question: "Who proposed the Cell Theory?",
+                answers: ["Darwin", "Newton", "Schleiden & Schwann", "Einstein"],
+                correct: 2
+            },
+            {
+                question: "What process makes oxygen in plants?",
+                answers: ["Respiration", "Photosynthesis", "Digestion", "Fermentation"],
+                correct: 1
+            },
+            {
+                question: "What does DNA stand for?",
+                answers: ["Dynamic Nuclear Acid", "Deoxyribonucleic Acid", "Double Nuclear Acid", "Dense Nuclear Acid"],
+                correct: 1
+            },
+            {
+                question: "Who wrote 'Origin of Species'?",
+                answers: ["Newton", "Einstein", "Darwin", "Galileo"],
+                correct: 2
+            },
+            {
+                question: "What year was Evolution theory published?",
+                answers: ["1859", "1865", "1871", "1882"],
+                correct: 0
+            },
+            {
+                question: "What discovered the structure of DNA?",
+                answers: ["Telescope", "Microscope", "X-ray crystallography", "Computer"],
+                correct: 2
+            },
+            {
+                question: "What powers photosynthesis?",
+                answers: ["Water", "Carbon dioxide", "Sunlight", "Oxygen"],
+                correct: 2
+            }
+        ];
+        
+        // Input handling
+        let keys = {};
+        
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
+            if (e.key === ' ') {
+                shoot();
+                e.preventDefault();
+            }
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+        
+        // Initialize stars for background
+        function createStars() {
+            for (let i = 0; i < 100; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2,
+                    twinkle: Math.random() * Math.PI * 2
+                });
+            }
+        }
+        
+        // Create invader formation with answers
+        function createInvaders() {
+            invaders = [];
+            const currentQ = questions[game.currentQuestion];
+            game.correctAnswer = currentQ.correct;
+            
+            // Display question
+            document.getElementById('questionDisplay').textContent = currentQ.question;
+            
+            // Create 4 invaders in a row with the answer options
+            for (let i = 0; i < 4; i++) {
+                invaders.push({
+                    x: 150 + i * 120,
+                    y: 80,
+                    width: 80,
+                    height: 40,
+                    answer: currentQ.answers[i],
+                    answerIndex: i,
+                    isCorrect: i === currentQ.correct,
+                    color: i === currentQ.correct ? '#00ff00' : '#ff4444',
+                    alive: true,
+                    moveDirection: 1,
+                    dropSpeed: 1 + Math.random() * 0.5,
+                    sideMovement: (Math.random() - 0.5) * 2
+                });
+            }
+        }
+        
+        // Create kamikaze enemies
+        function createKamikaze() {
+            kamikazes.push({
+                x: Math.random() * (canvas.width - 20),
+                y: -20,
+                width: 15,
+                height: 15,
+                speed: 2 + Math.random() * 3,
+                color: '#ff00ff',
+                targetX: player.x,
+                alive: true,
+                trail: []
+            });
+        }
+        
+        // Shooting mechanics
+        function shoot() {
+            if (!game.running) return;
+            
+            bullets.push({
+                x: player.x + player.width / 2,
+                y: player.y,
+                width: 4,
+                height: 10,
+                speed: 8,
+                color: '#ffff00'
+            });
+            
+            playSound(800, 0.1); // Shoot sound
+        }
+        
+        // Sound system with file loading
+        const sounds = {};
+        
+        function loadSounds() {
+            const soundFiles = ['shoot', 'hit', 'powerup']; // Your 3 new sound files
+            
+            soundFiles.forEach(soundName => {
+                sounds[soundName] = new Audio(`sounds/${soundName}.mp3`);
+                sounds[soundName].volume = 0.3;
+                sounds[soundName].load();
+            });
+        }
+        
+        function playSound(soundType, frequency = 440, duration = 0.1) {
+            // Try to play actual sound file first
+            let soundFile = null;
+            
+            if (soundType === 'shoot' || frequency === 800) {
+                soundFile = sounds.shoot;
+            } else if (soundType === 'hit' || frequency === 200 || frequency === 150) {
+                soundFile = sounds.hit;
+            } else if (soundType === 'powerup' || frequency === 1200 || frequency === 1500) {
+                soundFile = sounds.powerup;
+            }
+            
+            if (soundFile) {
+                try {
+                    soundFile.currentTime = 0;
+                    soundFile.play().catch(() => {
+                        // Fallback to beep if file fails
+                        playBeep(frequency, duration);
+                    });
+                    return;
+                } catch (e) {
+                    // Fallback to beep
+                }
+            }
+            
+            // Fallback to Web Audio beep
+            playBeep(frequency, duration);
+        }
+        
+        function playBeep(frequency, duration) {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+                oscillator.type = 'square';
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+            } catch (e) {
+                // Sound failed, continue silently
+            }
+        }
+        
+        // Particle effects
+        function createParticles(x, y, color, count = 8) {
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 8,
+                    vy: (Math.random() - 0.5) * 8,
+                    life: 30,
+                    maxLife: 30,
+                    color: color,
+                    size: Math.random() * 3 + 1
+                });
+            }
+        }
+        
+        // Collision detection
+        function checkCollision(rect1, rect2) {
+            return rect1.x < rect2.x + rect2.width &&
+                   rect1.x + rect1.width > rect2.x &&
+                   rect1.y < rect2.y + rect2.height &&
+                   rect1.y + rect1.height > rect2.y;
+        }
+        
+        // Update game logic
+        function update() {
+            if (!game.running) return;
+            
+            game.frameCount++;
+            
+            // Player movement
+            if (keys['ArrowLeft'] && player.x > 0) {
+                player.x -= player.speed;
+            }
+            if (keys['ArrowRight'] && player.x < canvas.width - player.width) {
+                player.x += player.speed;
+            }
+            
+            // Update bullets
+            for (let i = bullets.length - 1; i >= 0; i--) {
+                const bullet = bullets[i];
+                bullet.y -= bullet.speed;
+                
+                if (bullet.y < 0) {
+                    bullets.splice(i, 1);
+                    continue;
+                }
+                
+                // Check collision with invaders
+                for (let j = 0; j < invaders.length; j++) {
+                    const invader = invaders[j];
+                    if (!invader.alive) continue;
+                    
+                    if (checkCollision(bullet, invader)) {
+                        // Hit an invader!
+                        bullets.splice(i, 1);
+                        invader.alive = false;
+                        
+                        if (invader.isCorrect) {
+                            // Correct answer!
+                            game.score += 500;
+                            playSound(1200, 0.3); // Success sound
+                            createParticles(invader.x + invader.width/2, invader.y + invader.height/2, '#00ff00', 12);
+                            
+                            // Check if this was the last question
+                            setTimeout(() => {
+                                game.currentQuestion++;
+                                if (game.currentQuestion >= questions.length) {
+                                    victory();
+                                } else {
+                                    nextQuestion();
+                                }
+                            }, 1000);
+                            
+                        } else {
+                            // Wrong answer!
+                            game.lives--;
+                            playSound(200, 0.5); // Error sound
+                            createParticles(invader.x + invader.width/2, invader.y + invader.height/2, '#ff0000', 12);
+                            
+                            if (game.lives <= 0) {
+                                gameOver();
+                                return;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            
+            // Invader movement - more aggressive descent
+            invaders.forEach(invader => {
+                if (invader.alive) {
+                    // Steady downward movement
+                    invader.y += invader.dropSpeed;
+                    
+                    // Side-to-side movement
+                    invader.x += invader.sideMovement;
+                    
+                    // Bounce off walls
+                    if (invader.x <= 0 || invader.x >= canvas.width - invader.width) {
+                        invader.sideMovement *= -1;
+                    }
+                    
+                    // Increase speed over time
+                    invader.dropSpeed += 0.005;
+                    
+                    // Check if invaders reached bottom
+                    if (invader.y > canvas.height - 80) {
+                        game.lives--;
+                        playSound(200, 0.5);
+                        if (game.lives <= 0) {
+                            gameOver();
+                            return;
+                        }
+                        nextQuestion(); // Reset positions
+                    }
+                }
+            });
+            
+            // Spawn kamikaze enemies
+            if (game.frameCount % 180 === 0 && Math.random() < 0.6) {
+                createKamikaze();
+            }
+            
+            // Update kamikaze enemies
+            for (let i = kamikazes.length - 1; i >= 0; i--) {
+                const kamikaze = kamikazes[i];
+                
+                if (!kamikaze.alive) {
+                    kamikazes.splice(i, 1);
+                    continue;
+                }
+                
+                // Add trail effect
+                kamikaze.trail.push({ x: kamikaze.x, y: kamikaze.y });
+                if (kamikaze.trail.length > 5) {
+                    kamikaze.trail.shift();
+                }
+                
+                // Move towards player
+                const dx = player.x + player.width/2 - (kamikaze.x + kamikaze.width/2);
+                const dy = player.y - kamikaze.y;
+                const distance = Math.sqrt(dx*dx + dy*dy);
+                
+                if (distance > 0) {
+                    kamikaze.x += (dx / distance) * kamikaze.speed * 0.3;
+                    kamikaze.y += kamikaze.speed;
+                }
+                
+                // Check collision with player
+                if (checkCollision(kamikaze, player)) {
+                    game.lives--;
+                    playSound(150, 0.8);
+                    createParticles(kamikaze.x, kamikaze.y, '#ff00ff', 10);
+                    kamikazes.splice(i, 1);
+                    
+                    if (game.lives <= 0) {
+                        gameOver();
+                        return;
+                    }
+                    continue;
+                }
+                
+                // Check collision with bullets
+                for (let j = bullets.length - 1; j >= 0; j--) {
+                    const bullet = bullets[j];
+                    if (checkCollision(bullet, kamikaze)) {
+                        bullets.splice(j, 1);
+                        kamikaze.alive = false;
+                        game.score += 50;
+                        playSound(600, 0.2);
+                        createParticles(kamikaze.x, kamikaze.y, '#ff00ff', 6);
+                        break;
+                    }
+                }
+                
+                // Remove if off screen
+                if (kamikaze.y > canvas.height + 50) {
+                    kamikazes.splice(i, 1);
+                }
+            }
+            
+            // Update particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const particle = particles[i];
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                particle.life--;
+                
+                if (particle.life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            
+            // Update star twinkle
+            stars.forEach(star => {
+                star.twinkle += 0.05;
+            });
+        }
+        
+        // Render game
+        function render() {
+            // Clear canvas
+            ctx.fillStyle = '#000011';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw twinkling stars
+            stars.forEach(star => {
+                const alpha = 0.5 + 0.5 * Math.sin(star.twinkle);
+                ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                ctx.fillRect(star.x, star.y, star.size, star.size);
+            });
+            
+            // Draw player spaceship
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+            
+            // Add simple spaceship details
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(player.x + 15, player.y + 5, 10, 20); // cockpit
+            ctx.fillRect(player.x + 5, player.y + 25, 30, 5); // wing
+            
+            // Draw invaders with their answer text
+            ctx.font = '12px Courier New';
+            invaders.forEach(invader => {
+                if (!invader.alive) return;
+                
+                // Draw invader capsule
+                ctx.fillStyle = invader.color;
+                ctx.fillRect(invader.x, invader.y, invader.width, invader.height);
+                
+                // Draw border
+                ctx.strokeStyle = '#ffffff';
+                ctx.strokeRect(invader.x, invader.y, invader.width, invader.height);
+                
+                // Draw answer text
+                ctx.fillStyle = '#000000';
+                ctx.textAlign = 'center';
+                const textX = invader.x + invader.width / 2;
+                const textY = invader.y + invader.height / 2 + 4;
+                
+                // Wrap text if too long
+                const words = invader.answer.split(' ');
+                if (words.length > 1 && invader.answer.length > 12) {
+                    ctx.fillText(words[0], textX, textY - 6);
+                    ctx.fillText(words.slice(1).join(' '), textX, textY + 6);
+                } else {
+                    ctx.fillText(invader.answer, textX, textY);
+                }
+            });
+            
+            // Draw kamikaze enemies with trails
+            kamikazes.forEach(kamikaze => {
+                if (!kamikaze.alive) return;
+                
+                // Draw trail
+                kamikaze.trail.forEach((point, index) => {
+                    const alpha = index / kamikaze.trail.length;
+                    ctx.fillStyle = `rgba(255, 0, 255, ${alpha * 0.5})`;
+                    ctx.fillRect(point.x, point.y, 3, 3);
+                });
+                
+                // Draw kamikaze body
+                ctx.fillStyle = kamikaze.color;
+                ctx.fillRect(kamikaze.x, kamikaze.y, kamikaze.width, kamikaze.height);
+                
+                // Add spikes/aggressive look
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(kamikaze.x + 5, kamikaze.y - 2, 5, 2); // top spike
+                ctx.fillRect(kamikaze.x + 5, kamikaze.y + kamikaze.height, 5, 2); // bottom spike
+                ctx.fillRect(kamikaze.x - 2, kamikaze.y + 5, 2, 5); // left spike
+                ctx.fillRect(kamikaze.x + kamikaze.width, kamikaze.y + 5, 2, 5); // right spike
+            });
+            
+            // Draw bullets
+            bullets.forEach(bullet => {
+                ctx.fillStyle = bullet.color;
+                ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+            });
+            
+            // Draw particles
+            particles.forEach(particle => {
+                const alpha = particle.life / particle.maxLife;
+                ctx.fillStyle = particle.color;
+                ctx.globalAlpha = alpha;
+                ctx.fillRect(particle.x, particle.y, particle.size, particle.size);
+            });
+            ctx.globalAlpha = 1;
+            
+            // Update HUD
+            document.getElementById('score').textContent = game.score;
+            document.getElementById('level').textContent = game.level;
+            document.getElementById('lives').textContent = game.lives;
+        }
+        
+        // Next question
+        function nextQuestion() {
+            createInvaders();
+            kamikazes = []; // Clear kamikaze enemies
+            game.frameCount = 0;
+        }
+        
+        // Next level
+        function nextLevel() {
+            game.level++;
+            game.currentQuestion = 0;
+            document.getElementById('victory').style.display = 'none';
+            createInvaders();
+        }
+        
+        // Game over
+        function gameOver() {
+            game.running = false;
+            document.getElementById('finalScore').textContent = game.score;
+            document.getElementById('gameOver').style.display = 'block';
+            playSound(150, 1); // Game over sound
+        }
+        
+        // Victory
+        function victory() {
+            game.running = false;
+            document.getElementById('victoryScore').textContent = game.score;
+            document.getElementById('victory').style.display = 'block';
+            playSound(1500, 0.5); // Victory sound
+        }
+        
+        // Restart game
+        function restartGame() {
+            game = {
+                running: true,
+                score: 0,
+                level: 1,
+                lives: 3,
+                currentQuestion: 0,
+                questionActive: false,
+                correctAnswer: -1,
+                frameCount: 0
+            };
+            
+            player.x = 400;
+            bullets = [];
+            kamikazes = [];
+            particles = [];
+            
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('victory').style.display = 'none';
+            
+            createInvaders();
+        }
+        
+        // Start game function
+        function startGame() {
+            game.running = true;
+            game.started = true;
+            document.getElementById('instructionScreen').style.display = 'none';
+            createInvaders(); // Create the first question
+            playSound('powerup', 1200, 0.3);
+        }
+        
+        // Game loop
+        function gameLoop() {
+            update();
+            render();
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // Initialize game
+        console.log('Science Invaders starting...');
+        loadSounds(); // Load your sound files
+        createStars();
+        gameLoop();
+        
+    </script>
+</body>
+</html>
