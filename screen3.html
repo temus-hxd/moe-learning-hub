@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isaac's Academy - Progress Dashboard</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        :root {
+            --primary-blue: #2a3046;
+            --primary-purple: #764BA2;
+            --accent-pink: #F093FB;
+            --accent-blue: #4FACFE;
+            --accent-yellow: #FFD93D;
+            --dark-bg: #0F0F23;
+            --card-bg: rgba(30, 30, 60, 0.9);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --text-primary: #FFFFFF;
+            --text-secondary: #B8C6DB;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(1200px 800px at -10% -10%, rgba(255,255,255,0.06), transparent 60%),
+                        radial-gradient(1000px 700px at 110% 10%, rgba(255,255,255,0.05), transparent 60%),
+                        linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            animation: bgShift 12s ease-in-out infinite alternate;
+        }
+        @keyframes bgShift {
+            0% { filter: hue-rotate(0deg) brightness(1); }
+            100% { filter: hue-rotate(8deg) brightness(1.05); }
+        }
+        
+        .academy-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .academy-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary-blue);
+        }
+        
+        .academy-btn {
+            background: linear-gradient(145deg, var(--primary-blue), #5A67D8);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            line-height: 1.2;
+        }
+        
+        .academy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .academy-btn.secondary {
+            background: linear-gradient(145deg, var(--accent-pink), #E91E63);
+        }
+        
+        .academy-btn.secondary:hover {
+            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            height: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+            height: 100%;
+            border-radius: inherit;
+            transition: width 0.8s ease;
+        }
+        
+        .chat-area {
+            background: var(--card-bg);
+            border-left: 2px solid var(--border-color);
+            height: 100vh;
+            backdrop-filter: blur(20px);
+        }
+        
+        .chat-message {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+        }
+        
+        /* Screen 3 Specific Styles */
+        .progress-ring {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+        
+        .progress-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring circle {
+            fill: transparent;
+            stroke-width: 8;
+        }
+        
+        .progress-ring .background {
+            stroke: rgba(255, 255, 255, 0.1);
+        }
+        
+        .progress-ring .progress {
+            stroke: var(--accent-blue);
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.8s ease;
+        }
+        
+        .progress-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .level-badge {
+            background: linear-gradient(135deg, var(--accent-yellow), #FFA500);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            border: 4px solid rgba(255,255,255,0.3);
+            box-shadow: 0 8px 32px rgba(255, 217, 61, 0.3);
+        }
+        
+        .achievement-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .achievement-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .achievement-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: var(--accent-yellow);
+            box-shadow: 0 12px 48px rgba(255, 217, 61, 0.3);
+        }
+        
+        .achievement-card.locked {
+            opacity: 0.5;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .achievement-card.locked:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .achievement-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent-blue), var(--primary-blue));
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+        
+        .achievement-card.locked .achievement-icon {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .spaced-card {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-pink);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .spaced-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 8px 32px rgba(240, 147, 251, 0.3);
+        }
+        
+        .streak-counter {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .streak-counter::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card-detailed {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card-detailed:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .milestone-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .milestone-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .milestone-item:last-child {
+            border-bottom: none;
+        }
+        
+        .milestone-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            background: linear-gradient(135deg, var(--accent-yellow), #FFA500);
+        }
+        
+        .milestone-item.completed .milestone-icon {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .milestone-item.locked .milestone-icon {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Hide scrollbars */
+        ::-webkit-scrollbar { display: none; }
+        * { scrollbar-width: none; }
+        .overflow-y-auto { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @media (max-width: 768px) {
+            .desktop-layout { flex-direction: column; }
+            .chat-area { height: 50vh; border-left: none; border-top: 2px solid var(--border-color); }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="flex h-screen desktop-layout">
+        <!-- Main Content Area -->
+        <div class="flex-1 overflow-y-auto">
+            <!-- Header -->
+            <header class="p-6 border-b border-white/10">
+                <div class="flex items-center justify-between">
+                    <a href="index.html" class="flex items-center space-x-4 hover:opacity-90 transition-opacity" title="Back to Dashboard">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <i data-lucide="bar-chart-3" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold">Progress Analytics</h1>
+                            <p class="text-sm text-gray-400">Detailed Learning Insights</p>
+                        </div>
+                    </a>
+                    
+                    <!-- User Info -->
+                    <div class="flex items-center space-x-4">
+                        <a href="index.html" class="academy-btn secondary hidden md:inline-flex">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Back to Dashboard
+                        </a>
+                        <div class="text-right">
+                            <p class="font-bold">Isaac Chen</p>
+                            <p class="text-sm text-gray-400">Level 7 • 1,245 XP</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="img/isaac-photo.png" alt="Isaac Chen" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Main Content -->
+            <main class="p-6 space-y-6">
+                
+                <!-- Level & XP Section -->
+                <div class="academy-card p-8">
+                    <div class="text-center mb-6">
+                        <div class="level-badge">7</div>
+                        <h2 class="text-2xl font-bold mb-2">Science Detective Level 7</h2>
+                        <p class="text-gray-300 mb-4">245 XP to Level 8</p>
+                        
+                        <div class="max-w-md mx-auto mb-4">
+                            <div class="flex justify-between text-sm mb-2">
+                                <span>1,245 XP</span>
+                                <span>1,500 XP</span>
+                            </div>
+                            <div class="progress-bar h-4">
+                                <div class="progress-fill" style="width: 83%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 max-w-md mx-auto">
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-blue-400">+125</div>
+                                <div class="text-xs text-gray-400">Today</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-green-400">+890</div>
+                                <div class="text-xs text-gray-400">This Week</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-xl font-bold text-yellow-400">7</div>
+                                <div class="text-xs text-gray-400">Day Streak</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Detailed Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card-detailed">
+                        <div class="progress-ring">
+                            <svg>
+                                <circle class="background" cx="60" cy="60" r="52"></circle>
+                                <circle class="progress" cx="60" cy="60" r="52" 
+                                    stroke-dasharray="327" stroke-dashoffset="49"></circle>
+                            </svg>
+                            <div class="progress-center">
+                                <div class="text-2xl font-bold">85%</div>
+                                <div class="text-xs text-gray-400">Accuracy</div>
+                            </div>
+                        </div>
+                        <h3 class="font-bold mt-4 mb-2">Quiz Performance</h3>
+                        <p class="text-sm text-gray-400">Analytical reasoning strong!</p>
+                        <div class="mt-3 text-xs text-green-400">↗ +5% this week</div>
+                    </div>
+                    
+                    <div class="stat-card-detailed">
+                        <div class="stat-number text-blue-400">24</div>
+                        <h3 class="font-bold mb-2">Lessons Completed</h3>
+                        <div class="w-full bg-gray-700 rounded-full h-2 mb-3">
+                            <div class="bg-blue-400 h-2 rounded-full" style="width: 68%"></div>
+                        </div>
+                        <p class="text-sm text-gray-400">11 more to unlock advanced modules</p>
+                    </div>
+                    
+                    <div class="stat-card-detailed">
+                        <div class="streak-counter relative">
+                            <div class="relative z-10">
+                                <div class="text-3xl font-bold mb-2">🔥 7 Days</div>
+                                <div class="text-sm">Study Streak Active</div>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-sm text-gray-400">
+                            Longest streak: 12 days
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card-detailed">
+                        <div class="stat-number text-purple-400">12</div>
+                        <h3 class="font-bold mb-2">Achievements Earned</h3>
+                        <div class="flex justify-center space-x-2 mb-3">
+                            <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                                <i data-lucide="search" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                                <i data-lucide="clock" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                                <i data-lucide="brain" class="w-4 h-4 text-white"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400">3 new achievements available</p>
+                    </div>
+                </div>
+                
+                <!-- Achievement Gallery -->
+                <div class="academy-card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <i data-lucide="trophy" class="w-6 h-6 mr-3 text-yellow-400"></i>
+                            Achievement Gallery
+                        </h3>
+                        <span class="text-sm text-gray-400">12 of 20 unlocked</span>
+                    </div>
+                    
+                    <div class="achievement-gallery">
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i data-lucide="search" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h4 class="font-bold text-yellow-400 mb-1">History Detective</h4>
+                            <p class="text-xs text-gray-400">Completed 5 research tasks</p>
+                            <div class="mt-2 text-xs text-green-400">✅ Earned 3 days ago</div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i data-lucide="clock" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h4 class="font-bold text-blue-400 mb-1">Timeline Master</h4>
+                            <p class="text-xs text-gray-400">Perfect timeline accuracy</p>
+                            <div class="mt-2 text-xs text-green-400">✅ Earned 1 week ago</div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i data-lucide="brain" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h4 class="font-bold text-purple-400 mb-1">Science Genius</h4>
+                            <p class="text-xs text-gray-400">Aced all biology quizzes</p>
+                            <div class="mt-2 text-xs text-green-400">✅ Earned yesterday</div>
+                        </div>
+                        
+                        <div class="achievement-card">
+                            <div class="achievement-icon">
+                                <i data-lucide="zap" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h4 class="font-bold text-yellow-400 mb-1">Speed Learner</h4>
+                            <p class="text-xs text-gray-400">Complete lesson in under 10 min</p>
+                            <div class="mt-2 text-xs text-orange-400">🎯 Progress: 8/10</div>
+                        </div>
+                        
+                        <div class="achievement-card locked">
+                            <div class="achievement-icon">
+                                <i data-lucide="crown" class="w-8 h-8 text-gray-400"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-400 mb-1">Knowledge King</h4>
+                            <p class="text-xs text-gray-500">Master 50 concepts</p>
+                            <div class="mt-2 text-xs text-gray-500">🔒 24/50 progress</div>
+                        </div>
+                        
+                        <div class="achievement-card locked">
+                            <div class="achievement-icon">
+                                <i data-lucide="star" class="w-8 h-8 text-gray-400"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-400 mb-1">Perfect Scholar</h4>
+                            <p class="text-xs text-gray-500">30-day study streak</p>
+                            <div class="mt-2 text-xs text-gray-500">🔒 7/30 days</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Spaced Repetition Section -->
+                <div class="academy-card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <i data-lucide="clock" class="w-6 h-6 mr-3 text-pink-400"></i>
+                            Review Schedule
+                        </h3>
+                        <button class="academy-btn secondary">
+                            <i data-lucide="settings" class="w-4 h-4"></i>
+                            Customize
+                        </button>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold mb-4">📅 Due Today</h4>
+                            <div class="spaced-card">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-semibold text-pink-400">Cell Theory Review</div>
+                                        <div class="text-sm text-gray-400">Last reviewed 3 days ago</div>
+                                    </div>
+                                    <button class="academy-btn">Review</button>
+                                </div>
+                            </div>
+                            
+                            <div class="spaced-card">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-semibold text-pink-400">DNA Structure Quiz</div>
+                                        <div class="text-sm text-gray-400">Last reviewed 1 week ago</div>
+                                    </div>
+                                    <button class="academy-btn">Review</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold mb-4">📋 Upcoming Reviews</h4>
+                            <div class="spaced-card opacity-75">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-semibold text-blue-400">Evolution Timeline</div>
+                                        <div class="text-sm text-gray-400">Due tomorrow</div>
+                                    </div>
+                                    <div class="text-sm text-gray-400">⏰ Tomorrow</div>
+                                </div>
+                            </div>
+                            
+                            <div class="spaced-card opacity-50">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-semibold text-green-400">Photosynthesis Process</div>
+                                        <div class="text-sm text-gray-400">Due in 3 days</div>
+                                    </div>
+                                    <div class="text-sm text-gray-400">📅 Friday</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Learning Milestones -->
+                <div class="academy-card p-6">
+                    <h3 class="text-xl font-bold mb-6 flex items-center">
+                        <i data-lucide="map" class="w-6 h-6 mr-3 text-green-400"></i>
+                        Learning Journey Milestones
+                    </h3>
+                    
+                    <div class="milestone-track">
+                        <div class="milestone-item completed">
+                            <div class="milestone-icon">
+                                <i data-lucide="check" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">Basic Science Foundation</div>
+                                <div class="text-sm text-gray-400">Completed 2 weeks ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="milestone-item completed">
+                            <div class="milestone-icon">
+                                <i data-lucide="check" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">Cell Biology Mastery</div>
+                                <div class="text-sm text-gray-400">Completed 1 week ago</div>
+                            </div>
+                        </div>
+                        
+                        <div class="milestone-item">
+                            <div class="milestone-icon">
+                                <i data-lucide="target" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">DNA & Genetics Track</div>
+                                <div class="text-sm text-gray-400">In progress - 75% complete</div>
+                            </div>
+                        </div>
+                        
+                        <div class="milestone-item locked">
+                            <div class="milestone-icon">
+                                <i data-lucide="lock" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-400">Advanced Evolution</div>
+                                <div class="text-sm text-gray-500">Unlocks after DNA track</div>
+                            </div>
+                        </div>
+                        
+                        <div class="milestone-item locked">
+                            <div class="milestone-icon">
+                                <i data-lucide="lock" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-400">Research Specialist</div>
+                                <div class="text-sm text-gray-500">Final mastery level</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </main>
+        </div>
+
+        <!-- Chat Sidebar -->
+        <div class="w-80 chat-area flex flex-col">
+            <!-- Chat Header -->
+            <div class="p-4 border-b border-white/10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">MOE Buddy</h4>
+                        <p class="text-xs text-green-400">🟢 Analytics Mode</p>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
+                <div class="flex justify-start mb-4">
+                    <div class="flex items-start space-x-3 max-w-[85%]">
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <div class="chat-message">
+                            <p class="text-sm text-white">🎯 Impressive progress, Level 7 Detective! Your 85% accuracy shows strong analytical skills. Ready to tackle those spaced reviews and unlock Level 8?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Chat Input -->
+            <div class="p-4 border-t border-white/10">
+                <div class="flex space-x-3">
+                    <textarea 
+                        id="chatInput"
+                        rows="1"
+                        placeholder="Ask about your progress..." 
+                        class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32"
+                    ></textarea>
+                    <button id="sendMessage" class="academy-btn px-4">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            
+                <!-- Quick Action Buttons -->
+                <div class="mt-3 space-y-2">
+                    <button class="quick-action-btn w-full text-left p-3 bg-green-500/10 border border-green-500/30 rounded-lg text-sm hover:bg-green-500/20 transition-colors">
+                        📊 How to improve my accuracy?
+                    </button>
+                    <button class="quick-action-btn w-full text-left p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-sm hover:bg-yellow-500/20 transition-colors">
+                        🏆 What's my next achievement?
+                    </button>
+                    <button class="quick-action-btn w-full text-left p-3 bg-pink-500/10 border border-pink-500/30 rounded-lg text-sm hover:bg-pink-500/20 transition-colors">
+                        ⏰ Optimize my review schedule
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Screen 3 Progress Dashboard
+        class Screen3Dashboard {
+            constructor() {
+                this.init();
+            }
+            
+            init() {
+                this.animateProgressRings();
+                this.setupMOEBuddy();
+                this.setupInteractions();
+            }
+            
+            animateProgressRings() {
+                const rings = document.querySelectorAll('.progress-ring .progress');
+                rings.forEach(ring => {
+                    const circumference = 2 * Math.PI * 52;
+                    ring.style.strokeDasharray = circumference;
+                    
+                    setTimeout(() => {
+                        const progress = 0.85; // 85%
+                        const offset = circumference - (progress * circumference);
+                        ring.style.strokeDashoffset = offset;
+                    }, 500);
+                });
+                
+                // Animate other progress bars
+                setTimeout(() => {
+                    document.querySelectorAll('.progress-fill').forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    });
+                }, 300);
+            }
+            
+            setupMOEBuddy() {
+                this.moeBuddy = new MOEBuddy();
+            }
+            
+            setupInteractions() {
+                // Achievement card clicks
+                document.querySelectorAll('.achievement-card:not(.locked)').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const title = card.querySelector('h4').textContent;
+                        this.showAchievementDetail(title);
+                    });
+                });
+                
+                // Review buttons
+                document.querySelectorAll('.spaced-card button').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.startReview(btn);
+                    });
+                });
+                
+                // Quick action buttons
+                document.querySelectorAll('.quick-action-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const message = btn.textContent.trim();
+                        if (this.moeBuddy) {
+                            this.moeBuddy.sendQuickMessage(message);
+                        }
+                    });
+                });
+            }
+            
+            showAchievementDetail(title) {
+                const details = {
+                    'History Detective': 'You showed excellent research skills by completing 5 detailed analysis tasks. Keep up the analytical thinking!',
+                    'Timeline Master': 'Perfect accuracy on timeline placement shows your strong understanding of chronological relationships.',
+                    'Science Genius': 'Outstanding performance across all biology assessments. You truly understand the fundamentals!'
+                };
+                
+                const message = details[title] || 'Great achievement unlocked!';
+                this.showNotification(`🏆 ${title}: ${message}`, 'success');
+            }
+            
+            startReview(button) {
+                const reviewItem = button.closest('.spaced-card');
+                const title = reviewItem.querySelector('.font-semibold').textContent;
+                
+                button.textContent = 'Starting...';
+                button.disabled = true;
+                
+                setTimeout(() => {
+                    this.showNotification(`🎯 Starting ${title} review session!`, 'success');
+                    // Here you would normally redirect to the review content
+                    button.textContent = 'Review';
+                    button.disabled = false;
+                }, 1000);
+            }
+            
+            showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `fixed top-6 right-6 px-4 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 transform translate-x-full`;
+                
+                const colors = {
+                    info: 'bg-blue-500 text-white',
+                    success: 'bg-green-500 text-white', 
+                    warning: 'bg-yellow-500 text-white'
+                };
+                
+                notification.className += ` ${colors[type]}`;
+                notification.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="info" class="w-4 h-4"></i>
+                        <span class="text-sm font-semibold">${message}</span>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => notification.remove(), 300);
+                }, 4000);
+            }
+        }
+        
+        // MOE Buddy Chat (adapted for Screen 3)
+        class MOEBuddy {
+            constructor() {
+                this.apiKey = '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';
+                this.chatMessages = [];
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                const sendButton = document.getElementById('sendMessage');
+                const chatInput = document.getElementById('chatInput');
+                
+                sendButton.addEventListener('click', () => this.sendMessage());
+                
+                const autoResize = () => {
+                    chatInput.style.height = 'auto';
+                    chatInput.style.height = Math.min(chatInput.scrollHeight, 128) + 'px';
+                };
+                autoResize();
+                chatInput.addEventListener('input', autoResize);
+                
+                let isComposing = false;
+                const isEnter = (evt) => evt.key === 'Enter' || evt.keyCode === 13;
+                chatInput.addEventListener('compositionstart', () => { isComposing = true; });
+                chatInput.addEventListener('compositionend', () => { isComposing = false; });
+                chatInput.addEventListener('keydown', (e) => {
+                    if (isComposing) return;
+                    if (isEnter(e) && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+            }
+            
+            async sendMessage() {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                
+                if (!message) return;
+                
+                this.addMessage('user', message);
+                input.value = '';
+                input.style.height = 'auto';
+                
+                this.showThinking();
+                
+                try {
+                    const response = await this.getAIResponse(message);
+                    this.hideThinking();
+                    this.addMessage('assistant', response);
+                } catch (error) {
+                    this.hideThinking();
+                    this.addMessage('assistant', '🎮 Connection failed! But your progress data is safely stored, Detective!');
+                }
+            }
+            
+            sendQuickMessage(message) {
+                document.getElementById('chatInput').value = message;
+                this.sendMessage();
+            }
+            
+            addMessage(role, message) {
+                const chatContainer = document.getElementById('chatMessages');
+                const messageDiv = document.createElement('div');
+                
+                if (role === 'user') {
+                    messageDiv.className = 'flex justify-end mb-4';
+                    messageDiv.innerHTML = `
+                        <div class="bg-blue-500/20 border border-blue-500/40 rounded-lg p-3 max-w-[80%]">
+                            <p class="text-sm text-white whitespace-pre-wrap break-words">${message}</p>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.className = 'flex justify-start mb-4';
+                    messageDiv.innerHTML = `
+                        <div class="flex items-start space-x-3 max-w-[85%]">
+                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div class="chat-message">
+                                <p class="text-sm text-white">${message}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                lucide.createIcons();
+                
+                this.chatMessages.push({ role, content: message });
+            }
+            
+            showThinking() {
+                const chatContainer = document.getElementById('chatMessages');
+                const thinkingDiv = document.createElement('div');
+                thinkingDiv.id = 'thinking-indicator';
+                thinkingDiv.className = 'flex justify-start mb-4';
+                thinkingDiv.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                            <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                            </div>
+                            <span class="text-xs text-gray-400">Analyzing progress...</span>
+                        </div>
+                    </div>
+                `;
+                chatContainer.appendChild(thinkingDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                lucide.createIcons();
+            }
+            
+            hideThinking() {
+                const thinkingIndicator = document.getElementById('thinking-indicator');
+                if (thinkingIndicator) {
+                    thinkingIndicator.remove();
+                }
+            }
+            
+            async getAIResponse(userMessage) {
+                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${this.apiKey}`,
+                        'Content-Type': 'application/json',
+                        'HTTP-Referer': window.location.origin,
+                        'X-Title': 'Isaac Learning Platform'
+                    },
+                    body: JSON.stringify({
+                        model: 'openai/gpt-4o-mini',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: `You are MOE Buddy, Isaac's progress analytics companion! Isaac is viewing his detailed learning dashboard showing Level 7 status, 85% accuracy, 7-day streak, and various achievements.
+
+ISAAC'S CURRENT STATS:
+- Level 7 Science Detective (245 XP to Level 8)
+- 85% quiz accuracy (excellent analytical skills)
+- 7-day study streak active
+- 24 lessons completed, 12 achievements earned
+- Strong in timeline analysis and research
+
+YOUR ROLE:
+- Analytics coach and progress motivator 📊
+- Help interpret his learning data
+- Suggest improvement strategies
+- Celebrate achievements and milestones
+- Encourage consistent study habits
+- Use gaming terminology but focus on learning insights
+
+Keep responses supportive and data-driven (2-3 sentences max)!`
+                            },
+                            ...this.chatMessages,
+                            { role: 'user', content: userMessage }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 150
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data.choices[0].message.content;
+            }
+        }
+        
+        // Initialize Screen 3
+        const dashboard = new Screen3Dashboard();
+        
+        // Button interactions
+        document.querySelectorAll('.academy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'translateY(0)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-1px)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
