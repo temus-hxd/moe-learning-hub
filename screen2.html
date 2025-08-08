@@ -729,8 +729,20 @@ sequenceDiagram
                 document.getElementById('prevSectionBtn').addEventListener('click', () => this.prevSection());
                 document.getElementById('saveProgressBtn').addEventListener('click', () => this.saveProgress());
                 
-                // Note taking
-                document.getElementById('addNoteBtn').addEventListener('click', () => this.addNote());
+                // Note taking -> open notebook modal
+                document.getElementById('addNoteBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const overlay = document.getElementById('notebookOverlay');
+                    if (!overlay) return;
+                    // render Mermaid diagrams then open
+                    if (window.mermaid) {
+                        const blocks = overlay.querySelectorAll('.mermaid');
+                        blocks.forEach(b => b.removeAttribute('data-processed'));
+                        mermaid.init(undefined, blocks);
+                    }
+                    overlay.style.display = 'flex';
+                    lucide.createIcons();
+                });
                 
                 // Quiz
                 document.getElementById('checkAnswerBtn').addEventListener('click', () => this.checkQuizAnswer());
