@@ -69,6 +69,12 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-size: 14px;
+            display: inline-flex;           /* center icon + text */
+            align-items: center;
+            justify-content: center;
+            gap: 8px;                       /* spacing between icon and text */
+            line-height: 1.2;
+            vertical-align: middle;
         }
         
         .academy-btn:hover {
@@ -413,6 +419,10 @@
             font-weight: 600;
             display: inline-block;
             margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
         
         .module-meta {
@@ -707,7 +717,7 @@
                     <textarea 
                         id="chatInput"
                         rows="1"
-                        placeholder="Ask me about the timeline challenge..." 
+                        placeholder="" 
                         enterkeyhint="send"
                         class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32 leading-5 whitespace-pre-wrap break-words"
                     ></textarea>
@@ -828,12 +838,12 @@
 
                 const droppedCard = document.createElement('div');
                 droppedCard.className = 'dropped-card';
-                droppedCard.innerHTML = \`
+                droppedCard.innerHTML = `
                     <div class="card-mini">
-                        <h4>\${cardTitle}</h4>
+                        <h4>${cardTitle}</h4>
                         <button class="remove-btn" onclick="assessment.removeCard(this)">×</button>
                     </div>
-                \`;
+                `;
 
                 dropZone.appendChild(droppedCard);
                 dropZone.classList.add('filled');
@@ -849,7 +859,7 @@
                 this.droppedCards++;
                 this.updateProgress();
                 this.updateSubmitButton();
-                this.showNotification(\`\${cardTitle} placed on timeline!\`, 'success');
+                this.showNotification(`${cardTitle} placed on timeline!`, 'success');
             }
             
             removeCard(button) {
@@ -878,8 +888,8 @@
                 const progressText = document.getElementById('progressText');
                 const newProgress = ((3 + this.droppedCards) / 8) * 100;
                 
-                progressFill.style.width = \`\${newProgress}%\`;
-                progressText.textContent = \`\${3 + this.droppedCards} of 8 completed\`;
+                progressFill.style.width = `${newProgress}%`;
+                progressText.textContent = `${3 + this.droppedCards} of 8 completed`;
             }
             
             updateSubmitButton() {
@@ -945,7 +955,7 @@
             
             showNotification(message, type = 'info') {
                 const notification = document.createElement('div');
-                notification.className = \`fixed top-6 right-6 px-4 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 transform translate-x-full\`;
+                notification.className = `fixed top-6 right-6 px-4 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 transform translate-x-full`;
                 
                 const colors = {
                     info: 'bg-blue-500 text-white',
@@ -953,13 +963,13 @@
                     warning: 'bg-yellow-500 text-white'
                 };
                 
-                notification.className += \` \${colors[type]}\`;
-                notification.innerHTML = \`
+                notification.className += ` ${colors[type]}`;
+                notification.innerHTML = `
                     <div class="flex items-center space-x-2">
                         <i data-lucide="info" class="w-4 h-4"></i>
-                        <span class="text-sm font-semibold">\${message}</span>
+                        <span class="text-sm font-semibold">${message}</span>
                     </div>
-                \`;
+                `;
                 
                 document.body.appendChild(notification);
                 lucide.createIcons();
@@ -1057,23 +1067,23 @@
                 
                 if (role === 'user') {
                     messageDiv.className = 'flex justify-end mb-4';
-                    messageDiv.innerHTML = \`
+                    messageDiv.innerHTML = `
                         <div class="bg-blue-500/20 border border-blue-500/40 rounded-lg p-3 max-w-[80%]">
-                            <p class="text-sm text-white whitespace-pre-wrap break-words">\${message}</p>
+                            <p class="text-sm text-white whitespace-pre-wrap break-words">${message}</p>
                         </div>
-                    \`;
+                    `;
                 } else {
                     messageDiv.className = 'flex justify-start mb-4';
-                    messageDiv.innerHTML = \`
+                    messageDiv.innerHTML = `
                         <div class="flex items-start space-x-3 max-w-[85%]">
                             <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
                                 <i data-lucide="bot" class="w-4 h-4 text-white"></i>
                             </div>
                             <div class="chat-message">
-                                <p class="text-sm text-white">\${message}</p>
+                                <p class="text-sm text-white">${message}</p>
                             </div>
                         </div>
-                    \`;
+                    `;
                 }
                 
                 chatContainer.appendChild(messageDiv);
@@ -1088,7 +1098,7 @@
                 const thinkingDiv = document.createElement('div');
                 thinkingDiv.id = 'thinking-indicator';
                 thinkingDiv.className = 'flex justify-start mb-4';
-                thinkingDiv.innerHTML = \`
+                thinkingDiv.innerHTML = `
                     <div class="flex items-start space-x-3">
                         <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                             <i data-lucide="bot" class="w-4 h-4 text-white"></i>
@@ -1102,7 +1112,7 @@
                             <span class="text-xs text-gray-400">MOE Buddy is thinking...</span>
                         </div>
                     </div>
-                \`;
+                `;
                 chatContainer.appendChild(thinkingDiv);
                 chatContainer.scrollTop = chatContainer.scrollHeight;
                 lucide.createIcons();
@@ -1119,7 +1129,7 @@
                 const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
                     method: 'POST',
                     headers: {
-                        'Authorization': \`Bearer \${this.apiKey}\`,
+                        'Authorization': `Bearer ${this.apiKey}`,
                         'Content-Type': 'application/json',
                         'HTTP-Referer': window.location.origin,
                         'X-Title': 'Isaac Learning Platform'
@@ -1129,7 +1139,7 @@
                         messages: [
                             {
                                 role: 'system',
-                                content: \`You are MOE Buddy, Isaac's science quest companion! Isaac is currently doing a Science Discovery Timeline Challenge, placing discoveries like Cell Theory, DNA Structure, Photosynthesis, and Evolution in the correct time periods.
+                                content: `You are MOE Buddy, Isaac's science quest companion! Isaac is currently doing a Science Discovery Timeline Challenge, placing discoveries like Cell Theory, DNA Structure, Photosynthesis, and Evolution in the correct time periods.
 
 ISAAC'S PROFILE:
 - 14-year-old analytical learner
@@ -1144,7 +1154,7 @@ YOUR ROLE:
 - Keep responses 2-3 sentences max
 - Be encouraging and supportive
 
-Respond as Isaac's science quest buddy!\`
+Respond as Isaac's science quest buddy!`
                             },
                             ...this.chatMessages,
                             { role: 'user', content: userMessage }
@@ -1155,7 +1165,7 @@ Respond as Isaac's science quest buddy!\`
                 });
 
                 if (!response.ok) {
-                    throw new Error(\`HTTP error! status: \${response.status}\`);
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
                 const data = await response.json();
