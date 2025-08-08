@@ -1009,6 +1009,12 @@
                         this.sendMessage();
                     }
                 });
+                document.addEventListener('keydown', (e) => {
+                    if (document.activeElement === chatInput && !isComposing && e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
                 
                 quickActionBtns.forEach(btn => {
                     btn.addEventListener('click', () => {
