@@ -13,6 +13,8 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Mermaid for diagrams -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     
     <style>
         :root {
@@ -182,6 +184,7 @@
             transition: all 0.3s ease;
             user-select: none;
             box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+            text-align: center;
         }
         
         .concept-card:hover {
@@ -360,6 +363,10 @@
         .hidden {
             display: none;
         }
+
+        /* Notebook specific */
+        .notes-textarea { width: 100%; height: calc(100% - 8px); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: #fff; border-radius: 10px; resize: none; padding: 12px; outline: none; }
+        .mermaid { background: rgba(255,255,255,.04); border-radius: 10px; padding: 12px; }
         
         /* Hide scrollbars */
         ::-webkit-scrollbar { display: none; }
@@ -425,7 +432,7 @@
                 <!-- Current Lesson Section -->
                 <div class="academy-card p-8" id="lessonSection">
                     <div class="flex items-center justify-between mb-6">
-                        <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-4">
                             <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center">
                                 <i data-lucide="microscope" class="w-8 h-8 text-white"></i>
                             </div>
@@ -434,20 +441,14 @@
                                 <p class="text-xl text-gray-300">Discover the powerhouses and factories inside every cell</p>
                             </div>
                         </div>
-                        <button class="academy-btn success" id="getHelpBtn">
-                            <i data-lucide="help-circle" class="w-4 h-4"></i>
-                            Get AI Help
-                        </button>
+                    <button class="academy-btn success" id="openNotebook"><i data-lucide="notebook-text" class="w-4 h-4"></i> Review Notes</button>
                     </div>
 
                     <!-- Lesson Content -->
                     <div class="lesson-content">
                         <!-- Section 1: Introduction -->
                         <div class="lesson-section">
-                            <h3 class="text-2xl font-bold mb-4 flex items-center">
-                                <i data-lucide="info" class="w-6 h-6 mr-3 text-blue-400"></i>
-                                Understanding Cell Structure
-                            </h3>
+                            <h3 class="text-2xl font-bold mb-4">Understanding Cell Structure</h3>
                             <p class="text-lg text-gray-200 mb-4 leading-relaxed">
                                 Think of a cell like a bustling city, where each organelle has a specific job to keep the city running smoothly. 
                                 Just as a city has power plants, factories, and transportation systems, cells have specialized structures 
@@ -471,44 +472,33 @@
 
                         <!-- Section 2: Interactive Concept Mapping -->
                         <div class="lesson-section">
-                            <h3 class="text-2xl font-bold mb-4 flex items-center">
-                                <i data-lucide="network" class="w-6 h-6 mr-3 text-yellow-400"></i>
-                                Match Organelles to Functions
-                            </h3>
+                            <h3 class="text-2xl font-bold mb-4">Match Organelles to Functions</h3>
                             <p class="text-gray-200 mb-4">
                                 Click on each organelle card to learn about its function, then drag it to the correct function box!
                             </p>
                             
                             <div class="concept-grid">
                                 <div class="concept-card" data-organelle="mitochondria">
-                                    <div class="flex items-center space-x-3 mb-2">
-                                        <i data-lucide="zap" class="w-6 h-6 text-yellow-400"></i>
-                                        <h4 class="text-lg font-bold">Mitochondria</h4>
-                                    </div>
+                                    <i data-lucide="zap" class="w-8 h-8 text-yellow-400 mx-auto mb-3"></i>
+                                    <h4 class="text-lg font-bold mb-2">Mitochondria</h4>
                                     <p class="text-sm text-gray-300">The "powerhouse of the cell"</p>
                                 </div>
                                 
                                 <div class="concept-card" data-organelle="nucleus">
-                                    <div class="flex items-center space-x-3 mb-2">
-                                        <i data-lucide="command" class="w-6 h-6 text-blue-400"></i>
-                                        <h4 class="text-lg font-bold">Nucleus</h4>
-                                    </div>
+                                    <i data-lucide="command" class="w-8 h-8 text-blue-400 mx-auto mb-3"></i>
+                                    <h4 class="text-lg font-bold mb-2">Nucleus</h4>
                                     <p class="text-sm text-gray-300">Control center of the cell</p>
                                 </div>
                                 
                                 <div class="concept-card" data-organelle="ribosome">
-                                    <div class="flex items-center space-x-3 mb-2">
-                                        <i data-lucide="cpu" class="w-6 h-6 text-green-400"></i>
-                                        <h4 class="text-lg font-bold">Ribosomes</h4>
-                                    </div>
+                                    <i data-lucide="cpu" class="w-8 h-8 text-green-400 mx-auto mb-3"></i>
+                                    <h4 class="text-lg font-bold mb-2">Ribosomes</h4>
                                     <p class="text-sm text-gray-300">Protein manufacturing sites</p>
                                 </div>
                                 
                                 <div class="concept-card" data-organelle="er">
-                                    <div class="flex items-center space-x-3 mb-2">
-                                        <i data-lucide="truck" class="w-6 h-6 text-purple-400"></i>
-                                        <h4 class="text-lg font-bold">Endoplasmic Reticulum</h4>
-                                    </div>
+                                    <i data-lucide="truck" class="w-8 h-8 text-purple-400 mx-auto mb-3"></i>
+                                    <h4 class="text-lg font-bold mb-2">Endoplasmic Reticulum</h4>
                                     <p class="text-sm text-gray-300">Transportation network</p>
                                 </div>
                             </div>
@@ -517,10 +507,7 @@
                         <!-- Section 3: Comprehension Check -->
                         <div class="lesson-section">
                             <div class="quiz-container">
-                                <h3 class="text-2xl font-bold mb-4 flex items-center">
-                                    <i data-lucide="brain" class="w-6 h-6 mr-3 text-yellow-400"></i>
-                                    Quick Knowledge Check
-                                </h3>
+                                <h3 class="text-2xl font-bold mb-4">Quick Knowledge Check</h3>
                                 <p class="text-lg mb-4">Which organelle is responsible for producing ATP (energy) for the cell?</p>
                                 
                                 <div class="space-y-3">
@@ -636,10 +623,7 @@
         </div>
     </div>
 
-    <!-- Floating Help Button -->
-    <div class="floating-help-btn" id="floatingHelpBtn">
-        <i data-lucide="help-circle" class="w-8 h-8 text-white"></i>
-    </div>
+
 
     <!-- Reusable Glass Modal -->
     <div id="glassModal" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="glassModalTitle" aria-hidden="true">
@@ -663,7 +647,61 @@
         </div>
     </div>
 
+    <!-- Notebook Glass Modal -->
+    <div id="notebookOverlay" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="notebookTitle" aria-hidden="true">
+        <div class="glass-modal" style="width: min(96vw, 1100px); height: min(92vh, 760px);">
+            <div class="glass-modal-header">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="notebook-text" class="w-5 h-5"></i>
+                    <h3 id="notebookTitle" class="text-lg font-semibold">Advanced Cell Biology Notes</h3>
+                </div>
+                <button id="closeNotebook" class="glass-close">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="glass-modal-body" style="display:flex; gap: 16px; height: calc(100% - 64px);">
+                <div class="glass-col" style="flex:2">
+                    <h4 class="text-xl font-bold mb-3">Lecture: Organelles at Work</h4>
+                    <p class="text-white/85 mb-3">Use this mini‑lecture as a map of who does what inside cells. Link each organelle to its job and to the energy/materials it needs.</p>
+                    <div class="mermaid mb-4">
+flowchart TB
+  N["Nucleus\nDNA & Control"] -->|mRNA| R["Ribosome\nProtein Assembly"]
+  R --> ER["Rough ER\nFolding/Transport"]
+  ER --> G["Golgi\nPackaging"]
+  M["Mitochondria\nATP from Respiration"] --> E((ATP))
+  E --> R
+  E --> ActiveTransport["Active Transport"]
+  SER["Smooth ER\nLipids/Detox"]
+                    </div>
+                    <div class="mermaid mb-4">
+sequenceDiagram
+  participant N as Nucleus
+  participant R as Ribosome
+  participant ER as Rough ER
+  participant G as Golgi
+  N->>R: mRNA instructions
+  R->>ER: nascent protein
+  ER->>G: folded protein in vesicle
+  G-->>Cell: labeled protein to destination
+                    </div>
+                    <ul class="list-disc pl-5 space-y-1 text-white/85">
+                        <li>Ribosomes read mRNA and stitch amino acids into proteins.</li>
+                        <li>Rough ER helps fold/modify proteins; Smooth ER builds lipids and detoxifies.</li>
+                        <li>Mitochondria provide ATP to power synthesis and transport steps.</li>
+                        <li>Golgi tags and ships proteins to where they are needed.</li>
+                    </ul>
+                </div>
+                <div class="glass-col" style="flex:1">
+                    <h4 class="text-lg font-semibold mb-2">Isaac’s Notes</h4>
+                    <textarea class="notes-textarea" placeholder="Write your notes here... (mockup; not saved)"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Mermaid init
+        if (window.mermaid) { mermaid.initialize({ startOnLoad: false, theme: 'dark' }); }
         // Initialize Lucide icons
         lucide.createIcons();
         
@@ -682,6 +720,7 @@
                 this.setupEventListeners();
                 this.setupMOEBuddy();
                 this.setupInteractiveElements();
+                this.setupNotebook();
             }
             
             setupEventListeners() {
@@ -689,10 +728,6 @@
                 document.getElementById('nextSectionBtn').addEventListener('click', () => this.nextSection());
                 document.getElementById('prevSectionBtn').addEventListener('click', () => this.prevSection());
                 document.getElementById('saveProgressBtn').addEventListener('click', () => this.saveProgress());
-                
-                // Help buttons
-                document.getElementById('getHelpBtn').addEventListener('click', () => this.showAIHelp());
-                document.getElementById('floatingHelpBtn').addEventListener('click', () => this.showAIHelp());
                 
                 // Note taking
                 document.getElementById('addNoteBtn').addEventListener('click', () => this.addNote());
@@ -717,6 +752,24 @@
                 quizOptions.forEach(option => {
                     option.addEventListener('click', () => this.selectQuizOption(option));
                 });
+            }
+
+            setupNotebook() {
+                const openBtn = document.getElementById('openNotebook');
+                const overlay = document.getElementById('notebookOverlay');
+                const closeBtn = document.getElementById('closeNotebook');
+                if (!(openBtn && overlay && closeBtn)) return;
+                const renderMermaid = () => {
+                    if (window.mermaid) {
+                        const blocks = overlay.querySelectorAll('.mermaid');
+                        blocks.forEach(b => b.removeAttribute('data-processed'));
+                        mermaid.init(undefined, blocks);
+                    }
+                };
+                openBtn.addEventListener('click', () => { overlay.style.display = 'flex'; renderMermaid(); lucide.createIcons(); });
+                closeBtn.addEventListener('click', () => overlay.style.display = 'none');
+                overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.style.display = 'none'; });
+                document.addEventListener('keydown', function esc(e){ if (e.key === 'Escape') overlay.style.display='none'; });
             }
             
             handleConceptClick(card) {
