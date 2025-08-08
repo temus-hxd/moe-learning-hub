@@ -708,6 +708,7 @@
                         id="chatInput"
                         rows="1"
                         placeholder="Ask me about the timeline challenge..." 
+                        enterkeyhint="send"
                         class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32 leading-5 whitespace-pre-wrap break-words"
                     ></textarea>
                     <button id="sendMessage" class="academy-btn px-4">
@@ -998,7 +999,11 @@
                 };
                 autoResize();
                 chatInput.addEventListener('input', autoResize);
+                let isComposing = false;
+                chatInput.addEventListener('compositionstart', () => { isComposing = true; });
+                chatInput.addEventListener('compositionend', () => { isComposing = false; });
                 chatInput.addEventListener('keydown', (e) => {
+                    if (isComposing) return;
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
                         this.sendMessage();
