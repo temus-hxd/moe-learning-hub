@@ -30,11 +30,18 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+            background: radial-gradient(1200px 800px at -10% -10%, rgba(255,255,255,0.06), transparent 60%),
+                        radial-gradient(1000px 700px at 110% 10%, rgba(255,255,255,0.05), transparent 60%),
+                        linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
             color: var(--text-primary);
             margin: 0;
             padding: 0;
             min-height: 100vh;
+            animation: bgShift 12s ease-in-out infinite alternate;
+        }
+        @keyframes bgShift {
+            0% { filter: hue-rotate(0deg) brightness(1); }
+            100% { filter: hue-rotate(8deg) brightness(1.05); }
         }
         
         .academy-card {
@@ -142,6 +149,7 @@
             height: 3px;
             background: linear-gradient(90deg, var(--accent-blue), var(--accent-pink));
             border-radius: 2px;
+            box-shadow: 0 0 18px rgba(240,147,251,0.35), 0 0 10px rgba(79,172,254,0.35);
         }
         
         .timeline-marker {
@@ -168,7 +176,7 @@
         .drop-zone {
             width: 120px;
             height: 80px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.06);
             border: 2px dashed var(--border-color);
             border-radius: 8px;
             display: flex;
@@ -178,6 +186,7 @@
             font-size: 12px;
             text-align: center;
             color: var(--text-secondary);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 8px 22px rgba(0,0,0,0.25);
         }
         
         .drop-zone.drag-over {
@@ -207,6 +216,7 @@
             cursor: grab;
             transition: all 0.3s ease;
             user-select: none;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.35);
         }
         
         .drag-card:hover {
@@ -468,7 +478,7 @@
             </header>
             
             <!-- Progress Bar -->
-            <div class="p-6 border-b border-white/10">
+            <div class="p-6 border-b border-white/10 sticky top-0 backdrop-blur supports-[backdrop-filter]:bg-white/5/10">
                 <div class="flex justify-between items-center mb-2">
                     <span class="font-semibold">Pre-Assessment Progress</span>
                     <span class="font-bold text-blue-400" id="progressText">3 of 8 completed</span>
@@ -694,12 +704,12 @@
             <!-- Chat Input -->
             <div class="p-4 border-t border-white/10">
                 <div class="flex space-x-3">
-                    <input 
+                    <textarea 
                         id="chatInput"
-                        type="text" 
+                        rows="1"
                         placeholder="Ask me about the timeline challenge..." 
-                        class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors"
-                    >
+                        class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32 leading-5 whitespace-pre-wrap break-words"
+                    ></textarea>
                     <button id="sendMessage" class="academy-btn px-4">
                         <i data-lucide="send" class="w-4 h-4"></i>
                     </button>
@@ -982,8 +992,17 @@
                 const quickActionBtns = document.querySelectorAll('.quick-action-btn');
                 
                 sendButton.addEventListener('click', () => this.sendMessage());
-                chatInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') this.sendMessage();
+                const autoResize = () => {
+                    chatInput.style.height = 'auto';
+                    chatInput.style.height = Math.min(chatInput.scrollHeight, 128) + 'px';
+                };
+                autoResize();
+                chatInput.addEventListener('input', autoResize);
+                chatInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
                 });
                 
                 quickActionBtns.forEach(btn => {
@@ -1028,7 +1047,7 @@
                     messageDiv.className = 'flex justify-end mb-4';
                     messageDiv.innerHTML = \`
                         <div class="bg-blue-500/20 border border-blue-500/40 rounded-lg p-3 max-w-[80%]">
-                            <p class="text-sm text-white">\${message}</p>
+                            <p class="text-sm text-white whitespace-pre-wrap break-words">\${message}</p>
                         </div>
                     \`;
                 } else {
