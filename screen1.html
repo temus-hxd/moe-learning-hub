@@ -447,6 +447,39 @@
         ::-webkit-scrollbar { display: none; }
         * { scrollbar-width: none; }
         .overflow-y-auto { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Reusable Glass Modal */
+        .glass-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            animation: fadeIn 150ms ease-out;
+        }
+        .glass-modal {
+            width: min(92vw, 560px);
+            background: rgba(15, 15, 23, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+        .glass-modal-header, .glass-modal-footer { padding: 16px 20px; }
+        .glass-modal-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .glass-modal-body { padding: 16px 20px; color: var(--text-secondary); }
+        .glass-close {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+        @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
         
         @media (max-width: 768px) {
             .desktop-layout { flex-direction: column; }
@@ -587,6 +620,28 @@
                             <i data-lucide="check" class="w-4 h-4 mr-2"></i>
                             Submit Assessment
                         </button>
+                    </div>
+                </div>
+
+                <!-- Reusable Glass Modal (Hints) -->
+                <div id="glassModal" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="glassModalTitle" aria-hidden="true">
+                    <div class="glass-modal">
+                        <div class="glass-modal-header">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="lightbulb" class="w-5 h-5 text-yellow-300"></i>
+                                <h3 id="glassModalTitle" class="text-lg font-semibold">Hint</h3>
+                            </div>
+                            <button id="glassClose" class="glass-close">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <div id="glassBody" class="glass-modal-body"></div>
+                        <div class="glass-modal-footer">
+                            <button id="glassOk" class="academy-btn w-full">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                                Got it
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -914,7 +969,7 @@
                 ];
                 
                 const randomHint = hints[Math.floor(Math.random() * hints.length)];
-                this.showNotification(randomHint, 'info');
+                this.showGlassModal(randomHint);
             }
             
             handleSubmit() {
@@ -986,6 +1041,24 @@
                     notification.style.transform = 'translateX(100%)';
                     setTimeout(() => notification.remove(), 300);
                 }, 3000);
+            }
+
+            // Reusable Glass Modal API
+            showGlassModal(message) {
+                const overlay = document.getElementById('glassModal');
+                const body = document.getElementById('glassBody');
+                const closeBtn = document.getElementById('glassClose');
+                const okBtn = document.getElementById('glassOk');
+                body.innerHTML = `<p class="text-base">${message}</p>`;
+                overlay.style.display = 'flex';
+                const close = () => { overlay.style.display = 'none'; };
+                closeBtn.onclick = close;
+                okBtn.onclick = close;
+                overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+                document.addEventListener('keydown', function handler(e) {
+                    if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); }
+                });
+                lucide.createIcons();
             }
         }
         
