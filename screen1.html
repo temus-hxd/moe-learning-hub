@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isaac's Academy - Pre-Assessment</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        :root {
+            --primary-blue: #2a3046;
+            --primary-purple: #764BA2;
+            --accent-pink: #F093FB;
+            --accent-blue: #4FACFE;
+            --accent-yellow: #FFD93D;
+            --dark-bg: #0F0F23;
+            --card-bg: rgba(30, 30, 60, 0.9);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --text-primary: #FFFFFF;
+            --text-secondary: #B8C6DB;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .academy-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .academy-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary-blue);
+        }
+        
+        .academy-btn {
+            background: linear-gradient(145deg, var(--primary-blue), #5A67D8);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+        
+        .academy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .academy-btn.secondary {
+            background: linear-gradient(145deg, var(--accent-pink), #E91E63);
+        }
+        
+        .academy-btn.secondary:hover {
+            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+        }
+        
+        .academy-btn:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            height: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+            height: 100%;
+            border-radius: inherit;
+            transition: width 0.8s ease;
+        }
+        
+        .chat-area {
+            background: var(--card-bg);
+            border-left: 2px solid var(--border-color);
+            height: 100vh;
+            backdrop-filter: blur(20px);
+        }
+        
+        .chat-message {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+        }
+        
+        /* Screen 1 Specific Styles */
+        .timeline-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            max-width: 100%;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 12.5%;
+            right: 12.5%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-pink));
+            border-radius: 2px;
+        }
+        
+        .timeline-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .year-label {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--border-color);
+        }
+        
+        .drop-zone {
+            width: 120px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        
+        .drop-zone.drag-over {
+            border-color: var(--accent-blue);
+            background: rgba(79, 172, 254, 0.1);
+            border-style: solid;
+        }
+        
+        .drop-zone.filled {
+            border-style: solid;
+            border-color: var(--accent-yellow);
+            background: rgba(255, 217, 61, 0.1);
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .drag-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: grab;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        
+        .drag-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 32px rgba(79, 172, 254, 0.3);
+            transform: translateY(-4px);
+        }
+        
+        .drag-card:active {
+            cursor: grabbing;
+            transform: scale(0.98);
+        }
+        
+        .drag-card.dragging {
+            opacity: 0.7;
+            transform: rotate(5deg) scale(1.05);
+            z-index: 1000;
+        }
+        
+        .drag-card h3 {
+            color: var(--text-primary);
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .drag-card p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+        
+        .dropped-card {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-mini {
+            background: linear-gradient(145deg, var(--accent-blue), var(--primary-blue));
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            max-width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .card-mini h4 {
+            margin: 0;
+            font-size: 10px;
+            line-height: 1.2;
+        }
+        
+        .remove-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .remove-btn:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .analyzing-state {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 2rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .badge-achievement {
+            background: linear-gradient(135deg, var(--accent-yellow), #FFA500);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(255, 217, 61, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .badge-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .path-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--border-color);
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .module-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .module-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+        }
+        
+        .module-card.recommended {
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 0 1px rgba(255, 217, 61, 0.3);
+        }
+        
+        .module-tag {
+            background: var(--accent-yellow);
+            color: var(--primary-blue);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .module-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+        }
+        
+        .module-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Hide scrollbars */
+        ::-webkit-scrollbar { display: none; }
+        * { scrollbar-width: none; }
+        .overflow-y-auto { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @media (max-width: 768px) {
+            .desktop-layout { flex-direction: column; }
+            .chat-area { height: 50vh; border-left: none; border-top: 2px solid var(--border-color); }
+            .timeline { flex-direction: column; gap: 2rem; }
+            .timeline::before { display: none; }
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="flex h-screen desktop-layout">
+        <!-- Main Content Area -->
+        <div class="flex-1 overflow-y-auto">
+            <!-- Header -->
+            <header class="p-6 border-b border-white/10">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <i data-lucide="graduation-cap" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold">MOE Learning Buddy</h1>
+                            <p class="text-sm text-gray-400">Pre-Assessment & Learning Path</p>
+                        </div>
+                    </div>
+                    
+                    <!-- User Info -->
+                    <div class="flex items-center space-x-4">
+                        <div class="text-right">
+                            <p class="font-bold">Isaac Chen</p>
+                            <p class="text-sm text-gray-400">Level 7 • 1,245 XP</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="img/isaac-photo.png" alt="Isaac Chen" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Progress Bar -->
+            <div class="p-6 border-b border-white/10">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="font-semibold">Pre-Assessment Progress</span>
+                    <span class="font-bold text-blue-400" id="progressText">3 of 8 completed</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 37.5%"></div>
+                </div>
+            </div>
+            
+            <!-- Assessment Content -->
+            <main class="p-6 space-y-6">
+                
+                <!-- Pre-Assessment Section -->
+                <div class="academy-card p-8" id="assessmentSection">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="brain" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold mb-2">Science Discovery Timeline Challenge</h2>
+                        <p class="text-xl text-gray-300">Drag and drop the scientific discoveries to their correct timeline positions</p>
+                    </div>
+
+                    <!-- Timeline -->
+                    <div class="timeline-container">
+                        <div class="timeline">
+                            <div class="timeline-marker">
+                                <div class="year-label">1600s</div>
+                                <div class="drop-zone" data-period="1600s">Drop Here</div>
+                            </div>
+                            <div class="timeline-marker">
+                                <div class="year-label">1700s</div>
+                                <div class="drop-zone" data-period="1700s">Drop Here</div>
+                            </div>
+                            <div class="timeline-marker">
+                                <div class="year-label">1800s</div>
+                                <div class="drop-zone" data-period="1800s">Drop Here</div>
+                            </div>
+                            <div class="timeline-marker">
+                                <div class="year-label">1900s</div>
+                                <div class="drop-zone" data-period="1900s">Drop Here</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Draggable Cards -->
+                    <div class="cards-grid">
+                        <div class="drag-card" draggable="true" data-answer="1600s">
+                            <div class="flex items-start space-x-3">
+                                <i data-lucide="microscope" class="w-6 h-6 text-blue-400 mt-1"></i>
+                                <div>
+                                    <h3>Cell Theory Discovery</h3>
+                                    <p>Basic understanding that all living things are made of cells</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="drag-card" draggable="true" data-answer="1900s">
+                            <div class="flex items-start space-x-3">
+                                <i data-lucide="dna" class="w-6 h-6 text-green-400 mt-1"></i>
+                                <div>
+                                    <h3>DNA Structure</h3>
+                                    <p>Discovery of the double helix structure of genetic material</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="drag-card" draggable="true" data-answer="1700s">
+                            <div class="flex items-start space-x-3">
+                                <i data-lucide="leaf" class="w-6 h-6 text-yellow-400 mt-1"></i>
+                                <div>
+                                    <h3>Photosynthesis Process</h3>
+                                    <p>Understanding how plants convert light into energy</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="drag-card" draggable="true" data-answer="1800s">
+                            <div class="flex items-start space-x-3">
+                                <i data-lucide="fish" class="w-6 h-6 text-purple-400 mt-1"></i>
+                                <div>
+                                    <h3>Evolution Theory</h3>
+                                    <p>Natural selection and adaptation of species over time</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex justify-center space-x-4 mt-8">
+                        <button class="academy-btn secondary" id="hintBtn">
+                            <i data-lucide="lightbulb" class="w-4 h-4 mr-2"></i>
+                            Get Hint
+                        </button>
+                        <button class="academy-btn" id="submitBtn" disabled>
+                            <i data-lucide="check" class="w-4 h-4 mr-2"></i>
+                            Submit Assessment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Path Generation Section (Hidden initially) -->
+                <div class="academy-card p-8 hidden" id="pathSection">
+                    
+                    <!-- Analyzing State -->
+                    <div class="analyzing-state" id="analyzingState">
+                        <div class="spinner"></div>
+                        <h2 class="text-2xl font-bold mb-2">Analyzing your responses...</h2>
+                        <p class="text-gray-300">Creating your personalized learning path based on your strengths</p>
+                    </div>
+
+                    <!-- Path Results -->
+                    <div class="hidden" id="pathResults">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="route" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h2 class="text-3xl font-bold mb-2">Your Personalized Learning Journey</h2>
+                        </div>
+
+                        <!-- Achievement Badge -->
+                        <div class="badge-achievement">
+                            <div class="badge-icon">
+                                <i data-lucide="search" class="w-10 h-10 text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Science Detective Unlocked!</h3>
+                            <p class="text-white/90">You've demonstrated strong analytical and problem-solving skills</p>
+                        </div>
+
+                        <!-- Learning Path Stats -->
+                        <div class="path-stats">
+                            <div class="stat-card">
+                                <span class="stat-number">85%</span>
+                                <span class="stat-label">Foundation Complete</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Modules Unlocked</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">3.5hrs</span>
+                                <span class="stat-label">Estimated Time</span>
+                            </div>
+                        </div>
+
+                        <!-- Recommended Modules -->
+                        <div class="modules-grid">
+                            <div class="module-card recommended">
+                                <div class="module-tag">
+                                    <i data-lucide="star" class="w-3 h-3 mr-1"></i>
+                                    Recommended
+                                </div>
+                                <h3 class="text-lg font-bold mb-2 text-white">Advanced Cell Biology</h3>
+                                <p class="text-gray-300 mb-4">Deep dive into cellular structures, organelles, and their functions in living organisms</p>
+                                <div class="module-meta">
+                                    <span><i data-lucide="clock" class="w-4 h-4"></i> 45 min</span>
+                                    <span><i data-lucide="signal" class="w-4 h-4"></i> Advanced</span>
+                                </div>
+                            </div>
+
+                            <div class="module-card">
+                                <h3 class="text-lg font-bold mb-2 text-white">Genetics & DNA</h3>
+                                <p class="text-gray-300 mb-4">Explore heredity, genetic mechanisms, and molecular biology principles</p>
+                                <div class="module-meta">
+                                    <span><i data-lucide="clock" class="w-4 h-4"></i> 60 min</span>
+                                    <span><i data-lucide="signal" class="w-4 h-4"></i> Intermediate</span>
+                                </div>
+                            </div>
+
+                            <div class="module-card">
+                                <h3 class="text-lg font-bold mb-2 text-white">Evolution & Adaptation</h3>
+                                <p class="text-gray-300 mb-4">Study natural selection, species development, and evolutionary biology</p>
+                                <div class="module-meta">
+                                    <span><i data-lucide="clock" class="w-4 h-4"></i> 50 min</span>
+                                    <span><i data-lucide="signal" class="w-4 h-4"></i> Advanced</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Start Learning Button -->
+                        <div class="text-center mt-8">
+                            <button class="academy-btn" style="padding: 16px 32px; font-size: 16px;" id="startLearningBtn">
+                                <i data-lucide="play" class="w-5 h-5 mr-2"></i>
+                                Start My Learning Journey
+                            </button>
+                            <div class="mt-4">
+                                <a href="index.html" class="academy-btn secondary">
+                                    <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i>
+                                    Back to Dashboard
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Chat Sidebar -->
+        <div class="w-80 chat-area flex flex-col">
+            <!-- Chat Header -->
+            <div class="p-4 border-b border-white/10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">MOE Buddy</h4>
+                        <p class="text-xs text-green-400">🟢 Online • Assessment Mode</p>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
+                <div class="flex justify-start mb-4">
+                    <div class="flex items-start space-x-3 max-w-[85%]">
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <div class="chat-message">
+                            <p class="text-sm text-white">🧪 Hey Isaac! Ready for the Science Discovery Timeline Challenge? Drag those discoveries to show off your analytical skills - I know you'll ace this quest!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Chat Input -->
+            <div class="p-4 border-t border-white/10">
+                <div class="flex space-x-3">
+                    <input 
+                        id="chatInput"
+                        type="text" 
+                        placeholder="Ask me about the timeline challenge..." 
+                        class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors"
+                    >
+                    <button id="sendMessage" class="academy-btn px-4">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            
+                <!-- Quick Action Buttons -->
+                <div class="mt-3 space-y-2">
+                    <button class="quick-action-btn w-full text-left p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg text-sm hover:bg-purple-500/20 transition-colors" data-message="Give me a hint about Cell Theory timeline placement">
+                        🔬 Hint: Cell Theory timeline
+                    </button>
+                    <button class="quick-action-btn w-full text-left p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg text-sm hover:bg-blue-500/20 transition-colors" data-message="Explain the scientific method used in these discoveries">
+                        📚 Explain scientific methods
+                    </button>
+                    <button class="quick-action-btn w-full text-left p-3 bg-green-500/10 border border-green-500/30 rounded-lg text-sm hover:bg-green-500/20 transition-colors" data-message="What should I focus on for advanced science modules?">
+                        🎯 Advanced study tips
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Screen 1 Assessment Demo
+        class Screen1Assessment {
+            constructor() {
+                this.correctAnswers = {
+                    'Cell Theory Discovery': '1600s',
+                    'DNA Structure': '1900s',
+                    'Photosynthesis Process': '1700s',
+                    'Evolution Theory': '1800s'
+                };
+                this.droppedCards = 0;
+                this.totalCards = 4;
+                this.init();
+            }
+            
+            init() {
+                this.setupDragAndDrop();
+                this.setupButtons();
+                this.setupMOEBuddy();
+            }
+            
+            setupDragAndDrop() {
+                const cards = document.querySelectorAll('.drag-card');
+                const dropZones = document.querySelectorAll('.drop-zone');
+
+                cards.forEach(card => {
+                    card.addEventListener('dragstart', this.handleDragStart.bind(this));
+                    card.addEventListener('dragend', this.handleDragEnd.bind(this));
+                });
+
+                dropZones.forEach(zone => {
+                    zone.addEventListener('dragover', this.handleDragOver.bind(this));
+                    zone.addEventListener('dragenter', this.handleDragEnter.bind(this));
+                    zone.addEventListener('dragleave', this.handleDragLeave.bind(this));
+                    zone.addEventListener('drop', this.handleDrop.bind(this));
+                });
+            }
+            
+            setupButtons() {
+                const submitBtn = document.getElementById('submitBtn');
+                const hintBtn = document.getElementById('hintBtn');
+                const startLearningBtn = document.getElementById('startLearningBtn');
+
+                submitBtn.addEventListener('click', this.handleSubmit.bind(this));
+                hintBtn.addEventListener('click', this.showHint.bind(this));
+                
+                if (startLearningBtn) {
+                    startLearningBtn.addEventListener('click', this.startLearning.bind(this));
+                }
+            }
+            
+            setupMOEBuddy() {
+                this.moeBuddy = new MOEBuddy();
+            }
+            
+            handleDragStart(e) {
+                e.dataTransfer.setData('text/plain', e.target.querySelector('h3').textContent);
+                e.target.classList.add('dragging');
+            }
+
+            handleDragEnd(e) {
+                e.target.classList.remove('dragging');
+            }
+
+            handleDragOver(e) {
+                e.preventDefault();
+            }
+
+            handleDragEnter(e) {
+                e.preventDefault();
+                e.target.classList.add('drag-over');
+            }
+
+            handleDragLeave(e) {
+                e.target.classList.remove('drag-over');
+            }
+
+            handleDrop(e) {
+                e.preventDefault();
+                const cardTitle = e.dataTransfer.getData('text/plain');
+                const dropZone = e.target.closest('.drop-zone');
+                
+                if (!dropZone) return;
+
+                dropZone.classList.remove('drag-over');
+                
+                if (dropZone.classList.contains('filled')) {
+                    this.showNotification('This timeline position is already filled!', 'warning');
+                    return;
+                }
+
+                const droppedCard = document.createElement('div');
+                droppedCard.className = 'dropped-card';
+                droppedCard.innerHTML = \`
+                    <div class="card-mini">
+                        <h4>\${cardTitle}</h4>
+                        <button class="remove-btn" onclick="assessment.removeCard(this)">×</button>
+                    </div>
+                \`;
+
+                dropZone.appendChild(droppedCard);
+                dropZone.classList.add('filled');
+                dropZone.textContent = '';
+
+                const originalCard = Array.from(document.querySelectorAll('.drag-card')).find(
+                    card => card.querySelector('h3').textContent === cardTitle
+                );
+                if (originalCard) {
+                    originalCard.style.display = 'none';
+                }
+
+                this.droppedCards++;
+                this.updateProgress();
+                this.updateSubmitButton();
+                this.showNotification(\`\${cardTitle} placed on timeline!\`, 'success');
+            }
+            
+            removeCard(button) {
+                const droppedCard = button.closest('.dropped-card');
+                const cardTitle = button.previousElementSibling.textContent;
+                const dropZone = button.closest('.drop-zone');
+                
+                dropZone.removeChild(droppedCard);
+                dropZone.classList.remove('filled');
+                dropZone.textContent = 'Drop Here';
+                
+                const originalCard = Array.from(document.querySelectorAll('.drag-card')).find(
+                    card => card.querySelector('h3').textContent === cardTitle
+                );
+                if (originalCard) {
+                    originalCard.style.display = 'block';
+                }
+
+                this.droppedCards--;
+                this.updateProgress();
+                this.updateSubmitButton();
+            }
+            
+            updateProgress() {
+                const progressFill = document.getElementById('progressFill');
+                const progressText = document.getElementById('progressText');
+                const newProgress = ((3 + this.droppedCards) / 8) * 100;
+                
+                progressFill.style.width = \`\${newProgress}%\`;
+                progressText.textContent = \`\${3 + this.droppedCards} of 8 completed\`;
+            }
+            
+            updateSubmitButton() {
+                const submitBtn = document.getElementById('submitBtn');
+                if (this.droppedCards >= this.totalCards) {
+                    submitBtn.disabled = false;
+                } else {
+                    submitBtn.disabled = true;
+                }
+            }
+            
+            showHint() {
+                const hints = [
+                    "💡 Cell Theory was one of the earliest discoveries - think microscopes!",
+                    "💡 DNA structure discovery came with modern technology",
+                    "💡 Photosynthesis was studied during the Age of Scientific Revolution",
+                    "💡 Evolution Theory emerged during the Industrial Revolution era"
+                ];
+                
+                const randomHint = hints[Math.floor(Math.random() * hints.length)];
+                this.showNotification(randomHint, 'info');
+            }
+            
+            handleSubmit() {
+                this.showNotification('🎯 Excellent work! Analyzing your responses...', 'success');
+                
+                // Update progress to 100%
+                const progressFill = document.getElementById('progressFill');
+                const progressText = document.getElementById('progressText');
+                progressFill.style.width = '100%';
+                progressText.textContent = 'Pre-Assessment: Complete!';
+                
+                // Show path generation
+                setTimeout(() => {
+                    this.showPathGeneration();
+                }, 1500);
+            }
+            
+            showPathGeneration() {
+                const assessmentSection = document.getElementById('assessmentSection');
+                const pathSection = document.getElementById('pathSection');
+                
+                assessmentSection.style.display = 'none';
+                pathSection.classList.remove('hidden');
+                
+                // Show results after analyzing
+                setTimeout(() => {
+                    const analyzingState = document.getElementById('analyzingState');
+                    const pathResults = document.getElementById('pathResults');
+                    
+                    analyzingState.style.display = 'none';
+                    pathResults.classList.remove('hidden');
+                }, 3000);
+            }
+            
+            startLearning() {
+                this.showNotification('🚀 Starting your personalized learning journey!', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            }
+            
+            showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = \`fixed top-6 right-6 px-4 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 transform translate-x-full\`;
+                
+                const colors = {
+                    info: 'bg-blue-500 text-white',
+                    success: 'bg-green-500 text-white', 
+                    warning: 'bg-yellow-500 text-white'
+                };
+                
+                notification.className += \` \${colors[type]}\`;
+                notification.innerHTML = \`
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="info" class="w-4 h-4"></i>
+                        <span class="text-sm font-semibold">\${message}</span>
+                    </div>
+                \`;
+                
+                document.body.appendChild(notification);
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            }
+        }
+        
+        // MOE Buddy Chat (same as index.html but adapted for Screen 1)
+        class MOEBuddy {
+            constructor() {
+                this.apiKey = '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';
+                this.chatMessages = [];
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                const sendButton = document.getElementById('sendMessage');
+                const chatInput = document.getElementById('chatInput');
+                const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+                
+                sendButton.addEventListener('click', () => this.sendMessage());
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.sendMessage();
+                });
+                
+                quickActionBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const message = btn.getAttribute('data-message');
+                        this.sendQuickMessage(message);
+                    });
+                });
+            }
+            
+            async sendMessage() {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                
+                if (!message) return;
+                
+                this.addMessage('user', message);
+                input.value = '';
+                
+                this.showThinking();
+                
+                try {
+                    const response = await this.getAIResponse(message);
+                    this.hideThinking();
+                    this.addMessage('assistant', response);
+                } catch (error) {
+                    this.hideThinking();
+                    this.addMessage('assistant', '🎮 Oops! Quest connection failed. Try again, Science Detective!');
+                }
+            }
+            
+            sendQuickMessage(message) {
+                document.getElementById('chatInput').value = message;
+                this.sendMessage();
+            }
+            
+            addMessage(role, message) {
+                const chatContainer = document.getElementById('chatMessages');
+                const messageDiv = document.createElement('div');
+                
+                if (role === 'user') {
+                    messageDiv.className = 'flex justify-end mb-4';
+                    messageDiv.innerHTML = \`
+                        <div class="bg-blue-500/20 border border-blue-500/40 rounded-lg p-3 max-w-[80%]">
+                            <p class="text-sm text-white">\${message}</p>
+                        </div>
+                    \`;
+                } else {
+                    messageDiv.className = 'flex justify-start mb-4';
+                    messageDiv.innerHTML = \`
+                        <div class="flex items-start space-x-3 max-w-[85%]">
+                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div class="chat-message">
+                                <p class="text-sm text-white">\${message}</p>
+                            </div>
+                        </div>
+                    \`;
+                }
+                
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                lucide.createIcons();
+                
+                this.chatMessages.push({ role, content: message });
+            }
+            
+            showThinking() {
+                const chatContainer = document.getElementById('chatMessages');
+                const thinkingDiv = document.createElement('div');
+                thinkingDiv.id = 'thinking-indicator';
+                thinkingDiv.className = 'flex justify-start mb-4';
+                thinkingDiv.innerHTML = \`
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                            <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                            </div>
+                            <span class="text-xs text-gray-400">MOE Buddy is thinking...</span>
+                        </div>
+                    </div>
+                \`;
+                chatContainer.appendChild(thinkingDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                lucide.createIcons();
+            }
+            
+            hideThinking() {
+                const thinkingIndicator = document.getElementById('thinking-indicator');
+                if (thinkingIndicator) {
+                    thinkingIndicator.remove();
+                }
+            }
+            
+            async getAIResponse(userMessage) {
+                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': \`Bearer \${this.apiKey}\`,
+                        'Content-Type': 'application/json',
+                        'HTTP-Referer': window.location.origin,
+                        'X-Title': 'Isaac Learning Platform'
+                    },
+                    body: JSON.stringify({
+                        model: 'openai/gpt-4o-mini',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: \`You are MOE Buddy, Isaac's science quest companion! Isaac is currently doing a Science Discovery Timeline Challenge, placing discoveries like Cell Theory, DNA Structure, Photosynthesis, and Evolution in the correct time periods.
+
+ISAAC'S PROFILE:
+- 14-year-old analytical learner
+- Loves timeline challenges and cause-effect relationships  
+- Currently taking pre-assessment to unlock personalized learning path
+
+YOUR ROLE:
+- Enthusiastic science quest companion 🧪
+- Give hints about timeline placement without giving direct answers
+- Encourage analytical thinking
+- Use gaming terminology (quest, challenge, unlock, detective)
+- Keep responses 2-3 sentences max
+- Be encouraging and supportive
+
+Respond as Isaac's science quest buddy!\`
+                            },
+                            ...this.chatMessages,
+                            { role: 'user', content: userMessage }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 150
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(\`HTTP error! status: \${response.status}\`);
+                }
+
+                const data = await response.json();
+                return data.choices[0].message.content;
+            }
+        }
+        
+        // Initialize Screen 1
+        const assessment = new Screen1Assessment();
+        
+        // Button interactions
+        document.querySelectorAll('.academy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'translateY(0)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-1px)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

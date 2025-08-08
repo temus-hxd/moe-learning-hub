@@ -89,3 +89,4 @@ This shows only JSON output to verify the prompt works before generating images.
 - Save all generated images in: `./generated_images/`
 - Use descriptive filenames with the element type
 - Keep the style guide updated with successful prompts
+
