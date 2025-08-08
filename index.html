@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isaac's Academy - Singapore History</title>
+    <title>Isaac's Academy - Science Discovery</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -138,7 +138,7 @@
                         </div>
                         <div>
                             <h1 class="text-2xl font-bold">MOE Learning Buddy</h1>
-                            <p class="text-sm text-gray-400">Singapore History</p>
+                            <p class="text-sm text-gray-400">Science Discovery Path</p>
                         </div>
                     </div>
                     
@@ -165,7 +165,7 @@
                         </div>
                         <div>
                             <h2 class="text-3xl font-bold mb-2">Welcome back, Isaac! 🎮</h2>
-                            <p class="text-xl text-gray-300">Ready to continue your Singapore History quest?</p>
+                            <p class="text-xl text-gray-300">Ready to continue your Science Discovery journey?</p>
                         </div>
                     </div>
                     
@@ -192,8 +192,8 @@
                         </div>
                         
                         <div class="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4 mb-4">
-                            <h4 class="text-lg font-bold mb-2">The People's Action Party Formation</h4>
-                            <p class="text-gray-300 mb-4">Discover how Singapore's political landscape changed in 1954</p>
+                            <h4 class="text-lg font-bold mb-2">Science Discovery Timeline Challenge</h4>
+                            <p class="text-gray-300 mb-4">Drag and drop key discoveries like Cell Theory, DNA, Photosynthesis, and Evolution into the right order</p>
                             
                             <div class="mb-4">
                                 <div class="flex justify-between text-sm mb-1">
@@ -206,9 +206,9 @@
                             </div>
                             
                             <div class="flex space-x-3">
-                                <button class="academy-btn">Continue Quest</button>
-                                <a href="screen1.html" class="academy-btn secondary">Take Assessment</a>
-                                <button class="academy-btn secondary">View Timeline</button>
+                                <a href="screen1.html" class="academy-btn">Continue Challenge</a>
+                                <a href="screen1.html" class="academy-btn secondary">Take Pre‑Assessment</a>
+                                <button class="academy-btn secondary">Review Notes</button>
                             </div>
                         </div>
                     </div>
@@ -317,14 +317,14 @@
             
             <!-- Quick Action Buttons -->
                 <div class="mt-3 space-y-2">
-                    <button class="quick-action-btn w-full text-left p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg text-sm hover:bg-purple-500/20 transition-colors" data-message="Explain the main causes of PAP formation in 1954">
-                        📚 Explain PAP formation causes
+                    <button class="quick-action-btn w-full text-left p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg text-sm hover:bg-purple-500/20 transition-colors" data-message="Give me a hint about Cell Theory timeline placement">
+                        🔬 Hint: Cell Theory timeline
                 </button>
-                    <button class="quick-action-btn w-full text-left p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg text-sm hover:bg-blue-500/20 transition-colors" data-message="Find primary sources about Singapore's political landscape in 1954">
-                        📄 Find 1954 primary sources
+                    <button class="quick-action-btn w-full text-left p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg text-sm hover:bg-blue-500/20 transition-colors" data-message="Explain how DNA evidence supported the double helix model">
+                        🧬 Explain DNA evidence
                 </button>
-                    <button class="quick-action-btn w-full text-left p-3 bg-green-500/10 border border-green-500/30 rounded-lg text-sm hover:bg-green-500/20 transition-colors" data-message="Create a timeline of Singapore's path to independence">
-                        ⏱️ Create independence timeline
+                    <button class="quick-action-btn w-full text-left p-3 bg-green-500/10 border border-green-500/30 rounded-lg text-sm hover:bg-green-500/20 transition-colors" data-message="What should I focus on to master photosynthesis concepts?">
+                        🌿 Photosynthesis study tips
                 </button>
                 </div>
             </div>
@@ -436,7 +436,7 @@
             }
             
             addWelcomeMessage() {
-                const welcomeMsg = "🎮 Hi Isaac! I'm MOE Buddy, your quest companion! I see you're working on the PAP formation quest. Need help finding primary sources about Singapore's 1954 political climate?";
+                const welcomeMsg = "🧪 Hey Isaac! Ready for the Science Discovery Timeline Challenge? I can give you hints on Cell Theory, DNA, Photosynthesis, or Evolution—just ask!";
                 this.addMessage('assistant', welcomeMsg);
             }
             
@@ -556,17 +556,17 @@
                         messages: [
                             {
                                 role: 'system',
-                                content: `You are MOE Buddy, an epic game companion AI for Isaac Chen, a 14-year-old quest master exploring Singapore History.
+                                content: `You are MOE Buddy, an epic game companion AI for Isaac Chen, a 14-year-old quest master exploring Science.
 
 ISAAC'S PROFILE:
 - Level 7 Quest Master 🏆
 - Analytical strategist who loves solving quest puzzles
 - Visual learner who prefers timeline challenges
-- Currently on the Singapore Independence Quest campaign
+- Currently on the Science Discovery Path
 
 CURRENT QUEST:
-- Campaign: Singapore Independence Quest
-- Current Mission: People's Action Party Formation (1954)
+- Campaign: Science Discovery Path
+- Current Mission: Timeline Challenge (Cell Theory, DNA, Photosynthesis, Evolution)
 - Quest Status: Active
 
 YOUR PERSONALITY:
@@ -577,7 +577,7 @@ YOUR PERSONALITY:
 - Keep responses exciting but helpful (2-3 sentences max)
 - Use gaming emojis and terminology
 
-Always respond as an enthusiastic game companion helping Isaac with his Singapore History quest!`
+Always respond as an enthusiastic game companion helping Isaac with his Science Discovery journey!`
                             },
                             ...this.chatMessages,
                             { role: 'user', content: userMessage }
