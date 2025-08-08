@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isaac's Academy - Interactive Learning</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <style>
+        :root {
+            --primary-blue: #2a3046;
+            --primary-purple: #764BA2;
+            --accent-pink: #F093FB;
+            --accent-blue: #4FACFE;
+            --accent-yellow: #FFD93D;
+            --dark-bg: #0F0F23;
+            --card-bg: rgba(30, 30, 60, 0.9);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --text-primary: #FFFFFF;
+            --text-secondary: #B8C6DB;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(1200px 800px at -10% -10%, rgba(255,255,255,0.06), transparent 60%),
+                        radial-gradient(1000px 700px at 110% 10%, rgba(255,255,255,0.05), transparent 60%),
+                        linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            animation: bgShift 12s ease-in-out infinite alternate;
+        }
+        @keyframes bgShift {
+            0% { filter: hue-rotate(0deg) brightness(1); }
+            100% { filter: hue-rotate(8deg) brightness(1.05); }
+        }
+        
+        .academy-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .academy-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary-blue);
+        }
+        
+        .academy-btn {
+            background: linear-gradient(145deg, var(--primary-blue), #5A67D8);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            line-height: 1.2;
+            vertical-align: middle;
+        }
+        
+        .academy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .academy-btn.secondary {
+            background: linear-gradient(145deg, var(--accent-pink), #E91E63);
+        }
+        
+        .academy-btn.secondary:hover {
+            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+        }
+        
+        .academy-btn.success {
+            background: linear-gradient(145deg, #10b981, #059669);
+        }
+        
+        .academy-btn.success:hover {
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+        
+        .academy-btn:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            height: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+            height: 100%;
+            border-radius: inherit;
+            transition: width 0.8s ease;
+        }
+        
+        .chat-area {
+            background: var(--card-bg);
+            border-left: 2px solid var(--border-color);
+            height: 100vh;
+            backdrop-filter: blur(20px);
+        }
+        
+        .chat-message {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+        }
+        
+        /* Screen 2 Specific Styles */
+        .lesson-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1rem 0;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+        }
+        
+        .lesson-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .lesson-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .interactive-element {
+            background: rgba(79, 172, 254, 0.1);
+            border: 2px solid rgba(79, 172, 254, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-element:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 32px rgba(79, 172, 254, 0.3);
+        }
+        
+        .concept-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+        }
+        
+        .concept-card:hover {
+            border-color: var(--accent-yellow);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+        }
+        
+        .concept-card.selected {
+            border-color: var(--accent-yellow);
+            background: rgba(255, 217, 61, 0.1);
+            box-shadow: 0 0 0 2px rgba(255, 217, 61, 0.3);
+        }
+        
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .note-taking-area {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            min-height: 120px;
+            transition: all 0.3s ease;
+        }
+        
+        .note-taking-area.active {
+            border-color: var(--accent-blue);
+            border-style: solid;
+            background: rgba(79, 172, 254, 0.05);
+        }
+        
+        .note-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            animation: slideInUp 0.3s ease-out;
+        }
+        
+        .help-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            border: 2px solid var(--accent-blue);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            max-width: 500px;
+            width: 90vw;
+            animation: popIn 0.3s ease-out;
+        }
+        
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        .quiz-container {
+            background: rgba(255, 217, 61, 0.1);
+            border: 2px solid rgba(255, 217, 61, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .quiz-option {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--accent-blue);
+            background: rgba(79, 172, 254, 0.1);
+        }
+        
+        .quiz-option.selected {
+            border-color: var(--accent-yellow);
+            background: rgba(255, 217, 61, 0.1);
+        }
+        
+        .quiz-option.correct {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .floating-help-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, var(--accent-pink), #E91E63);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            box-shadow: 0 8px 32px rgba(240, 147, 251, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+        
+        .floating-help-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 48px rgba(240, 147, 251, 0.6);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Reusable Glass Modal (from Screen 1) */
+        .glass-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            animation: fadeIn 150ms ease-out;
+        }
+        .glass-modal {
+            width: min(92vw, 700px);
+            background: rgba(15, 15, 23, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+        .glass-modal-header, .glass-modal-footer { padding: 16px 20px; }
+        .glass-modal-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .glass-modal-body { padding: 16px 20px; color: var(--text-secondary); }
+        .glass-close {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #fff;
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+        @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Hide scrollbars */
+        ::-webkit-scrollbar { display: none; }
+        * { scrollbar-width: none; }
+        .overflow-y-auto { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @media (max-width: 768px) {
+            .desktop-layout { flex-direction: column; }
+            .chat-area { height: 50vh; border-left: none; border-top: 2px solid var(--border-color); }
+            .concept-grid { grid-template-columns: 1fr; }
+            .floating-help-btn { bottom: 1rem; right: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="flex h-screen desktop-layout">
+        <!-- Main Content Area -->
+        <div class="flex-1 overflow-y-auto">
+            <!-- Header -->
+            <header class="p-6 border-b border-white/10">
+                <div class="flex items-center justify-between">
+                    <a href="index.html" class="flex items-center space-x-4 hover:opacity-90 transition-opacity" title="Back to Dashboard" aria-label="Back to Dashboard">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                            <i data-lucide="graduation-cap" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold">MOE Learning Buddy</h1>
+                            <p class="text-sm text-gray-400">Interactive Science Learning</p>
+                        </div>
+                    </a>
+                    
+                    <!-- User Info -->
+                    <div class="flex items-center space-x-4">
+                        <a href="index.html" class="academy-btn secondary hidden md:inline-flex" title="Back to Dashboard">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <div class="text-right">
+                            <p class="font-bold">Isaac Chen</p>
+                            <p class="text-sm text-gray-400">Level 7 • 1,285 XP</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="img/isaac-photo.png" alt="Isaac Chen" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Progress Bar -->
+            <div class="p-6 border-b border-white/10 sticky top-0 backdrop-blur supports-[backdrop-filter]:bg-white/5/10">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="font-semibold">Lesson Progress: Advanced Cell Biology</span>
+                    <span class="font-bold text-blue-400" id="lessonProgress">Section 2 of 5</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="lessonProgressFill" style="width: 40%"></div>
+                </div>
+            </div>
+            
+            <!-- Interactive Learning Content -->
+            <main class="p-6 space-y-6">
+                
+                <!-- Current Lesson Section -->
+                <div class="academy-card p-8" id="lessonSection">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center">
+                                <i data-lucide="microscope" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold mb-2">Cellular Organelles & Functions</h2>
+                                <p class="text-xl text-gray-300">Discover the powerhouses and factories inside every cell</p>
+                            </div>
+                        </div>
+                        <button class="academy-btn success" id="getHelpBtn">
+                            <i data-lucide="help-circle" class="w-4 h-4"></i>
+                            Get AI Help
+                        </button>
+                    </div>
+
+                    <!-- Lesson Content -->
+                    <div class="lesson-content">
+                        <!-- Section 1: Introduction -->
+                        <div class="lesson-section">
+                            <h3 class="text-2xl font-bold mb-4 flex items-center">
+                                <i data-lucide="info" class="w-6 h-6 mr-3 text-blue-400"></i>
+                                Understanding Cell Structure
+                            </h3>
+                            <p class="text-lg text-gray-200 mb-4 leading-relaxed">
+                                Think of a cell like a bustling city, where each organelle has a specific job to keep the city running smoothly. 
+                                Just as a city has power plants, factories, and transportation systems, cells have specialized structures 
+                                that perform essential functions for life.
+                            </p>
+                            
+                            <!-- Interactive Note-Taking Area -->
+                            <div class="note-taking-area" id="notesArea">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-lg font-semibold text-blue-400">📝 Your Notes</h4>
+                                    <button class="academy-btn secondary" id="addNoteBtn">
+                                        <i data-lucide="plus" class="w-4 h-4"></i>
+                                        Add Note
+                                    </button>
+                                </div>
+                                <div id="notesList" class="space-y-2">
+                                    <!-- Notes will be added here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Interactive Concept Mapping -->
+                        <div class="lesson-section">
+                            <h3 class="text-2xl font-bold mb-4 flex items-center">
+                                <i data-lucide="network" class="w-6 h-6 mr-3 text-yellow-400"></i>
+                                Match Organelles to Functions
+                            </h3>
+                            <p class="text-gray-200 mb-4">
+                                Click on each organelle card to learn about its function, then drag it to the correct function box!
+                            </p>
+                            
+                            <div class="concept-grid">
+                                <div class="concept-card" data-organelle="mitochondria">
+                                    <div class="flex items-center space-x-3 mb-2">
+                                        <i data-lucide="zap" class="w-6 h-6 text-yellow-400"></i>
+                                        <h4 class="text-lg font-bold">Mitochondria</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-300">The "powerhouse of the cell"</p>
+                                </div>
+                                
+                                <div class="concept-card" data-organelle="nucleus">
+                                    <div class="flex items-center space-x-3 mb-2">
+                                        <i data-lucide="command" class="w-6 h-6 text-blue-400"></i>
+                                        <h4 class="text-lg font-bold">Nucleus</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-300">Control center of the cell</p>
+                                </div>
+                                
+                                <div class="concept-card" data-organelle="ribosome">
+                                    <div class="flex items-center space-x-3 mb-2">
+                                        <i data-lucide="cpu" class="w-6 h-6 text-green-400"></i>
+                                        <h4 class="text-lg font-bold">Ribosomes</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-300">Protein manufacturing sites</p>
+                                </div>
+                                
+                                <div class="concept-card" data-organelle="er">
+                                    <div class="flex items-center space-x-3 mb-2">
+                                        <i data-lucide="truck" class="w-6 h-6 text-purple-400"></i>
+                                        <h4 class="text-lg font-bold">Endoplasmic Reticulum</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-300">Transportation network</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Comprehension Check -->
+                        <div class="lesson-section">
+                            <div class="quiz-container">
+                                <h3 class="text-2xl font-bold mb-4 flex items-center">
+                                    <i data-lucide="brain" class="w-6 h-6 mr-3 text-yellow-400"></i>
+                                    Quick Knowledge Check
+                                </h3>
+                                <p class="text-lg mb-4">Which organelle is responsible for producing ATP (energy) for the cell?</p>
+                                
+                                <div class="space-y-3">
+                                    <div class="quiz-option" data-answer="correct">
+                                        <div class="flex items-center space-x-3">
+                                            <i data-lucide="zap" class="w-5 h-5 text-yellow-400"></i>
+                                            <span>Mitochondria</span>
+                                        </div>
+                                    </div>
+                                    <div class="quiz-option" data-answer="incorrect">
+                                        <div class="flex items-center space-x-3">
+                                            <i data-lucide="command" class="w-5 h-5 text-blue-400"></i>
+                                            <span>Nucleus</span>
+                                        </div>
+                                    </div>
+                                    <div class="quiz-option" data-answer="incorrect">
+                                        <div class="flex items-center space-x-3">
+                                            <i data-lucide="cpu" class="w-5 h-5 text-green-400"></i>
+                                            <span>Ribosomes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 text-center">
+                                    <button class="academy-btn" id="checkAnswerBtn" disabled>
+                                        <i data-lucide="check" class="w-4 h-4"></i>
+                                        Check Answer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between items-center mt-8">
+                        <button class="academy-btn secondary" id="prevSectionBtn">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Previous Section
+                        </button>
+                        
+                        <div class="flex space-x-3">
+                            <button class="academy-btn secondary" id="saveProgressBtn">
+                                <i data-lucide="bookmark" class="w-4 h-4"></i>
+                                Save Progress
+                            </button>
+                            <button class="academy-btn" id="nextSectionBtn">
+                                <span>Next Section</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Enhanced Chat Sidebar -->
+        <div class="w-80 chat-area flex flex-col">
+            <!-- Chat Header -->
+            <div class="p-4 border-b border-white/10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">MOE Buddy</h4>
+                        <p class="text-xs text-green-400">🟢 Online • Learning Mode</p>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
+                <div class="flex justify-start mb-4">
+                    <div class="flex items-start space-x-3 max-w-[85%]">
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <div class="chat-message">
+                            <p class="text-sm text-white">🔬 Welcome to Advanced Cell Biology, Isaac! I'm here to help you understand these amazing cellular structures. Click "Get AI Help" anytime you need support!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Chat Input -->
+            <div class="p-4 border-t border-white/10">
+                <div class="flex space-x-3">
+                    <textarea 
+                        id="chatInput"
+                        rows="1"
+                        placeholder="Ask about cell organelles..." 
+                        enterkeyhint="send"
+                        class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32 leading-5 whitespace-pre-wrap break-words"
+                    ></textarea>
+                    <button id="sendMessage" class="academy-btn px-4">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            
+                <!-- Quick Action Buttons -->
+                <div class="mt-3 space-y-2">
+                    <button class="quick-action-btn w-full text-left p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg text-sm hover:bg-purple-500/20 transition-colors" data-message="Explain the difference between mitochondria and nucleus">
+                        🔬 Compare mitochondria vs nucleus
+                    </button>
+                    <button class="quick-action-btn w-full text-left p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg text-sm hover:bg-blue-500/20 transition-colors" data-message="Help me understand protein synthesis in ribosomes">
+                        ⚙️ Explain protein synthesis
+                    </button>
+                    <button class="quick-action-btn w-full text-left p-3 bg-green-500/10 border border-green-500/30 rounded-lg text-sm hover:bg-green-500/20 transition-colors" data-message="What are good memory techniques for remembering organelles?">
+                        🧠 Memory techniques
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Help Button -->
+    <div class="floating-help-btn" id="floatingHelpBtn">
+        <i data-lucide="help-circle" class="w-8 h-8 text-white"></i>
+    </div>
+
+    <!-- Reusable Glass Modal -->
+    <div id="glassModal" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="glassModalTitle" aria-hidden="true">
+        <div class="glass-modal">
+            <div class="glass-modal-header">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="help-circle" class="w-5 h-5 text-blue-300"></i>
+                    <h3 id="glassModalTitle" class="text-lg font-semibold">AI Learning Assistant</h3>
+                </div>
+                <button id="glassClose" class="glass-close">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div id="glassBody" class="glass-modal-body"></div>
+            <div class="glass-modal-footer">
+                <button id="glassOk" class="academy-btn w-full">
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                    Got it, thanks!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Screen 2 Interactive Learning
+        class Screen2InteractiveLearning {
+            constructor() {
+                this.currentSection = 2;
+                this.totalSections = 5;
+                this.selectedQuizAnswer = null;
+                this.notes = [];
+                this.conceptsMatched = 0;
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+                this.setupMOEBuddy();
+                this.setupInteractiveElements();
+            }
+            
+            setupEventListeners() {
+                // Navigation buttons
+                document.getElementById('nextSectionBtn').addEventListener('click', () => this.nextSection());
+                document.getElementById('prevSectionBtn').addEventListener('click', () => this.prevSection());
+                document.getElementById('saveProgressBtn').addEventListener('click', () => this.saveProgress());
+                
+                // Help buttons
+                document.getElementById('getHelpBtn').addEventListener('click', () => this.showAIHelp());
+                document.getElementById('floatingHelpBtn').addEventListener('click', () => this.showAIHelp());
+                
+                // Note taking
+                document.getElementById('addNoteBtn').addEventListener('click', () => this.addNote());
+                
+                // Quiz
+                document.getElementById('checkAnswerBtn').addEventListener('click', () => this.checkQuizAnswer());
+            }
+            
+            setupMOEBuddy() {
+                this.moeBuddy = new MOEBuddy();
+            }
+            
+            setupInteractiveElements() {
+                // Concept cards interaction
+                const conceptCards = document.querySelectorAll('.concept-card');
+                conceptCards.forEach(card => {
+                    card.addEventListener('click', () => this.handleConceptClick(card));
+                });
+                
+                // Quiz options
+                const quizOptions = document.querySelectorAll('.quiz-option');
+                quizOptions.forEach(option => {
+                    option.addEventListener('click', () => this.selectQuizOption(option));
+                });
+            }
+            
+            handleConceptClick(card) {
+                const organelle = card.dataset.organelle;
+                card.classList.toggle('selected');
+                
+                // Show detailed info based on organelle
+                const organelleInfo = {
+                    mitochondria: {
+                        title: "Mitochondria - The Powerhouse",
+                        content: `
+                            <div class="flex items-start gap-4">
+                                <div class="w-32 h-32 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="zap" class="w-16 h-16 text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-base text-white mb-3">
+                                        Mitochondria are the energy factories of the cell! They convert glucose and oxygen into ATP (energy) 
+                                        through a process called cellular respiration.
+                                    </p>
+                                    <ul class="text-sm text-white/80 space-y-1">
+                                        <li>• Contains its own DNA (ancient bacteria origin)</li>
+                                        <li>• Has double membrane structure</li>
+                                        <li>• More active cells have more mitochondria</li>
+                                        <li>• Found in both plant and animal cells</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `
+                    },
+                    nucleus: {
+                        title: "Nucleus - The Control Center",
+                        content: `
+                            <div class="flex items-start gap-4">
+                                <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="command" class="w-16 h-16 text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-base text-white mb-3">
+                                        The nucleus is like the brain of the cell, controlling all cellular activities and containing 
+                                        the cell's genetic material (DNA).
+                                    </p>
+                                    <ul class="text-sm text-white/80 space-y-1">
+                                        <li>• Contains chromosomes with DNA</li>
+                                        <li>• Controls gene expression</li>
+                                        <li>• Surrounded by nuclear membrane</li>
+                                        <li>• Contains the nucleolus (makes ribosomes)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `
+                    },
+                    ribosome: {
+                        title: "Ribosomes - Protein Factories",
+                        content: `
+                            <div class="flex items-start gap-4">
+                                <div class="w-32 h-32 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="cpu" class="w-16 h-16 text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-base text-white mb-3">
+                                        Ribosomes are the protein-making machines of the cell. They read instructions from RNA 
+                                        and assemble amino acids into proteins.
+                                    </p>
+                                    <ul class="text-sm text-white/80 space-y-1">
+                                        <li>• Made of RNA and proteins</li>
+                                        <li>• Can be free-floating or attached to ER</li>
+                                        <li>• Translate mRNA into proteins</li>
+                                        <li>• Essential for protein synthesis</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `
+                    },
+                    er: {
+                        title: "Endoplasmic Reticulum - Transport Network",
+                        content: `
+                            <div class="flex items-start gap-4">
+                                <div class="w-32 h-32 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="truck" class="w-16 h-16 text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-base text-white mb-3">
+                                        The ER is like a highway system that transports materials throughout the cell. 
+                                        It comes in two types: rough (with ribosomes) and smooth (without ribosomes).
+                                    </p>
+                                    <ul class="text-sm text-white/80 space-y-1">
+                                        <li>• Rough ER: protein processing and folding</li>
+                                        <li>• Smooth ER: lipid synthesis and detoxification</li>
+                                        <li>• Connected to nuclear membrane</li>
+                                        <li>• Transport vesicles to Golgi apparatus</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `
+                    }
+                };
+                
+                if (organelleInfo[organelle]) {
+                    this.showGlassModal(organelleInfo[organelle].title, organelleInfo[organelle].content);
+                }
+            }
+            
+            selectQuizOption(option) {
+                // Clear previous selections
+                document.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                option.classList.add('selected');
+                this.selectedQuizAnswer = option.dataset.answer;
+                document.getElementById('checkAnswerBtn').disabled = false;
+            }
+            
+            checkQuizAnswer() {
+                const options = document.querySelectorAll('.quiz-option');
+                const checkBtn = document.getElementById('checkAnswerBtn');
+                
+                options.forEach(option => {
+                    if (option.dataset.answer === 'correct') {
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                    }
+                });
+                
+                if (this.selectedQuizAnswer === 'correct') {
+                    this.showNotification('🎉 Correct! Mitochondria are the powerhouses of the cell!', 'success');
+                    this.updateProgress();
+                } else {
+                    this.showNotification('💡 Not quite right. Mitochondria produce ATP energy for the cell.', 'info');
+                }
+                
+                checkBtn.textContent = 'Next Question';
+                checkBtn.disabled = false;
+                checkBtn.onclick = () => this.nextSection();
+            }
+            
+            addNote() {
+                const noteText = prompt('Add a note about what you learned:');
+                if (noteText && noteText.trim()) {
+                    const note = {
+                        id: Date.now(),
+                        text: noteText.trim(),
+                        timestamp: new Date().toLocaleTimeString()
+                    };
+                    
+                    this.notes.push(note);
+                    this.renderNote(note);
+                    this.showNotification('📝 Note saved!', 'success');
+                }
+            }
+            
+            renderNote(note) {
+                const notesList = document.getElementById('notesList');
+                const noteElement = document.createElement('div');
+                noteElement.className = 'note-item';
+                noteElement.innerHTML = \`
+                    <div class="flex-1">
+                        <p class="text-white text-sm">\${note.text}</p>
+                        <p class="text-gray-400 text-xs">\${note.timestamp}</p>
+                    </div>
+                    <button class="academy-btn secondary px-2 py-1" onclick="learning.removeNote(\${note.id})">
+                        <i data-lucide="trash-2" class="w-3 h-3"></i>
+                    </button>
+                \`;
+                notesList.appendChild(noteElement);
+                lucide.createIcons();
+            }
+            
+            removeNote(noteId) {
+                this.notes = this.notes.filter(note => note.id !== noteId);
+                const noteElement = document.querySelector(\`[onclick="learning.removeNote(\${noteId})"]\`).closest('.note-item');
+                noteElement.remove();
+            }
+            
+            showAIHelp() {
+                const helpContent = \`
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="brain" class="w-10 h-10 text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white mb-2">Learning Strategy Tips</h4>
+                                <p class="text-white/90 mb-3">Here are some ways I can help you master cellular biology:</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+                                <h5 class="text-white font-semibold mb-1">🔍 Ask Specific Questions</h5>
+                                <p class="text-white/80 text-sm">Ask about specific organelles, processes, or comparisons</p>
+                            </div>
+                            <div class="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
+                                <h5 class="text-white font-semibold mb-1">💡 Request Analogies</h5>
+                                <p class="text-white/80 text-sm">I can explain concepts using real-world comparisons</p>
+                            </div>
+                            <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3">
+                                <h5 class="text-white font-semibold mb-1">🎯 Check Understanding</h5>
+                                <p class="text-white/80 text-sm">Ask me to quiz you or explain concepts back</p>
+                            </div>
+                            <div class="bg-purple-500/10 border border-purple-500/30 rounded-lg p-3">
+                                <h5 class="text-white font-semibold mb-1">📚 Study Tips</h5>
+                                <p class="text-white/80 text-sm">Get memory techniques and study strategies</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-white/20 rounded-lg p-3">
+                            <p class="text-white text-sm">
+                                💬 <strong>Try asking:</strong> "Compare mitochondria and chloroplasts" or "Help me remember organelle functions"
+                            </p>
+                        </div>
+                    </div>
+                \`;
+                
+                this.showGlassModal('AI Learning Assistant', helpContent);
+            }
+            
+            nextSection() {
+                if (this.currentSection < this.totalSections) {
+                    this.currentSection++;
+                    this.updateProgress();
+                    this.showNotification(\`📚 Moving to Section \${this.currentSection}\`, 'success');
+                } else {
+                    this.showNotification('🎉 Lesson Complete! Great work, Isaac!', 'success');
+                }
+            }
+            
+            prevSection() {
+                if (this.currentSection > 1) {
+                    this.currentSection--;
+                    this.updateProgress();
+                    this.showNotification(\`📚 Back to Section \${this.currentSection}\`, 'info');
+                }
+            }
+            
+            saveProgress() {
+                this.showNotification('💾 Progress saved! You can continue anytime.', 'success');
+            }
+            
+            updateProgress() {
+                const progressFill = document.getElementById('lessonProgressFill');
+                const progressText = document.getElementById('lessonProgress');
+                const newProgress = (this.currentSection / this.totalSections) * 100;
+                
+                progressFill.style.width = \`\${newProgress}%\`;
+                progressText.textContent = \`Section \${this.currentSection} of \${this.totalSections}\`;
+            }
+            
+            showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = \`fixed top-6 right-6 px-4 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 transform translate-x-full\`;
+                
+                const colors = {
+                    info: 'bg-blue-500 text-white',
+                    success: 'bg-green-500 text-white', 
+                    warning: 'bg-yellow-500 text-white'
+                };
+                
+                notification.className += \` \${colors[type]}\`;
+                notification.innerHTML = \`
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="info" class="w-4 h-4"></i>
+                        <span class="text-sm font-semibold">\${message}</span>
+                    </div>
+                \`;
+                
+                document.body.appendChild(notification);
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+                
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            }
+            
+            // Reusable Glass Modal API (from Screen 1)
+            showGlassModal(title, content) {
+                const overlay = document.getElementById('glassModal');
+                const titleEl = document.getElementById('glassModalTitle');
+                const body = document.getElementById('glassBody');
+                const closeBtn = document.getElementById('glassClose');
+                const okBtn = document.getElementById('glassOk');
+                
+                titleEl.textContent = title;
+                body.innerHTML = content;
+                overlay.style.display = 'flex';
+                
+                const close = () => { overlay.style.display = 'none'; };
+                closeBtn.onclick = close;
+                okBtn.onclick = close;
+                overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+                document.addEventListener('keydown', function handler(e) {
+                    if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); }
+                });
+                lucide.createIcons();
+            }
+        }
+        
+        // MOE Buddy Chat (adapted for Screen 2)
+        class MOEBuddy {
+            constructor() {
+                this.apiKey = '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';
+                this.chatMessages = [];
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                const sendButton = document.getElementById('sendMessage');
+                const chatInput = document.getElementById('chatInput');
+                const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+                
+                sendButton.addEventListener('click', () => this.sendMessage());
+                const autoResize = () => {
+                    chatInput.style.height = 'auto';
+                    chatInput.style.height = Math.min(chatInput.scrollHeight, 128) + 'px';
+                };
+                autoResize();
+                chatInput.addEventListener('input', autoResize);
+                let isComposing = false;
+                const isEnter = (evt) => evt.key === 'Enter' || evt.key === 'NumpadEnter' || evt.keyCode === 13 || evt.which === 13;
+                chatInput.addEventListener('compositionstart', () => { isComposing = true; });
+                chatInput.addEventListener('compositionend', () => { isComposing = false; });
+                chatInput.addEventListener('keydown', (e) => {
+                    if (isComposing || e.isComposing) return;
+                    if (isEnter(e) && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (document.activeElement === chatInput && !(isComposing || e.isComposing) && isEnter(e) && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+                
+                quickActionBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const message = btn.getAttribute('data-message');
+                        this.sendQuickMessage(message);
+                    });
+                });
+            }
+            
+            async sendMessage() {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                
+                if (!message) return;
+                
+                this.addMessage('user', message);
+                input.value = '';
+                
+                this.showThinking();
+                
+                try {
+                    const response = await this.getAIResponse(message);
+                    this.hideThinking();
+                    this.addMessage('assistant', response);
+                } catch (error) {
+                    this.hideThinking();
+                    this.addMessage('assistant', '🔬 Quest connection lost! Try again, Science Master Isaac!');
+                }
+            }
+            
+            sendQuickMessage(message) {
+                document.getElementById('chatInput').value = message;
+                this.sendMessage();
+            }
+            
+            addMessage(role, message) {
+                const chatContainer = document.getElementById('chatMessages');
+                const messageDiv = document.createElement('div');
+                
+                if (role === 'user') {
+                    messageDiv.className = 'flex justify-end mb-4';
+                    messageDiv.innerHTML = \`
+                        <div class="bg-blue-500/20 border border-blue-500/40 rounded-lg p-3 max-w-[80%]">
+                            <p class="text-sm text-white whitespace-pre-wrap break-words">\${message}</p>
+                        </div>
+                    \`;
+                } else {
+                    messageDiv.className = 'flex justify-start mb-4';
+                    messageDiv.innerHTML = \`
+                        <div class="flex items-start space-x-3 max-w-[85%]">
+                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div class="chat-message">
+                                <p class="text-sm text-white">\${message}</p>
+                            </div>
+                        </div>
+                    \`;
+                }
+                
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                lucide.createIcons();
+                
+                this.chatMessages.push({ role, content: message });
+            }
+            
+            showThinking() {
+                const chatContainer = document.getElementById('chatMessages');
+                const thinkingDiv = document.createElement('div');
+                thinkingDiv.id = 'thinking-indicator';
+                thinkingDiv.className = 'flex justify-start mb-4';
+                thinkingDiv.innerHTML = \`
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                            <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                                <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                            </div>
+                            <span class="text-xs text-gray-400">MOE Buddy is thinking...</span>
+                        </div>
+                    </div>
+                \`;
+                chatContainer.appendChild(thinkingDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                lucide.createIcons();
+            }
+            
+            hideThinking() {
+                const thinkingIndicator = document.getElementById('thinking-indicator');
+                if (thinkingIndicator) {
+                    thinkingIndicator.remove();
+                }
+            }
+            
+            async getAIResponse(userMessage) {
+                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': \`Bearer \${this.apiKey}\`,
+                        'Content-Type': 'application/json',
+                        'HTTP-Referer': window.location.origin,
+                        'X-Title': 'Isaac Learning Platform'
+                    },
+                    body: JSON.stringify({
+                        model: 'openai/gpt-4o-mini',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: \`You are MOE Buddy, Isaac's advanced science learning companion! Isaac is studying Advanced Cell Biology, specifically cellular organelles and their functions.
+
+ISAAC'S CURRENT LESSON:
+- Topic: Cellular Organelles & Functions  
+- Focus: Mitochondria, Nucleus, Ribosomes, Endoplasmic Reticulum
+- Learning style: Analytical, visual learner who loves detailed explanations
+
+YOUR ROLE:
+- Expert biology tutor with enthusiasm 🔬
+- Provide detailed explanations with analogies
+- Help with concept connections and memory techniques
+- Use scientific accuracy but keep it engaging
+- Support active learning with questions and examples
+- Keep responses 2-4 sentences for chat, longer for complex explanations
+
+Respond as Isaac's expert science learning companion!\`
+                            },
+                            ...this.chatMessages,
+                            { role: 'user', content: userMessage }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 200
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(\`HTTP error! status: \${response.status}\`);
+                }
+
+                const data = await response.json();
+                return data.choices[0].message.content;
+            }
+        }
+        
+        // Initialize Screen 2
+        const learning = new Screen2InteractiveLearning();
+        
+        // Button interactions
+        document.querySelectorAll('.academy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!this.disabled) {
+                    this.style.transform = 'translateY(0)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-1px)';
+                    }, 100);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
