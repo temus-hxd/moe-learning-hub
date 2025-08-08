@@ -112,34 +112,47 @@
             transition: width 0.8s ease;
         }
         
+        .chat-area {
+            background: var(--card-bg);
+            border-left: 2px solid var(--border-color);
+            height: 100vh;
+            backdrop-filter: blur(20px);
+        }
+        
+        .chat-message {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+        }
+        
         /* Screen 4 Specific Styles */
-        .lesson-content {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid var(--border-color);
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: var(--dark-bg);
             border-radius: 12px;
-            padding: 2rem;
-            margin: 1rem 0;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
-        .interactive-element {
-            background: rgba(79, 172, 254, 0.1);
-            border: 2px solid rgba(79, 172, 254, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            transition: all 0.3s ease;
-            cursor: pointer;
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         
-        .interactive-element:hover {
-            border-color: var(--accent-blue);
-            box-shadow: 0 8px 32px rgba(79, 172, 254, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .interactive-element.active {
-            border-color: var(--accent-yellow);
-            background: rgba(255, 217, 61, 0.1);
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
         
         .concept-card {
@@ -147,7 +160,6 @@
             border: 2px solid var(--border-color);
             border-radius: 12px;
             padding: 1.5rem;
-            margin: 0.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
@@ -163,164 +175,6 @@
             border-color: var(--accent-yellow);
             background: rgba(255, 217, 61, 0.1);
             box-shadow: 0 0 0 2px rgba(255, 217, 61, 0.3);
-        }
-        
-        .concept-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        /* Floating AI Chatbot */
-        .ai-chatbot {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 350px;
-            max-height: 500px;
-            background: var(--card-bg);
-            border: 2px solid var(--accent-blue);
-            border-radius: 16px;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            transform: translateY(100%);
-            opacity: 0;
-        }
-        
-        .ai-chatbot.active {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .ai-chatbot-trigger {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--primary-blue));
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 8px 32px rgba(79, 172, 254, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1001;
-            animation: pulse 2s infinite;
-        }
-        
-        .ai-chatbot-trigger:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 48px rgba(79, 172, 254, 0.6);
-        }
-        
-        .ai-chatbot-trigger.hidden {
-            display: none;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 8px 32px rgba(79, 172, 254, 0.4); }
-            50% { box-shadow: 0 8px 32px rgba(79, 172, 254, 0.8), 0 0 0 10px rgba(79, 172, 254, 0.2); }
-        }
-        
-        .ai-chat-header {
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            items-center: center;
-            justify-content: space-between;
-        }
-        
-        .ai-chat-messages {
-            height: 300px;
-            overflow-y: auto;
-            padding: 1rem;
-        }
-        
-        .ai-chat-input {
-            padding: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .ai-message {
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            margin: 8px 0;
-            font-size: 14px;
-        }
-        
-        .user-message {
-            background: rgba(79, 172, 254, 0.2);
-            border: 1px solid rgba(79, 172, 254, 0.4);
-            border-radius: 8px;
-            padding: 12px;
-            margin: 8px 0;
-            font-size: 14px;
-            margin-left: 2rem;
-        }
-        
-        /* Notes Panel */
-        .notes-panel {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 400px;
-            height: 100vh;
-            background: var(--card-bg);
-            border-left: 2px solid var(--border-color);
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-            z-index: 999;
-            overflow-y: auto;
-        }
-        
-        .notes-panel.active {
-            right: 0;
-        }
-        
-        .notes-panel-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .note-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 0.5rem 1.5rem;
-            font-size: 14px;
-        }
-        
-        .note-timestamp {
-            background: var(--accent-yellow);
-            color: var(--primary-blue);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Interactive Timeline */
-        .timeline-interactive {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-            position: relative;
         }
         
         .timeline-step {
@@ -363,408 +217,290 @@
             box-shadow: 0 0 0 4px rgba(255, 217, 61, 0.3);
         }
         
-        /* Quick Help Buttons */
-        .quick-help-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .quick-help-btn {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-size: 14px;
-        }
-        
-        .quick-help-btn:hover {
-            border-color: var(--accent-pink);
-            background: rgba(240, 147, 251, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        /* Video Player Simulation */
-        .video-player {
-            background: var(--dark-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 1rem 0;
-            text-align: center;
-            position: relative;
-        }
-        
-        .video-placeholder {
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
-            border-radius: 8px;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .video-placeholder:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-        
-        .video-controls {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-        
         /* Hide scrollbars */
         ::-webkit-scrollbar { display: none; }
         * { scrollbar-width: none; }
         .overflow-y-auto { -ms-overflow-style: none; scrollbar-width: none; }
         
         @media (max-width: 768px) {
-            .ai-chatbot {
-                width: 90vw;
-                right: 5vw;
-            }
-            .ai-chatbot-trigger {
-                right: 1rem;
-            }
-            .notes-panel {
-                width: 100vw;
-                right: -100vw;
-            }
+            .desktop-layout { flex-direction: column; }
+            .chat-area { height: 50vh; border-left: none; border-top: 2px solid var(--border-color); }
         }
     </style>
 </head>
 <body>
-    <!-- Main Content Area -->
-    <div class="min-h-screen pb-20">
-        <!-- Header -->
-        <header class="p-6 border-b border-white/10 sticky top-0 backdrop-blur supports-[backdrop-filter]:bg-white/5/10 z-50">
-            <div class="flex items-center justify-between">
-                <a href="index.html" class="flex items-center space-x-4 hover:opacity-90 transition-opacity">
-                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                        <i data-lucide="play-circle" class="w-7 h-7 text-white"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-bold">Interactive Learning</h1>
-                        <p class="text-sm text-gray-400">Cell Biology Mastery</p>
-                    </div>
-                </a>
-                
-                <!-- Lesson Controls -->
-                <div class="flex items-center space-x-4">
-                    <button class="academy-btn success" id="notesToggle">
-                        <i data-lucide="sticky-note" class="w-4 h-4"></i>
-                        Notes
-                    </button>
-                    <a href="index.html" class="academy-btn secondary hidden md:inline-flex">
-                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                        Back to Dashboard
+    <div class="flex h-screen desktop-layout">
+        <!-- Main Content Area -->
+        <div class="flex-1 overflow-y-auto">
+            <!-- Header -->
+            <header class="p-6 border-b border-white/10">
+                <div class="flex items-center justify-between">
+                    <a href="index.html" class="flex items-center space-x-4 hover:opacity-90 transition-opacity" title="Back to Dashboard">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-lg flex items-center justify-center">
+                            <i data-lucide="microscope" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold">Interactive Cell Biology</h1>
+                            <p class="text-sm text-gray-400">Structure & Function Mastery</p>
+                        </div>
                     </a>
-                    <div class="text-right">
-                        <p class="font-bold">Isaac Chen</p>
-                        <p class="text-sm text-gray-400">Level 7 • 1,245 XP</p>
-                    </div>
-                    <div class="w-12 h-12 rounded-full overflow-hidden">
-                        <img src="img/isaac-photo.png" alt="Isaac Chen" class="w-full h-full object-cover">
+                    
+                    <!-- User Info -->
+                    <div class="flex items-center space-x-4">
+                        <a href="index.html" class="academy-btn secondary hidden md:inline-flex">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Back to Dashboard
+                        </a>
+                        <div class="text-right">
+                            <p class="font-bold">Isaac Chen</p>
+                            <p class="text-sm text-gray-400">Level 7 • 1,245 XP</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full overflow-hidden">
+                            <img src="img/isaac-photo.png" alt="Isaac Chen" class="w-full h-full object-cover">
+                        </div>
                     </div>
                 </div>
-            </div>
+            </header>
             
-            <!-- Lesson Progress -->
-            <div class="mt-4">
+            <!-- Progress Bar -->
+            <div class="p-6 border-b border-white/10 sticky top-0 backdrop-blur supports-[backdrop-filter]:bg-white/5/10">
                 <div class="flex justify-between items-center mb-2">
                     <span class="font-semibold">Cell Biology: Structure & Function</span>
-                    <span class="text-sm text-blue-400">Step 3 of 6</span>
+                    <span class="font-bold text-green-400" id="progressText">Step 3 of 6</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: 50%"></div>
+                    <div class="progress-fill" id="progressFill" style="width: 50%"></div>
                 </div>
             </div>
-        </header>
-        
-        <!-- Main Learning Content -->
-        <main class="p-6 max-w-4xl mx-auto">
             
-            <!-- Lesson Introduction -->
-            <div class="academy-card p-8 mb-6">
-                <div class="text-center mb-6">
-                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i data-lucide="microscope" class="w-8 h-8 text-white"></i>
+            <!-- Main Learning Content -->
+            <main class="p-6 space-y-6">
+                
+                <!-- Lesson Introduction -->
+                <div class="academy-card p-8">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="microscope" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold mb-2">Cell Structure Deep Dive</h2>
+                        <p class="text-xl text-gray-300">Explore the building blocks of life through interactive discovery</p>
                     </div>
-                    <h2 class="text-3xl font-bold mb-2">Cell Structure Deep Dive</h2>
-                    <p class="text-xl text-gray-300">Explore the building blocks of life through interactive discovery</p>
                 </div>
                 
-                <!-- Quick Help Section -->
-                <div class="mb-6">
-                    <h3 class="text-lg font-bold mb-4 flex items-center">
-                        <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-pink-400"></i>
-                        Need Help? Ask Isaac's AI Buddy
-                    </h3>
-                    <div class="quick-help-grid">
-                        <div class="quick-help-btn" onclick="askAI('Explain cell membrane function')">
-                            🧬 Cell Membrane
-                        </div>
-                        <div class="quick-help-btn" onclick="askAI('What does the nucleus do?')">
-                            ⚛️ Nucleus Role  
-                        </div>
-                        <div class="quick-help-btn" onclick="askAI('How do mitochondria work?')">
-                            ⚡ Mitochondria Power
-                        </div>
-                        <div class="quick-help-btn" onclick="askAI('I need help understanding organelles')">
-                            🆘 General Help
-                        </div>
+                <!-- Interactive Video Section -->
+                <div class="academy-card p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <i data-lucide="play-circle" class="w-6 h-6 mr-3 text-green-400"></i>
+                            Interactive Cell Biology Video
+                        </h3>
+                        <div class="text-sm text-gray-400">3:45 minutes</div>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Interactive Video Section -->
-            <div class="lesson-content">
-                <h3 class="text-xl font-bold mb-4">📹 Interactive Cell Tour</h3>
-                <div class="video-player">
-                    <div class="video-placeholder" onclick="playVideo()">
-                        <div class="text-center">
-                            <i data-lucide="play" class="w-16 h-16 text-white mb-4"></i>
-                            <p class="text-lg font-semibold">Journey Inside a Cell</p>
-                            <p class="text-sm text-gray-300">3:45 minutes</p>
-                        </div>
+                    
+                    <div class="video-container mb-4">
+                        <iframe 
+                            src="https://www.youtube.com/embed/kcG1F88KQA0?si=Ory1pkjc0tWGF6BT" 
+                            title="Cell Biology Video" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                        </iframe>
                     </div>
-                    <div class="video-controls">
-                        <button class="academy-btn" onclick="playVideo()">
-                            <i data-lucide="play" class="w-4 h-4"></i>
-                            Play Video
-                        </button>
-                        <button class="academy-btn secondary" onclick="takeNote('Video: Journey Inside a Cell')">
+                    
+                    <div class="flex justify-center space-x-4">
+                        <button class="academy-btn success" onclick="addVideoNote()">
                             <i data-lucide="sticky-note" class="w-4 h-4"></i>
-                            Add to Notes
+                            Add Video Note
                         </button>
-                        <div class="text-sm text-gray-400">0:00 / 3:45</div>
+                        <button class="academy-btn" onclick="askAboutVideo()">
+                            <i data-lucide="help-circle" class="w-4 h-4"></i>
+                            Ask About Video
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Interactive Concept Cards -->
+                <div class="academy-card p-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i data-lucide="puzzle" class="w-6 h-6 mr-3 text-blue-400"></i>
+                        Cell Organelles Explorer
+                    </h3>
+                    <p class="text-gray-300 mb-4">Click on each organelle to learn its function. Isaac, use your analytical skills to identify patterns!</p>
+                    
+                    <div class="concept-grid">
+                        <div class="concept-card" onclick="exploreOrganelle('nucleus')">
+                            <div class="w-12 h-12 bg-purple-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+                                <i data-lucide="circle-dot" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <h4 class="font-bold mb-2">Nucleus</h4>
+                            <p class="text-sm text-gray-400">Control center of the cell</p>
+                        </div>
+                        
+                        <div class="concept-card" onclick="exploreOrganelle('mitochondria')">
+                            <div class="w-12 h-12 bg-red-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+                                <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <h4 class="font-bold mb-2">Mitochondria</h4>
+                            <p class="text-sm text-gray-400">Powerhouse of the cell</p>
+                        </div>
+                        
+                        <div class="concept-card" onclick="exploreOrganelle('ribosome')">
+                            <div class="w-12 h-12 bg-blue-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+                                <i data-lucide="settings" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <h4 class="font-bold mb-2">Ribosomes</h4>
+                            <p class="text-sm text-gray-400">Protein factories</p>
+                        </div>
+                        
+                        <div class="concept-card" onclick="exploreOrganelle('membrane')">
+                            <div class="w-12 h-12 bg-green-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+                                <i data-lucide="shield" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <h4 class="font-bold mb-2">Cell Membrane</h4>
+                            <p class="text-sm text-gray-400">Protective barrier</p>
+                        </div>
+                        
+                        <div class="concept-card" onclick="exploreOrganelle('vacuole')">
+                            <div class="w-12 h-12 bg-yellow-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+                                <i data-lucide="droplets" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <h4 class="font-bold mb-2">Vacuole</h4>
+                            <p class="text-sm text-gray-400">Storage compartment</p>
+                        </div>
+                        
+                        <div class="concept-card" onclick="exploreOrganelle('chloroplast')">
+                            <div class="w-12 h-12 bg-emerald-500 rounded-full mx-auto mb-3 flex items-center justify-center">
+                                <i data-lucide="leaf" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <h4 class="font-bold mb-2">Chloroplast</h4>
+                            <p class="text-sm text-gray-400">Photosynthesis center</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Timeline Activity -->
+                <div class="academy-card p-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i data-lucide="clock" class="w-6 h-6 mr-3 text-purple-400"></i>
+                        Cell Discovery Timeline
+                    </h3>
+                    <p class="text-gray-300 mb-4">Click through the timeline to see how cell theory developed. Perfect for your analytical mind, Isaac!</p>
+                    
+                    <div class="relative">
+                        <div class="timeline-step completed" onclick="showTimelineStep(1)">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold text-yellow-400">1665 - Robert Hooke</h4>
+                                    <p class="text-sm text-gray-400">First observed "cells" in cork</p>
+                                </div>
+                                <i data-lucide="eye" class="w-6 h-6 text-yellow-400"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-step" onclick="showTimelineStep(2)">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold">1674 - Anton van Leeuwenhoek</h4>
+                                    <p class="text-sm text-gray-400">Discovered living cells</p>
+                                </div>
+                                <i data-lucide="search" class="w-6 h-6 text-gray-400"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-step" onclick="showTimelineStep(3)">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold">1838-1839 - Schleiden & Schwann</h4>
+                                    <p class="text-sm text-gray-400">Formulated cell theory</p>
+                                </div>
+                                <i data-lucide="lightbulb" class="w-6 h-6 text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Knowledge Check -->
+                <div class="academy-card p-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i data-lucide="check-circle" class="w-6 h-6 mr-3 text-green-400"></i>
+                        Quick Knowledge Check
+                    </h3>
+                    
+                    <div class="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4 mb-4">
+                        <h4 class="font-bold mb-2">Test Your Understanding</h4>
+                        <p class="text-gray-300">Which organelle is known as the powerhouse of the cell?</p>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button class="academy-btn success" onclick="completeLesson()">
+                            <i data-lucide="check" class="w-4 h-4"></i>
+                            Complete Lesson
+                        </button>
+                        <button class="academy-btn secondary" onclick="askForHelp()">
+                            <i data-lucide="help-circle" class="w-4 h-4"></i>
+                            Need Help?
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Chat Sidebar -->
+        <div class="w-80 chat-area flex flex-col">
+            <!-- Chat Header -->
+            <div class="p-4 border-b border-white/10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-teal-600 rounded-lg flex items-center justify-center">
+                        <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">MOE Buddy</h4>
+                        <p class="text-xs text-green-400">🟢 Online • Cell Biology Mode</p>
                     </div>
                 </div>
             </div>
-            
-            <!-- Interactive Concept Cards -->
-            <div class="lesson-content">
-                <h3 class="text-xl font-bold mb-4">🧩 Cell Organelles Explorer</h3>
-                <p class="text-gray-300 mb-4">Click on each organelle to learn its function. Isaac, use your analytical skills to identify patterns!</p>
-                
-                <div class="concept-grid">
-                    <div class="concept-card" onclick="exploreOrganelle('nucleus')">
-                        <div class="w-12 h-12 bg-purple-500 rounded-full mx-auto mb-3 flex items-center justify-center">
-                            <i data-lucide="circle-dot" class="w-6 h-6 text-white"></i>
+        
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
+                <div class="flex justify-start mb-4">
+                    <div class="flex items-start space-x-3 max-w-[85%]">
+                        <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="bot" class="w-4 h-4 text-white"></i>
                         </div>
-                        <h4 class="font-bold mb-2">Nucleus</h4>
-                        <p class="text-sm text-gray-400">Control center of the cell</p>
-                    </div>
-                    
-                    <div class="concept-card" onclick="exploreOrganelle('mitochondria')">
-                        <div class="w-12 h-12 bg-red-500 rounded-full mx-auto mb-3 flex items-center justify-center">
-                            <i data-lucide="zap" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">Mitochondria</h4>
-                        <p class="text-sm text-gray-400">Powerhouse of the cell</p>
-                    </div>
-                    
-                    <div class="concept-card" onclick="exploreOrganelle('ribosome')">
-                        <div class="w-12 h-12 bg-blue-500 rounded-full mx-auto mb-3 flex items-center justify-center">
-                            <i data-lucide="settings" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">Ribosomes</h4>
-                        <p class="text-sm text-gray-400">Protein factories</p>
-                    </div>
-                    
-                    <div class="concept-card" onclick="exploreOrganelle('membrane')">
-                        <div class="w-12 h-12 bg-green-500 rounded-full mx-auto mb-3 flex items-center justify-center">
-                            <i data-lucide="shield" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">Cell Membrane</h4>
-                        <p class="text-sm text-gray-400">Protective barrier</p>
-                    </div>
-                    
-                    <div class="concept-card" onclick="exploreOrganelle('vacuole')">
-                        <div class="w-12 h-12 bg-yellow-500 rounded-full mx-auto mb-3 flex items-center justify-center">
-                            <i data-lucide="droplets" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">Vacuole</h4>
-                        <p class="text-sm text-gray-400">Storage compartment</p>
-                    </div>
-                    
-                    <div class="concept-card" onclick="exploreOrganelle('chloroplast')">
-                        <div class="w-12 h-12 bg-emerald-500 rounded-full mx-auto mb-3 flex items-center justify-center">
-                            <i data-lucide="leaf" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">Chloroplast</h4>
-                        <p class="text-sm text-gray-400">Photosynthesis center</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Interactive Timeline Activity -->
-            <div class="lesson-content">
-                <h3 class="text-xl font-bold mb-4">📊 Cell Discovery Timeline</h3>
-                <p class="text-gray-300 mb-4">Click through the timeline to see how cell theory developed. Perfect for your analytical mind, Isaac!</p>
-                
-                <div class="timeline-interactive">
-                    <div class="timeline-step completed" onclick="showTimelineStep(1)">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h4 class="font-bold text-yellow-400">1665 - Robert Hooke</h4>
-                                <p class="text-sm text-gray-400">First observed "cells" in cork</p>
-                            </div>
-                            <i data-lucide="eye" class="w-6 h-6 text-yellow-400"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-step" onclick="showTimelineStep(2)">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h4 class="font-bold">1674 - Anton van Leeuwenhoek</h4>
-                                <p class="text-sm text-gray-400">Discovered living cells</p>
-                            </div>
-                            <i data-lucide="search" class="w-6 h-6 text-gray-400"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-step" onclick="showTimelineStep(3)">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h4 class="font-bold">1838-1839 - Schleiden & Schwann</h4>
-                                <p class="text-sm text-gray-400">Formulated cell theory</p>
-                            </div>
-                            <i data-lucide="lightbulb" class="w-6 h-6 text-gray-400"></i>
+                        <div class="chat-message">
+                            <p class="text-sm text-white">🧬 Hey Isaac! Ready to dive into cell biology? I'm here to help you understand organelles, cell theory, and everything about the building blocks of life!</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Knowledge Check -->
-            <div class="academy-card p-6">
-                <h3 class="text-xl font-bold mb-4 flex items-center">
-                    <i data-lucide="check-circle" class="w-6 h-6 mr-3 text-green-400"></i>
-                    Quick Knowledge Check
-                </h3>
-                
-                <div class="interactive-element" onclick="showQuizQuestion()">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h4 class="font-bold mb-2">Test Your Understanding</h4>
-                            <p class="text-gray-300">Which organelle is known as the powerhouse of the cell?</p>
-                        </div>
-                        <i data-lucide="arrow-right" class="w-6 h-6 text-blue-400"></i>
-                    </div>
-                </div>
-                
-                <div class="mt-4 flex space-x-4">
-                    <button class="academy-btn" onclick="completeLesson()">
-                        <i data-lucide="check" class="w-4 h-4"></i>
-                        Complete Lesson
+        
+            <!-- Chat Input -->
+            <div class="p-4 border-t border-white/10">
+                <div class="flex space-x-3">
+                    <textarea 
+                        id="chatInput"
+                        rows="1"
+                        placeholder="Ask about cell biology..." 
+                        enterkeyhint="send"
+                        class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32"
+                    ></textarea>
+                    <button id="sendMessage" class="academy-btn px-4">
+                        <i data-lucide="send" class="w-4 h-4"></i>
                     </button>
-                    <button class="academy-btn secondary" onclick="askAI('I need help with this quiz question')">
-                        <i data-lucide="help-circle" class="w-4 h-4"></i>
-                        Need Help?
+                </div>
+            
+                <!-- Quick Action Buttons -->
+                <div class="mt-3 space-y-2">
+                    <button class="quick-action-btn w-full text-left p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg text-sm hover:bg-purple-500/20 transition-colors" data-message="Explain how the nucleus controls the cell">
+                        🧬 Nucleus function
+                    </button>
+                    <button class="quick-action-btn w-full text-left p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg text-sm hover:bg-blue-500/20 transition-colors" data-message="How do mitochondria produce energy for the cell?">
+                        ⚡ Mitochondria power
+                    </button>
+                    <button class="quick-action-btn w-full text-left p-3 bg-green-500/10 border border-green-500/30 rounded-lg text-sm hover:bg-green-500/20 transition-colors" data-message="Connect cell discovery timeline to modern biology">
+                        📊 Timeline connections
                     </button>
                 </div>
-            </div>
-        </main>
-    </div>
-    
-    <!-- Floating AI Chatbot Trigger -->
-    <div class="ai-chatbot-trigger" id="aiTrigger" onclick="toggleAIChat()">
-        <i data-lucide="bot" class="w-7 h-7 text-white"></i>
-    </div>
-    
-    <!-- AI Chatbot Panel -->
-    <div class="ai-chatbot" id="aiChatbot">
-        <div class="ai-chat-header">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <i data-lucide="bot" class="w-5 h-5 text-white"></i>
-                </div>
-                <div>
-                    <h4 class="font-bold">Isaac's AI Learning Buddy</h4>
-                    <p class="text-xs text-green-400">🟢 Ready to help!</p>
-                </div>
-            </div>
-            <button onclick="toggleAIChat()" class="text-gray-400 hover:text-white">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-        </div>
-        
-        <div class="ai-chat-messages" id="aiMessages">
-            <div class="ai-message">
-                🧬 Hey Isaac! I'm here to help you master cell biology. Ask me anything about organelles, cell theory, or if you get stuck on any concepts!
-            </div>
-        </div>
-        
-        <div class="ai-chat-input">
-            <div class="flex space-x-3 mb-3">
-                <input
-                    type="text"
-                    id="aiInput"
-                    placeholder="Ask about cell biology..."
-                    class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-400 transition-colors"
-                    onkeypress="handleAIEnter(event)"
-                />
-                <button class="academy-btn px-4" onclick="sendAIMessage()">
-                    <i data-lucide="send" class="w-4 h-4"></i>
-                </button>
-            </div>
-            
-            <!-- Quick AI Actions -->
-            <div class="grid grid-cols-2 gap-2">
-                <button class="text-xs p-2 bg-purple-500/10 border border-purple-500/30 rounded text-purple-300 hover:bg-purple-500/20 transition-colors" onclick="askAI('Explain this step by step')">
-                    🔍 Step-by-step
-                </button>
-                <button class="text-xs p-2 bg-blue-500/10 border border-blue-500/30 rounded text-blue-300 hover:bg-blue-500/20 transition-colors" onclick="askAI('Give me a visual example')">
-                    👁️ Visual example
-                </button>
-                <button class="text-xs p-2 bg-green-500/10 border border-green-500/30 rounded text-green-300 hover:bg-green-500/20 transition-colors" onclick="askAI('Connect this to timeline')">
-                    📊 Timeline connection
-                </button>
-                <button class="text-xs p-2 bg-yellow-500/10 border border-yellow-500/30 rounded text-yellow-300 hover:bg-yellow-500/20 transition-colors" onclick="askAI('Quiz me on this topic')">
-                    🎯 Quiz me
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Notes Panel -->
-    <div class="notes-panel" id="notesPanel">
-        <div class="notes-panel-header">
-            <h3 class="font-bold flex items-center">
-                <i data-lucide="sticky-note" class="w-5 h-5 mr-2 text-yellow-400"></i>
-                Isaac's Notes
-            </h3>
-            <button onclick="toggleNotes()" class="text-gray-400 hover:text-white">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-        </div>
-        
-        <div class="p-4">
-            <button class="academy-btn w-full mb-4" onclick="addNote()">
-                <i data-lucide="plus" class="w-4 h-4"></i>
-                Add Note
-            </button>
-        </div>
-        
-        <div id="notesList">
-            <div class="note-item">
-                <div class="note-timestamp">3:24 PM</div>
-                <p><strong>Cell Membrane:</strong> Controls what enters and exits the cell. Like a selective barrier.</p>
-            </div>
-            
-            <div class="note-item">
-                <div class="note-timestamp">3:18 PM</div>
-                <p><strong>Timeline Key:</strong> 1665 Hooke → 1674 Leeuwenhoek → 1838-39 Cell Theory</p>
             </div>
         </div>
     </div>
@@ -774,107 +510,40 @@
         lucide.createIcons();
         
         // Screen 4 Interactive Learning System
-        class InteractiveLearning {
+        class Screen4Learning {
             constructor() {
                 this.currentStep = 3;
                 this.totalSteps = 6;
                 this.selectedConcepts = [];
-                this.notes = [];
                 this.init();
             }
             
             init() {
-                this.setupEventListeners();
-                this.loadNotes();
+                this.setupMOEBuddy();
             }
             
-            setupEventListeners() {
-                // Notes toggle
-                document.getElementById('notesToggle').addEventListener('click', () => this.toggleNotes());
-                
-                // Concept card interactions
-                document.querySelectorAll('.concept-card').forEach(card => {
-                    card.addEventListener('mouseenter', this.showConceptPreview.bind(this));
-                });
-                
-                // Timeline interactions
-                document.querySelectorAll('.timeline-step').forEach(step => {
-                    step.addEventListener('click', this.handleTimelineClick.bind(this));
-                });
+            setupMOEBuddy() {
+                this.moeBuddy = new MOEBuddy();
             }
             
-            toggleNotes() {
-                const panel = document.getElementById('notesPanel');
-                panel.classList.toggle('active');
-            }
-            
-            addNote(content = '') {
-                const timestamp = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                const noteText = content || prompt('Add your note:');
-                
-                if (noteText) {
-                    const noteHtml = `
-                        <div class="note-item">
-                            <div class="note-timestamp">${timestamp}</div>
-                            <p>${noteText}</p>
-                        </div>
-                    `;
-                    
-                    document.getElementById('notesList').insertAdjacentHTML('afterbegin', noteHtml);
-                    this.showNotification('📝 Note added successfully!', 'success');
-                }
-            }
-            
-            showConceptPreview(event) {
-                const card = event.target.closest('.concept-card');
-                const concept = card.querySelector('h4').textContent;
-                
-                // Show preview tooltip or highlight
-                card.style.transform = 'translateY(-6px) scale(1.02)';
-                card.style.boxShadow = '0 16px 64px rgba(255, 217, 61, 0.4)';
-            }
-            
-            handleTimelineClick(event) {
-                const step = event.target.closest('.timeline-step');
-                const allSteps = document.querySelectorAll('.timeline-step');
-                
-                // Remove active state from all steps
-                allSteps.forEach(s => s.classList.remove('completed'));
-                
-                // Add active state to clicked step and all previous steps
-                let stepIndex = Array.from(allSteps).indexOf(step);
-                for (let i = 0; i <= stepIndex; i++) {
-                    allSteps[i].classList.add('completed');
-                }
-                
-                this.showTimelineDetail(step);
-            }
-            
-            showTimelineDetail(step) {
-                const title = step.querySelector('h4').textContent;
-                const description = step.querySelector('p').textContent;
-                
-                const details = {
-                    "1665 - Robert Hooke": "Used a compound microscope to observe thin slices of cork. Coined the term 'cell' because the structures reminded him of monastery cells.",
-                    "1674 - Anton van Leeuwenhoek": "Improved microscope design and was first to observe living cells, including bacteria, which he called 'animalcules'.",
-                    "1838-1839 - Schleiden & Schwann": "Matthias Schleiden (plants) and Theodor Schwann (animals) proposed that all living things are made of cells."
-                };
-                
-                const detail = details[title] || description;
-                this.showNotification(`📚 ${title}: ${detail}`, 'info');
+            updateProgress(step) {
+                const progress = (step / this.totalSteps) * 100;
+                document.getElementById('progressFill').style.width = `${progress}%`;
+                document.getElementById('progressText').textContent = `Step ${step} of ${this.totalSteps}`;
             }
             
             completeLesson() {
-                this.showNotification('🎉 Lesson completed! +150 XP earned', 'success');
+                this.showNotification('🎉 Cell Biology lesson completed! +150 XP earned', 'success');
+                this.updateProgress(6);
                 
                 setTimeout(() => {
-                    window.location.href = 'screen3.html';
+                    window.location.href = 'index.html';
                 }, 2000);
             }
             
             showNotification(message, type = 'info') {
                 const notification = document.createElement('div');
-                notification.className = `fixed top-6 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 translate-y-[-100px] opacity-0`;
+                notification.className = `fixed top-6 right-6 px-4 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 transform translate-x-full`;
                 
                 const colors = {
                     info: 'bg-blue-500 text-white',
@@ -885,41 +554,30 @@
                 notification.className += ` ${colors[type]}`;
                 notification.innerHTML = `
                     <div class="flex items-center space-x-2">
-                        <span class="font-semibold">${message}</span>
+                        <i data-lucide="info" class="w-4 h-4"></i>
+                        <span class="text-sm font-semibold">${message}</span>
                     </div>
                 `;
                 
                 document.body.appendChild(notification);
+                lucide.createIcons();
                 
                 setTimeout(() => {
-                    notification.style.transform = 'translate(-50%, 0)';
-                    notification.style.opacity = '1';
+                    notification.style.transform = 'translateX(0)';
                 }, 100);
                 
                 setTimeout(() => {
-                    notification.style.transform = 'translate(-50%, -100px)';
-                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateX(100%)';
                     setTimeout(() => notification.remove(), 300);
                 }, 4000);
             }
-            
-            loadNotes() {
-                // Simulate loading saved notes
-                const savedNotes = [
-                    { time: '3:24 PM', content: '<strong>Cell Membrane:</strong> Controls what enters and exits the cell. Like a selective barrier.' },
-                    { time: '3:18 PM', content: '<strong>Timeline Key:</strong> 1665 Hooke → 1674 Leeuwenhoek → 1838-39 Cell Theory' }
-                ];
-                
-                this.notes = savedNotes;
-            }
         }
         
-        // AI Chatbot System
-        class AIChatbot {
+        // MOE Buddy Chat (adapted for Screen 4)
+        class MOEBuddy {
             constructor() {
                 this.apiKey = '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';
-                this.messages = [];
-                this.isActive = false;
+                this.chatMessages = [];
                 this.init();
             }
             
@@ -928,88 +586,128 @@
             }
             
             setupEventListeners() {
-                const aiInput = document.getElementById('aiInput');
-                if (aiInput) {
-                    aiInput.addEventListener('keypress', (e) => {
-                        if (e.key === 'Enter') {
-                            this.sendMessage();
-                        }
+                const sendButton = document.getElementById('sendMessage');
+                const chatInput = document.getElementById('chatInput');
+                const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+                
+                sendButton.addEventListener('click', () => this.sendMessage());
+                
+                const autoResize = () => {
+                    chatInput.style.height = 'auto';
+                    chatInput.style.height = Math.min(chatInput.scrollHeight, 128) + 'px';
+                };
+                autoResize();
+                chatInput.addEventListener('input', autoResize);
+                
+                let isComposing = false;
+                const isEnter = (evt) => evt.key === 'Enter' || evt.keyCode === 13;
+                chatInput.addEventListener('compositionstart', () => { isComposing = true; });
+                chatInput.addEventListener('compositionend', () => { isComposing = false; });
+                chatInput.addEventListener('keydown', (e) => {
+                    if (isComposing) return;
+                    if (isEnter(e) && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+                
+                quickActionBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const message = btn.getAttribute('data-message');
+                        this.sendQuickMessage(message);
                     });
-                }
+                });
             }
             
-            toggle() {
-                const chatbot = document.getElementById('aiChatbot');
-                const trigger = document.getElementById('aiTrigger');
+            async sendMessage() {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
                 
-                this.isActive = !this.isActive;
+                if (!message) return;
                 
-                if (this.isActive) {
-                    chatbot.classList.add('active');
-                    trigger.classList.add('hidden');
-                } else {
-                    chatbot.classList.remove('active');
-                    trigger.classList.remove('hidden');
-                }
-            }
-            
-            async sendMessage(message = null) {
-                const input = document.getElementById('aiInput');
-                const messageText = message || input.value.trim();
-                
-                if (!messageText) return;
-                
-                this.addMessage('user', messageText);
-                if (!message) input.value = '';
+                this.addMessage('user', message);
+                input.value = '';
+                input.style.height = 'auto';
                 
                 this.showThinking();
                 
                 try {
-                    const response = await this.getAIResponse(messageText);
+                    const response = await this.getAIResponse(message);
                     this.hideThinking();
                     this.addMessage('assistant', response);
                 } catch (error) {
                     this.hideThinking();
-                    this.addMessage('assistant', '🤖 Oops! My connection failed. But I can still help - try asking me about specific cell organelles or timeline events!');
+                    this.addMessage('assistant', '🧬 Connection failed! But I can still help - try asking me about specific organelles or cell processes!');
                 }
             }
             
+            sendQuickMessage(message) {
+                document.getElementById('chatInput').value = message;
+                this.sendMessage();
+            }
+            
             addMessage(role, message) {
-                const messagesContainer = document.getElementById('aiMessages');
+                const chatContainer = document.getElementById('chatMessages');
                 const messageDiv = document.createElement('div');
                 
-                messageDiv.className = role === 'user' ? 'user-message' : 'ai-message';
-                messageDiv.innerHTML = `<p class="text-sm">${message}</p>`;
+                if (role === 'user') {
+                    messageDiv.className = 'flex justify-end mb-4';
+                    messageDiv.innerHTML = `
+                        <div class="bg-blue-500/20 border border-blue-500/40 rounded-lg p-3 max-w-[80%]">
+                            <p class="text-sm text-white whitespace-pre-wrap break-words">${message}</p>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.className = 'flex justify-start mb-4';
+                    messageDiv.innerHTML = `
+                        <div class="flex items-start space-x-3 max-w-[85%]">
+                            <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div class="chat-message">
+                                <p class="text-sm text-white">${message}</p>
+                            </div>
+                        </div>
+                    `;
+                }
                 
-                messagesContainer.appendChild(messageDiv);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                lucide.createIcons();
                 
-                this.messages.push({ role, content: message });
+                this.chatMessages.push({ role, content: message });
             }
             
             showThinking() {
-                const messagesContainer = document.getElementById('aiMessages');
+                const chatContainer = document.getElementById('chatMessages');
                 const thinkingDiv = document.createElement('div');
-                thinkingDiv.id = 'ai-thinking';
-                thinkingDiv.className = 'ai-message';
+                thinkingDiv.id = 'thinking-indicator';
+                thinkingDiv.className = 'flex justify-start mb-4';
                 thinkingDiv.innerHTML = `
-                    <div class="flex items-center space-x-2">
-                        <div class="flex space-x-1">
-                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
-                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center">
+                            <i data-lucide="bot" class="w-4 h-4 text-white"></i>
                         </div>
-                        <span class="text-xs text-gray-400">Thinking...</span>
+                        <div class="flex items-center space-x-2">
+                            <div class="flex space-x-1">
+                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                            </div>
+                            <span class="text-xs text-gray-400">Analyzing cell biology...</span>
+                        </div>
                     </div>
                 `;
-                
-                messagesContainer.appendChild(thinkingDiv);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                chatContainer.appendChild(thinkingDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                lucide.createIcons();
             }
             
             hideThinking() {
-                const thinking = document.getElementById('ai-thinking');
-                if (thinking) thinking.remove();
+                const thinkingIndicator = document.getElementById('thinking-indicator');
+                if (thinkingIndicator) {
+                    thinkingIndicator.remove();
+                }
             }
             
             async getAIResponse(userMessage) {
@@ -1026,24 +724,32 @@
                         messages: [
                             {
                                 role: 'system',
-                                content: `You are Isaac's AI Learning Buddy for cell biology! Isaac is a 14-year-old analytical learner who loves detailed explanations and timeline connections.
+                                content: `You are MOE Buddy, Isaac's enthusiastic cell biology tutor! Isaac is a 14-year-old analytical learner from Singapore.
 
-CURRENT LESSON: Cell Structure & Function
-- Covering organelles: nucleus, mitochondria, ribosomes, cell membrane, vacuole, chloroplast
-- Timeline: 1665 Hooke → 1674 Leeuwenhoek → 1838-39 Cell Theory
-- Isaac's learning style: analytical, visual, timeline-focused
+MEET ISAAC CHEN:
+- 14-year-old science enthusiast with analytical mindset 🧬
+- Loves understanding how things work at the molecular level  
+- Gets excited about timeline connections and cause-effect relationships
+- Currently exploring cell biology interactively with videos and organelle cards
+- Has strong visual learning preferences
 
-YOUR PERSONALITY:
-- Enthusiastic biology tutor 🧬
-- Break down complex concepts step-by-step  
-- Connect to timeline when relevant
-- Use Isaac's analytical strengths
-- Provide visual analogies
-- Keep responses 2-3 sentences max for chat
+YOUR QUIRKY PERSONALITY:
+- ALWAYS call him "Isaac" - make it personal and encouraging!
+- Get excited about cell biology like it's the coolest thing ever 🔬
+- Use scientific terminology but explain it clearly
+- Connect concepts to timeline discoveries when relevant
+- Encourage his analytical thinking patterns
+- Keep responses engaging but helpful (2-4 sentences max)
 
-Help Isaac master cell biology with engaging, analytical explanations!`
+CURRENT LESSON: Interactive Cell Biology
+- What Isaac sees: Cell biology video, organelle explorer cards, discovery timeline
+- What Isaac should do: Watch video, explore organelles, understand cell theory development
+- Guide Isaac to: Think about relationships between structure and function, connect historical discoveries to modern understanding
+- Page vibe: Interactive laboratory where Isaac explores cells like a scientist
+
+Respond as Isaac's enthusiastic cell biology sidekick who makes microscopic worlds fascinating! 🚀`
                             },
-                            ...this.messages,
+                            ...this.chatMessages,
                             { role: 'user', content: userMessage }
                         ],
                         temperature: 0.7,
@@ -1061,80 +767,56 @@ Help Isaac master cell biology with engaging, analytical explanations!`
         }
         
         // Global functions for onclick handlers
-        function toggleAIChat() {
-            window.aiChatbot.toggle();
-        }
-        
-        function sendAIMessage() {
-            window.aiChatbot.sendMessage();
-        }
-        
-        function handleAIEnter(event) {
-            if (event.key === 'Enter') {
-                window.aiChatbot.sendMessage();
-            }
-        }
-        
-        function askAI(message) {
-            if (!window.aiChatbot.isActive) {
-                window.aiChatbot.toggle();
-            }
-            setTimeout(() => {
-                window.aiChatbot.sendMessage(message);
-            }, 300);
-        }
-        
         function exploreOrganelle(organelle) {
             const card = event.target.closest('.concept-card');
             card.classList.toggle('selected');
             
             const explanations = {
-                'nucleus': 'The nucleus is the control center of the cell, containing DNA and regulating gene expression.',
-                'mitochondria': 'Mitochondria are the powerhouses of the cell, producing ATP through cellular respiration.',
-                'ribosome': 'Ribosomes are the protein factories, translating mRNA into proteins.',
-                'membrane': 'The cell membrane is a selective barrier controlling what enters and exits the cell.',
-                'vacuole': 'Vacuoles are storage compartments, larger in plant cells for maintaining turgor pressure.',
-                'chloroplast': 'Chloroplasts conduct photosynthesis, converting light energy into chemical energy in plants.'
+                'nucleus': 'The nucleus controls all cell activities and contains the DNA - like the cell\'s command center!',
+                'mitochondria': 'Mitochondria produce ATP energy through cellular respiration - the cell\'s power plants!',
+                'ribosome': 'Ribosomes translate mRNA into proteins - the cell\'s protein factories!',
+                'membrane': 'The cell membrane controls what enters and exits - a selective barrier!',
+                'vacuole': 'Vacuoles store materials and maintain turgor pressure in plants!',
+                'chloroplast': 'Chloroplasts conduct photosynthesis in plant cells - converting light to energy!'
             };
             
-            askAI(`Tell me more about ${organelle}: ${explanations[organelle]}`);
+            const message = `Tell me more about the ${organelle}: ${explanations[organelle]}`;
+            window.learning.moeBuddy.sendQuickMessage(message);
         }
         
         function showTimelineStep(step) {
-            window.interactiveLearning.handleTimelineClick(event);
+            const steps = document.querySelectorAll('.timeline-step');
+            for (let i = 0; i < step; i++) {
+                steps[i].classList.add('completed');
+            }
+            
+            const timelineDetails = {
+                1: 'Isaac, in 1665 Robert Hooke first saw cell structures in cork using a microscope! This started our understanding of cells.',
+                2: 'Then in 1674, Leeuwenhoek improved microscopes and discovered living cells - including bacteria!',
+                3: 'Finally, Schleiden and Schwann formulated cell theory in 1838-39: all living things are made of cells!'
+            };
+            
+            window.learning.moeBuddy.sendQuickMessage(timelineDetails[step]);
         }
         
-        function playVideo() {
-            window.interactiveLearning.showNotification('🎬 Video playing: Journey Inside a Cell', 'info');
-            // Simulate video playing
-            setTimeout(() => {
-                askAI('I just watched the cell tour video. Can you quiz me on what I learned?');
-            }, 2000);
+        function addVideoNote() {
+            window.learning.showNotification('📝 Video note added to your study materials!', 'success');
         }
         
-        function showQuizQuestion() {
-            askAI('Quiz me: Which organelle is known as the powerhouse of the cell?');
+        function askAboutVideo() {
+            window.learning.moeBuddy.sendQuickMessage('I just watched the cell biology video. Can you help me understand the key concepts better?');
         }
         
         function completeLesson() {
-            window.interactiveLearning.completeLesson();
+            window.learning.completeLesson();
         }
         
-        function toggleNotes() {
-            window.interactiveLearning.toggleNotes();
+        function askForHelp() {
+            window.learning.moeBuddy.sendQuickMessage('I need help with this quiz question about cell organelles');
         }
         
-        function addNote() {
-            window.interactiveLearning.addNote();
-        }
-        
-        function takeNote(content) {
-            window.interactiveLearning.addNote(content);
-        }
-        
-        // Initialize systems
-        window.interactiveLearning = new InteractiveLearning();
-        window.aiChatbot = new AIChatbot();
+        // Initialize Screen 4
+        window.learning = new Screen4Learning();
         
         // Button interactions
         document.querySelectorAll('.academy-btn').forEach(btn => {
