@@ -2,72 +2,154 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>SCIENCE GALAXIAN - Isaac's HD Knowledge Blaster</title>
     
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Courier New', monospace;
-            background: radial-gradient(ellipse at center, #001122 0%, #000000 70%);
+            font-family: 'Press Start 2P', cursive;
+            background: #000000;
             color: #00ff00;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .game-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Arcade cabinet style frame */
+        .arcade-frame {
+            background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1e 100%);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 50px rgba(0, 255, 255, 0.3),
+                inset 0 0 30px rgba(0, 0, 0, 0.8);
+            border: 3px solid #00ffff;
+        }
+        
+        /* Arcade top scoreboard */
+        .arcade-top {
+            background: linear-gradient(90deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+            color: #00ffff;
+            padding: 15px;
             text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 2px solid #00ffff;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: -2px;
+            text-shadow: 
+                0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 30px #00ffff;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
+            to { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff; }
+        }
+        
+        /* Score display bar */
+        .score-bar {
+            background: #000000;
+            color: #ffff00;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 18px;
+            border: 2px solid #ffff00;
+            border-radius: 0;
+            margin-bottom: -2px;
+            font-family: 'Press Start 2P', cursive;
+            text-shadow: 0 0 5px currentColor;
+            line-height: 1.5;
+        }
+        
+        .score-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .score-label {
+            color: #00ffff;
+            font-size: 10px;
+            text-transform: uppercase;
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .score-value {
+            color: #ffff00;
+            font-size: 14px;
+            font-weight: normal;
+            min-width: 80px;
+            text-align: right;
+            font-family: 'Press Start 2P', cursive;
         }
         
         #gameCanvas {
-            background: radial-gradient(ellipse at center, #001122 0%, #000000 100%);
+            background: radial-gradient(ellipse at center, #000814 0%, #000000 100%);
             display: block;
-            margin: 0 auto;
+            width: 100%;
+            height: auto;
             border: 3px solid #00ffff;
             box-shadow: 
                 0 0 20px #00ffff,
                 inset 0 0 20px rgba(0, 255, 255, 0.1);
             image-rendering: pixelated;
-        }
-        
-        .hud {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            font-size: 16px;
-            color: #00ff00;
-            text-shadow: 0 0 10px #00ff00;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid #00ff00;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
         }
         
         .question-display {
-            position: fixed;
-            top: 15px;
+            position: absolute;
+            top: 180px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 18px;
+            font-size: 10px;
+            font-family: 'Press Start 2P', cursive;
+            line-height: 1.6;
             color: #ffff00;
-            background: rgba(0, 0, 0, 0.85);
-            padding: 15px 25px;
-            border: 3px solid #ffff00;
-            border-radius: 15px;
-            max-width: 700px;
-            box-shadow: 0 0 20px #ffff00;
-            text-shadow: 0 0 5px #ffff00;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 10px 15px;
+            border: 2px solid #ffff00;
+            border-radius: 8px;
+            max-width: 75%;
+            box-shadow: 0 0 10px #ffff00;
+            text-shadow: 0 0 2px #ffff00;
+            z-index: 100;
+            text-align: center;
         }
         
         .instructions {
-            position: fixed;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
+            background: #000000;
             color: #00ffff;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 1px solid #00ffff;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            border: 2px solid #00ffff;
+            border-radius: 0 0 10px 10px;
+            margin-top: -2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Press Start 2P', cursive;
         }
         
         .game-over, .victory, .instruction-screen {
@@ -75,51 +157,59 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.95);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
             padding: 40px;
             border: 3px solid;
             border-radius: 20px;
             text-align: center;
             z-index: 200;
-            box-shadow: 0 0 30px;
+            box-shadow: 0 0 50px;
+            max-width: 90%;
         }
         
         .game-over {
             color: #ff0000;
             border-color: #ff0000;
-            box-shadow: 0 0 30px #ff0000;
+            box-shadow: 0 0 50px #ff0000;
         }
         
         .victory {
             color: #00ff00;
             border-color: #00ff00;
-            box-shadow: 0 0 30px #00ff00;
+            box-shadow: 0 0 50px #00ff00;
         }
         
         .instruction-screen {
             color: #00ffff;
             border-color: #00ffff;
-            box-shadow: 0 0 30px #00ffff;
+            box-shadow: 0 0 50px #00ffff;
         }
         
         .btn {
-            padding: 15px 30px;
+            padding: 12px 20px;
             margin: 12px;
-            font-size: 16px;
+            font-size: 10px;
             background: linear-gradient(45deg, #ff4757, #ff3742);
             color: white;
-            border: none;
-            border-radius: 8px;
+            border: 2px solid #ff6b6b;
+            border-radius: 4px;
             cursor: pointer;
-            font-family: 'Courier New', monospace;
+            font-family: 'Press Start 2P', cursive;
             text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
-            transition: all 0.3s;
+            box-shadow: 0 4px 0 #cc2e2e;
+            transition: all 0.1s;
+            letter-spacing: 0px;
+            line-height: 1.5;
         }
         
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #cc2e2e;
+        }
+        
+        .btn:active {
+            transform: translateY(4px);
+            box-shadow: none;
         }
         
         .wave-indicator {
@@ -134,33 +224,61 @@
             opacity: 0;
             transition: opacity 0.5s;
             pointer-events: none;
+            font-family: 'Press Start 2P', cursive;
+            letter-spacing: 2px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .arcade-top { font-size: 14px; padding: 10px; }
+            .score-bar { font-size: 10px; }
+            .score-label { font-size: 8px; }
+            .score-value { font-size: 11px; }
+            .question-display { font-size: 8px; top: 160px; }
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="1000" height="700"></canvas>
-    
-    <div class="hud">
-        <div>SCORE: <span id="score">0</span></div>
-        <div>LEVEL: <span id="level">1</span></div>
-        <div>LIVES: <span id="lives">3</span></div>
-        <div>WAVE: <span id="wave">1</span></div>
-        <div>BONUS: <span id="bonus">0</span></div>
+    <div class="game-container">
+        <div class="arcade-frame">
+            <div class="arcade-top">🚀 SCIENCE GALAXIAN 🚀</div>
+            
+            <div class="score-bar">
+                <div class="score-item">
+                    <span class="score-label">Score:</span>
+                    <span class="score-value" id="score">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Lives:</span>
+                    <span class="score-value" id="lives">3</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Wave:</span>
+                    <span class="score-value" id="wave">1</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Level:</span>
+                    <span class="score-value" id="level">1</span>
+                </div>
+            </div>
+            
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            
+            <div class="instructions">
+                ← → MOVE | SPACE: FIRE | DESTROY GREEN ANSWERS | AVOID RED WRONG ANSWERS
+            </div>
+        </div>
     </div>
     
     <div id="questionDisplay" class="question-display">
         🚀 SCIENCE GALAXIAN - Defend knowledge by shooting correct answers! 🧬
     </div>
     
-    <div class="instructions">
-        ARROW KEYS: Move | SPACEBAR: Shoot | Destroy GREEN answer capsules! | Purple enemies = bonus points!
-    </div>
-    
     <div id="waveIndicator" class="wave-indicator">WAVE 1</div>
     
     <div id="instructionScreen" class="instruction-screen" style="display: block;">
-        <h1 style="color: #00ffff; margin-bottom: 20px;">🌌 SCIENCE GALAXIAN 🚀</h1>
-        <div style="text-align: left; margin: 25px 0; font-size: 15px; line-height: 1.7; max-width: 600px;">
+        <h1 style="color: #00ffff; margin-bottom: 25px; font-size: 16px;">SCIENCE GALAXIAN</h1>
+        <div style="text-align: left; margin: 25px 0; font-size: 9px; line-height: 2.2; max-width: 600px;">
             <p><strong style="color: #ffff00;">🎯 MISSION:</strong> Defend the galaxy of knowledge!</p>
             <p><strong style="color: #ffff00;">🎮 CONTROLS:</strong></p>
             <p>• ⬅️➡️ Arrow Keys: Navigate your starfighter</p>
@@ -168,10 +286,8 @@
             <p><strong style="color: #ffff00;">⚔️ COMBAT:</strong></p>
             <p>• 🟢 GREEN capsules = Correct answers (shoot these!)</p>
             <p>• 🔴 RED capsules = Wrong answers (avoid!)</p>
-            <p>• 🟣 Purple scouts = Bonus enemies (+100 points)</p>
-            <p>• 🟠 Orange fighters = Fast attackers (+150 points)</p>
-            <p>• 🔵 Blue bombers = Heavy units (+200 points)</p>
-            <p><strong style="color: #ff4444;">⚠️ WARNING:</strong> Wrong answers cost lives!</p>
+            <p>• 👾 Alien minions = Kamikaze attackers (shoot for points!)</p>
+            <p><strong style="color: #ff4444;">⚠️ WARNING:</strong> If answers reach the bottom = GAME OVER!</p>
             <p><strong style="color: #00ff00;">🎖️ BONUS:</strong> Answer streaks multiply your score!</p>
         </div>
         <button class="btn" onclick="startGame()">🚀 LAUNCH MISSION</button>
@@ -179,24 +295,47 @@
     </div>
     
     <div id="gameOver" class="game-over" style="display: none;">
-        <h2>🌌 GALAXY DEFENDED! 🌌</h2>
-        <p>Final Score: <span id="finalScore">0</span></p>
-        <p>Knowledge Level: <span id="finalLevel">1</span></p>
-        <button class="btn" onclick="restartGame()">🚀 DEFEND AGAIN</button>
+        <h2 style="font-size: 14px; margin-bottom: 20px;">MISSION FAILED</h2>
+        <p style="margin: 15px 0; font-size: 10px;">Final Score: <span id="finalScore">0</span></p>
+        <p style="margin: 15px 0; font-size: 10px;">Knowledge Level: <span id="finalLevel">1</span></p>
+        <button class="btn" onclick="restartGame()">🚀 TRY AGAIN</button>
         <button class="btn" onclick="window.location.href='index.html'" style="background: linear-gradient(45deg, #666, #444);">⬅️ RETURN TO BASE</button>
     </div>
     
     <div id="victory" class="victory" style="display: none;">
-        <h2>🏆 SCIENCE CHAMPION! 🏆</h2>
-        <p>You've mastered the knowledge galaxy!</p>
-        <p>Final Score: <span id="victoryScore">0</span></p>
+        <h2 style="font-size: 14px; margin-bottom: 20px;">SCIENCE CHAMPION!</h2>
+        <p style="margin: 15px 0; font-size: 9px;">You've mastered the knowledge galaxy!</p>
+        <p style="margin: 15px 0; font-size: 10px;">Final Score: <span id="victoryScore">0</span></p>
         <button class="btn" onclick="nextLevel()">🌟 NEXT GALAXY</button>
         <button class="btn" onclick="window.location.href='index.html'" style="background: linear-gradient(45deg, #666, #444);">🏠 RETURN TO BASE</button>
     </div>
 
+    <!-- Preload audio -->
+    <audio id="gameIntroMusic" preload="auto">
+        <source src="sounds/game-intro.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
+        
+        // Adjust canvas for responsive design
+        function resizeCanvas() {
+            const container = document.querySelector('.arcade-frame');
+            const maxWidth = container.clientWidth - 6; // Account for borders
+            const aspectRatio = 800 / 600;
+            
+            if (window.innerWidth <= 768) {
+                canvas.width = Math.min(maxWidth, 800);
+                canvas.height = canvas.width / aspectRatio;
+            } else {
+                canvas.width = 800;
+                canvas.height = 600;
+            }
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
         
         // Game state
         let game = {
@@ -211,13 +350,19 @@
             correctAnswer: -1,
             frameCount: 0,
             started: false,
-            waveTransition: false
+            waveTransition: false,
+            formationDirection: 1,
+            formationSpeed: 0.3,
+            formationDropTimer: 0,
+            formationDropInterval: 180, // Frames between drops
+            kamikazeTimer: 0,
+            kamikazeInterval: 240 // Frames between kamikaze attacks
         };
         
         // Enhanced player with HD sprite
         let player = {
-            x: 450,
-            y: 620,
+            x: canvas.width/2 - 25,
+            y: canvas.height - 80,
             width: 50,
             height: 40,
             speed: 6,
@@ -229,11 +374,10 @@
         // Game arrays
         let bullets = [];
         let invaders = [];
-        let enemies = []; // New enemy types
+        let minions = []; // Galaxian-style minions
         let explosions = [];
         let particles = [];
         let stars = [];
-        let powerUps = [];
         
         // Enhanced science questions
         const questions = [
@@ -294,44 +438,21 @@
             keys[e.key] = false;
         });
         
-        // Enhanced sound system
-        const sounds = {};
+        // Audio system
+        const gameIntroMusic = document.getElementById('gameIntroMusic');
         
-        function loadSounds() {
-            const soundFiles = ['shoot', 'hit', 'powerup'];
-            
-            soundFiles.forEach(soundName => {
-                sounds[soundName] = new Audio(`sounds/${soundName}.mp3`);
-                sounds[soundName].volume = 0.4;
-                sounds[soundName].load();
-            });
+        function playGameIntro() {
+            gameIntroMusic.currentTime = 0;
+            gameIntroMusic.volume = 0.5;
+            gameIntroMusic.play().catch(e => console.log('Audio play failed:', e));
         }
         
-        function playSound(soundType, frequency = 440, duration = 0.1) {
-            let soundFile = null;
-            
-            if (soundType === 'shoot' || frequency === 800) {
-                soundFile = sounds.shoot;
-            } else if (soundType === 'hit' || frequency === 200 || frequency === 150) {
-                soundFile = sounds.hit;
-            } else if (soundType === 'powerup' || frequency === 1200 || frequency === 1500) {
-                soundFile = sounds.powerup;
-            }
-            
-            if (soundFile) {
-                try {
-                    soundFile.currentTime = 0;
-                    soundFile.play().catch(() => playBeep(frequency, duration));
-                    return;
-                } catch (e) {
-                    // Fallback to beep
-                }
-            }
-            
-            playBeep(frequency, duration);
+        function stopGameIntro() {
+            gameIntroMusic.pause();
+            gameIntroMusic.currentTime = 0;
         }
         
-        function playBeep(frequency, duration) {
+        function playSound(type, frequency = 440, duration = 0.1) {
             try {
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 const oscillator = audioContext.createOscillator();
@@ -355,16 +476,101 @@
         
         // Initialize HD starfield
         function createStars() {
-            for (let i = 0; i < 150; i++) {
+            stars = [];
+            for (let i = 0; i < 100; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * 3,
-                    speed: Math.random() * 2 + 0.5,
+                    size: Math.random() * 2,
+                    speed: Math.random() * 0.5 + 0.1,
                     twinkle: Math.random() * Math.PI * 2,
                     brightness: Math.random()
                 });
             }
+        }
+        
+        // Create Galaxian-style minions
+        function createMinions() {
+            minions = [];
+            const rows = 3;
+            const cols = 8;
+            const startX = 100;
+            const startY = 240;
+            const spacing = 60;
+            
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    minions.push({
+                        x: startX + col * spacing,
+                        y: startY + row * 40,
+                        width: 25,
+                        height: 25,
+                        alive: true,
+                        type: row === 0 ? 'elite' : row === 1 ? 'guard' : 'drone',
+                        color: row === 0 ? '#ff00ff' : row === 1 ? '#ff8800' : '#00ff88',
+                        scoreValue: row === 0 ? 150 : row === 1 ? 100 : 50,
+                        animation: Math.random() * Math.PI * 2,
+                        homeX: startX + col * spacing,
+                        homeY: startY + row * 40,
+                        isKamikaze: false,
+                        kamikazeSpeed: 0,
+                        kamikazeAngle: 0
+                    });
+                }
+            }
+        }
+        
+        // Draw Galaxian-style minion
+        function drawMinion(minion) {
+            if (!minion.alive) return;
+            
+            ctx.save();
+            ctx.translate(minion.x + minion.width/2, minion.y + minion.height/2);
+            
+            // Animate wing flapping
+            const flapAngle = Math.sin(minion.animation) * 0.2;
+            ctx.rotate(minion.isKamikaze ? minion.kamikazeAngle : 0);
+            
+            // Body
+            ctx.fillStyle = minion.color;
+            ctx.beginPath();
+            ctx.ellipse(0, 0, minion.width/3, minion.height/2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Wings
+            ctx.save();
+            ctx.rotate(flapAngle);
+            ctx.fillStyle = minion.color + 'cc';
+            ctx.beginPath();
+            ctx.moveTo(-minion.width/2, 0);
+            ctx.lineTo(-minion.width/4, -minion.height/3);
+            ctx.lineTo(0, 0);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+            
+            ctx.save();
+            ctx.rotate(-flapAngle);
+            ctx.fillStyle = minion.color + 'cc';
+            ctx.beginPath();
+            ctx.moveTo(minion.width/2, 0);
+            ctx.lineTo(minion.width/4, -minion.height/3);
+            ctx.lineTo(0, 0);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+            
+            // Eye
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(0, -3, 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#ff0000';
+            ctx.beginPath();
+            ctx.arc(0, -3, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.restore();
         }
         
         // Enhanced HD sprites
@@ -409,7 +615,7 @@
             ctx.fillRect(player.x + player.width - 20, player.y + 25, 15, 3);
             
             // Thrust animation
-            if (keys['ArrowLeft'] || keys['ArrowRight'] || keys['ArrowUp'] || keys['ArrowDown']) {
+            if (keys['ArrowLeft'] || keys['ArrowRight']) {
                 player.thrustAnimation += 0.3;
                 const thrustIntensity = Math.sin(player.thrustAnimation) * 0.5 + 0.5;
                 
@@ -422,113 +628,7 @@
             ctx.restore();
         }
         
-        // HD Enemy types with unique behaviors
-        function createEnemy(type) {
-            const enemy = {
-                x: Math.random() * (canvas.width - 60),
-                y: -50,
-                width: 30,
-                height: 30,
-                type: type,
-                alive: true,
-                health: 1,
-                speed: 1,
-                scoreValue: 100,
-                animation: 0,
-                direction: 1,
-                shootTimer: 0
-            };
-            
-            switch (type) {
-                case 'scout':
-                    enemy.color = '#ff00ff';
-                    enemy.speed = 2 + Math.random() * 2;
-                    enemy.scoreValue = 100;
-                    enemy.width = 25;
-                    enemy.height = 25;
-                    break;
-                case 'fighter':
-                    enemy.color = '#ff8800';
-                    enemy.speed = 3 + Math.random() * 1.5;
-                    enemy.scoreValue = 150;
-                    enemy.health = 1;
-                    enemy.width = 30;
-                    enemy.height = 30;
-                    break;
-                case 'bomber':
-                    enemy.color = '#0088ff';
-                    enemy.speed = 1 + Math.random() * 0.5;
-                    enemy.scoreValue = 200;
-                    enemy.health = 2;
-                    enemy.width = 40;
-                    enemy.height = 35;
-                    break;
-            }
-            
-            return enemy;
-        }
-        
-        // Enhanced HD enemy sprite rendering
-        function drawEnemy(enemy) {
-            ctx.save();
-            ctx.translate(enemy.x + enemy.width/2, enemy.y + enemy.height/2);
-            ctx.rotate(enemy.animation * 0.1);
-            
-            const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, enemy.width/2);
-            gradient.addColorStop(0, enemy.color);
-            gradient.addColorStop(1, enemy.color + '44');
-            ctx.fillStyle = gradient;
-            
-            if (enemy.type === 'scout') {
-                // Small, fast diamond shape
-                ctx.beginPath();
-                ctx.moveTo(0, -enemy.height/2);
-                ctx.lineTo(enemy.width/2, 0);
-                ctx.lineTo(0, enemy.height/2);
-                ctx.lineTo(-enemy.width/2, 0);
-                ctx.closePath();
-                ctx.fill();
-                
-                // Glowing center
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(-3, -3, 6, 6);
-                
-            } else if (enemy.type === 'fighter') {
-                // Aggressive angular ship
-                ctx.beginPath();
-                ctx.moveTo(0, -enemy.height/2);
-                ctx.lineTo(enemy.width/3, -enemy.height/4);
-                ctx.lineTo(enemy.width/2, enemy.height/2);
-                ctx.lineTo(-enemy.width/2, enemy.height/2);
-                ctx.lineTo(-enemy.width/3, -enemy.height/4);
-                ctx.closePath();
-                ctx.fill();
-                
-                // Wing cannons
-                ctx.fillStyle = '#ffaa00';
-                ctx.fillRect(-enemy.width/2, -5, 8, 10);
-                ctx.fillRect(enemy.width/2 - 8, -5, 8, 10);
-                
-            } else if (enemy.type === 'bomber') {
-                // Large, heavy cruiser
-                ctx.fillRect(-enemy.width/2, -enemy.height/2, enemy.width, enemy.height);
-                
-                // Heavy armor plating
-                ctx.strokeStyle = '#0066cc';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(-enemy.width/2, -enemy.height/2, enemy.width, enemy.height);
-                
-                // Multiple weapon ports
-                ctx.fillStyle = '#ff4400';
-                for (let i = -1; i <= 1; i++) {
-                    ctx.fillRect(i * 10 - 2, enemy.height/2 - 2, 4, 4);
-                }
-            }
-            
-            ctx.restore();
-        }
-        
-        // Enhanced answer capsule creation
+        // Enhanced answer capsule creation in formation
         function createInvaders() {
             invaders = [];
             const currentQ = questions[game.currentQuestion];
@@ -536,24 +636,31 @@
             
             document.getElementById('questionDisplay').textContent = currentQ.question;
             
-            // Create answer capsules with enhanced visuals
+            // Create answer capsules in formation
+            const startX = 150;
+            const startY = 100;
+            const spacing = 150;
+            
             for (let i = 0; i < 4; i++) {
                 invaders.push({
-                    x: 150 + i * 160,
-                    y: 80,
-                    width: 120,
-                    height: 50,
+                    x: startX + i * spacing,
+                    y: startY,
+                    width: 100,
+                    height: 40,
                     answer: currentQ.answers[i],
                     answerIndex: i,
                     isCorrect: i === currentQ.correct,
                     color: i === currentQ.correct ? '#00ff00' : '#ff4444',
                     alive: true,
-                    dropSpeed: 1.5 + Math.random() * 0.8,
-                    sideMovement: (Math.random() - 0.5) * 3,
+                    homeX: startX + i * spacing,
+                    homeY: startY,
                     glow: 0,
                     rotation: 0
                 });
             }
+            
+            // Create minions with the invaders
+            createMinions();
         }
         
         // Enhanced HD answer capsule rendering
@@ -578,7 +685,7 @@
             
             // Rounded rectangle capsule
             ctx.beginPath();
-            ctx.roundRect(invader.x, invader.y, invader.width, invader.height, 15);
+            ctx.roundRect(invader.x, invader.y, invader.width, invader.height, 8);
             ctx.fill();
             
             // Border with pulsing effect
@@ -586,24 +693,24 @@
             ctx.lineWidth = 2 * glowIntensity;
             ctx.stroke();
             
-            // Answer text with better formatting
+            // Answer text with 8-bit formatting
             ctx.shadowBlur = 0;
             ctx.fillStyle = '#000000';
-            ctx.font = 'bold 13px Courier New';
+            ctx.font = '8px "Press Start 2P"';
             ctx.textAlign = 'center';
             
             const words = invader.answer.split(' ');
             const textX = invader.x + invader.width / 2;
             const textY = invader.y + invader.height / 2;
             
-            if (words.length > 2 && invader.answer.length > 15) {
+            if (words.length > 2 && invader.answer.length > 12) {
                 // Multi-line text for long answers
                 const line1 = words.slice(0, Math.ceil(words.length/2)).join(' ');
                 const line2 = words.slice(Math.ceil(words.length/2)).join(' ');
                 ctx.fillText(line1, textX, textY - 5);
                 ctx.fillText(line2, textX, textY + 8);
             } else {
-                ctx.fillText(invader.answer, textX, textY + 3);
+                ctx.fillText(invader.answer, textX, textY + 2);
             }
             
             ctx.restore();
@@ -627,13 +734,13 @@
                 particles.push({
                     x: x,
                     y: y,
-                    vx: (Math.random() - 0.5) * 15,
-                    vy: (Math.random() - 0.5) * 15,
-                    life: 40,
-                    maxLife: 40,
+                    vx: (Math.random() - 0.5) * 10,
+                    vy: (Math.random() - 0.5) * 10,
+                    life: 30,
+                    maxLife: 30,
                     color: color,
-                    size: Math.random() * 4 + 1,
-                    gravity: 0.1
+                    size: Math.random() * 3 + 1,
+                    gravity: 0.05
                 });
             }
         }
@@ -646,8 +753,8 @@
                 x: player.x + player.width / 2 - 2,
                 y: player.y,
                 width: 4,
-                height: 15,
-                speed: 12,
+                height: 12,
+                speed: 10,
                 color: '#ffff00',
                 glow: 0
             });
@@ -674,11 +781,35 @@
             }, 2000);
         }
         
+        // Launch kamikaze attack
+        function launchKamikaze() {
+            const aliveMinions = minions.filter(m => m.alive && !m.isKamikaze);
+            if (aliveMinions.length === 0) return;
+            
+            const minion = aliveMinions[Math.floor(Math.random() * aliveMinions.length)];
+            minion.isKamikaze = true;
+            minion.kamikazeSpeed = 4 + Math.random() * 2;
+            minion.kamikazeAngle = Math.atan2(player.y - minion.y, player.x - minion.x);
+            
+            playSound('kamikaze', 600, 0.2);
+        }
+        
         // Enhanced update loop
         function update() {
             if (!game.running || game.waveTransition) return;
             
             game.frameCount++;
+            
+            // Update formation drop timer
+            game.formationDropTimer++;
+            game.kamikazeTimer++;
+            
+            // Launch kamikaze attacks periodically
+            if (game.kamikazeTimer >= game.kamikazeInterval) {
+                game.kamikazeTimer = 0;
+                game.kamikazeInterval = Math.max(120, 240 - game.level * 20); // Gets more frequent
+                launchKamikaze();
+            }
             
             // Player movement with bounds checking
             if (keys['ArrowLeft'] && player.x > 0) {
@@ -686,12 +817,6 @@
             }
             if (keys['ArrowRight'] && player.x < canvas.width - player.width) {
                 player.x += player.speed;
-            }
-            if (keys['ArrowUp'] && player.y > canvas.height * 0.6) {
-                player.y -= player.speed;
-            }
-            if (keys['ArrowDown'] && player.y < canvas.height - player.height) {
-                player.y += player.speed;
             }
             
             // Decrease shield
@@ -753,111 +878,98 @@
                     }
                 }
                 
-                // Check collision with enemies
-                for (let j = enemies.length - 1; j >= 0; j--) {
-                    const enemy = enemies[j];
-                    if (!enemy.alive) continue;
+                // Check collision with minions
+                for (let j = minions.length - 1; j >= 0; j--) {
+                    const minion = minions[j];
+                    if (!minion.alive) continue;
                     
-                    if (checkCollision(bullet, enemy)) {
+                    if (checkCollision(bullet, minion)) {
                         bullets.splice(i, 1);
-                        enemy.health--;
-                        
-                        if (enemy.health <= 0) {
-                            enemy.alive = false;
-                            game.score += enemy.scoreValue;
-                            game.bonus += enemy.scoreValue;
-                            playSound('hit', 400, 0.3);
-                            createExplosion(enemy.x + enemy.width/2, enemy.y + enemy.height/2, 10, enemy.color);
-                            enemies.splice(j, 1);
-                        }
+                        minion.alive = false;
+                        game.score += minion.scoreValue;
+                        playSound('hit', 400, 0.3);
+                        createExplosion(minion.x + minion.width/2, minion.y + minion.height/2, 8, minion.color);
                         break;
                     }
                 }
             }
             
-            // Update invaders (answer capsules)
+            // Update invaders with Galaxian-style formation movement
+            const formationMove = Math.sin(game.frameCount * 0.02) * 30;
+            
+            // Check if formation should drop
+            let shouldDrop = false;
+            if (game.formationDropTimer >= game.formationDropInterval) {
+                shouldDrop = true;
+                game.formationDropTimer = 0;
+                game.formationDropInterval = Math.max(60, 180 - game.level * 15); // Gets faster
+            }
+            
             invaders.forEach(invader => {
                 if (invader.alive) {
-                    invader.y += invader.dropSpeed;
-                    invader.x += invader.sideMovement;
-                    invader.rotation += 0.02;
+                    // Galaxian-style side-to-side movement
+                    invader.x = invader.homeX + formationMove;
                     
-                    // Bounce off walls
-                    if (invader.x <= 0 || invader.x >= canvas.width - invader.width) {
-                        invader.sideMovement *= -1;
+                    // Drop formation periodically
+                    if (shouldDrop) {
+                        invader.homeY += 20;
+                        invader.y = invader.homeY;
+                    } else {
+                        invader.y = invader.homeY + Math.sin(game.frameCount * 0.05 + invader.answerIndex) * 5;
                     }
                     
-                    // Increase speed over time
-                    invader.dropSpeed += 0.003;
+                    invader.rotation += 0.02;
                     
-                    // Check if reached bottom
+                    // Check if reached bottom - GAME OVER
                     if (invader.y > canvas.height - 100) {
-                        game.lives--;
-                        playSound('hit', 200, 0.5);
-                        if (game.lives <= 0) {
-                            gameOver();
-                            return;
-                        }
-                        nextQuestion();
+                        game.lives = 0;
+                        playSound('hit', 150, 1.0);
+                        createExplosion(invader.x + invader.width/2, invader.y + invader.height/2, 20, '#ff0000');
+                        gameOver();
+                        return;
                     }
                 }
             });
             
-            // Spawn enemies
-            if (game.frameCount % (200 - game.level * 20) === 0) {
-                const types = ['scout', 'scout', 'fighter', 'bomber'];
-                const type = types[Math.floor(Math.random() * types.length)];
-                enemies.push(createEnemy(type));
-            }
-            
-            // Update enemies
-            for (let i = enemies.length - 1; i >= 0; i--) {
-                const enemy = enemies[i];
-                if (!enemy.alive) {
-                    enemies.splice(i, 1);
-                    continue;
-                }
+            // Update minions
+            for (let i = minions.length - 1; i >= 0; i--) {
+                const minion = minions[i];
+                if (!minion.alive) continue;
                 
-                enemy.animation += enemy.speed * 0.1;
+                minion.animation += 0.1;
                 
-                // Different movement patterns
-                if (enemy.type === 'scout') {
-                    enemy.y += enemy.speed;
-                    enemy.x += Math.sin(enemy.animation) * 2;
-                } else if (enemy.type === 'fighter') {
-                    enemy.y += enemy.speed;
-                    if (Math.random() < 0.02) {
-                        enemy.direction *= -1;
-                    }
-                    enemy.x += enemy.direction * 2;
-                } else if (enemy.type === 'bomber') {
-                    enemy.y += enemy.speed;
-                    enemy.x += Math.cos(enemy.animation * 0.5) * 1.5;
-                }
-                
-                // Bounce off screen edges
-                if (enemy.x <= 0 || enemy.x >= canvas.width - enemy.width) {
-                    enemy.direction *= -1;
-                }
-                
-                // Check collision with player
-                if (checkCollision(enemy, player) && player.shield <= 0) {
-                    game.lives--;
-                    player.shield = 120; // Temporary invincibility
-                    createExplosion(player.x + player.width/2, player.y + player.height/2, 15, '#ff0000');
-                    playSound('hit', 150, 0.8);
-                    enemies.splice(i, 1);
+                if (minion.isKamikaze) {
+                    // Kamikaze dive behavior
+                    minion.x += Math.cos(minion.kamikazeAngle) * minion.kamikazeSpeed;
+                    minion.y += Math.sin(minion.kamikazeAngle) * minion.kamikazeSpeed;
+                    minion.kamikazeAngle += (Math.random() - 0.5) * 0.1; // Slight wobble
                     
-                    if (game.lives <= 0) {
-                        gameOver();
-                        return;
+                    // Check collision with player
+                    if (checkCollision(minion, player) && player.shield <= 0) {
+                        game.lives--;
+                        player.shield = 120; // Temporary invincibility
+                        minion.alive = false;
+                        createExplosion(player.x + player.width/2, player.y + player.height/2, 15, '#ff0000');
+                        playSound('hit', 150, 0.8);
+                        
+                        if (game.lives <= 0) {
+                            gameOver();
+                            return;
+                        }
                     }
-                    continue;
-                }
-                
-                // Remove if off screen
-                if (enemy.y > canvas.height + 50) {
-                    enemies.splice(i, 1);
+                    
+                    // Remove if off screen
+                    if (minion.y > canvas.height + 50 || minion.x < -50 || minion.x > canvas.width + 50) {
+                        minion.alive = false;
+                    }
+                } else {
+                    // Formation movement
+                    minion.x = minion.homeX + formationMove;
+                    
+                    if (shouldDrop) {
+                        minion.homeY += 20;
+                    }
+                    minion.y = minion.homeY + Math.sin(game.frameCount * 0.05 + minion.x * 0.01) * 8;
                 }
             }
             
@@ -902,7 +1014,7 @@
             // Clear with space gradient
             const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, 
                                                     canvas.width/2, canvas.height/2, canvas.width/2);
-            gradient.addColorStop(0, '#001122');
+            gradient.addColorStop(0, '#000814');
             gradient.addColorStop(1, '#000000');
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -916,6 +1028,12 @@
                 ctx.fill();
             });
             
+            // Draw minions
+            minions.forEach(drawMinion);
+            
+            // Draw invaders
+            invaders.forEach(drawInvader);
+            
             // Draw player
             drawPlayer();
             
@@ -928,12 +1046,6 @@
                 ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
                 ctx.restore();
             });
-            
-            // Draw invaders
-            invaders.forEach(drawInvader);
-            
-            // Draw enemies
-            enemies.forEach(drawEnemy);
             
             // Draw explosions
             explosions.forEach(explosion => {
@@ -962,7 +1074,6 @@
             document.getElementById('level').textContent = game.level;
             document.getElementById('lives').textContent = game.lives;
             document.getElementById('wave').textContent = game.wave;
-            document.getElementById('bonus').textContent = game.bonus.toLocaleString();
         }
         
         // Game flow functions
@@ -972,14 +1083,25 @@
             document.getElementById('instructionScreen').style.display = 'none';
             createInvaders();
             showWave(game.wave);
+            
+            // Play intro music
+            playGameIntro();
+            
+            // Stop music after 10 seconds
+            setTimeout(() => {
+                stopGameIntro();
+            }, 10000);
+            
             playSound('powerup', 1200, 0.4);
         }
         
         function nextQuestion() {
             createInvaders();
-            enemies = [];
             game.frameCount = 0;
             game.wave++;
+            game.formationDropTimer = 0;
+            game.kamikazeTimer = 0;
+            
             showWave(game.wave);
         }
         
@@ -988,6 +1110,9 @@
             game.currentQuestion = 0;
             game.wave = 1;
             game.streak = 0;
+            game.formationSpeed = 0.3 + (game.level * 0.1);
+            game.formationDropInterval = Math.max(60, 180 - game.level * 15);
+            game.kamikazeInterval = Math.max(120, 240 - game.level * 20);
             document.getElementById('victory').style.display = 'none';
             createInvaders();
             showWave(game.wave);
@@ -995,6 +1120,7 @@
         
         function gameOver() {
             game.running = false;
+            stopGameIntro();
             document.getElementById('finalScore').textContent = game.score.toLocaleString();
             document.getElementById('finalLevel').textContent = game.level;
             document.getElementById('gameOver').style.display = 'block';
@@ -1003,6 +1129,7 @@
         
         function victory() {
             game.running = false;
+            stopGameIntro();
             document.getElementById('victoryScore').textContent = game.score.toLocaleString();
             document.getElementById('victory').style.display = 'block';
             playSound('powerup', 1500, 0.8);
@@ -1022,12 +1149,18 @@
                 correctAnswer: -1,
                 frameCount: 0,
                 started: false,
-                waveTransition: false
+                waveTransition: false,
+                formationDirection: 1,
+                formationSpeed: 0.3,
+                formationDropTimer: 0,
+                formationDropInterval: 180,
+                kamikazeTimer: 0,
+                kamikazeInterval: 240
             };
             
             player = {
-                x: 450,
-                y: 620,
+                x: canvas.width/2 - 25,
+                y: canvas.height - 80,
                 width: 50,
                 height: 40,
                 speed: 6,
@@ -1037,10 +1170,9 @@
             };
             
             bullets = [];
-            enemies = [];
+            minions = [];
             explosions = [];
             particles = [];
-            powerUps = [];
             
             document.getElementById('gameOver').style.display = 'none';
             document.getElementById('victory').style.display = 'none';
@@ -1056,7 +1188,6 @@
         
         // Initialize
         console.log('Science Galaxian HD starting...');
-        loadSounds();
         createStars();
         gameLoop();
         
