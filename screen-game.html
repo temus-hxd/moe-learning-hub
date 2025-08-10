@@ -53,16 +53,7 @@
             border: 2px solid #00ffff;
             border-radius: 10px 10px 0 0;
             margin-bottom: -2px;
-            text-shadow: 
-                0 0 10px #00ffff,
-                0 0 20px #00ffff,
-                0 0 30px #00ffff;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-        
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
-            to { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff; }
+            text-shadow: 0 0 5px #00ffff;
         }
         
         /* Score display bar */
@@ -260,6 +251,10 @@
                     <span class="score-label">Level:</span>
                     <span class="score-value" id="level">1</span>
                 </div>
+                <div class="score-item" id="difficultyIndicator" style="display: none;">
+                    <span class="score-label" style="color: #ff4444;">DIFF:</span>
+                    <span class="score-value" id="difficulty" style="color: #ff4444;">HARD</span>
+                </div>
             </div>
             
             <canvas id="gameCanvas" width="800" height="600"></canvas>
@@ -284,8 +279,9 @@
             <p>• ⬅️➡️ Arrow Keys: Navigate your starfighter</p>
             <p>• SPACEBAR: Fire plasma bolts</p>
             <p><strong style="color: #ffff00;">⚔️ COMBAT:</strong></p>
-            <p>• 🟢 GREEN capsules = Correct answers (shoot these!)</p>
+            <p>• 🟢 GREEN capsules = Correct answers (Level 1 only!)</p>
             <p>• 🔴 RED capsules = Wrong answers (avoid!)</p>
+            <p>• ⚠️ Colors become harder each level!</p>
             <p>• 👾 Alien minions = Kamikaze attackers (shoot for points!)</p>
             <p><strong style="color: #ff4444;">⚠️ WARNING:</strong> If answers reach the bottom = GAME OVER!</p>
             <p><strong style="color: #00ff00;">🎖️ BONUS:</strong> Answer streaks multiply your score!</p>
@@ -354,9 +350,10 @@
             formationDirection: 1,
             formationSpeed: 0.3,
             formationDropTimer: 0,
-            formationDropInterval: 180, // Frames between drops
+            formationDropInterval: 240, // Slower initial drop rate (4 seconds)
             kamikazeTimer: 0,
-            kamikazeInterval: 240 // Frames between kamikaze attacks
+            kamikazeInterval: 360, // Slower initial kamikaze (6 seconds)
+            kamikazeSpeedBase: 2, // Base kamikaze speed that increases
         };
         
         // Enhanced player with HD sprite
@@ -636,6 +633,16 @@
             
             document.getElementById('questionDisplay').textContent = currentQ.question;
             
+            // Calculate color blend based on level
+            // Level 1: Full green (#00ff00)
+            // Level 5+: Full red (#ff4444)
+            const colorProgress = Math.min((game.level - 1) / 4, 1); // 0 to 1 over 4 levels
+            
+            // Interpolate between green and red
+            const greenValue = Math.round(255 * (1 - colorProgress));
+            const redValue = 255;
+            const correctColor = `#${redValue.toString(16).padStart(2, '0')}${greenValue.toString(16).padStart(2, '0')}00`;
+            
             // Create answer capsules in formation
             const startX = 150;
             const startY = 100;
@@ -650,7 +657,7 @@
                     answer: currentQ.answers[i],
                     answerIndex: i,
                     isCorrect: i === currentQ.correct,
-                    color: i === currentQ.correct ? '#00ff00' : '#ff4444',
+                    color: i === currentQ.correct ? correctColor : '#ff4444',
                     alive: true,
                     homeX: startX + i * spacing,
                     homeY: startY,
@@ -788,7 +795,12 @@
             
             const minion = aliveMinions[Math.floor(Math.random() * aliveMinions.length)];
             minion.isKamikaze = true;
-            minion.kamikazeSpeed = 4 + Math.random() * 2;
+            
+            // Progressive speed based on level and wave
+            const speedMultiplier = 1 + ((game.level - 1) * 0.2) + ((game.wave - 1) * 0.05);
+            minion.kamikazeSpeed = game.kamikazeSpeedBase * speedMultiplier;
+            minion.kamikazeSpeed = Math.min(minion.kamikazeSpeed, 6); // Cap max speed
+            
             minion.kamikazeAngle = Math.atan2(player.y - minion.y, player.x - minion.x);
             
             playSound('kamikaze', 600, 0.2);
@@ -804,10 +816,11 @@
             game.formationDropTimer++;
             game.kamikazeTimer++;
             
-            // Launch kamikaze attacks periodically
+            // Launch kamikaze attacks periodically - progressive frequency
             if (game.kamikazeTimer >= game.kamikazeInterval) {
                 game.kamikazeTimer = 0;
-                game.kamikazeInterval = Math.max(120, 240 - game.level * 20); // Gets more frequent
+                // Gets more frequent as game progresses
+                game.kamikazeInterval = Math.max(120, 360 - game.level * 30 - game.wave * 5);
                 launchKamikaze();
             }
             
@@ -897,12 +910,16 @@
             // Update invaders with Galaxian-style formation movement
             const formationMove = Math.sin(game.frameCount * 0.02) * 30;
             
-            // Check if formation should drop
+            // Check if formation should drop - progressive speed
             let shouldDrop = false;
             if (game.formationDropTimer >= game.formationDropInterval) {
                 shouldDrop = true;
                 game.formationDropTimer = 0;
-                game.formationDropInterval = Math.max(60, 180 - game.level * 15); // Gets faster
+                // Progressive drop speed based on level and wave
+                const baseInterval = 240; // 4 seconds initially
+                const levelReduction = game.level * 20;
+                const waveReduction = game.wave * 3;
+                game.formationDropInterval = Math.max(60, baseInterval - levelReduction - waveReduction);
             }
             
             invaders.forEach(invader => {
@@ -1074,6 +1091,25 @@
             document.getElementById('level').textContent = game.level;
             document.getElementById('lives').textContent = game.lives;
             document.getElementById('wave').textContent = game.wave;
+            
+            // Update difficulty indicator
+            const diffIndicator = document.getElementById('difficultyIndicator');
+            const diffText = document.getElementById('difficulty');
+            if (game.level >= 3) {
+                diffIndicator.style.display = 'flex';
+                if (game.level >= 5) {
+                    diffText.textContent = 'MAX!';
+                    diffText.style.color = '#ff0000';
+                } else if (game.level === 4) {
+                    diffText.textContent = 'HARD';
+                    diffText.style.color = '#ff8800';
+                } else {
+                    diffText.textContent = 'MED';
+                    diffText.style.color = '#ffaa00';
+                }
+            } else {
+                diffIndicator.style.display = 'none';
+            }
         }
         
         // Game flow functions
@@ -1111,11 +1147,32 @@
             game.wave = 1;
             game.streak = 0;
             game.formationSpeed = 0.3 + (game.level * 0.1);
-            game.formationDropInterval = Math.max(60, 180 - game.level * 15);
-            game.kamikazeInterval = Math.max(120, 240 - game.level * 20);
+            game.formationDropInterval = Math.max(60, 240 - game.level * 20);
+            game.kamikazeInterval = Math.max(120, 360 - game.level * 30);
+            game.kamikazeSpeedBase = 2 + (game.level * 0.3); // Increase base speed each level
             document.getElementById('victory').style.display = 'none';
-            createInvaders();
-            showWave(game.wave);
+            
+            // Show difficulty warning for higher levels
+            if (game.level >= 3) {
+                const warning = game.level >= 5 ? 
+                    'WARNING: MAXIMUM DIFFICULTY - All answers look the same!' : 
+                    `WARNING: Level ${game.level} - Colors becoming similar!`;
+                const indicator = document.getElementById('waveIndicator');
+                indicator.textContent = warning;
+                indicator.style.color = '#ff4444';
+                indicator.style.opacity = '1';
+                setTimeout(() => {
+                    indicator.style.opacity = '0';
+                    setTimeout(() => {
+                        indicator.style.color = '#ffff00';
+                        createInvaders();
+                        showWave(game.wave);
+                    }, 500);
+                }, 3000);
+            } else {
+                createInvaders();
+                showWave(game.wave);
+            }
         }
         
         function gameOver() {
@@ -1153,9 +1210,10 @@
                 formationDirection: 1,
                 formationSpeed: 0.3,
                 formationDropTimer: 0,
-                formationDropInterval: 180,
+                formationDropInterval: 240,
                 kamikazeTimer: 0,
-                kamikazeInterval: 240
+                kamikazeInterval: 360,
+                kamikazeSpeedBase: 2
             };
             
             player = {
