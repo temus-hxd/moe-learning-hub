@@ -75,22 +75,20 @@ class MOEBuddy {
         this.addMessageToChat(message, 'user');
         input.value = '';
         
-        // Show thinking indicator
-        this.showThinking();
+        // Add empty assistant message for streaming
+        const assistantMessageId = this.addMessageToChat('', 'assistant');
         
         try {
-            const response = await this.getAIResponse(message);
-            this.hideThinking();
-            this.addMessageToChat(response, 'assistant');
+            await this.getAIResponseStreaming(message, assistantMessageId);
         } catch (error) {
-            this.hideThinking();
-            this.addMessageToChat("🔧 Connection lost to the quest server, Isaac! Try your command again in a moment - Block Buddy will be back online soon! 🎮", 'assistant');
+            this.updateMessage(assistantMessageId, "🔧 Connection lost to the quest server, Isaac! Try your command again in a moment - Block Buddy will be back online soon! 🎮");
         }
     }
     
     addMessageToChat(message, role) {
         const chatContainer = document.getElementById('chatMessages');
         const messageDiv = document.createElement('div');
+        const messageId = Date.now() + Math.random();
         
         if (role === 'user') {
             messageDiv.className = 'flex justify-end mb-4';
@@ -107,7 +105,7 @@ class MOEBuddy {
                         <div class="w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5" style="background: var(--color-secondary); border: 2px solid var(--color-text);">
                             <i data-lucide="zap" class="w-3 h-3 text-white"></i>
                         </div>
-                        <p class="text-sm font-cyber leading-relaxed" style="color: var(--color-text);">${message}</p>
+                        <p class="text-sm font-cyber leading-relaxed" style="color: var(--color-text);" data-message-id="${messageId}">${message}</p>
                     </div>
                 </div>
             `;
@@ -119,8 +117,31 @@ class MOEBuddy {
         // Re-initialize icons for new messages
         lucide.createIcons();
         
-        // Add to messages array
-        this.chatMessages.push({ role, content: message });
+        // Add to messages array only if message has content
+        if (message.trim()) {
+            this.chatMessages.push({ role, content: message });
+        }
+        
+        return messageId;
+    }
+    
+    updateMessage(messageId, newContent) {
+        const messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
+        if (messageElement) {
+            messageElement.textContent = newContent;
+            
+            // Update or add to message history
+            const lastAssistantIndex = this.chatMessages.findLastIndex(msg => msg.role === 'assistant');
+            if (lastAssistantIndex !== -1) {
+                this.chatMessages[lastAssistantIndex].content = newContent;
+            } else {
+                this.chatMessages.push({ role: 'assistant', content: newContent });
+            }
+            
+            // Scroll to bottom
+            const chatContainer = document.getElementById('chatMessages');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
     }
     
     showThinking() {
@@ -157,7 +178,7 @@ class MOEBuddy {
         }
     }
     
-    async getAIResponse(userMessage) {
+    async getAIResponseStreaming(userMessage, messageId) {
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -217,7 +238,8 @@ Respond as Block Buddy would to Isaac's quest-related questions in this epic Sin
                     }
                 ],
                 temperature: 0.7,
-                max_tokens: 150
+                max_tokens: 150,
+                stream: true
             })
         });
         
@@ -225,8 +247,41 @@ Respond as Block Buddy would to Isaac's quest-related questions in this epic Sin
             throw new Error('API request failed');
         }
         
-        const data = await response.json();
-        return data.choices[0].message.content;
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let fullResponse = '';
+
+        try {
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                const lines = chunk.split('\n');
+
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        const data = line.slice(6);
+                        if (data === '[DONE]') continue;
+
+                        try {
+                            const parsed = JSON.parse(data);
+                            const content = parsed.choices?.[0]?.delta?.content;
+                            if (content) {
+                                fullResponse += content;
+                                this.updateMessage(messageId, fullResponse);
+                            }
+                        } catch (e) {
+                            // Skip invalid JSON chunks
+                        }
+                    }
+                }
+            }
+        } finally {
+            reader.releaseLock();
+        }
+
+        return fullResponse;
     }
 }
 
