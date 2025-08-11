@@ -653,7 +653,7 @@
 
     <!-- Add Note Modal -->
     <div id="noteModal" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="noteModalTitle" aria-hidden="true">
-        <div class="glass-modal" style="width: min(90vw, 600px); height: min(85vh, 600px);">
+        <div class="glass-modal" style="width: min(90vw, 600px); height: min(85vh, 600px); display: flex; flex-direction: column;">
             <div class="glass-modal-header">
                 <div class="flex items-center gap-2">
                     <i data-lucide="edit-3" class="w-5 h-5"></i>
@@ -663,7 +663,7 @@
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
-            <div class="glass-modal-body" style="display:flex; flex-direction: column; height: calc(100% - 120px);">
+            <div class="glass-modal-body" style="display:flex; flex-direction: column; height: calc(100% - 140px); padding-bottom: 8px;">
                 <p class="text-white/80 text-sm mb-3">Write your notes about cellular organelles. Use markdown for formatting!</p>
                 <textarea 
                     id="noteInput"
@@ -672,7 +672,7 @@
                     style="min-height: 250px; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; line-height: 1.5;"
                 ></textarea>
             </div>
-            <div class="glass-modal-footer" style="display: flex; gap: 12px; justify-content: flex-end;">
+            <div class="glass-modal-footer" style="display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; margin-top: auto;">
                 <button id="cancelNote" class="academy-btn secondary">
                     <i data-lucide="x" class="w-4 h-4"></i>
                     Cancel
