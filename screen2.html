@@ -687,7 +687,7 @@
 
     <!-- Notebook Glass Modal -->
     <div id="notebookOverlay" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="notebookTitle" aria-hidden="true">
-        <div class="glass-modal" style="width: min(96vw, 1100px); height: min(92vh, 760px);">
+        <div class="glass-modal" style="width: min(96vw, 1100px); height: min(92vh, 760px); display: flex; flex-direction: column;">
             <div class="glass-modal-header">
                 <div class="flex items-center gap-2">
                     <i data-lucide="notebook-text" class="w-5 h-5"></i>
@@ -697,8 +697,8 @@
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
-            <div class="glass-modal-body" style="display:flex; gap: 16px; height: calc(100% - 64px);">
-                <div class="glass-col" style="flex:2">
+            <div class="glass-modal-body" style="display:flex; gap: 16px; flex: 1; overflow: hidden; padding: 16px 20px;">
+                <div class="glass-col" style="flex:2; overflow-y: auto; padding-right: 8px;">
                     <h4 class="text-xl font-bold mb-3">Lecture: Organelles at Work</h4>
                     <p class="text-white/85 mb-3">Use this mini‑lecture as a map of who does what inside cells. Link each organelle to its job and to the energy/materials it needs.</p>
                     <div class="mermaid mb-4">
@@ -729,9 +729,9 @@ sequenceDiagram
                         <li>Golgi tags and ships proteins to where they are needed.</li>
                     </ul>
                 </div>
-                <div class="glass-col" style="flex:1">
-                    <h4 class="text-lg font-semibold mb-2">Isaac’s Notes</h4>
-                    <textarea class="notes-textarea" placeholder="Write your notes here... (mockup; not saved)"></textarea>
+                <div class="glass-col" style="flex:1; display: flex; flex-direction: column; min-height: 0;">
+                    <h4 class="text-lg font-semibold mb-2">Isaac's Notes</h4>
+                    <textarea class="notes-textarea" placeholder="Write your notes here... (mockup; not saved)" style="flex: 1; min-height: 300px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; font-family: 'Monaco', monospace; font-size: 13px; line-height: 1.5; resize: none; outline: none;"></textarea>
                 </div>
             </div>
         </div>
