@@ -622,10 +622,11 @@ button.academy-card:hover {
 }
 
 .stat-number {
-  font-size: var(--font-size-3xl);
+  font-size: 3rem; /* 48px - much larger for dashboard impact */
   font-weight: var(--font-weight-black);
   line-height: 1;
   margin-bottom: var(--spacing-sm);
+  display: block;
 }
 
 /* Notebook Glass Modal */
@@ -1106,13 +1107,6 @@ button.academy-card:hover {
   box-shadow: var(--elevation-2-shadow);
 }
 
-.stat-number {
-  display: block;
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-  margin-bottom: 0.5rem;
-}
 
 .stat-label {
   font-size: var(--font-size-sm);
@@ -1576,5 +1570,374 @@ button.academy-card:hover {
   
   .add-note-modal {
     width: 95vw;
+  }
+}
+
+/* Screen3 Progress Dashboard Components */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.stat-card-detailed {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  transition: all var(--transition-base);
+}
+
+.stat-card-detailed:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-2-shadow);
+  border-color: var(--border-color-focus);
+}
+
+/* Progress Ring Component */
+.progress-ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+}
+
+.progress-ring svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform: rotate(-90deg);
+}
+
+.progress-ring .background {
+  fill: none;
+  stroke: var(--border-color);
+  stroke-width: 8;
+}
+
+.progress-ring .progress {
+  fill: none;
+  stroke: var(--color-accent-blue);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.progress-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Learning Path Component */
+.learning-path {
+  position: relative;
+  padding: 1rem 0;
+}
+
+.learning-path::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-accent-blue), var(--color-accent-pink));
+}
+
+.learning-path-item {
+  position: relative;
+  padding-left: 3rem;
+  margin-bottom: 2rem;
+}
+
+.learning-path-item::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 0.25rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent-blue);
+  border: 2px solid var(--bg-surface);
+}
+
+.learning-path-item.completed::before {
+  background: var(--color-success);
+}
+
+.learning-path-item.current::before {
+  background: var(--color-accent-yellow);
+  box-shadow: 0 0 10px var(--color-accent-yellow);
+}
+
+/* Milestone Track Component */
+.milestone-track {
+  position: relative;
+  padding: 1rem 0;
+}
+
+.milestone-track::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--color-success), var(--color-accent-blue));
+}
+
+.milestone-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  padding-left: 3rem;
+  margin-bottom: 1rem;
+}
+
+.milestone-icon {
+  position: absolute;
+  left: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--border-color);
+  border: 2px solid var(--bg-surface);
+  transition: all var(--transition-base);
+}
+
+.milestone-item.completed .milestone-icon {
+  background: var(--color-success);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.milestone-item:not(.completed) .milestone-icon {
+  background: var(--border-color-muted);
+}
+
+.milestone-item.current .milestone-icon {
+  background: var(--color-accent-yellow);
+  animation: milestone-blink 2s infinite;
+  box-shadow: 0 0 15px var(--color-accent-yellow);
+}
+
+@keyframes milestone-blink {
+  0%, 50% { 
+    opacity: 1; 
+    box-shadow: 0 0 15px var(--color-accent-yellow);
+  }
+  25%, 75% { 
+    opacity: 0.4; 
+    box-shadow: 0 0 25px var(--color-accent-yellow);
+  }
+}
+
+.streak-counter {
+  background: linear-gradient(135deg, var(--color-success), var(--color-green-600));
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.streak-counter::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.achievement-card {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  transition: all var(--transition-base);
+  backdrop-filter: blur(20px);
+}
+
+.achievement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--elevation-3-shadow);
+  border-color: var(--border-color-focus);
+}
+
+.achievement-card.unlocked:hover {
+  border-color: var(--color-accent-yellow);
+  box-shadow: var(--elevation-3-shadow), 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+.achievement-card.locked {
+  opacity: 0.5;
+  border-color: var(--border-color-muted);
+}
+
+.achievement-card.locked:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.achievement-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-accent-blue), var(--color-primary));
+  border: 3px solid rgba(255,255,255,0.3);
+}
+
+.achievement-card.locked .achievement-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.spaced-card {
+  background: var(--bg-surface);
+  border: 2px solid var(--color-accent-pink);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin: 0.5rem 0;
+  transition: all var(--transition-base);
+}
+
+.spaced-card:hover {
+  transform: translateX(4px);
+  box-shadow: var(--elevation-2-shadow), 0 0 20px rgba(236, 72, 153, 0.3);
+}
+
+.recent-activities {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color-muted);
+  transition: all var(--transition-base);
+}
+
+.activity-item:hover {
+  background: var(--bg-input);
+}
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-blue));
+}
+
+.activity-time {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Custom scrollbar for Screen3 activities */
+.recent-activities::-webkit-scrollbar {
+  width: 6px;
+}
+
+.recent-activities::-webkit-scrollbar-track {
+  background: var(--bg-input);
+  border-radius: 3px;
+}
+
+.recent-activities::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-pink));
+  border-radius: 3px;
+}
+
+.recent-activities::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-blue));
+}
+
+/* Level Badge Component */
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--color-accent-yellow), var(--color-amber-600));
+  color: var(--text-inverse);
+  font-size: 2rem;
+  font-weight: var(--font-weight-black);
+  border-radius: 50%;
+  box-shadow: var(--elevation-3-shadow), 0 0 20px rgba(245, 158, 11, 0.4);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  margin: 0 auto 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.level-badge::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: rotate(45deg);
+  animation: badge-shine 3s infinite;
+}
+
+@keyframes badge-shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Screen3 responsive adjustments */
+@media (max-width: 768px) {
+  .achievement-grid { 
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+  }
+  .stats-grid { 
+    grid-template-columns: 1fr; 
+  }
+  
+  .level-badge {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
   }
 }

@@ -14,335 +14,11 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
-    <style>
-        :root {
-            --primary-blue: #2a3046;
-            --primary-purple: #764BA2;
-            --accent-pink: #F093FB;
-            --accent-blue: #4FACFE;
-            --accent-yellow: #FFD93D;
-            --dark-bg: #0F0F23;
-            --card-bg: rgba(30, 30, 60, 0.9);
-            --border-color: rgba(255, 255, 255, 0.2);
-            --text-primary: #FFFFFF;
-            --text-secondary: #B8C6DB;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(1200px 800px at -10% -10%, rgba(255,255,255,0.06), transparent 60%),
-                        radial-gradient(1000px 700px at 110% 10%, rgba(255,255,255,0.05), transparent 60%),
-                        linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
-            color: var(--text-primary);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            animation: bgShift 12s ease-in-out infinite alternate;
-        }
-        @keyframes bgShift {
-            0% { filter: hue-rotate(0deg) brightness(1); }
-            100% { filter: hue-rotate(8deg) brightness(1.05); }
-        }
-        
-        .academy-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-        }
-        
-        .academy-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-            border-color: var(--primary-blue);
-        }
-        
-        .academy-btn {
-            background: linear-gradient(145deg, var(--primary-blue), #5A67D8);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            padding: 12px 24px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            line-height: 1.2;
-        }
-        
-        .academy-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .academy-btn.secondary {
-            background: linear-gradient(145deg, var(--accent-pink), #E91E63);
-        }
-        
-        .academy-btn.secondary:hover {
-            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
-        }
-        
-        .progress-bar {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            overflow: hidden;
-            height: 12px;
-            border: 1px solid var(--border-color);
-        }
-        
-        .progress-fill {
-            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
-            height: 100%;
-            border-radius: inherit;
-            transition: width 0.8s ease;
-        }
-        
-        .chat-area {
-            background: var(--card-bg);
-            border-left: 2px solid var(--border-color);
-            height: 100vh;
-            backdrop-filter: blur(20px);
-        }
-        
-        .chat-message {
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            margin: 8px 0;
-        }
-        
-        /* Screen 3 Specific Styles */
-        .progress-ring {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto;
-        }
-        
-        .progress-ring svg {
-            width: 100%;
-            height: 100%;
-            transform: rotate(-90deg);
-        }
-        
-        .progress-ring circle {
-            fill: transparent;
-            stroke-width: 8;
-        }
-        
-        .progress-ring .background {
-            stroke: rgba(255, 255, 255, 0.1);
-        }
-        
-        .progress-ring .progress {
-            stroke: var(--accent-blue);
-            stroke-linecap: round;
-            transition: stroke-dashoffset 0.8s ease;
-        }
-        
-        .progress-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-        
-        .level-badge {
-            background: linear-gradient(135deg, var(--accent-yellow), #FFA500);
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            border: 4px solid rgba(255,255,255,0.3);
-            box-shadow: 0 8px 32px rgba(255, 217, 61, 0.3);
-        }
-        
-        .achievement-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .achievement-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .achievement-card:hover {
-            transform: translateY(-4px) scale(1.02);
-            border-color: var(--accent-yellow);
-            box-shadow: 0 12px 48px rgba(255, 217, 61, 0.3);
-        }
-        
-        .achievement-card.locked {
-            opacity: 0.5;
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .achievement-card.locked:hover {
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .achievement-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--accent-blue), var(--primary-blue));
-            border: 3px solid rgba(255,255,255,0.3);
-        }
-        
-        .achievement-card.locked .achievement-icon {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .spaced-card {
-            background: var(--card-bg);
-            border: 2px solid var(--accent-pink);
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            transition: all 0.3s ease;
-        }
-        
-        .spaced-card:hover {
-            transform: translateX(4px);
-            box-shadow: 0 8px 32px rgba(240, 147, 251, 0.3);
-        }
-        
-        .streak-counter {
-            background: linear-gradient(135deg, #10b981, #059669);
-            border-radius: 16px;
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .streak-counter::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
-            animation: shimmer 3s ease-in-out infinite;
-        }
-        
-        @keyframes shimmer {
-            0%, 100% { transform: scale(0.8) rotate(0deg); opacity: 0; }
-            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .stat-card-detailed {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card-detailed:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-blue);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-        }
-        
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .milestone-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-        }
-        
-        .milestone-item {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .milestone-item:last-child {
-            border-bottom: none;
-        }
-        
-        .milestone-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            background: linear-gradient(135deg, var(--accent-yellow), #FFA500);
-        }
-        
-        .milestone-item.completed .milestone-icon {
-            background: linear-gradient(135deg, #10b981, #059669);
-        }
-        
-        .milestone-item.locked .milestone-icon {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Hide scrollbars */
-        ::-webkit-scrollbar { display: none; }
-        * { scrollbar-width: none; }
-        .overflow-y-auto { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        @media (max-width: 768px) {
-            .desktop-layout { flex-direction: column; }
-            .chat-area { height: 50vh; border-left: none; border-top: 2px solid var(--border-color); }
-            .stats-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    <!-- External CSS - AFTER Tailwind so our styles take precedence -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Theme CSS - Load dark mode by default -->
+    <link rel="stylesheet" href="css/dark-mode.css" id="theme-css">
+    
 </head>
 <body>
     <div class="flex h-screen desktop-layout">
@@ -363,13 +39,18 @@
                     
                     <!-- User Info -->
                     <div class="flex items-center space-x-4">
-                        <a href="screen4b.html" class="academy-btn" title="Share with Peers">
+                        <!-- Theme Toggle -->
+                        <button id="themeToggle" class="btn btn-ghost btn-icon" title="Toggle Light/Dark Mode">
+                            <i data-lucide="sun" class="w-4 h-4 theme-icon-light hidden"></i>
+                            <i data-lucide="moon" class="w-4 h-4 theme-icon-dark"></i>
+                        </button>
+                        <a href="screen4b.html" class="btn btn-outline" title="Share with Peers">
                             <i data-lucide="share-2" class="w-4 h-4"></i>
                             Share
                         </a>
-                        <a href="index.html" class="academy-btn secondary hidden md:inline-flex">
+                        <a href="index.html" class="btn btn-secondary hidden md:inline-flex" title="Back to Dashboard">
                             <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                            Back to Dashboard
+                            <span>Back to Dashboard</span>
                         </a>
                         <div class="text-right">
                             <p class="font-bold">Isaac Chen</p>
@@ -487,7 +168,7 @@
                         <span class="text-sm text-gray-400">12 of 20 unlocked</span>
                     </div>
                     
-                    <div class="achievement-gallery">
+                    <div class="achievement-grid">
                         <div class="achievement-card">
                             <div class="achievement-icon p-0 overflow-hidden">
                                 <img src="generated_images/recraft_20250808_130816_0_5404201f-e427-450b-b148-2a07bd6b1fa1.png" alt="History Detective" class="w-full h-full object-cover rounded-full">
@@ -551,7 +232,7 @@
                             <i data-lucide="clock" class="w-6 h-6 mr-3 text-pink-400"></i>
                             Review Schedule
                         </h3>
-                        <button class="academy-btn secondary">
+                        <button class="btn btn-secondary">
                             <i data-lucide="settings" class="w-4 h-4"></i>
                             Customize
                         </button>
@@ -566,7 +247,7 @@
                                         <div class="font-semibold text-pink-400">Cell Theory Review</div>
                                         <div class="text-sm text-gray-400">Last reviewed 3 days ago</div>
                                     </div>
-                                    <button class="academy-btn">Review</button>
+                                    <button class="btn btn-primary">Review</button>
                                 </div>
                             </div>
                             
@@ -576,7 +257,7 @@
                                         <div class="font-semibold text-pink-400">DNA Structure Quiz</div>
                                         <div class="text-sm text-gray-400">Last reviewed 1 week ago</div>
                                     </div>
-                                    <button class="academy-btn">Review</button>
+                                    <button class="btn btn-primary">Review</button>
                                 </div>
                             </div>
                         </div>
@@ -634,7 +315,7 @@
                             </div>
                         </div>
                         
-                        <div class="milestone-item">
+                        <div class="milestone-item current">
                             <div class="milestone-icon">
                                 <i data-lucide="target" class="w-5 h-5 text-white"></i>
                             </div>
@@ -707,7 +388,7 @@
                         placeholder="Ask about your progress..." 
                         class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32"
                     ></textarea>
-                    <button id="sendMessage" class="academy-btn px-4">
+                    <button id="sendMessage" class="btn btn-primary btn-icon">
                         <i data-lucide="send" class="w-4 h-4"></i>
                     </button>
                 </div>
@@ -731,6 +412,44 @@
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+        
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeCss = document.getElementById('theme-css');
+        const themeIconLight = document.querySelector('.theme-icon-light');
+        const themeIconDark = document.querySelector('.theme-icon-dark');
+        
+        // Get current theme from localStorage or default to dark
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        // Apply initial theme
+        function setTheme(theme) {
+            currentTheme = theme;
+            localStorage.setItem('theme', theme);
+            
+            if (theme === 'light') {
+                themeCss.href = 'css/light-mode.css';
+                themeIconLight.classList.remove('hidden');
+                themeIconDark.classList.add('hidden');
+                document.body.setAttribute('data-theme', 'light');
+            } else {
+                themeCss.href = 'css/dark-mode.css';
+                themeIconLight.classList.add('hidden');
+                themeIconDark.classList.remove('hidden');
+                document.body.setAttribute('data-theme', 'dark');
+            }
+        }
+        
+        // Set initial theme
+        setTheme(currentTheme);
+        
+        // Theme toggle click handler
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+        }
         
         // Screen 3 Progress Dashboard
         class Screen3Dashboard {
@@ -1113,7 +832,7 @@ Respond as Isaac's wildly enthusiastic analytics coach who thinks he's destined 
         const dashboard = new Screen3Dashboard();
         
         // Button interactions
-        document.querySelectorAll('.academy-btn').forEach(btn => {
+        document.querySelectorAll('.btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 this.style.transform = 'translateY(0)';
                 setTimeout(() => {
