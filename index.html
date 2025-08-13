@@ -38,7 +38,7 @@
                     
                     <!-- User Info -->
                     <div class="flex items-center space-x-4">
-                        <a href="screen4b.html" class="academy-btn" title="Share with Peers">
+                        <a href="screen4b.html" class="btn btn-outline" title="Share with Peers">
                             <i data-lucide="share-2" class="w-4 h-4"></i>
                             Share
                         </a>
@@ -106,10 +106,10 @@
                             </div>
                             
                             <div class="flex space-x-3">
-                                <a href="screen2.html" class="academy-btn">Interactive Learning</a>
-                                <a href="screen1.html" class="academy-btn secondary">Take Pre‑Assessment</a>
-                                <a href="screen4.html" class="academy-btn success">Start Cell Biology</a>
-                                <button id="openNotebook" class="academy-btn notebook">Review Notes</button>
+                                <a href="screen2.html" class="btn btn-primary">Interactive Learning</a>
+                                <a href="screen1.html" class="btn btn-secondary">Take Pre‑Assessment</a>
+                                <a href="screen4.html" class="btn btn-success">Start Cell Biology</a>
+                                <button id="openNotebook" class="btn btn-success">Review Notes</button>
                             </div>
                         </div>
                     </div>
@@ -123,24 +123,9 @@
                             <h3 class="text-lg font-bold mb-2">Daily Challenge</h3>
                             <p class="text-gray-300 mb-4">Timeline Sorting Game</p>
                             <div class="text-2xl font-bold text-yellow-400 mb-4">+50 XP</div>
-                            <a href="screen-game.html" class="challenge-btn w-full text-center">
-                                <svg class="star-1" viewBox="0 0 784.11 815.53">
-                                    <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
-                                </svg>
-                                <svg class="star-2" viewBox="0 0 784.11 815.53">
-                                    <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
-                                </svg>
-                                <svg class="star-3" viewBox="0 0 784.11 815.53">
-                                    <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
-                                </svg>
-                                <svg class="star-4" viewBox="0 0 784.11 815.53">
-                                    <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
-                                </svg>
-                                <svg class="star-5" viewBox="0 0 784.11 815.53">
-                                    <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
-                                </svg>
-                                <svg class="star-6" viewBox="0 0 784.11 815.53">
-                                    <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
+                            <a href="screen-game.html" class="btn btn-magic w-full text-center">
+                                <svg class="star-icon w-4 h-4" viewBox="0 0 784.11 815.53">
+                                    <path style="fill: #fffdef;" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
                                 </svg>
                                 Start Challenge
                             </a>
@@ -175,7 +160,7 @@
                             <i data-lucide="trophy" class="w-6 h-6 mr-3 text-yellow-400"></i>
                             Recent Achievements
                         </h3>
-                        <a href="screen3.html?from=achievements" class="academy-btn secondary">
+                        <a href="screen3.html?from=achievements" class="btn btn-secondary">
                             <i data-lucide="eye" class="w-4 h-4"></i>
                             View All
                         </a>
@@ -237,20 +222,20 @@
                         class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors"
                         onkeypress="handleEnterKey(event)"
                     />
-                    <button id="sendButton" class="academy-btn px-4" onclick="sendChatMessage()">
+                    <button id="sendButton" class="btn btn-primary btn-icon" onclick="sendChatMessage()">
                         <i data-lucide="send" class="w-4 h-4"></i>
                     </button>
                 </div>
             
             <!-- Quick Action Buttons -->
                 <div class="mt-3 space-y-2">
-                    <button class="quick-action-btn quick-action-purple w-full text-left p-3 rounded-lg text-sm transition-colors" data-message="Give me a hint about Cell Theory timeline placement">
+                    <button class="btn btn-ghost w-full justify-start" data-message="Give me a hint about Cell Theory timeline placement">
                         🔬 Hint: Cell Theory timeline
                 </button>
-                    <button class="quick-action-btn quick-action-blue w-full text-left p-3 rounded-lg text-sm transition-colors" data-message="Explain how DNA evidence supported the double helix model">
+                    <button class="btn btn-ghost w-full justify-start" data-message="Explain how DNA evidence supported the double helix model">
                         🧬 Explain DNA evidence
                 </button>
-                    <button class="quick-action-btn quick-action-green w-full text-left p-3 rounded-lg text-sm transition-colors" data-message="What should I focus on to master photosynthesis concepts?">
+                    <button class="btn btn-ghost w-full justify-start" data-message="What should I focus on to master photosynthesis concepts?">
                         🌿 Photosynthesis study tips
                 </button>
                 </div>
@@ -266,7 +251,7 @@
                     <i data-lucide="notebook-text" class="w-5 h-5"></i>
                     <h3 id="notebookTitle" class="text-lg font-semibold">Science Discovery Notes</h3>
                 </div>
-                <button id="closeNotebook" class="glass-close">
+                <button id="closeNotebook" class="btn btn-outline btn-sm">
                     <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
             </div>
@@ -398,7 +383,7 @@ sequenceDiagram
                 console.log('=== SETTING UP EVENT LISTENERS ===');
                 const sendButton = document.getElementById('sendButton');
                 const chatInput = document.getElementById('chatInput');
-                const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+                const quickActionBtns = document.querySelectorAll('[data-message]');
                 
                 console.log('sendButton found:', sendButton);
                 console.log('chatInput found:', chatInput);
@@ -693,7 +678,7 @@ Respond as Isaac's dramatically enthusiastic, slightly sarcastic science sidekic
         console.log('MOE Buddy initialized:', window.moeBuddy);
         
         // Button interactions
-        document.querySelectorAll('.academy-btn').forEach(btn => {
+        document.querySelectorAll('.btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 this.style.transform = 'translateY(0)';
                 setTimeout(() => {
