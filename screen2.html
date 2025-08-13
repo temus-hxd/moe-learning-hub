@@ -16,370 +16,10 @@
     <!-- Mermaid for diagrams -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     
-    <style>
-        :root {
-            --primary-blue: #2a3046;
-            --primary-purple: #764BA2;
-            --accent-pink: #F093FB;
-            --accent-blue: #4FACFE;
-            --accent-yellow: #FFD93D;
-            --dark-bg: #0F0F23;
-            --card-bg: rgba(30, 30, 60, 0.9);
-            --border-color: rgba(255, 255, 255, 0.2);
-            --text-primary: #FFFFFF;
-            --text-secondary: #B8C6DB;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(1200px 800px at -10% -10%, rgba(255,255,255,0.06), transparent 60%),
-                        radial-gradient(1000px 700px at 110% 10%, rgba(255,255,255,0.05), transparent 60%),
-                        linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
-            color: var(--text-primary);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            animation: bgShift 12s ease-in-out infinite alternate;
-        }
-        @keyframes bgShift {
-            0% { filter: hue-rotate(0deg) brightness(1); }
-            100% { filter: hue-rotate(8deg) brightness(1.05); }
-        }
-        
-        .academy-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-        }
-        
-        .academy-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-            border-color: var(--primary-blue);
-        }
-        
-        .academy-btn {
-            background: linear-gradient(145deg, var(--primary-blue), #5A67D8);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            padding: 12px 24px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            line-height: 1.2;
-            vertical-align: middle;
-        }
-        
-        .academy-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .academy-btn.secondary {
-            background: linear-gradient(145deg, var(--accent-pink), #E91E63);
-        }
-        
-        .academy-btn.secondary:hover {
-            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
-        }
-        
-        .academy-btn.success {
-            background: linear-gradient(145deg, #10b981, #059669);
-        }
-        
-        .academy-btn.success:hover {
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        }
-        
-        .academy-btn:disabled {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.5);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .progress-bar {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            overflow: hidden;
-            height: 8px;
-            border: 1px solid var(--border-color);
-        }
-        
-        .progress-fill {
-            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
-            height: 100%;
-            border-radius: inherit;
-            transition: width 0.8s ease;
-        }
-        
-        .chat-area {
-            background: var(--card-bg);
-            border-left: 2px solid var(--border-color);
-            height: 100vh;
-            backdrop-filter: blur(20px);
-        }
-        
-        .chat-message {
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            margin: 8px 0;
-        }
-        
-        /* Screen 2 Specific Styles */
-        .lesson-content {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 1rem 0;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.35);
-        }
-        
-        .lesson-section {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .lesson-section:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        
-        .interactive-element {
-            background: rgba(79, 172, 254, 0.1);
-            border: 2px solid rgba(79, 172, 254, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            transition: all 0.3s ease;
-        }
-        
-        .interactive-element:hover {
-            border-color: var(--accent-blue);
-            box-shadow: 0 8px 32px rgba(79, 172, 254, 0.3);
-        }
-        
-        .concept-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            user-select: none;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.35);
-            text-align: center;
-        }
-        
-        .concept-card:hover {
-            border-color: var(--accent-yellow);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-        }
-        
-        .concept-card.selected {
-            border-color: var(--accent-yellow);
-            background: rgba(255, 217, 61, 0.1);
-            box-shadow: 0 0 0 2px rgba(255, 217, 61, 0.3);
-        }
-        
-        .concept-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .note-taking-area {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            min-height: 120px;
-            transition: all 0.3s ease;
-        }
-        
-        .note-taking-area.active {
-            border-color: var(--accent-blue);
-            border-style: solid;
-            background: rgba(79, 172, 254, 0.05);
-        }
-        
-        .note-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.75rem;
-            margin: 0.5rem 0;
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            animation: slideInUp 0.3s ease-out;
-        }
-        
-        .help-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--card-bg);
-            border: 2px solid var(--accent-blue);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            max-width: 500px;
-            width: 90vw;
-            animation: popIn 0.3s ease-out;
-        }
-        
-        @keyframes popIn {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-        
-        .quiz-container {
-            background: rgba(255, 217, 61, 0.1);
-            border: 2px solid rgba(255, 217, 61, 0.3);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .quiz-option {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .quiz-option:hover {
-            border-color: var(--accent-blue);
-            background: rgba(79, 172, 254, 0.1);
-        }
-        
-        .quiz-option.selected {
-            border-color: var(--accent-yellow);
-            background: rgba(255, 217, 61, 0.1);
-        }
-        
-        .quiz-option.correct {
-            border-color: #10b981;
-            background: rgba(16, 185, 129, 0.1);
-        }
-        
-        .quiz-option.incorrect {
-            border-color: #ef4444;
-            background: rgba(239, 68, 68, 0.1);
-        }
-        
-        .floating-help-btn {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(145deg, var(--accent-pink), #E91E63);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            box-shadow: 0 8px 32px rgba(240, 147, 251, 0.4);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 100;
-            animation: pulse 2s infinite;
-        }
-        
-        .floating-help-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 48px rgba(240, 147, 251, 0.6);
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        /* Reusable Glass Modal (from Screen 1) */
-        .glass-overlay {
-            position: fixed;
-            inset: 0;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(8px);
-            z-index: 9999;
-            animation: fadeIn 150ms ease-out;
-        }
-        .glass-modal {
-            width: min(92vw, 700px);
-            background: rgba(15, 15, 23, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
-            color: var(--text-primary);
-            overflow: hidden;
-        }
-        .glass-modal-header, .glass-modal-footer { padding: 16px 20px; }
-        .glass-modal-header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .glass-modal-body { padding: 16px 20px; color: var(--text-secondary); }
-        .glass-close {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            color: #fff;
-            border-radius: 8px;
-            padding: 8px 12px;
-        }
-        @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
-        @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .hidden {
-            display: none;
-        }
-
-        /* Notebook specific */
-        .notes-textarea { width: 100%; height: calc(100% - 8px); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: #fff; border-radius: 10px; resize: none; padding: 12px; outline: none; }
-        .mermaid { background: rgba(255,255,255,.04); border-radius: 10px; padding: 12px; }
-        
-        /* Hide scrollbars */
-        ::-webkit-scrollbar { display: none; }
-        * { scrollbar-width: none; }
-        .overflow-y-auto { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        @media (max-width: 768px) {
-            .desktop-layout { flex-direction: column; }
-            .chat-area { height: 50vh; border-left: none; border-top: 2px solid var(--border-color); }
-            .concept-grid { grid-template-columns: 1fr; }
-            .floating-help-btn { bottom: 1rem; right: 1rem; }
-        }
-    </style>
+    <!-- External CSS - AFTER Tailwind so our styles take precedence -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Theme CSS - Load dark mode by default -->
+    <link rel="stylesheet" href="css/dark-mode.css" id="theme-css">
 </head>
 <body>
     <div class="flex h-screen desktop-layout">
@@ -400,11 +40,16 @@
                     
                     <!-- User Info -->
                     <div class="flex items-center space-x-4">
-                        <a href="screen4b.html" class="academy-btn" title="Share with Peers">
+                        <!-- Theme Toggle -->
+                        <button id="themeToggle" class="btn btn-ghost btn-icon" title="Toggle Light/Dark Mode">
+                            <i data-lucide="sun" class="w-4 h-4 theme-icon-light hidden"></i>
+                            <i data-lucide="moon" class="w-4 h-4 theme-icon-dark"></i>
+                        </button>
+                        <a href="screen4b.html" class="btn btn-outline" title="Share with Peers">
                             <i data-lucide="share-2" class="w-4 h-4"></i>
                             Share
                         </a>
-                        <a href="index.html" class="academy-btn secondary hidden md:inline-flex" title="Back to Dashboard">
+                        <a href="index.html" class="btn btn-secondary hidden md:inline-flex" title="Back to Dashboard">
                             <i data-lucide="arrow-left" class="w-4 h-4"></i>
                             <span>Dashboard</span>
                         </a>
@@ -445,7 +90,7 @@
                                 <p class="text-xl text-gray-300">Discover the powerhouses and factories inside every cell</p>
                             </div>
                         </div>
-                    <button class="academy-btn success" id="openNotebook"><i data-lucide="notebook-text" class="w-4 h-4"></i> Review Notes</button>
+                    <button class="btn btn-success" id="openNotebook"><i data-lucide="notebook-text" class="w-4 h-4"></i> Review Notes</button>
                     </div>
 
                     <!-- Lesson Content -->
@@ -463,7 +108,7 @@
                             <div class="note-taking-area" id="notesArea">
                                 <div class="flex items-center justify-between mb-3">
                                     <h4 class="text-lg font-semibold text-blue-400">📝 Your Notes</h4>
-                                    <button class="academy-btn secondary" id="addNoteBtn">
+                                    <button class="btn btn-secondary" id="addNoteBtn">
                                         <i data-lucide="plus" class="w-4 h-4"></i>
                                         Add Note
                                     </button>
@@ -536,7 +181,7 @@
                                 </div>
                                 
                                 <div class="mt-4 text-center">
-                                    <button class="academy-btn" id="checkAnswerBtn" disabled>
+                                    <button class="btn btn-primary" id="checkAnswerBtn" disabled>
                                         <i data-lucide="check" class="w-4 h-4"></i>
                                         Check Answer
                                     </button>
@@ -547,17 +192,17 @@
 
                     <!-- Navigation Buttons -->
                     <div class="flex justify-between items-center mt-8">
-                        <button class="academy-btn secondary" id="prevSectionBtn">
+                        <button class="btn btn-secondary" id="prevSectionBtn">
                             <i data-lucide="arrow-left" class="w-4 h-4"></i>
                             Previous Section
                         </button>
                         
                         <div class="flex space-x-3">
-                            <button class="academy-btn secondary" id="saveProgressBtn">
+                            <button class="btn btn-neutral" id="saveProgressBtn">
                                 <i data-lucide="bookmark" class="w-4 h-4"></i>
                                 Save Progress
                             </button>
-                            <button class="academy-btn" id="nextSectionBtn">
+                            <button class="btn btn-primary" id="nextSectionBtn">
                                 <span>Next Section</span>
                                 <i data-lucide="arrow-right" class="w-4 h-4"></i>
                             </button>
@@ -606,20 +251,20 @@
                         enterkeyhint="send"
                         class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32 leading-5 whitespace-pre-wrap break-words"
                     ></textarea>
-                    <button id="sendMessage" class="academy-btn px-4">
+                    <button id="sendMessage" class="btn btn-primary btn-icon">
                         <i data-lucide="send" class="w-4 h-4"></i>
                     </button>
                 </div>
             
                 <!-- Quick Action Buttons -->
                 <div class="mt-3 space-y-2">
-                    <button class="quick-action-btn w-full text-left p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg text-sm hover:bg-purple-500/20 transition-colors" data-message="Explain the difference between mitochondria and nucleus">
+                    <button class="btn btn-ghost w-full justify-start" data-message="Explain the difference between mitochondria and nucleus">
                         🔬 Compare mitochondria vs nucleus
                     </button>
-                    <button class="quick-action-btn w-full text-left p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg text-sm hover:bg-blue-500/20 transition-colors" data-message="Help me understand protein synthesis in ribosomes">
+                    <button class="btn btn-ghost w-full justify-start" data-message="Help me understand protein synthesis in ribosomes">
                         ⚙️ Explain protein synthesis
                     </button>
-                    <button class="quick-action-btn w-full text-left p-3 bg-green-500/10 border border-green-500/30 rounded-lg text-sm hover:bg-green-500/20 transition-colors" data-message="What are good memory techniques for remembering organelles?">
+                    <button class="btn btn-ghost w-full justify-start" data-message="What are good memory techniques for remembering organelles?">
                         🧠 Memory techniques
                     </button>
                 </div>
@@ -643,7 +288,7 @@
             </div>
             <div id="glassBody" class="glass-modal-body"></div>
             <div class="glass-modal-footer">
-                <button id="glassOk" class="academy-btn w-full">
+                <button id="glassOk" class="btn btn-primary w-full">
                     <i data-lucide="check" class="w-4 h-4"></i>
                     Got it, thanks!
                 </button>
@@ -673,11 +318,11 @@
                 ></textarea>
             </div>
             <div class="glass-modal-footer" style="display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; margin-top: auto;">
-                <button id="cancelNote" class="academy-btn secondary">
+                <button id="cancelNote" class="btn btn-secondary">
                     <i data-lucide="x" class="w-4 h-4"></i>
                     Cancel
                 </button>
-                <button id="saveNote" class="academy-btn">
+                <button id="saveNote" class="btn btn-primary">
                     <i data-lucide="save" class="w-4 h-4"></i>
                     Save Note
                 </button>
@@ -738,10 +383,58 @@ sequenceDiagram
     </div>
 
     <script>
-        // Mermaid init
+        // Mermaid init - will be reinitialized with correct theme
         if (window.mermaid) { mermaid.initialize({ startOnLoad: false, theme: 'dark' }); }
         // Initialize Lucide icons
         lucide.createIcons();
+        
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeCss = document.getElementById('theme-css');
+        const themeIconLight = document.querySelector('.theme-icon-light');
+        const themeIconDark = document.querySelector('.theme-icon-dark');
+        
+        // Get current theme from localStorage or default to dark
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        // Apply initial theme
+        function setTheme(theme) {
+            currentTheme = theme;
+            localStorage.setItem('theme', theme);
+            
+            if (theme === 'light') {
+                themeCss.href = 'css/light-mode.css';
+                themeIconLight.classList.add('hidden');
+                themeIconDark.classList.remove('hidden');
+                document.body.setAttribute('data-theme', 'light');
+                
+                // Update Mermaid theme
+                if (window.mermaid) {
+                    mermaid.initialize({ startOnLoad: false, theme: 'default' });
+                }
+            } else {
+                themeCss.href = 'css/dark-mode.css';
+                themeIconLight.classList.remove('hidden');
+                themeIconDark.classList.add('hidden');
+                document.body.setAttribute('data-theme', 'dark');
+                
+                // Update Mermaid theme
+                if (window.mermaid) {
+                    mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+                }
+            }
+        }
+        
+        // Set initial theme
+        setTheme(currentTheme);
+        
+        // Theme toggle click handler
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+        }
         
         // Screen 2 Interactive Learning
         class Screen2InteractiveLearning {
@@ -862,9 +555,16 @@ sequenceDiagram
                                     </p>
                                     <ul class="text-sm text-white/80 space-y-1">
                                         <li>• Contains its own DNA (ancient bacteria origin)</li>
-                                        <li>• Has double membrane structure</li>
-                                        <li>• More active cells have more mitochondria</li>
+                                        <li>• Has double membrane structure with cristae folds</li>
+                                        <li>• More active cells have more mitochondria (muscle cells have thousands)</li>
                                         <li>• Found in both plant and animal cells</li>
+                                        <li>• Produces about 90% of cellular energy as ATP</li>
+                                        <li>• Inherited maternally - you get yours from your mother!</li>
+                                        <li>• Can reproduce independently within cells</li>
+                                        <li>• Evolved from symbiotic bacteria 1.5 billion years ago</li>
+                                        <li>• Size varies: 0.5-10 micrometers in length</li>
+                                        <li>• Contains enzymes for the Krebs cycle and electron transport</li>
+                                        <li>• Damaged mitochondria are recycled through mitophagy</li>
                                     </ul>
                                 </div>
                             </div>
@@ -883,10 +583,17 @@ sequenceDiagram
                                         the cell's genetic material (DNA).
                                     </p>
                                     <ul class="text-sm text-white/80 space-y-1">
-                                        <li>• Contains chromosomes with DNA</li>
-                                        <li>• Controls gene expression</li>
-                                        <li>• Surrounded by nuclear membrane</li>
+                                        <li>• Contains chromosomes with DNA (humans have 46 chromosomes)</li>
+                                        <li>• Controls gene expression and protein synthesis</li>
+                                        <li>• Surrounded by double nuclear membrane with pores</li>
                                         <li>• Contains the nucleolus (makes ribosomes)</li>
+                                        <li>• Typically 10-20% of cell volume</li>
+                                        <li>• Nuclear pores allow selective transport of molecules</li>
+                                        <li>• DNA is organized with histone proteins into chromatin</li>
+                                        <li>• Disappears during cell division, reforms afterward</li>
+                                        <li>• Missing in prokaryotes (bacteria) - they have nucleoid instead</li>
+                                        <li>• Contains most of the cell's genetic material (99%+)</li>
+                                        <li>• Nuclear envelope connects to endoplasmic reticulum</li>
                                     </ul>
                                 </div>
                             </div>
@@ -905,10 +612,17 @@ sequenceDiagram
                                         and assemble amino acids into proteins.
                                     </p>
                                     <ul class="text-sm text-white/80 space-y-1">
-                                        <li>• Made of RNA and proteins</li>
-                                        <li>• Can be free-floating or attached to ER</li>
-                                        <li>• Translate mRNA into proteins</li>
-                                        <li>• Essential for protein synthesis</li>
+                                        <li>• Made of ribosomal RNA (rRNA) and proteins</li>
+                                        <li>• Can be free-floating or attached to rough ER</li>
+                                        <li>• Translate messenger RNA (mRNA) into proteins</li>
+                                        <li>• Essential for protein synthesis in all living cells</li>
+                                        <li>• Consist of large (60S) and small (40S) subunits in eukaryotes</li>
+                                        <li>• Free ribosomes make proteins for internal cell use</li>
+                                        <li>• ER-bound ribosomes make proteins for secretion or membranes</li>
+                                        <li>• Produced in the nucleolus within the nucleus</li>
+                                        <li>• About 20-25 nanometers in diameter</li>
+                                        <li>• Can form polyribosomes (clusters) for efficient production</li>
+                                        <li>• One of the most ancient and conserved cellular components</li>
                                     </ul>
                                 </div>
                             </div>
@@ -927,10 +641,17 @@ sequenceDiagram
                                         It comes in two types: rough (with ribosomes) and smooth (without ribosomes).
                                     </p>
                                     <ul class="text-sm text-white/80 space-y-1">
-                                        <li>• Rough ER: protein processing and folding</li>
-                                        <li>• Smooth ER: lipid synthesis and detoxification</li>
-                                        <li>• Connected to nuclear membrane</li>
-                                        <li>• Transport vesicles to Golgi apparatus</li>
+                                        <li>• Rough ER: protein processing, folding, and modification</li>
+                                        <li>• Smooth ER: lipid synthesis, steroid production, and detoxification</li>
+                                        <li>• Connected directly to the nuclear membrane</li>
+                                        <li>• Transports materials via vesicles to Golgi apparatus</li>
+                                        <li>• Extends throughout the cytoplasm as interconnected membranes</li>
+                                        <li>• Rough ER abundant in cells that secrete proteins (antibodies, enzymes)</li>
+                                        <li>• Smooth ER prominent in liver cells for detoxification</li>
+                                        <li>• Stores calcium ions, especially in muscle cells</li>
+                                        <li>• Can be continuous with outer nuclear membrane</li>
+                                        <li>• Helps maintain cell shape and provides structural support</li>
+                                        <li>• Critical for quality control - misfolded proteins are destroyed here</li>
                                     </ul>
                                 </div>
                             </div>
@@ -1028,7 +749,7 @@ sequenceDiagram
                         <div class="text-white text-sm markdown-content">${displayText}</div>
                         <p class="text-gray-400 text-xs mt-2">${note.timestamp}</p>
                     </div>
-                    <button class="academy-btn secondary px-2 py-1" onclick="learning.removeNote(${note.id})">
+                    <button class="btn btn-secondary btn-sm" onclick="learning.removeNote(${note.id})">
                         <i data-lucide="trash-2" class="w-3 h-3"></i>
                     </button>
                 `;
@@ -1201,7 +922,7 @@ sequenceDiagram
             setupEventListeners() {
                 const sendButton = document.getElementById('sendMessage');
                 const chatInput = document.getElementById('chatInput');
-                const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+                const quickActionBtns = document.querySelectorAll('[data-message]');
                 
                 sendButton.addEventListener('click', () => this.sendMessage());
                 const autoResize = () => {
@@ -1449,18 +1170,6 @@ Respond as Isaac's brilliantly enthusiastic, slightly dorky science mentor who m
         
         // Initialize Screen 2
         const learning = new Screen2InteractiveLearning();
-        
-        // Button interactions
-        document.querySelectorAll('.academy-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (!this.disabled) {
-                    this.style.transform = 'translateY(0)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(-1px)';
-                    }, 100);
-                }
-            });
-        });
     </script>
 </body>
 </html>
