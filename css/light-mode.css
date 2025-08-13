@@ -29,17 +29,17 @@
   --border-color-focus: rgba(79, 70, 229, 0.4);
   --border-color-muted: rgba(0, 0, 0, 0.05);
   
-  /* Shadow Tokens (Light theme optimized) */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-focus: 0 0 0 3px rgba(79, 70, 229, 0.1);
-  --shadow-button: 0 2px 4px rgba(79, 70, 229, 0.1);
+  /* Shadow Tokens (Light theme optimized - soft and diffused) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-focus: 0 0 0 3px rgba(79, 70, 229, 0.08);
+  --shadow-button: 0 1px 3px rgba(79, 70, 229, 0.08);
   
-  /* Elevation Tokens - Light Theme Depth System */
-  --elevation-1-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
-  --elevation-2-shadow: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
-  --elevation-3-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  /* Elevation Tokens - Light Theme Depth System (subtle and natural) */
+  --elevation-1-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 1px rgba(0, 0, 0, 0.04);
+  --elevation-2-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --elevation-3-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
   --text-shadow-base: none;
   --text-shadow-strong: none;
 }
@@ -128,10 +128,7 @@ input:focus {
   border: 1px solid var(--border-color);
 }
 
-/* Light theme specific shadows for panels */
-#moeBuddyPanel {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(79, 70, 229, 0.05);
-}
+/* Light theme panels use the theme shadow tokens automatically */
 
 /* Ensure good contrast for icons and text in light mode */
 .btn-magic:not(:disabled):hover {
