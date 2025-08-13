@@ -154,19 +154,19 @@
                 
                 <!-- Stats Grid -->
                 <div class="grid md:grid-cols-4 gap-4">
-                    <a href="screen3.html" class="academy-card p-6 text-center hover:scale-105 transition-transform" title="View detailed lesson progress">
+                    <a href="screen3.html" class="academy-card p-6 text-center" title="View detailed lesson progress">
                         <div class="stat-number text-blue-400">24</div>
                         <div class="text-sm text-gray-400">Lessons Completed</div>
                     </a>
-                    <a href="screen3.html" class="academy-card p-6 text-center hover:scale-105 transition-transform" title="View accuracy analytics">
+                    <a href="screen3.html" class="academy-card p-6 text-center" title="View accuracy analytics">
                         <div class="stat-number text-green-400">85%</div>
                         <div class="text-sm text-gray-400">Accuracy Rate</div>
             </a>
-                    <a href="screen3.html" class="academy-card p-6 text-center hover:scale-105 transition-transform" title="View streak details">
+                    <a href="screen3.html" class="academy-card p-6 text-center" title="View streak details">
                         <div class="stat-number text-yellow-400">7</div>
                         <div class="text-sm text-gray-400">Day Streak</div>
                     </a>
-                    <a href="screen3.html" class="academy-card p-6 text-center hover:scale-105 transition-transform" title="View achievement gallery">
+                    <a href="screen3.html" class="academy-card p-6 text-center" title="View achievement gallery">
                         <div class="stat-number text-purple-400">12</div>
                         <div class="text-sm text-gray-400">Achievements</div>
                     </a>
@@ -744,15 +744,7 @@ Respond as Isaac's dramatically enthusiastic, slightly sarcastic science sidekic
         window.moeBuddy = new MOEBuddy();
         console.log('MOE Buddy initialized:', window.moeBuddy);
         
-        // Button interactions
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                this.style.transform = 'translateY(0)';
-                setTimeout(() => {
-                    this.style.transform = 'translateY(-1px)';
-                }, 100);
-            });
-        });
+        // Button interactions removed - CSS handles hover/active states properly
         
         // Animate progress bars on load
         window.addEventListener('load', () => {

@@ -155,15 +155,9 @@ img {
 
 /* Profile image styling - Game Character Style */
 .profile-image {
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
-}
-
-.profile-image:hover {
-  transform: scale(1.1) translateY(-2px);
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
 }
 
 /* Ensure profile images are blocky and game-like */
@@ -173,14 +167,7 @@ img {
   border-radius: var(--border-radius);
 }
 
-.profile-container {
-  transition: all 0.1s ease;
-}
-
-.profile-container:hover {
-  transform: translateY(-2px);
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
-}
+/* Removed profile container hover effects - profile images are not interactive */
 
 /* Elements - Base HTML elements */
 button {
@@ -232,7 +219,9 @@ input:focus {
   transition: all 0.3s ease;
 }
 
-.card:hover {
+/* Only apply hover effects to interactive cards (links, buttons) */
+a.card:hover,
+button.card:hover {
   transform: translateY(-2px);
   box-shadow: var(--elevation-3-shadow);
   border-color: var(--border-color-focus);
@@ -515,13 +504,7 @@ footer {
 }
 
 /* Utilities - Helper classes */
-.hover-lift {
-  transition: transform 0.2s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-2px);
-}
+/* Removed generic .hover-lift class to prevent meaningless animations on non-interactive elements */
 
 .glassmorphism {
   background: rgba(255, 255, 255, 0.1);
@@ -602,7 +585,9 @@ footer {
   transition: var(--transition-base);
 }
 
-.academy-card:hover {
+/* Only apply hover effects to interactive academy cards (links, buttons) */
+a.academy-card:hover,
+button.academy-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
   border-color: var(--color-primary);
