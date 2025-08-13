@@ -17,34 +17,8 @@
   --color-green-600: #059669;
   --color-red-500: #EF4444;
   
-  /* Color Tokens - Semantic (Dark Theme Default) */
-  --color-primary: #2a3046;
-  --color-primary-hover: #3a4056;
-  --color-secondary: #764BA2;
-  --color-accent-pink: #F093FB;
-  --color-accent-blue: #4FACFE;
-  --color-accent-yellow: #FFD93D;
-  --color-success: #10B981;
-  --color-danger: #EF4444;
-  
-  /* Background Tokens */
-  --bg-body: linear-gradient(135deg, #2a3046 0%, #764BA2 100%);
-  --bg-surface: rgba(30, 30, 60, 0.9);
-  --bg-surface-solid: rgba(15, 15, 35, 0.95);
-  --bg-overlay: rgba(0, 0, 0, 0.75);
-  --bg-input: rgba(255, 255, 255, 0.05);
-  --bg-input-focus: rgba(255, 255, 255, 0.1);
-  
-  /* Text Tokens */
-  --text-primary: #FFFFFF;
-  --text-secondary: #B8C6DB;
-  --text-muted: #64748B;
-  --text-inverse: #1E293B;
-  
-  /* Border Tokens */
-  --border-color: rgba(255, 255, 255, 0.2);
-  --border-color-focus: rgba(102, 126, 234, 0.4);
-  --border-color-muted: rgba(255, 255, 255, 0.1);
+  /* Theme-specific tokens are now loaded from separate theme files */
+  /* Base semantic tokens will be overridden by theme-specific values */
   
   /* Spacing Tokens */
   --spacing-xs: 0.25rem;   /* 4px */
@@ -62,12 +36,7 @@
   --radius-xl: 1.25rem;    /* 20px */
   --radius-full: 9999px;
   
-  /* Shadow Tokens */
-  --shadow-sm: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 12px 48px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  --shadow-focus: 0 0 25px rgba(102, 126, 234, 0.5);
-  --shadow-button: 0 6px 20px rgba(102, 126, 234, 0.4);
+  /* Shadow Tokens - will be overridden by theme files */
   
   /* Typography Tokens */
   --font-family-primary: 'Poppins', sans-serif;
@@ -92,12 +61,7 @@
   --animation-bounce: cubic-bezier(0.4, 0, 0.2, 1);
   --animation-elastic: cubic-bezier(0.05, 0.83, 0.43, 0.96);
   
-  /* Elevation Tokens - Theme Agnostic Depth System */
-  --elevation-1-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
-  --elevation-2-shadow: 8px 8px 20px rgba(0, 0, 0, 0.35);
-  --elevation-3-shadow: 12px 12px 30px rgba(0, 0, 0, 0.45);
-  --text-shadow-base: 1px 1px 1px rgba(0, 0, 0, 0.25);
-  --text-shadow-strong: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  /* Elevation Tokens - will be overridden by theme files */
   
   /* Button Intent Colors - Self-Contained Gradients */
   --btn-primary-bg: linear-gradient(140deg, #3B82F6 15%, #1E40AF 115%);
@@ -248,8 +212,6 @@ input {
   box-shadow: var(--elevation-1-shadow);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
-  background: rgba(26, 32, 44, 0.8);
-  border: 1px solid rgba(102, 126, 234, 0.3);
   color: var(--text-primary);
 }
 
@@ -385,15 +347,15 @@ input:focus {
 /* Subtle Button Variants */
 .btn-outline {
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--border-color);
   color: var(--text-primary);
   text-shadow: none;
   box-shadow: var(--elevation-1-shadow);
 }
 
 .btn-outline:not(:disabled):hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
+  background: var(--bg-input);
+  border-color: var(--border-color-focus);
 }
 
 .btn-ghost {
@@ -405,7 +367,7 @@ input:focus {
 }
 
 .btn-ghost:not(:disabled):hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-input);
   box-shadow: var(--elevation-1-shadow);
 }
 
@@ -599,7 +561,7 @@ footer {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Custom scrollbar for chat */
+/* Custom scrollbar for chat - theme specific styles moved to theme files */
 #chatMessages::-webkit-scrollbar {
   width: 6px;
 }
@@ -607,15 +569,6 @@ footer {
 #chatMessages::-webkit-scrollbar-track {
   background: transparent;
   border-radius: 3px;
-}
-
-#chatMessages::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #4A5568, #2D3748);
-  border-radius: 3px;
-}
-
-#chatMessages::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #667EEA, #764BA2);
 }
 
 /* Chat panel specific styles */
@@ -678,8 +631,6 @@ footer {
 }
 
 .chat-message {
-  background: rgba(102, 126, 234, 0.1);
-  border: 1px solid rgba(102, 126, 234, 0.3);
   border-radius: var(--radius-sm);
   padding: var(--spacing-md);
   margin: var(--spacing-sm) 0;
@@ -707,7 +658,6 @@ footer {
 .glass-modal {
   width: min(96vw, 1100px);
   height: min(92vh, 760px);
-  background: rgba(15, 15, 23, 0.78);
   border: 1px solid var(--border-color-muted);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
@@ -733,7 +683,6 @@ footer {
 }
 
 .glass-col {
-  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-color-muted);
   border-radius: var(--radius-md);
   padding: var(--spacing-md);
@@ -744,7 +693,6 @@ footer {
 .notes-textarea {
   width: 100%;
   height: calc(100% - 8px);
-  background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border-color-muted);
   color: var(--text-primary);
   border-radius: 10px;
@@ -759,7 +707,6 @@ footer {
 }
 
 .mermaid {
-  background: rgba(255, 255, 255, 0.04);
   border-radius: 10px;
   padding: var(--spacing-md);
 }

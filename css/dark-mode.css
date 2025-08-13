@@ -1,0 +1,99 @@
+/* Dark Mode Theme Tokens */
+:root {
+  /* Color Tokens - Semantic (Dark Theme) */
+  --color-primary: #2a3046;
+  --color-primary-hover: #3a4056;
+  --color-secondary: #764BA2;
+  --color-accent-pink: #F093FB;
+  --color-accent-blue: #4FACFE;
+  --color-accent-yellow: #FFD93D;
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+  
+  /* Background Tokens */
+  --bg-body: linear-gradient(135deg, #2a3046 0%, #764BA2 100%);
+  --bg-surface: rgba(30, 30, 60, 0.9);
+  --bg-surface-solid: rgba(15, 15, 35, 0.95);
+  --bg-overlay: rgba(0, 0, 0, 0.75);
+  --bg-input: rgba(255, 255, 255, 0.05);
+  --bg-input-focus: rgba(255, 255, 255, 0.1);
+  
+  /* Text Tokens */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8C6DB;
+  --text-muted: #64748B;
+  --text-inverse: #1E293B;
+  
+  /* Border Tokens */
+  --border-color: rgba(255, 255, 255, 0.2);
+  --border-color-focus: rgba(102, 126, 234, 0.4);
+  --border-color-muted: rgba(255, 255, 255, 0.1);
+  
+  /* Shadow Tokens (Dark theme optimized) */
+  --shadow-sm: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 12px 48px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  --shadow-focus: 0 0 25px rgba(102, 126, 234, 0.5);
+  --shadow-button: 0 6px 20px rgba(102, 126, 234, 0.4);
+  
+  /* Elevation Tokens - Dark Theme Depth System */
+  --elevation-1-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+  --elevation-2-shadow: 8px 8px 20px rgba(0, 0, 0, 0.35);
+  --elevation-3-shadow: 12px 12px 30px rgba(0, 0, 0, 0.45);
+  --text-shadow-base: 1px 1px 1px rgba(0, 0, 0, 0.25);
+  --text-shadow-strong: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark theme specific component overrides */
+.chat-message {
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.mermaid {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.notes-textarea {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.glass-col {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.glass-modal {
+  background: rgba(15, 15, 23, 0.78);
+}
+
+/* Dark theme scrollbar styles */
+#chatMessages::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #4A5568, #2D3748);
+}
+
+#chatMessages::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #667EEA, #764BA2);
+}
+
+/* Dark theme input styling */
+input {
+  background: rgba(26, 32, 44, 0.8);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+/* Dark theme demo styles for buttons.html */
+.demo-section {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+}
+
+.demo-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color-muted);
+}
+
+.code-block {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color-muted);
+  color: var(--text-secondary);
+}
