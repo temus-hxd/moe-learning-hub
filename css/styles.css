@@ -1225,3 +1225,356 @@ button.academy-card:hover {
     padding: 0.75rem;
   }
 }
+
+/* Screen2 Interactive Learning Components */
+.lesson-content {
+  space-y: 2rem;
+}
+
+.lesson-section {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--elevation-1-shadow);
+  backdrop-filter: blur(10px);
+}
+
+.lesson-section h3 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.lesson-section p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Note Taking Area */
+.note-taking-area {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color-muted);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.notes-list {
+  max-height: 200px;
+  overflow-y: auto;
+  space-y: 0.75rem;
+}
+
+.note-item {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color-muted);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: all var(--transition-base);
+}
+
+.note-item:hover {
+  background: var(--bg-input-focus);
+  border-color: var(--border-color);
+}
+
+/* Interactive Concept Grid */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.concept-card {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--elevation-1-shadow);
+  user-select: none;
+}
+
+.concept-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-2-shadow);
+  border-color: var(--border-color-focus);
+}
+
+.concept-card.selected {
+  border-color: var(--color-primary);
+  background: rgba(79, 70, 229, 0.1);
+  box-shadow: var(--elevation-2-shadow), 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.concept-card.dragging {
+  opacity: 0.7;
+  transform: rotate(5deg) scale(0.95);
+  z-index: 1000;
+}
+
+.concept-card h4 {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 0.5rem;
+}
+
+.concept-card p {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Quiz Components */
+.quiz-container {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: var(--elevation-1-shadow);
+}
+
+.quiz-option {
+  background: var(--bg-input);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  margin-bottom: 0.75rem;
+}
+
+.quiz-option:hover {
+  background: var(--bg-input-focus);
+  border-color: var(--border-color-focus);
+  transform: translateX(4px);
+}
+
+.quiz-option.selected {
+  border-color: var(--color-primary);
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.quiz-option.correct {
+  border-color: var(--color-success);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.quiz-option.incorrect {
+  border-color: var(--color-danger);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.quiz-option span {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Function Match Areas */
+.function-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.function-box {
+  background: var(--bg-input);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+}
+
+.function-box.drag-over {
+  border-color: var(--color-primary);
+  background: rgba(79, 70, 229, 0.1);
+  border-style: solid;
+  transform: scale(1.02);
+}
+
+.function-box.filled {
+  border-style: solid;
+  border-color: var(--color-success);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.function-box h4 {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 0.5rem;
+}
+
+.function-box p {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* Notebook Modal */
+.notebook-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.notebook-modal {
+  width: min(95vw, 800px);
+  height: min(90vh, 600px);
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-3-shadow);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.notebook-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color-muted);
+}
+
+.notebook-header h3 {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.notebook-body {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.close-btn {
+  background: none;
+  border: 2px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.close-btn:hover {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+/* Add Note Modal */
+.add-note-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(8px);
+  z-index: 1001;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-note-modal {
+  width: min(90vw, 500px);
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-3-shadow);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+
+.add-note-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color-muted);
+}
+
+.add-note-header h3 {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}
+
+.add-note-body {
+  padding: 1.5rem;
+}
+
+.add-note-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-color-muted);
+}
+
+.note-textarea {
+  width: 100%;
+  height: 120px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  color: var(--text-primary);
+  font-family: var(--font-family-primary);
+  resize: vertical;
+  transition: all var(--transition-base);
+}
+
+.note-textarea:focus {
+  outline: none;
+  border-color: var(--border-color-focus);
+  background: var(--bg-input-focus);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+.note-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* Responsive adjustments for Screen2 */
+@media (max-width: 768px) {
+  .concept-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .function-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .lesson-section {
+    padding: 1rem;
+  }
+  
+  .notebook-modal {
+    width: 95vw;
+    height: 85vh;
+  }
+  
+  .add-note-modal {
+    width: 95vw;
+  }
+}
