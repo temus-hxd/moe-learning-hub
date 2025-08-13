@@ -110,6 +110,100 @@
             border-radius: 8px;
         }
 
+        .game-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .game-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: 3px solid #FFD700;
+            border-radius: 20px;
+            padding: 3rem 4rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+            max-width: 90vw;
+        }
+
+        .game-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #FFD700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .modal-message {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .modal-button {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .modal-controls {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .modal-title {
+                font-size: 2rem;
+            }
+
+            .modal-message {
+                font-size: 1.1rem;
+            }
+        }
+
         .right-panel {
             display: flex;
             flex-direction: column;
@@ -344,6 +438,20 @@
                 <button class="btn start" onclick="simulateKeyPress(32)">🎮 Start New Game (SPACE)</button>
                 <button class="btn" onclick="simulateKeyPress(80)">⏸️ Pause/Resume (P)</button>
                 <button class="btn" onclick="simulateKeyPress(83)">🔊 Toggle Sound (S)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Modal -->
+    <div class="game-modal" id="gameModal">
+        <div class="modal-content">
+            <div class="modal-title" id="modalTitle">🎮 Ready to Play?</div>
+            <div class="modal-message" id="modalMessage">Press SPACE to start your Singapore History adventure!</div>
+            <button class="modal-button" onclick="simulateKeyPress(32)">
+                🚀 START GAME (SPACE)
+            </button>
+            <div class="modal-controls">
+                Or use keyboard: SPACE to start • P to pause • S for sound
             </div>
         </div>
     </div>
@@ -1300,11 +1408,24 @@
             }
             
             function dialog(text) {
-                ctx.fillStyle = "#FFFF00";
-                ctx.font      = "18px Arial";
-                var width = ctx.measureText(text).width,
-                    x     = ((map.width * map.blockSize) - width) / 2;        
-                ctx.fillText(text, x, (map.height * 10) + 8);
+                // Legacy function - now handled by modal
+                console.log("Dialog:", text);
+            }
+
+            function showModal(title, message, type) {
+                var modal = document.getElementById('gameModal');
+                var modalTitle = document.getElementById('modalTitle');
+                var modalMessage = document.getElementById('modalMessage');
+                
+                modalTitle.textContent = title;
+                modalMessage.textContent = message;
+                
+                modal.classList.add('show');
+            }
+
+            function hideModal() {
+                var modal = document.getElementById('gameModal');
+                modal.classList.remove('show');
             }
 
             function soundDisabled() {
@@ -1329,12 +1450,13 @@
                 user.reset();
                 map.reset();
                 map.draw(ctx);
+                hideModal();
                 startLevel();
             }
 
             function wonGame() {
                 setState(WON);
-                dialog("🎉 CORRECT! YOU WON! 🎉");
+                showModal("🎉 CORRECT!", "You got the right answer! Press SPACE for a new question.", "win");
             }
 
             function keyDown(e) {
@@ -1347,12 +1469,13 @@
                     audio.resume();
                     map.draw(ctx);
                     setState(stored);
+                    hideModal();
                 } else if (e.keyCode === 80) { // P key
                     stored = state;
                     setState(PAUSE);
                     audio.pause();
                     map.draw(ctx);
-                    dialog("Paused - Press P to continue");
+                    showModal("⏸️ Paused", "Game paused. Press P to continue playing.", "pause");
                 } else if (state !== PAUSE && state !== WON) {   
                     return user.keyDown(e);
                 }
@@ -1365,7 +1488,7 @@
                 if (user.getLives() > 0) {
                     startLevel();
                 } else {
-                    dialog("Game Over - Press SPACE for new game");
+                    showModal("💀 Game Over", "No lives left! Press SPACE to try again.", "gameover");
                 }
             }
 
@@ -1475,7 +1598,7 @@
                 } else if (state === WAITING && stateChanged) {            
                     stateChanged = false;
                     map.draw(ctx);
-                    dialog("Press SPACE to start a New game");            
+                    // Modal handles the waiting state display            
                 } else if (state === WON && stateChanged) {
                     stateChanged = false;
                     // Keep showing win message
@@ -1604,8 +1727,8 @@
                 
             function loaded() {
 
-                dialog("Press SPACE to Start");
                 EducationalGame.loadRandomQuestion();
+                showModal("🎮 Ready to Play?", "Press SPACE to start your Singapore History adventure!", "start");
                 
                 document.addEventListener("keydown", keyDown, true);
                 document.addEventListener("keypress", keyPress, true); 
