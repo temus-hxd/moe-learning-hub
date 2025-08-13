@@ -224,91 +224,66 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elevation-1-shadow);
   transition: all 0.3s ease;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   position: relative;
   overflow: hidden;
 }
 
 button:hover {
   transform: translateY(-1px);
-  box-shadow: var(--shadow-medium);
+  box-shadow: var(--elevation-2-shadow);
 }
 
 button:active {
   transform: translateY(0);
 }
 
-.btn-primary {
-  background: var(--gradient-primary);
-  color: white;
-}
-
-.btn-secondary {
-  background: var(--gradient-accent);
-  color: white;
-}
-
-.btn-success {
-  background: var(--gradient-success);
-  color: white;
-}
-
-.btn-outline {
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  color: white;
-}
-
-.btn-outline:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
-}
 
 input {
   font-family: inherit;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elevation-1-shadow);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
   background: rgba(26, 32, 44, 0.8);
   border: 1px solid rgba(102, 126, 234, 0.3);
-  color: var(--color-text);
+  color: var(--text-primary);
 }
 
 input:focus {
-  box-shadow: var(--shadow-modern), 0 0 20px rgba(0, 212, 255, 0.3);
+  box-shadow: var(--elevation-2-shadow), 0 0 20px rgba(0, 212, 255, 0.3);
   transform: translateY(-2px);
   border-color: var(--color-primary);
 }
 
 /* Objects - Layout patterns */
 .card {
-  background: var(--color-bg-card);
+  background: var(--bg-surface);
   backdrop-filter: blur(20px);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-medium);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elevation-2-shadow);
+  border: 1px solid var(--border-color);
   position: relative;
   transition: all 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-large);
-  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: var(--elevation-3-shadow);
+  border-color: var(--border-color-focus);
 }
 
 .card-solid {
-  background: var(--color-bg-card-solid);
-  color: var(--color-text);
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  background: var(--bg-surface-solid);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
 .card-solid:hover {
-  box-shadow: var(--shadow-large);
+  box-shadow: var(--elevation-3-shadow);
 }
 
 /* Components - UI components */
