@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isaac's Academy - Educational Pacman</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/light-mode.css" id="theme-css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .pacman-game-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .game-title {
+            font-size: 3rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .game-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-areas: 
+                "score question level"
+                "game game game"
+                "controls controls controls";
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.8);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .score-panel {
+            grid-area: score;
+            background: linear-gradient(45deg, #ff6b35, #ff9500);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .question-panel {
+            grid-area: question;
+            background: linear-gradient(45deg, #4169e1, #1e3a8a);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .level-panel {
+            grid-area: level;
+            background: linear-gradient(45deg, #10b981, #059669);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .game-canvas-container {
+            grid-area: game;
+            position: relative;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 4px solid #4169e1;
+        }
+
+        #gameCanvas {
+            width: 800px;
+            height: 500px;
+            background: #000;
+            image-rendering: pixelated;
+            max-width: 100%;
+        }
+
+        .answer-corners {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .answer-corner {
+            position: absolute;
+            background: rgba(255, 255, 0, 0.8);
+            border: 3px solid #FFD700;
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-weight: 600;
+            color: #000;
+            font-size: 0.9rem;
+            text-align: center;
+            min-width: 80px;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+        }
+
+        .answer-corner.correct {
+            background: rgba(0, 255, 0, 0.8);
+            border-color: #00FF00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+        }
+
+        .answer-corner.top-left {
+            top: 10px;
+            left: 10px;
+        }
+
+        .answer-corner.top-right {
+            top: 10px;
+            right: 10px;
+        }
+
+        .answer-corner.bottom-left {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .answer-corner.bottom-right {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .controls-panel {
+            grid-area: controls;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .control-btn.start {
+            background: linear-gradient(45deg, #10b981, #059669);
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+        }
+
+        .control-btn.pause {
+            background: linear-gradient(45deg, #f59e0b, #d97706);
+        }
+
+        .control-btn.reset {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+        }
+
+        .instructions {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+        }
+
+        .instructions h3 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instructions li {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .instructions li:before {
+            content: "🎮";
+            position: absolute;
+            left: 0;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #FFD700;
+        }
+
+        @media (max-width: 768px) {
+            .game-board {
+                grid-template-areas: 
+                    "question"
+                    "score"
+                    "level"
+                    "game"
+                    "controls";
+                gap: 1rem;
+            }
+
+            .game-title {
+                font-size: 2rem;
+            }
+
+            .controls-panel {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #gameCanvas {
+                height: 400px;
+            }
+
+            .answer-corner {
+                font-size: 0.8rem;
+                min-width: 60px;
+                padding: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pacman-game-container">
+        <!-- Header -->
+        <div class="game-header">
+            <h1 class="game-title">🎮 EDUCATIONAL PACMAN</h1>
+            <p class="game-subtitle">Help Pacman find the correct answer while dodging the ghosts!</p>
+        </div>
+
+        <!-- Main Game Board -->
+        <div class="game-board">
+            <!-- Score Panel -->
+            <div class="score-panel">
+                <div>SCORE</div>
+                <div class="stat-value" id="score">0</div>
+            </div>
+
+            <!-- Question Panel -->
+            <div class="question-panel">
+                <div id="currentQuestion">Loading question...</div>
+            </div>
+
+            <!-- Level Panel -->
+            <div class="level-panel">
+                <div>LEVEL</div>
+                <div class="stat-value" id="level">1</div>
+            </div>
+
+            <!-- Game Canvas -->
+            <div class="game-canvas-container">
+                <canvas id="gameCanvas" width="800" height="500"></canvas>
+                
+                <!-- Answer Corners -->
+                <div class="answer-corners">
+                    <div class="answer-corner top-left" id="answer1">Answer A</div>
+                    <div class="answer-corner top-right" id="answer2">Answer B</div>
+                    <div class="answer-corner bottom-left" id="answer3">Answer C</div>
+                    <div class="answer-corner bottom-right" id="answer4">Answer D</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-panel">
+                <button class="control-btn start" id="startBtn">START GAME</button>
+                <button class="control-btn pause" id="pauseBtn">PAUSE</button>
+                <button class="control-btn reset" id="resetBtn">RESET</button>
+            </div>
+        </div>
+
+        <!-- Game Stats -->
+        <div class="game-stats">
+            <div class="stat-item">
+                <div>Lives</div>
+                <div class="stat-value" id="lives">3</div>
+            </div>
+            <div class="stat-item">
+                <div>Correct Answers</div>
+                <div class="stat-value" id="correctAnswers">0</div>
+            </div>
+            <div class="stat-item">
+                <div>Wrong Attempts</div>
+                <div class="stat-value" id="wrongAnswers">0</div>
+            </div>
+            <div class="stat-item">
+                <div>Ghost Speed</div>
+                <div class="stat-value" id="ghostSpeed">1x</div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h3>How to Play</h3>
+            <ul>
+                <li>Use arrow keys or WASD to move Pacman around the maze</li>
+                <li>Read the question in the blue panel above the game</li>
+                <li>Navigate to the correct answer in one of the four corners</li>
+                <li>Avoid the ghosts - they'll reset your position if they catch you!</li>
+                <li>Wrong answers make ghosts faster, but you can keep trying</li>
+                <li>Get 3 questions right to advance to the next level</li>
+                <li>Each level has harder questions and faster ghosts</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Game state variables
+        let gameRunning = false;
+        let gamePaused = false;
+        let currentLevel = 1;
+        let score = 0;
+        let lives = 3;
+        let correctAnswers = 0;
+        let wrongAnswers = 0;
+        let ghostSpeedMultiplier = 1;
+
+        // Canvas and context
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Game constants
+        const CELL_SIZE = 20;
+        const MAZE_WIDTH = 40;
+        const MAZE_HEIGHT = 25;
+        
+        // Game maze (1 = wall, 0 = empty, 2 = dot, 3 = power pellet, 4 = answer zone)
+        let maze = [
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+            [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+            [1,3,1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,3,1],
+            [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+            [1,2,1,1,1,1,2,1,1,2,1,1,1,1,1,1,2,1,1,1,1,1,1,2,1,1,1,1,1,1,2,1,1,2,1,1,1,1,2,1],
+            [1,2,2,2,2,2,2,1,1,2,2,2,2,1,1,2,2,2,1,1,1,1,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2,2,2,1],
+            [1,1,1,1,1,1,2,1,1,1,1,1,0,1,1,2,1,1,1,1,1,1,1,1,2,1,1,0,1,1,1,1,1,2,1,1,1,1,1,1],
+            [1,1,1,1,1,1,2,1,1,0,0,0,0,0,0,2,1,1,1,1,1,1,1,1,2,0,0,0,0,0,0,1,1,2,1,1,1,1,1,1],
+            [1,1,1,1,1,1,2,1,1,0,1,1,0,0,0,2,1,1,1,1,1,1,1,1,2,0,0,0,1,1,0,1,1,2,1,1,1,1,1,1],
+            [0,0,0,0,0,0,2,0,0,0,1,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,2,0,0,0,0,0,0],
+            [1,1,1,1,1,1,2,1,1,0,1,0,0,0,0,2,1,1,0,0,0,0,1,1,2,0,0,0,0,1,0,1,1,2,1,1,1,1,1,1],
+            [1,1,1,1,1,1,2,1,1,0,1,0,0,0,0,2,1,1,0,0,0,0,1,1,2,0,0,0,0,1,0,1,1,2,1,1,1,1,1,1],
+            [1,1,1,1,1,1,2,1,1,0,1,1,1,1,1,2,1,1,1,1,1,1,1,1,2,1,1,1,1,1,0,1,1,2,1,1,1,1,1,1],
+            [1,1,1,1,1,1,2,1,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,1,1,2,1,1,1,1,1,1],
+            [1,1,1,1,1,1,2,1,1,1,1,1,0,1,1,2,1,1,1,1,1,1,1,1,2,1,1,0,1,1,1,1,1,2,1,1,1,1,1,1],
+            [1,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,1,1,1,1,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,1],
+            [1,2,1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,2,1],
+            [1,3,2,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,2,3,2,2,2,1],
+            [1,1,2,1,1,1,2,1,1,2,1,1,1,1,1,1,2,1,1,1,1,1,1,2,1,1,1,1,1,1,2,1,1,2,1,1,1,2,1,1],
+            [1,2,2,2,2,2,2,1,1,2,2,2,2,1,1,2,2,2,1,1,1,1,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2,2,2,1],
+            [1,2,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,2,1],
+            [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+            [1,3,1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,3,1],
+            [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+        ];
+
+        // Game objects
+        let pacman = {
+            x: 19 * CELL_SIZE + CELL_SIZE/2, // Center of maze
+            y: 18 * CELL_SIZE + CELL_SIZE/2,
+            gridX: 19,
+            gridY: 18,
+            size: 8,
+            speed: 2,
+            direction: { x: 0, y: 0 },
+            nextDirection: { x: 0, y: 0 },
+            mouthOpen: true,
+            mouthTimer: 0
+        };
+
+        let ghosts = [
+            { 
+                x: 19 * CELL_SIZE + CELL_SIZE/2, 
+                y: 9 * CELL_SIZE + CELL_SIZE/2, 
+                gridX: 19, 
+                gridY: 9,
+                color: '#FF0000', 
+                speed: 1.8, 
+                direction: { x: 0, y: -1 }, 
+                mode: 'chase',
+                modeTimer: 0,
+                vulnerable: false,
+                vulnerableTimer: 0,
+                name: 'Blinky'
+            },
+            { 
+                x: 19 * CELL_SIZE + CELL_SIZE/2, 
+                y: 11 * CELL_SIZE + CELL_SIZE/2, 
+                gridX: 19, 
+                gridY: 11,
+                color: '#00FFFF', 
+                speed: 1.6, 
+                direction: { x: 0, y: 1 }, 
+                mode: 'chase',
+                modeTimer: 0,
+                vulnerable: false,
+                vulnerableTimer: 0,
+                name: 'Inky'
+            },
+            { 
+                x: 18 * CELL_SIZE + CELL_SIZE/2, 
+                y: 10 * CELL_SIZE + CELL_SIZE/2, 
+                gridX: 18, 
+                gridY: 10,
+                color: '#FFB8FF', 
+                speed: 1.7, 
+                direction: { x: -1, y: 0 }, 
+                mode: 'chase',
+                modeTimer: 0,
+                vulnerable: false,
+                vulnerableTimer: 0,
+                name: 'Pinky'
+            },
+            { 
+                x: 20 * CELL_SIZE + CELL_SIZE/2, 
+                y: 10 * CELL_SIZE + CELL_SIZE/2, 
+                gridX: 20, 
+                gridY: 10,
+                color: '#FFB852', 
+                speed: 1.5, 
+                direction: { x: 1, y: 0 }, 
+                mode: 'scatter',
+                modeTimer: 0,
+                vulnerable: false,
+                vulnerableTimer: 0,
+                name: 'Clyde'
+            }
+        ];
+
+        // Game state
+        let dots = [];
+        let powerPellets = [];
+        let totalDots = 0;
+        let dotsEaten = 0;
+
+        // Sample questions for Singapore History
+        const questionBank = [
+            {
+                level: 1,
+                question: "When did Singapore gain independence?",
+                answers: ["1963", "1965", "1967", "1969"],
+                correct: 1
+            },
+            {
+                level: 1,
+                question: "Who was Singapore's first Prime Minister?",
+                answers: ["Lee Kuan Yew", "Goh Chok Tong", "Lee Hsien Loong", "David Marshall"],
+                correct: 0
+            },
+            {
+                level: 1,
+                question: "What was Singapore called during British colonial rule?",
+                answers: ["Temasek", "Singapura", "Straits Settlements", "Crown Colony"],
+                correct: 2
+            },
+            {
+                level: 2,
+                question: "In which year did Singapore join Malaysia?",
+                answers: ["1962", "1963", "1964", "1965"],
+                correct: 1
+            },
+            {
+                level: 2,
+                question: "What was the name of Singapore's merger agreement with Malaysia?",
+                answers: ["Federation Agreement", "Malaysia Agreement", "Singapore Agreement", "Merger Proposal"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = null;
+        let answerPositions = [];
+
+        // Initialize game
+        function initGame() {
+            canvas.width = MAZE_WIDTH * CELL_SIZE;
+            canvas.height = MAZE_HEIGHT * CELL_SIZE;
+            initializeDots();
+            loadQuestion();
+            updateUI();
+            drawGame();
+        }
+
+        function initializeDots() {
+            dots = [];
+            powerPellets = [];
+            totalDots = 0;
+            dotsEaten = 0;
+            
+            for (let y = 0; y < MAZE_HEIGHT; y++) {
+                for (let x = 0; x < MAZE_WIDTH; x++) {
+                    if (maze[y][x] === 2) {
+                        dots.push({ x: x, y: y, eaten: false });
+                        totalDots++;
+                    } else if (maze[y][x] === 3) {
+                        powerPellets.push({ x: x, y: y, eaten: false });
+                        totalDots++;
+                    }
+                }
+            }
+        }
+
+        function loadQuestion() {
+            const levelQuestions = questionBank.filter(q => q.level <= currentLevel);
+            if (levelQuestions.length > 0) {
+                currentQuestion = levelQuestions[Math.floor(Math.random() * levelQuestions.length)];
+                
+                // Update question display
+                document.getElementById('currentQuestion').textContent = currentQuestion.question;
+                
+                // Update answer corners
+                const answerElements = ['answer1', 'answer2', 'answer3', 'answer4'];
+                answerElements.forEach((id, index) => {
+                    const element = document.getElementById(id);
+                    element.textContent = currentQuestion.answers[index];
+                    element.classList.remove('correct');
+                    if (index === currentQuestion.correct) {
+                        element.classList.add('correct');
+                    }
+                });
+
+                // Set answer positions (corners of the canvas)
+                answerPositions = [
+                    { x: 2 * CELL_SIZE, y: 2 * CELL_SIZE },    // top-left
+                    { x: (MAZE_WIDTH - 2) * CELL_SIZE, y: 2 * CELL_SIZE },    // top-right
+                    { x: 2 * CELL_SIZE, y: (MAZE_HEIGHT - 2) * CELL_SIZE },   // bottom-left
+                    { x: (MAZE_WIDTH - 2) * CELL_SIZE, y: (MAZE_HEIGHT - 2) * CELL_SIZE }  // bottom-right
+                ];
+            }
+        }
+
+        function updateUI() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('level').textContent = currentLevel;
+            document.getElementById('lives').textContent = lives;
+            document.getElementById('correctAnswers').textContent = correctAnswers;
+            document.getElementById('wrongAnswers').textContent = wrongAnswers;
+            document.getElementById('ghostSpeed').textContent = ghostSpeedMultiplier.toFixed(1) + 'x';
+            
+            // Update progress in score panel
+            const scorePanel = document.querySelector('.score-panel');
+            if (scorePanel && totalDots > 0) {
+                const progress = Math.round((dotsEaten / totalDots) * 100);
+                scorePanel.innerHTML = `
+                    <div>SCORE</div>
+                    <div class="stat-value">${score}</div>
+                    <div style="font-size: 0.8rem; margin-top: 5px;">
+                        Dots: ${dotsEaten}/${totalDots} (${progress}%)
+                    </div>
+                `;
+            }
+        }
+
+        function drawGame() {
+            // Clear canvas
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw maze
+            drawMaze();
+            
+            // Draw dots and power pellets
+            drawDots();
+            
+            // Draw answer zones
+            drawAnswerZones();
+
+            // Draw Pacman
+            drawPacman();
+
+            // Draw ghosts
+            ghosts.forEach(ghost => drawGhost(ghost));
+
+            if (gameRunning && !gamePaused) {
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        function drawMaze() {
+            for (let y = 0; y < MAZE_HEIGHT; y++) {
+                for (let x = 0; x < MAZE_WIDTH; x++) {
+                    if (maze[y][x] === 1) {
+                        ctx.fillStyle = '#0000FF';
+                        ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                        
+                        // Add border effect
+                        ctx.strokeStyle = '#4169e1';
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                    }
+                }
+            }
+        }
+
+        function drawDots() {
+            // Draw regular dots
+            dots.forEach(dot => {
+                if (!dot.eaten) {
+                    ctx.fillStyle = '#FFFF00';
+                    ctx.beginPath();
+                    ctx.arc(
+                        dot.x * CELL_SIZE + CELL_SIZE/2, 
+                        dot.y * CELL_SIZE + CELL_SIZE/2, 
+                        2, 0, 2 * Math.PI
+                    );
+                    ctx.fill();
+                }
+            });
+
+            // Draw power pellets
+            powerPellets.forEach(pellet => {
+                if (!pellet.eaten) {
+                    ctx.fillStyle = '#FFFF00';
+                    ctx.beginPath();
+                    ctx.arc(
+                        pellet.x * CELL_SIZE + CELL_SIZE/2, 
+                        pellet.y * CELL_SIZE + CELL_SIZE/2, 
+                        6, 0, 2 * Math.PI
+                    );
+                    ctx.fill();
+                    
+                    // Pulsing effect
+                    const pulse = Math.sin(Date.now() * 0.01) * 0.3 + 0.7;
+                    ctx.globalAlpha = pulse;
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                }
+            });
+        }
+
+        function drawAnswerZones() {
+            answerPositions.forEach((pos, index) => {
+                const isCorrect = index === currentQuestion?.correct;
+                ctx.fillStyle = isCorrect ? 'rgba(0, 255, 0, 0.3)' : 'rgba(255, 255, 0, 0.3)';
+                ctx.fillRect(pos.x - 40, pos.y - 20, 80, 40);
+                
+                ctx.strokeStyle = isCorrect ? '#00ff00' : '#ffff00';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(pos.x - 40, pos.y - 20, 80, 40);
+                
+                // Add letter labels
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = 'bold 16px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(String.fromCharCode(65 + index), pos.x, pos.y + 5);
+            });
+        }
+
+        function drawPacman() {
+            ctx.save();
+            ctx.translate(pacman.x, pacman.y);
+            
+            // Determine rotation based on direction
+            let rotation = 0;
+            if (pacman.direction.x > 0) rotation = 0;
+            else if (pacman.direction.x < 0) rotation = Math.PI;
+            else if (pacman.direction.y < 0) rotation = -Math.PI / 2;
+            else if (pacman.direction.y > 0) rotation = Math.PI / 2;
+            
+            ctx.rotate(rotation);
+
+            // Draw Pacman circle
+            ctx.fillStyle = '#ffff00';
+            ctx.beginPath();
+            
+            if (pacman.mouthOpen) {
+                // Pacman with mouth open
+                ctx.arc(0, 0, pacman.size, 0.2 * Math.PI, 1.8 * Math.PI);
+                ctx.lineTo(0, 0);
+            } else {
+                // Pacman with mouth closed
+                ctx.arc(0, 0, pacman.size, 0, 2 * Math.PI);
+            }
+            
+            ctx.fill();
+
+            // Draw eye
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(-8, -8, 3, 0, 2 * Math.PI);
+            ctx.fill();
+
+            ctx.restore();
+
+            // Animate mouth
+            pacman.mouthTimer++;
+            if (pacman.mouthTimer > 10) {
+                pacman.mouthOpen = !pacman.mouthOpen;
+                pacman.mouthTimer = 0;
+            }
+        }
+
+        function drawGhost(ghost) {
+            // Change color if vulnerable
+            if (ghost.vulnerable) {
+                if (ghost.vulnerableTimer > 60) {
+                    ctx.fillStyle = '#0000FF'; // Blue when vulnerable
+                } else {
+                    // Flash between blue and white when vulnerability is ending
+                    ctx.fillStyle = Math.floor(ghost.vulnerableTimer / 10) % 2 ? '#0000FF' : '#FFFFFF';
+                }
+            } else {
+                ctx.fillStyle = ghost.color;
+            }
+            
+            // Ghost body
+            ctx.beginPath();
+            ctx.arc(ghost.x, ghost.y - 5, 9, Math.PI, 0, false);
+            ctx.lineTo(ghost.x + 9, ghost.y + 9);
+            ctx.lineTo(ghost.x + 6, ghost.y + 6);
+            ctx.lineTo(ghost.x + 3, ghost.y + 9);
+            ctx.lineTo(ghost.x, ghost.y + 6);
+            ctx.lineTo(ghost.x - 3, ghost.y + 9);
+            ctx.lineTo(ghost.x - 6, ghost.y + 6);
+            ctx.lineTo(ghost.x - 9, ghost.y + 9);
+            ctx.lineTo(ghost.x - 9, ghost.y - 5);
+            ctx.fill();
+
+            // Ghost eyes
+            if (ghost.vulnerable) {
+                // Different eyes when vulnerable
+                ctx.fillStyle = '#FF0000';
+                ctx.beginPath();
+                ctx.arc(ghost.x - 4, ghost.y - 2, 2, 0, 2 * Math.PI);
+                ctx.arc(ghost.x + 4, ghost.y - 2, 2, 0, 2 * Math.PI);
+                ctx.fill();
+            } else {
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.arc(ghost.x - 4, ghost.y - 2, 2.5, 0, 2 * Math.PI);
+                ctx.arc(ghost.x + 4, ghost.y - 2, 2.5, 0, 2 * Math.PI);
+                ctx.fill();
+
+                // Eye pupils
+                ctx.fillStyle = '#000';
+                ctx.beginPath();
+                ctx.arc(ghost.x - 4, ghost.y - 2, 1, 0, 2 * Math.PI);
+                ctx.arc(ghost.x + 4, ghost.y - 2, 1, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+
+        function gameLoop() {
+            if (!gameRunning || gamePaused) return;
+
+            // Move Pacman
+            movePacman();
+
+            // Move ghosts
+            moveGhosts();
+
+            // Check collisions
+            checkCollisions();
+
+            // Redraw
+            drawGame();
+        }
+
+        function movePacman() {
+            // Check if we can change direction
+            if (pacman.nextDirection.x !== 0 || pacman.nextDirection.y !== 0) {
+                const newGridX = pacman.gridX + pacman.nextDirection.x;
+                const newGridY = pacman.gridY + pacman.nextDirection.y;
+                
+                if (canMoveTo(newGridX, newGridY)) {
+                    pacman.direction = { ...pacman.nextDirection };
+                    pacman.nextDirection = { x: 0, y: 0 };
+                }
+            }
+
+            // Move Pacman
+            const newX = pacman.x + pacman.direction.x * pacman.speed;
+            const newY = pacman.y + pacman.direction.y * pacman.speed;
+            
+            const newGridX = Math.floor(newX / CELL_SIZE);
+            const newGridY = Math.floor(newY / CELL_SIZE);
+            
+            // Check collision with walls
+            if (canMoveTo(newGridX, newGridY)) {
+                pacman.x = newX;
+                pacman.y = newY;
+                pacman.gridX = newGridX;
+                pacman.gridY = newGridY;
+                
+                // Tunnel effect (wrap around)
+                if (pacman.x < 0) {
+                    pacman.x = canvas.width;
+                    pacman.gridX = MAZE_WIDTH - 1;
+                } else if (pacman.x > canvas.width) {
+                    pacman.x = 0;
+                    pacman.gridX = 0;
+                }
+                
+                // Check for dot/pellet consumption
+                checkDotEating();
+            } else {
+                // Stop if hitting wall
+                pacman.direction = { x: 0, y: 0 };
+            }
+        }
+
+        function canMoveTo(gridX, gridY) {
+            if (gridX < 0 || gridX >= MAZE_WIDTH || gridY < 0 || gridY >= MAZE_HEIGHT) {
+                return gridY === 9 && (gridX < 0 || gridX >= MAZE_WIDTH); // Allow tunnel
+            }
+            return maze[gridY][gridX] !== 1;
+        }
+
+        function checkDotEating() {
+            // Check regular dots
+            dots.forEach(dot => {
+                if (!dot.eaten && dot.x === pacman.gridX && dot.y === pacman.gridY) {
+                    dot.eaten = true;
+                    dotsEaten++;
+                    score += 10;
+                    playSound('dot');
+                    updateUI();
+                }
+            });
+
+            // Check power pellets
+            powerPellets.forEach(pellet => {
+                if (!pellet.eaten && pellet.x === pacman.gridX && pellet.y === pacman.gridY) {
+                    pellet.eaten = true;
+                    dotsEaten++;
+                    score += 50;
+                    
+                    // Make ghosts vulnerable
+                    ghosts.forEach(ghost => {
+                        ghost.vulnerable = true;
+                        ghost.vulnerableTimer = 300; // 5 seconds at 60fps
+                    });
+                    
+                    playSound('powerPellet');
+                    updateUI();
+                }
+            });
+            
+            // Check level completion
+            if (dotsEaten >= totalDots) {
+                levelComplete();
+            }
+        }
+
+        // Simple sound system using Web Audio API
+        function playSound(type) {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                let frequency, duration;
+                
+                switch(type) {
+                    case 'dot':
+                        frequency = 800;
+                        duration = 0.1;
+                        break;
+                    case 'powerPellet':
+                        frequency = 200;
+                        duration = 0.3;
+                        break;
+                    case 'eatGhost':
+                        frequency = 400;
+                        duration = 0.2;
+                        break;
+                    case 'death':
+                        frequency = 150;
+                        duration = 0.5;
+                        break;
+                    default:
+                        return;
+                }
+                
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+                oscillator.type = 'square';
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+            } catch (e) {
+                // Sound not supported, continue silently
+            }
+        }
+
+        function levelComplete() {
+            currentLevel++;
+            score += 1000 * currentLevel;
+            ghostSpeedMultiplier += 0.2;
+            
+            // Reset game state
+            initializeDots();
+            resetPositions();
+            loadQuestion();
+            updateUI();
+        }
+
+        function moveGhosts() {
+            ghosts.forEach(ghost => {
+                // Update vulnerability timer
+                if (ghost.vulnerable && ghost.vulnerableTimer > 0) {
+                    ghost.vulnerableTimer--;
+                    if (ghost.vulnerableTimer <= 0) {
+                        ghost.vulnerable = false;
+                    }
+                }
+
+                // Ghost AI - simplified pathfinding
+                const possibleMoves = [];
+                const directions = [
+                    { x: 0, y: -1 }, // up
+                    { x: 1, y: 0 },  // right
+                    { x: 0, y: 1 },  // down
+                    { x: -1, y: 0 }  // left
+                ];
+
+                // Find valid moves
+                directions.forEach(dir => {
+                    const newGridX = ghost.gridX + dir.x;
+                    const newGridY = ghost.gridY + dir.y;
+                    
+                    if (canMoveTo(newGridX, newGridY)) {
+                        // Don't reverse direction unless necessary
+                        const isReverse = (dir.x === -ghost.direction.x && dir.y === -ghost.direction.y);
+                        possibleMoves.push({ 
+                            direction: dir, 
+                            reverse: isReverse,
+                            distance: Math.abs(newGridX - pacman.gridX) + Math.abs(newGridY - pacman.gridY)
+                        });
+                    }
+                });
+
+                if (possibleMoves.length > 0) {
+                    let chosenMove;
+                    
+                    if (ghost.vulnerable) {
+                        // Run away from Pacman
+                        chosenMove = possibleMoves.reduce((best, move) => 
+                            move.distance > best.distance ? move : best
+                        );
+                    } else {
+                        // Chase Pacman (or random movement)
+                        const nonReverseMoves = possibleMoves.filter(move => !move.reverse);
+                        const movesToChoose = nonReverseMoves.length > 0 ? nonReverseMoves : possibleMoves;
+                        
+                        if (Math.random() < 0.8) {
+                            // 80% chance to chase Pacman
+                            chosenMove = movesToChoose.reduce((best, move) => 
+                                move.distance < best.distance ? move : best
+                            );
+                        } else {
+                            // 20% chance for random movement
+                            chosenMove = movesToChoose[Math.floor(Math.random() * movesToChoose.length)];
+                        }
+                    }
+
+                    ghost.direction = chosenMove.direction;
+                }
+
+                // Move ghost
+                const speed = ghost.speed * ghostSpeedMultiplier * (ghost.vulnerable ? 0.5 : 1);
+                const newX = ghost.x + ghost.direction.x * speed;
+                const newY = ghost.y + ghost.direction.y * speed;
+                
+                const newGridX = Math.floor(newX / CELL_SIZE);
+                const newGridY = Math.floor(newY / CELL_SIZE);
+                
+                if (canMoveTo(newGridX, newGridY)) {
+                    ghost.x = newX;
+                    ghost.y = newY;
+                    ghost.gridX = newGridX;
+                    ghost.gridY = newGridY;
+                    
+                    // Tunnel effect for ghosts too
+                    if (ghost.x < 0) {
+                        ghost.x = canvas.width;
+                        ghost.gridX = MAZE_WIDTH - 1;
+                    } else if (ghost.x > canvas.width) {
+                        ghost.x = 0;
+                        ghost.gridX = 0;
+                    }
+                }
+            });
+        }
+
+        function checkCollisions() {
+            // Check collision with ghosts
+            ghosts.forEach((ghost, index) => {
+                if (pacman.gridX === ghost.gridX && pacman.gridY === ghost.gridY) {
+                    if (ghost.vulnerable) {
+                        // Eat the ghost
+                        score += 200 * (index + 1);
+                        ghost.vulnerable = false;
+                        ghost.vulnerableTimer = 0;
+                        
+                        // Reset ghost to center
+                        ghost.x = 19 * CELL_SIZE + CELL_SIZE/2;
+                        ghost.y = 10 * CELL_SIZE + CELL_SIZE/2;
+                        ghost.gridX = 19;
+                        ghost.gridY = 10;
+                        
+                        playSound('eatGhost');
+                        updateUI();
+                    } else {
+                        // Ghost caught Pacman
+                        playSound('death');
+                        resetPacmanPosition();
+                        lives--;
+                        updateUI();
+
+                        if (lives <= 0) {
+                            gameOver();
+                        }
+                    }
+                }
+            });
+
+            // Check if Pacman reached an answer
+            answerPositions.forEach((pos, index) => {
+                const dx = pacman.x - pos.x;
+                const dy = pacman.y - pos.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 30) {
+                    checkAnswer(index);
+                }
+            });
+        }
+
+        function checkAnswer(answerIndex) {
+            if (answerIndex === currentQuestion.correct) {
+                // Correct answer
+                correctAnswers++;
+                score += 100 * currentLevel;
+                
+                // Check if level complete
+                if (correctAnswers % 3 === 0) {
+                    currentLevel++;
+                    ghostSpeedMultiplier += 0.2;
+                }
+
+                loadQuestion();
+                resetPacmanPosition();
+            } else {
+                // Wrong answer
+                wrongAnswers++;
+                ghostSpeedMultiplier += 0.1;
+                resetPacmanPosition();
+            }
+            
+            updateUI();
+        }
+
+        function resetPacmanPosition() {
+            pacman.x = 19 * CELL_SIZE + CELL_SIZE/2;
+            pacman.y = 18 * CELL_SIZE + CELL_SIZE/2;
+            pacman.gridX = 19;
+            pacman.gridY = 18;
+            pacman.direction = { x: 0, y: 0 };
+            pacman.nextDirection = { x: 0, y: 0 };
+        }
+
+        function resetPositions() {
+            resetPacmanPosition();
+            
+            // Reset ghost positions
+            ghosts[0].x = 19 * CELL_SIZE + CELL_SIZE/2;
+            ghosts[0].y = 9 * CELL_SIZE + CELL_SIZE/2;
+            ghosts[0].gridX = 19;
+            ghosts[0].gridY = 9;
+            
+            ghosts[1].x = 19 * CELL_SIZE + CELL_SIZE/2;
+            ghosts[1].y = 11 * CELL_SIZE + CELL_SIZE/2;
+            ghosts[1].gridX = 19;
+            ghosts[1].gridY = 11;
+            
+            ghosts[2].x = 18 * CELL_SIZE + CELL_SIZE/2;
+            ghosts[2].y = 10 * CELL_SIZE + CELL_SIZE/2;
+            ghosts[2].gridX = 18;
+            ghosts[2].gridY = 10;
+            
+            ghosts[3].x = 20 * CELL_SIZE + CELL_SIZE/2;
+            ghosts[3].y = 10 * CELL_SIZE + CELL_SIZE/2;
+            ghosts[3].gridX = 20;
+            ghosts[3].gridY = 10;
+            
+            // Reset ghost states
+            ghosts.forEach(ghost => {
+                ghost.vulnerable = false;
+                ghost.vulnerableTimer = 0;
+                ghost.direction = { x: 0, y: -1 };
+            });
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            alert(`Game Over! Final Score: ${score}\nCorrect Answers: ${correctAnswers}`);
+        }
+
+        // Event listeners
+        document.getElementById('startBtn').addEventListener('click', () => {
+            if (!gameRunning) {
+                gameRunning = true;
+                gamePaused = false;
+                gameLoop();
+            }
+        });
+
+        document.getElementById('pauseBtn').addEventListener('click', () => {
+            gamePaused = !gamePaused;
+            if (!gamePaused && gameRunning) {
+                gameLoop();
+            }
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            gameRunning = false;
+            gamePaused = false;
+            currentLevel = 1;
+            score = 0;
+            lives = 3;
+            correctAnswers = 0;
+            wrongAnswers = 0;
+            ghostSpeedMultiplier = 1;
+            dotsEaten = 0;
+            initializeDots();
+            resetPositions();
+            loadQuestion();
+            updateUI();
+            drawGame();
+        });
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (!gameRunning) return;
+
+            switch(e.key) {
+                case 'ArrowUp':
+                case 'w':
+                case 'W':
+                    pacman.nextDirection = { x: 0, y: -1 };
+                    e.preventDefault();
+                    break;
+                case 'ArrowDown':
+                case 's':
+                case 'S':
+                    pacman.nextDirection = { x: 0, y: 1 };
+                    e.preventDefault();
+                    break;
+                case 'ArrowLeft':
+                case 'a':
+                case 'A':
+                    pacman.nextDirection = { x: -1, y: 0 };
+                    e.preventDefault();
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                case 'D':
+                    pacman.nextDirection = { x: 1, y: 0 };
+                    e.preventDefault();
+                    break;
+                case ' ':
+                    document.getElementById('pauseBtn').click();
+                    e.preventDefault();
+                    break;
+            }
+        });
+
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            loadQuestion();
+            drawGame();
+        });
+
+        // Initialize game when page loads
+        window.addEventListener('load', () => {
+            initGame();
+        });
+    </script>
+</body>
+</html>
