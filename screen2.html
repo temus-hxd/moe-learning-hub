@@ -18,8 +18,8 @@
     
     <!-- External CSS - AFTER Tailwind so our styles take precedence -->
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Theme CSS - Load dark mode by default -->
-    <link rel="stylesheet" href="css/dark-mode.css" id="theme-css">
+    <!-- Theme CSS - Load light mode by default -->
+    <link rel="stylesheet" href="css/light-mode.css" id="theme-css">
 </head>
 <body>
     <div class="flex h-screen desktop-layout">
@@ -42,8 +42,8 @@
                     <div class="flex items-center space-x-4">
                         <!-- Theme Toggle -->
                         <button id="themeToggle" class="btn btn-ghost btn-icon" title="Toggle Light/Dark Mode">
-                            <i data-lucide="sun" class="w-4 h-4 theme-icon-light hidden"></i>
-                            <i data-lucide="moon" class="w-4 h-4 theme-icon-dark"></i>
+                            <i data-lucide="sun" class="w-4 h-4 theme-icon-light"></i>
+                            <i data-lucide="moon" class="w-4 h-4 theme-icon-dark hidden"></i>
                         </button>
                         <a href="screen4b.html" class="btn btn-outline" title="Share with Peers">
                             <i data-lucide="share-2" class="w-4 h-4"></i>
@@ -395,7 +395,7 @@ sequenceDiagram
         const themeIconDark = document.querySelector('.theme-icon-dark');
         
         // Get current theme from localStorage or default to dark
-        let currentTheme = localStorage.getItem('theme') || 'dark';
+        let currentTheme = localStorage.getItem('theme') || 'light';
         
         // Apply initial theme
         function setTheme(theme) {
