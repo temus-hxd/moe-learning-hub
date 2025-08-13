@@ -14,219 +14,11 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
-    <style>
-        :root {
-            --primary-blue: #2a3046;
-            --primary-purple: #764BA2;
-            --accent-pink: #F093FB;
-            --accent-blue: #4FACFE;
-            --accent-yellow: #FFD93D;
-            --dark-bg: #0F0F23;
-            --card-bg: rgba(30, 30, 60, 0.9);
-            --border-color: rgba(255, 255, 255, 0.2);
-            --text-primary: #FFFFFF;
-            --text-secondary: #B8C6DB;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: radial-gradient(1200px 800px at -10% -10%, rgba(255,255,255,0.06), transparent 60%),
-                        radial-gradient(1000px 700px at 110% 10%, rgba(255,255,255,0.05), transparent 60%),
-                        linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-purple) 100%);
-            color: var(--text-primary);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            animation: bgShift 12s ease-in-out infinite alternate;
-        }
-        @keyframes bgShift {
-            0% { filter: hue-rotate(0deg) brightness(1); }
-            100% { filter: hue-rotate(8deg) brightness(1.05); }
-        }
-        
-        .academy-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-        }
-        
-        .academy-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-            border-color: var(--primary-blue);
-        }
-        
-        .academy-btn {
-            background: linear-gradient(145deg, var(--primary-blue), #5A67D8);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            padding: 12px 24px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            line-height: 1.2;
-        }
-        
-        .academy-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .academy-btn.secondary {
-            background: linear-gradient(145deg, var(--accent-pink), #E91E63);
-        }
-        
-        .academy-btn.secondary:hover {
-            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
-        }
-        
-        .academy-btn.success {
-            background: linear-gradient(145deg, #10b981, #059669);
-        }
-        
-        .academy-btn.success:hover {
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-        }
-        
-        .progress-bar {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            overflow: hidden;
-            height: 8px;
-            border: 1px solid var(--border-color);
-        }
-        
-        .progress-fill {
-            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
-            height: 100%;
-            border-radius: inherit;
-            transition: width 0.8s ease;
-        }
-        
-        .chat-area {
-            background: var(--card-bg);
-            border-left: 2px solid var(--border-color);
-            height: 100vh;
-            backdrop-filter: blur(20px);
-        }
-        
-        .chat-message {
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            margin: 8px 0;
-        }
-        
-        /* Screen 4 Specific Styles */
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            background: var(--dark-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-        
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .concept-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .concept-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .concept-card:hover {
-            border-color: var(--accent-yellow);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
-        }
-        
-        .concept-card.selected {
-            border-color: var(--accent-yellow);
-            background: rgba(255, 217, 61, 0.1);
-            box-shadow: 0 0 0 2px rgba(255, 217, 61, 0.3);
-        }
-        
-        .timeline-step {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 1rem 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .timeline-step:hover {
-            border-color: var(--accent-blue);
-            transform: translateX(8px);
-        }
-        
-        .timeline-step.completed {
-            border-color: var(--accent-yellow);
-            background: rgba(255, 217, 61, 0.1);
-        }
-        
-        .timeline-step::before {
-            content: '';
-            position: absolute;
-            left: -1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--border-color);
-            transition: all 0.3s ease;
-        }
-        
-        .timeline-step:hover::before,
-        .timeline-step.completed::before {
-            background: var(--accent-yellow);
-            box-shadow: 0 0 0 4px rgba(255, 217, 61, 0.3);
-        }
-        
-        /* Hide scrollbars */
-        ::-webkit-scrollbar { display: none; }
-        * { scrollbar-width: none; }
-        .overflow-y-auto { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        @media (max-width: 768px) {
-            .desktop-layout { flex-direction: column; }
-            .chat-area { height: 50vh; border-left: none; border-top: 2px solid var(--border-color); }
-        }
-    </style>
+    <!-- External CSS - AFTER Tailwind so our styles take precedence -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Theme CSS - Load dark mode by default -->
+    <link rel="stylesheet" href="css/dark-mode.css" id="theme-css">
+    
 </head>
 <body>
     <div class="flex h-screen desktop-layout">
@@ -247,7 +39,12 @@
                     
                     <!-- User Info -->
                     <div class="flex items-center space-x-4">
-                        <a href="index.html" class="academy-btn secondary hidden md:inline-flex">
+                        <!-- Theme Toggle -->
+                        <button id="themeToggle" class="btn btn-ghost btn-icon" title="Toggle Light/Dark Mode">
+                            <i data-lucide="sun" class="w-4 h-4 theme-icon-light hidden"></i>
+                            <i data-lucide="moon" class="w-4 h-4 theme-icon-dark"></i>
+                        </button>
+                        <a href="index.html" class="btn btn-secondary hidden md:inline-flex">
                             <i data-lucide="arrow-left" class="w-4 h-4"></i>
                             Back to Dashboard
                         </a>
@@ -308,11 +105,11 @@
                     </div>
                     
                     <div class="flex justify-center space-x-4">
-                        <button class="academy-btn success" onclick="addVideoNote()">
+                        <button class="btn btn-success" onclick="addVideoNote()">
                             <i data-lucide="sticky-note" class="w-4 h-4"></i>
                             Add Video Note
                         </button>
-                        <button class="academy-btn" onclick="askAboutVideo()">
+                        <button class="btn btn-primary" onclick="askAboutVideo()">
                             <i data-lucide="help-circle" class="w-4 h-4"></i>
                             Ask About Video
                         </button>
@@ -386,7 +183,7 @@
                     </h3>
                     <p class="text-gray-300 mb-4">Click through the timeline to see how cell theory developed. Perfect for your analytical mind, Isaac!</p>
                     
-                    <div class="relative">
+                    <div class="timeline-grid">
                         <div class="timeline-step completed" onclick="showTimelineStep(1)">
                             <div class="flex items-center justify-between">
                                 <div>
@@ -432,11 +229,11 @@
                     </div>
                     
                     <div class="flex space-x-4">
-                        <button class="academy-btn success" onclick="completeLesson()">
+                        <button class="btn btn-success" onclick="completeLesson()">
                             <i data-lucide="check" class="w-4 h-4"></i>
                             Complete Lesson
                         </button>
-                        <button class="academy-btn secondary" onclick="askForHelp()">
+                        <button class="btn btn-secondary" onclick="askForHelp()">
                             <i data-lucide="help-circle" class="w-4 h-4"></i>
                             Need Help?
                         </button>
@@ -484,7 +281,7 @@
                         enterkeyhint="send"
                         class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32"
                     ></textarea>
-                    <button id="sendMessage" class="academy-btn px-4">
+                    <button id="sendMessage" class="btn btn-primary btn-icon">
                         <i data-lucide="send" class="w-4 h-4"></i>
                     </button>
                 </div>
@@ -508,6 +305,44 @@
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+        
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeCss = document.getElementById('theme-css');
+        const themeIconLight = document.querySelector('.theme-icon-light');
+        const themeIconDark = document.querySelector('.theme-icon-dark');
+        
+        // Get current theme from localStorage or default to dark
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        // Apply initial theme
+        function setTheme(theme) {
+            currentTheme = theme;
+            localStorage.setItem('theme', theme);
+            
+            if (theme === 'light') {
+                themeCss.href = 'css/light-mode.css';
+                themeIconLight.classList.remove('hidden');
+                themeIconDark.classList.add('hidden');
+                document.body.setAttribute('data-theme', 'light');
+            } else {
+                themeCss.href = 'css/dark-mode.css';
+                themeIconLight.classList.add('hidden');
+                themeIconDark.classList.remove('hidden');
+                document.body.setAttribute('data-theme', 'dark');
+            }
+        }
+        
+        // Set initial theme
+        setTheme(currentTheme);
+        
+        // Theme toggle click handler
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+        }
         
         // Screen 4 Interactive Learning System
         class Screen4Learning {
@@ -819,7 +654,7 @@ Respond as Isaac's enthusiastic cell biology sidekick who makes microscopic worl
         window.learning = new Screen4Learning();
         
         // Button interactions
-        document.querySelectorAll('.academy-btn').forEach(btn => {
+        document.querySelectorAll('.btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 this.style.transform = 'translateY(0)';
                 setTimeout(() => {

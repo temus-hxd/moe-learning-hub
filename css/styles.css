@@ -1941,3 +1941,60 @@ button.academy-card:hover {
     font-size: 1.5rem;
   }
 }
+
+/* Screen4 Interactive Cell Biology Components */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  background: var(--bg-surface-dark);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--elevation-2-shadow);
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.timeline-step {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  backdrop-filter: blur(20px);
+}
+
+.timeline-step:hover {
+  border-color: var(--color-accent-blue);
+  transform: translateY(-4px);
+  box-shadow: var(--elevation-3-shadow);
+}
+
+.timeline-step.completed {
+  border-color: var(--color-accent-yellow);
+  background: rgba(255, 217, 61, 0.1);
+}
+
+
+/* Screen4 responsive adjustments */
+@media (max-width: 768px) {
+  .timeline-grid {
+    grid-template-columns: 1fr;
+  }
+}
