@@ -680,6 +680,16 @@ footer {
   box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
 }
 
+/* Special button variants using design tokens */
+.academy-btn.notebook {
+  background: linear-gradient(145deg, var(--color-success), var(--color-green-600));
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.academy-btn.notebook:hover {
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
 /* Desktop layout utility */
 .desktop-layout {
   display: flex;
@@ -712,6 +722,34 @@ footer {
 
 .quick-action-btn:hover {
   background: rgba(139, 92, 246, 0.2) !important;
+}
+
+/* Quick action button variants with design tokens */
+.quick-action-purple {
+  background: rgba(139, 92, 246, 0.1) !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+}
+
+.quick-action-purple:hover {
+  background: rgba(139, 92, 246, 0.2) !important;
+}
+
+.quick-action-blue {
+  background: rgba(59, 130, 246, 0.1) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.quick-action-blue:hover {
+  background: rgba(59, 130, 246, 0.2) !important;
+}
+
+.quick-action-green {
+  background: rgba(16, 185, 129, 0.1) !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+.quick-action-green:hover {
+  background: rgba(16, 185, 129, 0.2) !important;
 }
 
 /* Border utilities using design tokens */
