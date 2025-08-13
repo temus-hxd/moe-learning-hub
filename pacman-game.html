@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isaac's Academy - Educational Pacman</title>
+    <title>PacMath - Educational Math Game</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/light-mode.css" id="theme-css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -386,13 +386,13 @@
     <div class="game-layout">
         <!-- Header -->
         <div class="game-header">
-            <h1>🎮 EDUCATIONAL PACMAN</h1>
+            <h1>🎮 PACMATH</h1>
         </div>
 
         <!-- Left Panel - Questions & Answers -->
         <div class="left-panel">
             <div class="question-panel" id="questionPanel">
-                <div id="currentQuestion">Press SPACE to start your Singapore History adventure!</div>
+                <div id="currentQuestion">Press SPACE to start your Math adventure!</div>
             </div>
 
             <div class="answers-display" id="answersDisplay" style="display: none;">
@@ -446,7 +446,7 @@
     <div class="game-modal" id="gameModal">
         <div class="modal-content">
             <div class="modal-title" id="modalTitle">🎮 Ready to Play?</div>
-            <div class="modal-message" id="modalMessage">Press SPACE to start your Singapore History adventure!</div>
+            <div class="modal-message" id="modalMessage">Press SPACE to start your Math adventure!</div>
             <button class="modal-button" onclick="simulateKeyPress(32)">
                 🚀 START GAME (SPACE)
             </button>
@@ -481,44 +481,64 @@
             currentQuestion: null,
             questionBank: [
                 {
-                    question: "When did Singapore gain independence from Malaysia?",
-                    answers: ["1963", "1965", "1967", "1969"],
-                    correct: 1 // B
+                    question: "What is 15% of 80?",
+                    answers: ["12", "15", "18", "20"],
+                    correct: 0 // A: 12
                 },
                 {
-                    question: "Who was Singapore's first Prime Minister?",
-                    answers: ["Lee Kuan Yew", "Goh Chok Tong", "Lee Hsien Loong", "David Marshall"],
-                    correct: 0 // A
+                    question: "Solve: 3x + 7 = 22",
+                    answers: ["x = 4", "x = 5", "x = 6", "x = 7"],
+                    correct: 1 // B: x = 5
                 },
                 {
-                    question: "What was Singapore called during the 14th century?",
-                    answers: ["Temasek", "Singapura", "Lion City", "Garden City"],
-                    correct: 0 // A
+                    question: "What is the area of a triangle with base 8 and height 6?",
+                    answers: ["24", "28", "32", "48"],
+                    correct: 0 // A: 24
                 },
                 {
-                    question: "In which year did Singapore join Malaysia?",
-                    answers: ["1962", "1963", "1964", "1965"],
-                    correct: 1 // B
+                    question: "Simplify: 2⁴ × 2³",
+                    answers: ["2⁷", "2¹²", "4⁷", "8⁶"],
+                    correct: 0 // A: 2⁷
                 },
                 {
-                    question: "Who founded modern Singapore in 1819?",
-                    answers: ["Thomas Raffles", "Frank Swettenham", "Andrew Clarke", "Harry Ord"],
-                    correct: 0 // A
+                    question: "What is the slope of the line y = 3x - 5?",
+                    answers: ["3", "-5", "5", "-3"],
+                    correct: 0 // A: 3
                 },
                 {
-                    question: "What was the main reason for Singapore's separation from Malaysia?",
-                    answers: ["Economic disputes", "Racial tensions", "Political differences", "All of the above"],
-                    correct: 3 // D
+                    question: "Find the value: √(64 + 36)",
+                    answers: ["8", "10", "12", "14"],
+                    correct: 1 // B: 10
                 },
                 {
-                    question: "When did the Japanese occupation of Singapore end?",
-                    answers: ["1944", "1945", "1946", "1947"],
-                    correct: 1 // B
+                    question: "If a = 4 and b = 7, what is a² + b²?",
+                    answers: ["65", "49", "33", "121"],
+                    correct: 0 // A: 65
                 },
                 {
-                    question: "What was Operation Coldstore?",
-                    answers: ["Economic plan", "Security operation", "Education reform", "Housing project"],
-                    correct: 1 // B
+                    question: "What is 0.25 as a fraction in lowest terms?",
+                    answers: ["1/4", "1/3", "2/8", "3/12"],
+                    correct: 0 // A: 1/4
+                },
+                {
+                    question: "Solve: 2(x - 3) = 14",
+                    answers: ["x = 8", "x = 10", "x = 12", "x = 14"],
+                    correct: 1 // B: x = 10
+                },
+                {
+                    question: "What is the circumference of a circle with radius 5? (Use π ≈ 3.14)",
+                    answers: ["15.7", "31.4", "78.5", "25"],
+                    correct: 1 // B: 31.4
+                },
+                {
+                    question: "Factor: x² - 9",
+                    answers: ["(x-3)(x+3)", "(x-9)(x+1)", "(x-1)(x-9)", "Cannot factor"],
+                    correct: 0 // A: (x-3)(x+3)
+                },
+                {
+                    question: "What is 3/5 + 2/3?",
+                    answers: ["5/8", "19/15", "6/15", "1/2"],
+                    correct: 1 // B: 19/15
                 }
             ],
             ghostSpeedMultiplier: 1.0,
@@ -569,9 +589,9 @@
             function addBounded(x1, x2) { 
                 var rem    = x1 % 10, 
                     result = rem + x2;
-                if (rem !== 0 && result > 10) {
+                if (rem !== 0 && result >= 10) {
                     return x1 + (10 - rem);
-                } else if(rem > 0 && result < 0) { 
+                } else if(rem > 0 && result <= 0) { 
                     return x1 - rem;
                 }
                 return x1 + x2;
@@ -1728,7 +1748,7 @@
             function loaded() {
 
                 EducationalGame.loadRandomQuestion();
-                showModal("🎮 Ready to Play?", "Press SPACE to start your Singapore History adventure!", "start");
+                showModal("🎮 Ready to Play?", "Press SPACE to start your Math adventure!", "start");
                 
                 document.addEventListener("keydown", keyDown, true);
                 document.addEventListener("keypress", keyPress, true); 
