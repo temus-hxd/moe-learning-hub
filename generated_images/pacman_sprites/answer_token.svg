@@ -1,0 +1,29 @@
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Answer Token - Collectible with letter -->
+  <defs>
+    <radialGradient id="tokenGradient" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0%" style="stop-color:#4FACFE"/>
+      <stop offset="70%" style="stop-color:#00D2FF"/>
+      <stop offset="100%" style="stop-color:#0099CC"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Outer glow ring -->
+  <circle cx="12" cy="12" r="11" fill="#4FACFE" opacity="0.3"/>
+  
+  <!-- Main token circle -->
+  <circle cx="12" cy="12" r="8" fill="url(#tokenGradient)" stroke="#FFFFFF" stroke-width="1" filter="url(#glow)"/>
+  
+  <!-- Inner highlight -->
+  <circle cx="10" cy="10" r="2" fill="#FFFFFF" opacity="0.4"/>
+  
+  <!-- Letter placeholder (will be dynamically set) -->
+  <text x="12" y="16" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="10" font-weight="bold">A</text>
+</svg>
