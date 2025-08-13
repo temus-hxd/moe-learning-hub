@@ -78,13 +78,14 @@
                 </p>
             </div>
 
-            <!-- PROPOSED: Unified Button System -->
+            <!-- NEW: Theme-Agnostic Button System -->
             <div class="demo-section">
-                <h2 class="text-2xl font-bold mb-4 text-blue-400">
-                    🎯 PROPOSED: Unified Button System
+                <h2 class="text-2xl font-bold mb-4 text-green-400">
+                    ✨ NEW: Theme-Agnostic Button System
                 </h2>
                 <p class="mb-6" style="color: var(--text-secondary);">
-                    One consistent button component with size, variant, and state modifiers
+                    <strong>Self-contained buttons</strong> that work perfectly in both light and dark themes!
+                    <br>Uses dual gradients (padding-box + border-box) and consistent elevation system.
                 </p>
 
                 <!-- Button Sizes -->
@@ -113,44 +114,56 @@
                     </div>
                 </div>
 
-                <!-- Button Variants -->
-                <h3 class="text-xl font-semibold mb-4 mt-8" style="color: var(--text-primary);">Button Variants</h3>
+                <!-- Intent-Based Variants -->
+                <h3 class="text-xl font-semibold mb-4 mt-8" style="color: var(--text-primary);">Intent-Based Variants</h3>
                 <div class="demo-grid">
                     <div class="demo-item">
                         <button class="btn btn-primary">
                             <i data-lucide="play" class="w-4 h-4"></i>
-                            Primary
+                            Primary Action
                         </button>
                         <div class="demo-label">.btn .btn-primary</div>
                     </div>
                     <div class="demo-item">
                         <button class="btn btn-secondary">
                             <i data-lucide="heart" class="w-4 h-4"></i>
-                            Secondary
+                            Secondary Action
                         </button>
                         <div class="demo-label">.btn .btn-secondary</div>
                     </div>
                     <div class="demo-item">
                         <button class="btn btn-success">
                             <i data-lucide="check" class="w-4 h-4"></i>
-                            Success
+                            Success Action
                         </button>
                         <div class="demo-label">.btn .btn-success</div>
                     </div>
                     <div class="demo-item">
                         <button class="btn btn-warning">
                             <i data-lucide="alert-triangle" class="w-4 h-4"></i>
-                            Warning
+                            Warning Action
                         </button>
                         <div class="demo-label">.btn .btn-warning</div>
                     </div>
                     <div class="demo-item">
                         <button class="btn btn-danger">
                             <i data-lucide="x" class="w-4 h-4"></i>
-                            Danger
+                            Danger Action
                         </button>
                         <div class="demo-label">.btn .btn-danger</div>
                     </div>
+                    <div class="demo-item">
+                        <button class="btn btn-neutral">
+                            <i data-lucide="minus" class="w-4 h-4"></i>
+                            Neutral Action
+                        </button>
+                        <div class="demo-label">.btn .btn-neutral</div>
+                    </div>
+                </div>
+
+                <!-- Subtle Variants -->
+                <h3 class="text-xl font-semibold mb-4 mt-8" style="color: var(--text-primary);">Subtle Variants</h3>
+                <div class="demo-grid">
                     <div class="demo-item">
                         <button class="btn btn-outline">
                             <i data-lucide="external-link" class="w-4 h-4"></i>
@@ -179,17 +192,16 @@
                     </div>
                     <div class="demo-item">
                         <button class="btn btn-primary" disabled>
-                            <i data-lucide="loader" class="w-4 h-4"></i>
+                            <i data-lucide="pause" class="w-4 h-4"></i>
                             Disabled
                         </button>
                         <div class="demo-label">disabled attribute</div>
                     </div>
                     <div class="demo-item">
                         <button class="btn btn-primary btn-loading">
-                            <i data-lucide="loader" class="w-4 h-4 animate-spin"></i>
                             Loading...
                         </button>
-                        <div class="demo-label">.btn-loading</div>
+                        <div class="demo-label">.btn-loading (auto spinner)</div>
                     </div>
                     <div class="demo-item">
                         <button class="btn btn-primary btn-active">
@@ -200,30 +212,42 @@
                     </div>
                 </div>
 
-                <!-- Special Buttons -->
-                <h3 class="text-xl font-semibold mb-4 mt-8" style="color: var(--text-primary);">Special Buttons</h3>
+                <!-- Special Button Types -->
+                <h3 class="text-xl font-semibold mb-4 mt-8" style="color: var(--text-primary);">Special Button Types</h3>
                 <div class="demo-grid">
                     <div class="demo-item">
                         <button class="btn btn-magic">
                             <svg class="star-icon w-4 h-4" viewBox="0 0 784.11 815.53">
-                                <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
+                                <path style="fill: #fffdef;" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
                             </svg>
-                            Magic Button
+                            Challenge
                         </button>
-                        <div class="demo-label">.btn .btn-magic (with stars)</div>
+                        <div class="demo-label">.btn .btn-magic</div>
                     </div>
                     <div class="demo-item">
-                        <button class="btn btn-icon">
+                        <button class="btn btn-icon btn-primary">
                             <i data-lucide="settings" class="w-5 h-5"></i>
                         </button>
-                        <div class="demo-label">.btn .btn-icon (icon only)</div>
+                        <div class="demo-label">.btn .btn-icon</div>
                     </div>
                     <div class="demo-item">
-                        <button class="btn btn-floating">
+                        <button class="btn btn-floating btn-primary">
                             <i data-lucide="plus" class="w-6 h-6"></i>
                         </button>
-                        <div class="demo-label">.btn .btn-floating (FAB)</div>
+                        <div class="demo-label">.btn .btn-floating</div>
                     </div>
+                </div>
+
+                <!-- Key Benefits -->
+                <div class="mt-8 p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
+                    <h4 class="font-semibold text-green-400 mb-2">🎯 Key Benefits</h4>
+                    <ul class="text-sm space-y-1" style="color: var(--text-secondary);">
+                        <li><strong>✅ Theme Agnostic:</strong> Works perfectly in light AND dark themes</li>
+                        <li><strong>✅ Consistent Elevation:</strong> Unified shadow/depth system</li>
+                        <li><strong>✅ Self-Contained:</strong> Each button includes its own lighting</li>
+                        <li><strong>✅ Intent-Based:</strong> Semantic meaning over visual appearance</li>
+                        <li><strong>✅ Accessible:</strong> Proper contrast, hover states, disabled handling</li>
+                    </ul>
                 </div>
             </div>
 

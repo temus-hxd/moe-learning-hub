@@ -91,6 +91,38 @@
   --transition-slow: 0.5s ease;
   --animation-bounce: cubic-bezier(0.4, 0, 0.2, 1);
   --animation-elastic: cubic-bezier(0.05, 0.83, 0.43, 0.96);
+  
+  /* Elevation Tokens - Theme Agnostic Depth System */
+  --elevation-1-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+  --elevation-2-shadow: 8px 8px 20px rgba(0, 0, 0, 0.35);
+  --elevation-3-shadow: 12px 12px 30px rgba(0, 0, 0, 0.45);
+  --text-shadow-base: 1px 1px 1px rgba(0, 0, 0, 0.25);
+  --text-shadow-strong: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  
+  /* Button Intent Colors - Self-Contained Gradients */
+  --btn-primary-bg: linear-gradient(140deg, #3B82F6 15%, #1E40AF 115%);
+  --btn-primary-border: linear-gradient(142deg, #60A5FA 9%, #1D4ED8 89%);
+  --btn-primary-shadow: rgba(59, 130, 246, 0.35);
+  
+  --btn-secondary-bg: linear-gradient(140deg, #EC4899 15%, #BE185D 115%);
+  --btn-secondary-border: linear-gradient(142deg, #F472B6 9%, #C2185B 89%);
+  --btn-secondary-shadow: rgba(236, 72, 153, 0.35);
+  
+  --btn-success-bg: linear-gradient(140deg, #10B981 15%, #047857 115%);
+  --btn-success-border: linear-gradient(142deg, #34D399 9%, #059669 89%);
+  --btn-success-shadow: rgba(16, 185, 129, 0.35);
+  
+  --btn-warning-bg: linear-gradient(140deg, #F59E0B 15%, #D97706 115%);
+  --btn-warning-border: linear-gradient(142deg, #FBBF24 9%, #B45309 89%);
+  --btn-warning-shadow: rgba(245, 158, 11, 0.35);
+  
+  --btn-danger-bg: linear-gradient(140deg, #EF4444 15%, #DC2626 115%);
+  --btn-danger-border: linear-gradient(142deg, #F87171 9%, #B91C1C 89%);
+  --btn-danger-shadow: rgba(239, 68, 68, 0.35);
+  
+  --btn-neutral-bg: linear-gradient(140deg, #64748B 15%, #475569 115%);
+  --btn-neutral-border: linear-gradient(142deg, #94A3B8 9%, #334155 89%);
+  --btn-neutral-shadow: rgba(100, 116, 139, 0.35);
 }
 
 /* Tools - Utility classes */
@@ -281,135 +313,136 @@ input:focus {
 
 /* Components - UI components */
 
-/* UNIFIED BUTTON SYSTEM - Consistent, themeable buttons */
+/* THEME-AGNOSTIC BUTTON SYSTEM - Works in any theme */
 .btn {
-  /* Base button styles using design tokens */
+  /* Base button foundation */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-sm);
-  padding: var(--spacing-md) var(--spacing-lg);
+  padding: 10px 24px;
   font-family: var(--font-family-primary);
   font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
   line-height: 1.2;
-  border-radius: var(--radius-sm);
+  border-radius: 7px;
   border: 2px solid transparent;
   cursor: pointer;
-  transition: var(--transition-fast);
+  transition: all var(--transition-base);
   text-decoration: none;
+  color: white;
+  text-shadow: var(--text-shadow-base);
   position: relative;
-  overflow: hidden;
 }
 
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none !important;
+  box-shadow: none !important;
 }
 
 .btn:not(:disabled):hover {
-  transform: translateY(-1px);
+  box-shadow: none;
+  opacity: 0.8;
 }
 
 .btn:not(:disabled):active {
-  transform: translateY(0);
+  opacity: 0.9;
+  transform: translateY(1px);
 }
 
 /* Button Sizes */
 .btn-sm {
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 8px 20px;
   font-size: var(--font-size-xs);
-  gap: calc(var(--spacing-sm) / 2);
+  gap: 4px;
 }
 
 .btn-lg {
-  padding: var(--spacing-lg) var(--spacing-xl);
+  padding: 12px 32px;
   font-size: var(--font-size-base);
   gap: var(--spacing-md);
 }
 
-/* Button Variants */
+/* Button Intent Variants - Self-Contained */
 .btn-primary {
-  background: linear-gradient(145deg, var(--color-primary), var(--color-blue-400));
-  color: var(--text-primary);
-  border-color: var(--border-color);
-}
-
-.btn-primary:not(:disabled):hover {
-  box-shadow: var(--shadow-button);
-  border-color: var(--color-primary);
+  background: var(--btn-primary-bg) padding-box,
+              var(--btn-primary-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 
+              0 0 0 1px var(--btn-primary-shadow);
 }
 
 .btn-secondary {
-  background: linear-gradient(145deg, var(--color-accent-pink), var(--color-pink-600));
-  color: var(--text-primary);
-  border-color: var(--border-color);
-}
-
-.btn-secondary:not(:disabled):hover {
-  box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+  background: var(--btn-secondary-bg) padding-box,
+              var(--btn-secondary-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 
+              0 0 0 1px var(--btn-secondary-shadow);
 }
 
 .btn-success {
-  background: linear-gradient(145deg, var(--color-success), var(--color-green-600));
-  color: var(--text-primary);
-  border-color: var(--border-color);
-}
-
-.btn-success:not(:disabled):hover {
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  background: var(--btn-success-bg) padding-box,
+              var(--btn-success-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 
+              0 0 0 1px var(--btn-success-shadow);
 }
 
 .btn-warning {
-  background: linear-gradient(145deg, var(--color-amber-500), var(--color-amber-600));
-  color: var(--text-primary);
-  border-color: var(--border-color);
-}
-
-.btn-warning:not(:disabled):hover {
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+  background: var(--btn-warning-bg) padding-box,
+              var(--btn-warning-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 
+              0 0 0 1px var(--btn-warning-shadow);
 }
 
 .btn-danger {
-  background: linear-gradient(145deg, var(--color-danger), #DC2626);
-  color: var(--text-primary);
-  border-color: var(--border-color);
+  background: var(--btn-danger-bg) padding-box,
+              var(--btn-danger-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 
+              0 0 0 1px var(--btn-danger-shadow);
 }
 
-.btn-danger:not(:disabled):hover {
-  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+.btn-neutral {
+  background: var(--btn-neutral-bg) padding-box,
+              var(--btn-neutral-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 
+              0 0 0 1px var(--btn-neutral-shadow);
 }
 
+/* Subtle Button Variants */
 .btn-outline {
   background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   color: var(--text-primary);
-  border-color: var(--border-color);
+  text-shadow: none;
+  box-shadow: var(--elevation-1-shadow);
 }
 
 .btn-outline:not(:disabled):hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: var(--border-color-focus);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .btn-ghost {
   background: transparent;
+  border: 2px solid transparent;
   color: var(--text-primary);
-  border-color: transparent;
+  text-shadow: none;
+  box-shadow: none;
 }
 
 .btn-ghost:not(:disabled):hover {
   background: rgba(255, 255, 255, 0.05);
+  box-shadow: var(--elevation-1-shadow);
 }
 
 /* Button States */
 .btn-active {
-  background: var(--color-primary-hover) !important;
-  transform: translateY(0) !important;
+  opacity: 0.9 !important;
+  transform: translateY(1px) !important;
+  box-shadow: var(--elevation-1-shadow) !important;
 }
 
 .btn-loading {
-  color: transparent !important;
+  pointer-events: none;
 }
 
 .btn-loading::after {
@@ -425,60 +458,56 @@ input:focus {
 
 /* Special Button Types */
 .btn-icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 40px;
+  height: 40px;
   padding: 0;
   justify-content: center;
 }
 
 .btn-icon.btn-sm {
-  width: 2rem;
-  height: 2rem;
+  width: 32px;
+  height: 32px;
 }
 
 .btn-icon.btn-lg {
-  width: 3rem;
-  height: 3rem;
+  width: 48px;
+  height: 48px;
 }
 
 .btn-floating {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: var(--radius-full);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   padding: 0;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--elevation-3-shadow);
 }
 
 .btn-floating:not(:disabled):hover {
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--elevation-2-shadow);
 }
 
-/* Magic Button with Star Animation */
+/* Magic Button - Challenge Button Style */
 .btn-magic {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent-blue));
+  background: var(--btn-primary-bg) padding-box,
+              var(--btn-primary-border) border-box;
+  box-shadow: var(--elevation-2-shadow);
   position: relative;
   overflow: visible;
-  z-index: 1;
+  padding: 12px 35px;
+  font-size: 17px;
 }
 
-.btn-magic .star-icon {
-  fill: #fffdef;
-  filter: drop-shadow(0 0 0 #fffdef);
-  transition: all 1s var(--animation-elastic);
-}
-
-.btn-magic:hover {
+.btn-magic:not(:disabled):hover {
   background: transparent;
   color: var(--color-accent-blue);
   border-color: var(--color-accent-blue);
-  box-shadow: var(--shadow-focus);
+  box-shadow: 0 0 25px var(--btn-primary-shadow);
+  opacity: 1;
 }
 
 /* Animations */
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 .buddy-chat-bubble {
