@@ -1,0 +1,147 @@
+/* Light Mode Theme Tokens */
+:root {
+  /* Color Tokens - Semantic (Light Theme) */
+  --color-primary: #4F46E5;
+  --color-primary-hover: #4338CA;
+  --color-secondary: #EC4899;
+  --color-accent-pink: #DB2777;
+  --color-accent-blue: #2563EB;
+  --color-accent-yellow: #F59E0B;
+  --color-success: #059669;
+  --color-danger: #DC2626;
+  
+  /* Background Tokens */
+  --bg-body: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+  --bg-surface: rgba(255, 255, 255, 0.95);
+  --bg-surface-solid: rgba(255, 255, 255, 0.98);
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --bg-input: rgba(0, 0, 0, 0.03);
+  --bg-input-focus: rgba(0, 0, 0, 0.05);
+  
+  /* Text Tokens */
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+  --text-inverse: #FFFFFF;
+  
+  /* Border Tokens */
+  --border-color: rgba(0, 0, 0, 0.1);
+  --border-color-focus: rgba(79, 70, 229, 0.4);
+  --border-color-muted: rgba(0, 0, 0, 0.05);
+  
+  /* Shadow Tokens (Light theme optimized) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-focus: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  --shadow-button: 0 2px 4px rgba(79, 70, 229, 0.1);
+  
+  /* Elevation Tokens - Light Theme Depth System */
+  --elevation-1-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --elevation-2-shadow: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+  --elevation-3-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  --text-shadow-base: none;
+  --text-shadow-strong: none;
+}
+
+/* Light theme specific component overrides */
+.chat-message {
+  background: rgba(79, 70, 229, 0.05);
+  border: 1px solid rgba(79, 70, 229, 0.15);
+}
+
+.mermaid {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.notes-textarea {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.glass-col {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.glass-modal {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+}
+
+/* Light theme scrollbar styles */
+#chatMessages::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #D1D5DB, #9CA3AF);
+}
+
+#chatMessages::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #6B7280, #4B5563);
+}
+
+/* Light theme input styling */
+input {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+input:focus {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: var(--border-color-focus);
+}
+
+/* Light theme demo styles for buttons.html */
+.demo-section {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+}
+
+.demo-item {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--border-color-muted);
+}
+
+.code-block {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color-muted);
+  color: var(--text-secondary);
+}
+
+/* Light theme specific adjustments */
+.academy-card {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+
+.chat-area {
+  background: var(--bg-surface);
+  border-left: 2px solid var(--border-color);
+  backdrop-filter: blur(10px);
+}
+
+.glass-overlay {
+  background: var(--bg-overlay);
+  backdrop-filter: blur(8px);
+}
+
+/* Light theme progress bar */
+.progress-bar {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+}
+
+/* Light theme specific shadows for panels */
+#moeBuddyPanel {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(79, 70, 229, 0.05);
+}
+
+/* Ensure good contrast for icons and text in light mode */
+.btn-magic:not(:disabled):hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* Light theme Tailwind utility overrides */
+.border-white\/10 { border-color: var(--border-color-muted) !important; }
+.border-white\/20 { border-color: var(--border-color) !important; }
+.text-gray-300 { color: var(--text-secondary) !important; }
+.text-gray-400 { color: var(--text-muted) !important; }
+.text-white { color: var(--text-primary) !important; }

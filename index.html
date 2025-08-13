@@ -40,6 +40,11 @@
                     
                     <!-- User Info -->
                     <div class="flex items-center space-x-4">
+                        <!-- Theme Toggle -->
+                        <button id="themeToggle" class="btn btn-ghost btn-icon" title="Toggle Light/Dark Mode">
+                            <i data-lucide="sun" class="w-4 h-4 theme-icon-light hidden"></i>
+                            <i data-lucide="moon" class="w-4 h-4 theme-icon-dark"></i>
+                        </button>
                         <a href="screen4b.html" class="btn btn-outline" title="Share with Peers">
                             <i data-lucide="share-2" class="w-4 h-4"></i>
                             Share
@@ -323,10 +328,58 @@ sequenceDiagram
     </div>
 
     <script>
-        // Mermaid init
+        // Mermaid init - will be reinitialized with correct theme
         if (window.mermaid) { mermaid.initialize({ startOnLoad: false, theme: 'dark' }); }
         // Initialize Lucide icons
         lucide.createIcons();
+        
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeCss = document.getElementById('theme-css');
+        const themeIconLight = document.querySelector('.theme-icon-light');
+        const themeIconDark = document.querySelector('.theme-icon-dark');
+        
+        // Get current theme from localStorage or default to dark
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        // Apply initial theme
+        function setTheme(theme) {
+            currentTheme = theme;
+            localStorage.setItem('theme', theme);
+            
+            if (theme === 'light') {
+                themeCss.href = 'css/light-mode.css';
+                themeIconLight.classList.add('hidden');
+                themeIconDark.classList.remove('hidden');
+                document.body.setAttribute('data-theme', 'light');
+                
+                // Update Mermaid theme
+                if (window.mermaid) {
+                    mermaid.initialize({ startOnLoad: false, theme: 'default' });
+                }
+            } else {
+                themeCss.href = 'css/dark-mode.css';
+                themeIconLight.classList.remove('hidden');
+                themeIconDark.classList.add('hidden');
+                document.body.setAttribute('data-theme', 'dark');
+                
+                // Update Mermaid theme
+                if (window.mermaid) {
+                    mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+                }
+            }
+        }
+        
+        // Set initial theme
+        setTheme(currentTheme);
+        
+        // Theme toggle click handler
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+        }
 
         // Notebook modal wiring
         const openNotebook = document.getElementById('openNotebook');

@@ -71,13 +71,25 @@
         <div class="max-w-6xl mx-auto">
             <!-- Header -->
             <div class="demo-section text-center">
-                <h1 class="text-4xl font-black mb-4" style="color: var(--text-primary);">
-                    <i data-lucide="palette" class="w-10 h-10 inline-block mr-4 text-blue-400"></i>
-                    Button Design System
-                </h1>
-                <p class="text-lg" style="color: var(--text-secondary);">
-                    Consistent, themeable button components for Isaac's Learning Hub
-                </p>
+                <div class="flex justify-between items-start mb-6">
+                    <div></div>
+                    <div class="text-center flex-1">
+                        <h1 class="text-4xl font-black mb-4" style="color: var(--text-primary);">
+                            <i data-lucide="palette" class="w-10 h-10 inline-block mr-4 text-blue-400"></i>
+                            Button Design System
+                        </h1>
+                        <p class="text-lg" style="color: var(--text-secondary);">
+                            Consistent, themeable button components for Isaac's Learning Hub
+                        </p>
+                    </div>
+                    <div>
+                        <!-- Theme Toggle -->
+                        <button id="themeToggle" class="btn btn-ghost btn-icon" title="Toggle Light/Dark Mode">
+                            <i data-lucide="sun" class="w-4 h-4 theme-icon-light hidden"></i>
+                            <i data-lucide="moon" class="w-4 h-4 theme-icon-dark"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- NEW: Theme-Agnostic Button System -->
@@ -402,6 +414,44 @@ btn-floating    | Floating action button (circular)
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
+        
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeCss = document.getElementById('theme-css');
+        const themeIconLight = document.querySelector('.theme-icon-light');
+        const themeIconDark = document.querySelector('.theme-icon-dark');
+        
+        // Get current theme from localStorage or default to dark
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        // Apply initial theme
+        function setTheme(theme) {
+            currentTheme = theme;
+            localStorage.setItem('theme', theme);
+            
+            if (theme === 'light') {
+                themeCss.href = 'css/light-mode.css';
+                themeIconLight.classList.add('hidden');
+                themeIconDark.classList.remove('hidden');
+                document.body.setAttribute('data-theme', 'light');
+            } else {
+                themeCss.href = 'css/dark-mode.css';
+                themeIconLight.classList.remove('hidden');
+                themeIconDark.classList.add('hidden');
+                document.body.setAttribute('data-theme', 'dark');
+            }
+        }
+        
+        // Set initial theme
+        setTheme(currentTheme);
+        
+        // Theme toggle click handler
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+        }
     </script>
 </body>
 </html>
