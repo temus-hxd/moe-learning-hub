@@ -10,8 +10,14 @@ class MOEBuddy {
     }
     
     async init() {
-        // Load API key (in production, this would be handled server-side)
-        this.apiKey = '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';
+        // Load API key securely
+        try {
+            const config = await ConfigLoader.loadConfig();
+            this.apiKey = config.OPENROUTER_API_KEY;
+        } catch (error) {
+            console.error('Failed to load API configuration:', error);
+            return;
+        }
         
         this.setupEventListeners();
         this.addWelcomeMessage();

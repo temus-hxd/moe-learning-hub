@@ -722,7 +722,7 @@
         // MOE Buddy Chat (adapted for Screen 4b)
         class MOEBuddy {
             constructor() {
-                this.apiKey = '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';
+                this.apiKey = window.ENV?.OPENROUTER_API_KEY;
                 this.chatMessages = [];
                 this.init();
             }

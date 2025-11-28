@@ -16,6 +16,9 @@
     <!-- Mermaid for diagrams -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     
+    <!-- Configuration script -->
+    <script src="config.js"></script>
+    
     <!-- External CSS - AFTER Tailwind so our styles take precedence -->
     <link rel="stylesheet" href="css/styles.css">
     <!-- Theme CSS - Load dark mode by default -->
@@ -33,7 +36,7 @@
                             <i data-lucide="graduation-cap" class="w-7 h-7 text-white"></i>
                         </div>
                         <div>
-                            <h1 class="text-2xl font-bold">MOE Learning Buddy</h1>
+                            <h1 class="text-2xl font-bold">Learning Buddy</h1>
                             <p class="text-sm text-gray-400">Science Discovery Path</p>
                         </div>
                     </div>
@@ -140,14 +143,14 @@
                                 <i data-lucide="target" class="w-8 h-8 text-white"></i>
                         </div>
                             <h3 class="text-lg font-bold mb-2">Daily Challenge</h3>
-                            <p class="text-gray-300 mb-4">Timeline Sorting Game</p>
+                            <p class="text-gray-300 mb-4">Random Game Challenge</p>
                             <div class="text-2xl font-bold text-yellow-400 mb-4">+50 XP</div>
-                            <a href="screen-game.html" class="btn btn-magic w-full text-center">
+                            <button onclick="startRandomChallenge()" class="btn btn-magic w-full text-center">
                                 <svg class="star-icon w-4 h-4" viewBox="0 0 784.11 815.53">
                                     <path style="fill: #fffdef;" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
                                 </svg>
                                 Start Challenge
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -220,7 +223,7 @@
                         <i data-lucide="bot" class="w-5 h-5 text-white"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold">MOE Buddy</h4>
+                        <h4 class="font-bold">Learning Buddy</h4>
                         <p class="text-xs text-green-400">🟢 Online • Ready to help!</p>
                     </div>
             </div>
@@ -403,6 +406,17 @@ sequenceDiagram
             document.addEventListener('keydown', function escHandler(e){ if (e.key === 'Escape'){ notebookOverlay.style.display = 'none'; }});
         }
         
+        // Random challenge function
+        function startRandomChallenge() {
+            const games = [
+                'screen-game.html',  // Galaxian game
+                'pacman-game.html'   // PacMath game
+            ];
+            
+            const randomGame = games[Math.floor(Math.random() * games.length)];
+            window.location.href = randomGame;
+        }
+
         // Global functions for inline event handlers
         function handleEnterKey(event) {
             console.log('=== INLINE ENTER HANDLER ===', event.key);
@@ -436,12 +450,21 @@ sequenceDiagram
         // MOE Buddy Chat Functionality
         class MOEBuddy {
             constructor() {
-                this.apiKey = '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';
+                this.apiKey = null;
                 this.chatMessages = [];
                 this.init();
             }
             
-            init() {
+            async init() {
+                // Load API key securely
+                try {
+                    const config = await ConfigLoader.loadConfig();
+                    this.apiKey = config.OPENROUTER_API_KEY;
+                } catch (error) {
+                    console.error('Failed to load API configuration:', error);
+                    return;
+                }
+                
                 this.setupEventListeners();
                 this.addWelcomeMessage();
             }
