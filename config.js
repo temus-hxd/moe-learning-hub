@@ -1,17 +1,35 @@
 // Configuration loader - secure for both local and production
+// Priority order:
+// 1. window.ENV (injected by server.js from .env file)
+// 2. config.local.js (local development fallback - not committed to git)
+// 3. sessionStorage (user-provided key)
+// 4. Prompt user (last resort)
 class ConfigLoader {
   static async loadConfig() {
     // Try different sources in order of preference
     
-    // 1. Try production environment (Vercel build-time injection)
-    if (window.ENV?.OPENROUTER_API_KEY && window.ENV.OPENROUTER_API_KEY !== '{{OPENROUTER_API_KEY}}') {
-      return { OPENROUTER_API_KEY: window.ENV.OPENROUTER_API_KEY };
+    // 1. Try environment variables injected by server (from .env file)
+    if (window.ENV?.OPENROUTER_API_KEY) {
+      const apiKey = window.ENV.OPENROUTER_API_KEY;
+      // Check if it's a placeholder or empty
+      if (apiKey && 
+          apiKey !== '{{OPENROUTER_API_KEY}}' && 
+          typeof apiKey === 'string' && 
+          apiKey.trim() !== '') {
+        console.log('✅ Using API key from server environment');
+        return { OPENROUTER_API_KEY: apiKey.trim() };
+      } else {
+        console.warn('⚠️ window.ENV.OPENROUTER_API_KEY exists but is empty or placeholder');
+      }
+    } else {
+      console.warn('⚠️ window.ENV not found - make sure you are accessing via the Node.js server (http://localhost:8000) not file://');
     }
     
-    // 2. Try local config file (development only)
+    // 2. Try local config file (development only - should not exist in production)
     try {
       const localConfig = await import('./config.local.js');
       if (localConfig.default?.OPENROUTER_API_KEY) {
+        console.warn('⚠️ Using config.local.js - consider using .env file instead');
         return localConfig.default;
       }
     } catch (e) {
@@ -36,7 +54,7 @@ class ConfigLoader {
       return { OPENROUTER_API_KEY: userKey };
     }
     
-    throw new Error('No API key configured');
+    throw new Error('No API key configured. Please set OPENROUTER_API_KEY in .env file or provide it when prompted.');
   }
 }
 
