@@ -16,38 +16,6 @@ const __dirname = dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// In Vercel, static files should be served directly, not through this serverless function
-// Skip static files in Vercel environment - they should be handled by Vercel's static file serving
-if (process.env.VERCEL === "1") {
-  app.use((req, res, next) => {
-    // If it's a static file request, skip processing (Vercel will serve it)
-    const staticExtensions = [
-      ".css",
-      ".js",
-      ".png",
-      ".jpg",
-      ".jpeg",
-      ".gif",
-      ".svg",
-      ".ico",
-      ".mp3",
-      ".woff",
-      ".woff2",
-      ".ttf",
-      ".eot",
-      ".json",
-    ];
-    const isStaticFile = staticExtensions.some((ext) => req.path.endsWith(ext));
-
-    if (isStaticFile) {
-      // Don't process - let Vercel serve it as a static file
-      // This should not be reached if vercel.json routing is correct, but as a safety
-      return next();
-    }
-    next();
-  });
-}
-
 // Inject environment variables into HTML files FIRST (before static middleware)
 // This ensures HTML files get the injected environment variables
 app.use((req, res, next) => {
@@ -120,6 +88,18 @@ app.get("/api/health", (req, res) => {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || "development",
     hasApiKey: !!process.env.OPENROUTER_API_KEY,
+  });
+});
+
+// Catch-all handler for requests that don't match HTML or API routes
+// In Vercel, static files are served automatically from public/, so this
+// will only catch HTML files and API routes (which are handled above)
+app.use((req, res) => {
+  // If we reach here, it's likely a request that should have been handled
+  // Return 404 for anything that doesn't match our handlers
+  res.status(404).json({
+    error: "Not Found",
+    path: req.path,
   });
 });
 
