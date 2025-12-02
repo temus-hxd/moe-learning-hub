@@ -13,6 +13,11 @@ if (process.env.VERCEL !== "1") {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Use process.cwd() in Vercel, __dirname in local development
+// In Vercel serverless, __dirname points to the function directory,
+// but process.cwd() points to the project root where HTML files are
+const rootDir = process.env.VERCEL ? process.cwd() : __dirname;
+
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -21,14 +26,33 @@ const PORT = process.env.PORT || 8000;
 app.use((req, res, next) => {
   // Only process HTML files and root path
   if (req.path.endsWith(".html") || req.path === "/" || req.path === "") {
-    const filePath =
-      req.path === "/" || req.path === ""
-        ? join(__dirname, "index.html")
-        : join(__dirname, req.path);
+    // Remove leading slash from path for file system operations
+    const cleanPath = req.path === "/" || req.path === "" 
+      ? "index.html" 
+      : req.path.startsWith("/") 
+        ? req.path.slice(1) 
+        : req.path;
+    
+    const filePath = join(rootDir, cleanPath);
+
+    // Debug logging for Vercel
+    if (process.env.VERCEL) {
+      console.log(`HTML request: ${req.path} -> ${filePath}`);
+      console.log(`Root dir: ${rootDir}, __dirname: ${__dirname}, cwd: ${process.cwd()}`);
+      console.log(`File exists: ${existsSync(filePath)}`);
+    }
 
     // Check if file exists
     if (!existsSync(filePath)) {
-      return next();
+      console.error(`HTML file not found: ${filePath}`);
+      return res.status(404).json({
+        error: "Not Found",
+        path: req.path,
+        filePath: filePath,
+        rootDir: rootDir,
+        __dirname: __dirname,
+        cwd: process.cwd()
+      });
     }
 
     try {
@@ -55,7 +79,11 @@ app.use((req, res, next) => {
       return; // Don't continue to next middleware
     } catch (err) {
       console.error("Error serving HTML:", err);
-      next();
+      return res.status(500).json({
+        error: "Internal Server Error",
+        path: req.path,
+        message: err.message
+      });
     }
   } else {
     next();
@@ -64,7 +92,7 @@ app.use((req, res, next) => {
 
 // Serve static files (CSS, JS, images, etc.) AFTER HTML injection
 // Serve static files from public directory (works in both local and Vercel)
-const publicPath = join(__dirname, "public");
+const publicPath = join(rootDir, "public");
 app.use(
   express.static(publicPath, {
     maxAge: "1y",
@@ -75,8 +103,11 @@ app.use(
 // Debug logging for Vercel (remove in production if needed)
 if (process.env.VERCEL) {
   console.log("Vercel environment detected");
+  console.log("Root dir:", rootDir);
   console.log("Public path:", publicPath);
   console.log("Public exists:", existsSync(publicPath));
+  console.log("Index.html exists:", existsSync(join(rootDir, "index.html")));
+  console.log("Screen1.html exists:", existsSync(join(rootDir, "screen1.html")));
 }
 
 // Health check endpoint for Vercel
