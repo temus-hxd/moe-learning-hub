@@ -27,7 +27,7 @@ class ConfigLoader {
     
     // 2. Try local config file (development only - should not exist in production)
     try {
-      const localConfig = await import('./config.local.js');
+      const localConfig = await import('/js/config.local.js');
       if (localConfig.default?.OPENROUTER_API_KEY) {
         console.warn('⚠️ Using config.local.js - consider using .env file instead');
         return localConfig.default;
@@ -59,3 +59,4 @@ class ConfigLoader {
 }
 
 window.ConfigLoader = ConfigLoader;
+

@@ -18,12 +18,12 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
     <!-- Configuration script -->
-    <script src="config.js"></script>
+    <script src="/js/config.js"></script>
 
     <!-- External CSS - AFTER Tailwind so our styles take precedence -->
-    <link rel="stylesheet" href="public/css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
     <!-- Theme CSS - Load light mode by default -->
-    <link rel="stylesheet" href="public/css/light-mode.css" id="theme-css" />
+    <link rel="stylesheet" href="/css/light-mode.css" id="theme-css" />
   </head>
   <body>
     <div class="flex h-screen desktop-layout">
@@ -84,7 +84,7 @@
               </div>
               <div class="w-12 h-12 rounded-full overflow-hidden">
                 <img
-                  src="public/img/isaac-photo.png"
+                  src="/img/isaac-photo.png"
                   alt="Isaac Chen"
                   class="w-full h-full object-cover"
                 />
@@ -221,7 +221,7 @@
               <div class="achievement-card">
                 <div class="achievement-icon p-0 overflow-hidden">
                   <img
-                    src="public/generated_images/recraft_20250808_130816_0_5404201f-e427-450b-b148-2a07bd6b1fa1.png"
+                    src="/generated_images/recraft_20250808_130816_0_5404201f-e427-450b-b148-2a07bd6b1fa1.png"
                     alt="History Detective"
                     class="w-full h-full object-cover rounded-full"
                   />
@@ -238,7 +238,7 @@
               <div class="achievement-card">
                 <div class="achievement-icon p-0 overflow-hidden">
                   <img
-                    src="public/generated_images/recraft_20250808_130827_0_ae36b0ad-53ee-4e34-85bd-fe2b0edfdd21.png"
+                    src="/generated_images/recraft_20250808_130827_0_ae36b0ad-53ee-4e34-85bd-fe2b0edfdd21.png"
                     alt="Timeline Master"
                     class="w-full h-full object-cover rounded-full"
                   />
@@ -253,7 +253,7 @@
               <div class="achievement-card">
                 <div class="achievement-icon p-0 overflow-hidden">
                   <img
-                    src="public/generated_images/recraft_20250808_130839_0_20f47b2d-9f9a-48b4-9c66-ee45339b60a1.png"
+                    src="/generated_images/recraft_20250808_130839_0_20f47b2d-9f9a-48b4-9c66-ee45339b60a1.png"
                     alt="Science Genius"
                     class="w-full h-full object-cover rounded-full"
                   />
@@ -1832,7 +1832,7 @@ Respond as Isaac's wildly enthusiastic analytics coach who thinks he's destined 
 
         playSound() {
           try {
-            const audio = new Audio("public/sounds/yey.mp3");
+            const audio = new Audio("/sounds/yey.mp3");
             audio.volume = 0.7; // Set volume to 70%
             audio.play().catch((e) => {
               console.log("Audio play failed (browser policy):", e);
