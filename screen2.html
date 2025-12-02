@@ -1,549 +1,787 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Isaac's Academy - Interactive Learning</title>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <!-- Mermaid for diagrams -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    
+
     <!-- External CSS - AFTER Tailwind so our styles take precedence -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" />
     <!-- Theme CSS - Load light mode by default -->
-    <link rel="stylesheet" href="css/light-mode.css" id="theme-css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/light-mode.css" id="theme-css" />
+  </head>
+  <body>
     <div class="flex h-screen desktop-layout">
-        <!-- Main Content Area -->
-        <div class="flex-1 overflow-y-auto">
-            <!-- Header -->
-            <header class="p-6 border-b border-white/10">
-                <div class="flex items-center justify-between">
-                    <a href="index.html" class="flex items-center space-x-4 hover:opacity-90 transition-opacity" title="Back to Dashboard" aria-label="Back to Dashboard">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                            <i data-lucide="graduation-cap" class="w-7 h-7 text-white"></i>
-                        </div>
-                        <div>
-                            <h1 class="text-2xl font-bold">MOE Learning Buddy</h1>
-                            <p class="text-sm text-gray-400">Interactive Science Learning</p>
-                        </div>
-                    </a>
-                    
-                    <!-- User Info -->
-                    <div class="flex items-center space-x-4">
-                        <!-- Theme Toggle -->
-                        <button id="themeToggle" class="btn btn-ghost btn-icon" title="Toggle Light/Dark Mode">
-                            <i data-lucide="sun" class="w-4 h-4 theme-icon-light"></i>
-                            <i data-lucide="moon" class="w-4 h-4 theme-icon-dark hidden"></i>
-                        </button>
-                        <a href="screen4b.html" class="btn btn-outline" title="Share with Peers">
-                            <i data-lucide="share-2" class="w-4 h-4"></i>
-                            Share
-                        </a>
-                        <a href="index.html" class="btn btn-secondary hidden md:inline-flex" title="Back to Dashboard">
-                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                            <span>Dashboard</span>
-                        </a>
-                        <div class="text-right">
-                            <p class="font-bold">Isaac Chen</p>
-                            <p class="text-sm text-gray-400">Level 7 • 1,285 XP</p>
-                        </div>
-                        <div class="w-12 h-12 rounded-full overflow-hidden">
-                            <img src="img/isaac-photo.png" alt="Isaac Chen" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                </div>
-            </header>
-            
-            <!-- Progress Bar -->
-            <div class="p-6 border-b border-white/10 sticky top-0 backdrop-blur supports-[backdrop-filter]:bg-white/5/10">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold">Lesson Progress: Advanced Cell Biology</span>
-                    <span class="font-bold text-blue-400" id="lessonProgress">Section 2 of 5</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="lessonProgressFill" style="width: 40%"></div>
-                </div>
+      <!-- Main Content Area -->
+      <div class="flex-1 overflow-y-auto">
+        <!-- Header -->
+        <header class="p-6 border-b border-white/10">
+          <div class="flex items-center justify-between">
+            <a
+              href="index.html"
+              class="flex items-center space-x-4 hover:opacity-90 transition-opacity"
+              title="Back to Dashboard"
+              aria-label="Back to Dashboard"
+            >
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center"
+              >
+                <i data-lucide="graduation-cap" class="w-7 h-7 text-white"></i>
+              </div>
+              <div>
+                <h1 class="text-2xl font-bold">MOE Learning Buddy</h1>
+                <p class="text-sm text-gray-400">
+                  Interactive Science Learning
+                </p>
+              </div>
+            </a>
+
+            <!-- User Info -->
+            <div class="flex items-center space-x-4">
+              <!-- Theme Toggle -->
+              <button
+                id="themeToggle"
+                class="btn btn-ghost btn-icon"
+                title="Toggle Light/Dark Mode"
+              >
+                <i data-lucide="sun" class="w-4 h-4 theme-icon-light"></i>
+                <i
+                  data-lucide="moon"
+                  class="w-4 h-4 theme-icon-dark hidden"
+                ></i>
+              </button>
+              <a
+                href="screen4b.html"
+                class="btn btn-outline"
+                title="Share with Peers"
+              >
+                <i data-lucide="share-2" class="w-4 h-4"></i>
+                Share
+              </a>
+              <a
+                href="index.html"
+                class="btn btn-secondary hidden md:inline-flex"
+                title="Back to Dashboard"
+              >
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span>Dashboard</span>
+              </a>
+              <div class="text-right">
+                <p class="font-bold">Isaac Chen</p>
+                <p class="text-sm text-gray-400">Level 7 • 1,285 XP</p>
+              </div>
+              <div class="w-12 h-12 rounded-full overflow-hidden">
+                <img
+                  src="img/isaac-photo.png"
+                  alt="Isaac Chen"
+                  class="w-full h-full object-cover"
+                />
+              </div>
             </div>
-            
-            <!-- Interactive Learning Content -->
-            <main class="p-6 space-y-6">
-                
-                <!-- Current Lesson Section -->
-                <div class="academy-card p-8" id="lessonSection">
-                    <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center space-x-4">
-                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center">
-                                <i data-lucide="microscope" class="w-8 h-8 text-white"></i>
-                            </div>
-                            <div>
-                                <h2 class="text-3xl font-bold mb-2">Cellular Organelles & Functions</h2>
-                                <p class="text-xl text-gray-300">Discover the powerhouses and factories inside every cell</p>
-                            </div>
-                        </div>
-                    <button class="btn btn-success" id="openNotebook"><i data-lucide="notebook-text" class="w-4 h-4"></i> Review Notes</button>
-                    </div>
+          </div>
+        </header>
 
-                    <!-- Lesson Content -->
-                    <div class="lesson-content">
-                        <!-- Section 1: Introduction -->
-                        <div class="lesson-section">
-                            <h3 class="text-2xl font-bold mb-4">Understanding Cell Structure</h3>
-                            <p class="text-lg text-gray-200 mb-4 leading-relaxed">
-                                Think of a cell like a bustling city, where each organelle has a specific job to keep the city running smoothly. 
-                                Just as a city has power plants, factories, and transportation systems, cells have specialized structures 
-                                that perform essential functions for life.
-                            </p>
-                            
-                            <!-- Interactive Note-Taking Area -->
-                            <div class="note-taking-area" id="notesArea">
-                                <div class="flex items-center justify-between mb-3">
-                                    <h4 class="text-lg font-semibold text-blue-400">📝 Your Notes</h4>
-                                    <button class="btn btn-secondary" id="addNoteBtn">
-                                        <i data-lucide="plus" class="w-4 h-4"></i>
-                                        Add Note
-                                    </button>
-                                </div>
-                                <div id="notesList" class="space-y-2">
-                                    <!-- Notes will be added here -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Section 2: Interactive Concept Mapping -->
-                        <div class="lesson-section">
-                            <h3 class="text-2xl font-bold mb-4">Match Organelles to Functions</h3>
-                            <p class="text-gray-200 mb-4">
-                                Click on each organelle card to learn about its function, then drag it to the correct function box!
-                            </p>
-                            
-                            <div class="concept-grid">
-                                <div class="concept-card" data-organelle="mitochondria">
-                                    <i data-lucide="zap" class="w-8 h-8 text-yellow-400 mx-auto mb-3"></i>
-                                    <h4 class="text-lg font-bold mb-2">Mitochondria</h4>
-                                    <p class="text-sm text-gray-300">The "powerhouse of the cell"</p>
-                                </div>
-                                
-                                <div class="concept-card" data-organelle="nucleus">
-                                    <i data-lucide="command" class="w-8 h-8 text-blue-400 mx-auto mb-3"></i>
-                                    <h4 class="text-lg font-bold mb-2">Nucleus</h4>
-                                    <p class="text-sm text-gray-300">Control center of the cell</p>
-                                </div>
-                                
-                                <div class="concept-card" data-organelle="ribosome">
-                                    <i data-lucide="cpu" class="w-8 h-8 text-green-400 mx-auto mb-3"></i>
-                                    <h4 class="text-lg font-bold mb-2">Ribosomes</h4>
-                                    <p class="text-sm text-gray-300">Protein manufacturing sites</p>
-                                </div>
-                                
-                                <div class="concept-card" data-organelle="er">
-                                    <i data-lucide="truck" class="w-8 h-8 text-purple-400 mx-auto mb-3"></i>
-                                    <h4 class="text-lg font-bold mb-2">Endoplasmic Reticulum</h4>
-                                    <p class="text-sm text-gray-300">Transportation network</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Section 3: Comprehension Check -->
-                        <div class="lesson-section">
-                            <div class="quiz-container">
-                                <h3 class="text-2xl font-bold mb-4">Quick Knowledge Check</h3>
-                                <p class="text-lg mb-4">Which organelle is responsible for producing ATP (energy) for the cell?</p>
-                                
-                                <div class="space-y-3">
-                                    <div class="quiz-option" data-answer="correct">
-                                        <div class="flex items-center space-x-3">
-                                            <i data-lucide="zap" class="w-5 h-5 text-yellow-400"></i>
-                                            <span>Mitochondria</span>
-                                        </div>
-                                    </div>
-                                    <div class="quiz-option" data-answer="incorrect">
-                                        <div class="flex items-center space-x-3">
-                                            <i data-lucide="command" class="w-5 h-5 text-blue-400"></i>
-                                            <span>Nucleus</span>
-                                        </div>
-                                    </div>
-                                    <div class="quiz-option" data-answer="incorrect">
-                                        <div class="flex items-center space-x-3">
-                                            <i data-lucide="cpu" class="w-5 h-5 text-green-400"></i>
-                                            <span>Ribosomes</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mt-4 text-center">
-                                    <button class="btn btn-primary" id="checkAnswerBtn" disabled>
-                                        <i data-lucide="check" class="w-4 h-4"></i>
-                                        Check Answer
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Navigation Buttons -->
-                    <div class="flex justify-between items-center mt-8">
-                        <button class="btn btn-secondary" id="prevSectionBtn">
-                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                            Previous Section
-                        </button>
-                        
-                        <div class="flex space-x-3">
-                            <button class="btn btn-neutral" id="saveProgressBtn">
-                                <i data-lucide="bookmark" class="w-4 h-4"></i>
-                                Save Progress
-                            </button>
-                            <button class="btn btn-primary" id="nextSectionBtn">
-                                <span>Next Section</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </main>
+        <!-- Progress Bar -->
+        <div
+          class="p-6 border-b border-white/10 sticky top-0 backdrop-blur supports-[backdrop-filter]:bg-white/5/10"
+        >
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-semibold"
+              >Lesson Progress: Advanced Cell Biology</span
+            >
+            <span class="font-bold text-blue-400" id="lessonProgress"
+              >Section 2 of 5</span
+            >
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              id="lessonProgressFill"
+              style="width: 40%"
+            ></div>
+          </div>
         </div>
 
-        <!-- Enhanced Chat Sidebar -->
-        <div class="w-80 chat-area flex flex-col">
-            <!-- Chat Header -->
-            <div class="p-4 border-b border-white/10">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                        <i data-lucide="bot" class="w-5 h-5 text-white"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold">MOE Buddy</h4>
-                        <p class="text-xs text-green-400">🟢 Online • Learning Mode</p>
-                    </div>
+        <!-- Interactive Learning Content -->
+        <main class="p-6 space-y-6">
+          <!-- Current Lesson Section -->
+          <div class="academy-card p-8" id="lessonSection">
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center"
+                >
+                  <i data-lucide="microscope" class="w-8 h-8 text-white"></i>
                 </div>
+                <div>
+                  <h2 class="text-3xl font-bold mb-2">
+                    Cellular Organelles & Functions
+                  </h2>
+                  <p class="text-xl text-gray-300">
+                    Discover the powerhouses and factories inside every cell
+                  </p>
+                </div>
+              </div>
+              <button class="btn btn-success" id="openNotebook">
+                <i data-lucide="notebook-text" class="w-4 h-4"></i> Review Notes
+              </button>
             </div>
-        
-            <!-- Chat Messages -->
-            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
-                <div class="flex justify-start mb-4">
-                    <div class="flex items-start space-x-3 max-w-[85%]">
-                        <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="bot" class="w-4 h-4 text-white"></i>
-                        </div>
-                        <div class="chat-message">
-                            <p class="text-sm text-white">🔬 Welcome to Advanced Cell Biology, Isaac! I'm here to help you understand these amazing cellular structures. Click "Get AI Help" anytime you need support!</p>
-                        </div>
+
+            <!-- Lesson Content -->
+            <div class="lesson-content">
+              <!-- Section 1: Introduction -->
+              <div class="lesson-section">
+                <h3 class="text-2xl font-bold mb-4">
+                  Understanding Cell Structure
+                </h3>
+                <p class="text-lg text-gray-200 mb-4 leading-relaxed">
+                  Think of a cell like a bustling city, where each organelle has
+                  a specific job to keep the city running smoothly. Just as a
+                  city has power plants, factories, and transportation systems,
+                  cells have specialized structures that perform essential
+                  functions for life.
+                </p>
+
+                <!-- Interactive Note-Taking Area -->
+                <div class="note-taking-area" id="notesArea">
+                  <div class="flex items-center justify-between mb-3">
+                    <h4 class="text-lg font-semibold text-blue-400">
+                      📝 Your Notes
+                    </h4>
+                    <button class="btn btn-secondary" id="addNoteBtn">
+                      <i data-lucide="plus" class="w-4 h-4"></i>
+                      Add Note
+                    </button>
+                  </div>
+                  <div id="notesList" class="space-y-2">
+                    <!-- Notes will be added here -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 2: Interactive Concept Mapping -->
+              <div class="lesson-section">
+                <h3 class="text-2xl font-bold mb-4">
+                  Match Organelles to Functions
+                </h3>
+                <p class="text-gray-200 mb-4">
+                  Click on each organelle card to learn about its function, then
+                  drag it to the correct function box!
+                </p>
+
+                <div class="concept-grid">
+                  <div class="concept-card" data-organelle="mitochondria">
+                    <i
+                      data-lucide="zap"
+                      class="w-8 h-8 text-yellow-400 mx-auto mb-3"
+                    ></i>
+                    <h4 class="text-lg font-bold mb-2">Mitochondria</h4>
+                    <p class="text-sm text-gray-300">
+                      The "powerhouse of the cell"
+                    </p>
+                  </div>
+
+                  <div class="concept-card" data-organelle="nucleus">
+                    <i
+                      data-lucide="command"
+                      class="w-8 h-8 text-blue-400 mx-auto mb-3"
+                    ></i>
+                    <h4 class="text-lg font-bold mb-2">Nucleus</h4>
+                    <p class="text-sm text-gray-300">
+                      Control center of the cell
+                    </p>
+                  </div>
+
+                  <div class="concept-card" data-organelle="ribosome">
+                    <i
+                      data-lucide="cpu"
+                      class="w-8 h-8 text-green-400 mx-auto mb-3"
+                    ></i>
+                    <h4 class="text-lg font-bold mb-2">Ribosomes</h4>
+                    <p class="text-sm text-gray-300">
+                      Protein manufacturing sites
+                    </p>
+                  </div>
+
+                  <div class="concept-card" data-organelle="er">
+                    <i
+                      data-lucide="truck"
+                      class="w-8 h-8 text-purple-400 mx-auto mb-3"
+                    ></i>
+                    <h4 class="text-lg font-bold mb-2">
+                      Endoplasmic Reticulum
+                    </h4>
+                    <p class="text-sm text-gray-300">Transportation network</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 3: Comprehension Check -->
+              <div class="lesson-section">
+                <div class="quiz-container">
+                  <h3 class="text-2xl font-bold mb-4">Quick Knowledge Check</h3>
+                  <p class="text-lg mb-4">
+                    Which organelle is responsible for producing ATP (energy)
+                    for the cell?
+                  </p>
+
+                  <div class="space-y-3">
+                    <div class="quiz-option" data-answer="correct">
+                      <div class="flex items-center space-x-3">
+                        <i
+                          data-lucide="zap"
+                          class="w-5 h-5 text-yellow-400"
+                        ></i>
+                        <span>Mitochondria</span>
+                      </div>
                     </div>
+                    <div class="quiz-option" data-answer="incorrect">
+                      <div class="flex items-center space-x-3">
+                        <i
+                          data-lucide="command"
+                          class="w-5 h-5 text-blue-400"
+                        ></i>
+                        <span>Nucleus</span>
+                      </div>
+                    </div>
+                    <div class="quiz-option" data-answer="incorrect">
+                      <div class="flex items-center space-x-3">
+                        <i data-lucide="cpu" class="w-5 h-5 text-green-400"></i>
+                        <span>Ribosomes</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 text-center">
+                    <button
+                      class="btn btn-primary"
+                      id="checkAnswerBtn"
+                      disabled
+                    >
+                      <i data-lucide="check" class="w-4 h-4"></i>
+                      Check Answer
+                    </button>
+                  </div>
                 </div>
+              </div>
             </div>
-        
-            <!-- Chat Input -->
-            <div class="p-4 border-t border-white/10">
-                <div class="flex space-x-3">
-                    <textarea 
-                        id="chatInput"
-                        rows="1"
-                        placeholder="Ask about cell organelles..." 
-                        enterkeyhint="send"
-                        class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32 leading-5 whitespace-pre-wrap break-words"
-                    ></textarea>
-                    <button id="sendMessage" class="btn btn-primary btn-icon">
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                    </button>
-                </div>
-            
-                <!-- Quick Action Buttons -->
-                <div class="mt-3 space-y-2">
-                    <button class="btn btn-ghost w-full justify-start" data-message="Explain the difference between mitochondria and nucleus">
-                        🔬 Compare mitochondria vs nucleus
-                    </button>
-                    <button class="btn btn-ghost w-full justify-start" data-message="Help me understand protein synthesis in ribosomes">
-                        ⚙️ Explain protein synthesis
-                    </button>
-                    <button class="btn btn-ghost w-full justify-start" data-message="What are good memory techniques for remembering organelles?">
-                        🧠 Memory techniques
-                    </button>
-                </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between items-center mt-8">
+              <button class="btn btn-secondary" id="prevSectionBtn">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                Previous Section
+              </button>
+
+              <div class="flex space-x-3">
+                <button class="btn btn-neutral" id="saveProgressBtn">
+                  <i data-lucide="bookmark" class="w-4 h-4"></i>
+                  Save Progress
+                </button>
+                <button class="btn btn-primary" id="nextSectionBtn">
+                  <span>Next Section</span>
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </div>
             </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- Enhanced Chat Sidebar -->
+      <div class="w-80 chat-area flex flex-col">
+        <!-- Chat Header -->
+        <div class="p-4 border-b border-white/10">
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center"
+            >
+              <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+            </div>
+            <div>
+              <h4 class="font-bold">MOE Buddy</h4>
+              <p class="text-xs text-green-400">🟢 Online • Learning Mode</p>
+            </div>
+          </div>
         </div>
+
+        <!-- Chat Messages -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+          <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
+            <div class="flex justify-start mb-4">
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0"
+                >
+                  <i data-lucide="bot" class="w-4 h-4 text-white"></i>
+                </div>
+                <div class="chat-message">
+                  <p class="text-sm text-white">
+                    🔬 Welcome to Advanced Cell Biology, Isaac! I'm here to help
+                    you understand these amazing cellular structures. Click "Get
+                    AI Help" anytime you need support!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div
+            id="quickActions"
+            class="px-4 pb-2 space-y-2 border-t border-white/10 pt-3"
+          >
+            <button
+              class="btn btn-ghost w-full justify-center"
+              data-message="Explain the difference between mitochondria and nucleus"
+            >
+              🔬 Compare mitochondria vs nucleus
+            </button>
+            <button
+              class="btn btn-ghost w-full justify-center"
+              data-message="Help me understand protein synthesis in ribosomes"
+            >
+              ⚙️ Explain protein synthesis
+            </button>
+            <button
+              class="btn btn-ghost w-full justify-center"
+              data-message="What are good memory techniques for remembering organelles?"
+            >
+              🧠 Memory techniques
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="p-4 border-t border-white/10">
+          <div class="flex space-x-3">
+            <textarea
+              id="chatInput"
+              rows="1"
+              placeholder="Ask about cell organelles..."
+              enterkeyhint="send"
+              class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors resize-none max-h-32 leading-5 whitespace-pre-wrap break-words"
+            ></textarea>
+            <button id="sendMessage" class="btn btn-primary btn-icon">
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
-
-
     <!-- Reusable Glass Modal -->
-    <div id="glassModal" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="glassModalTitle" aria-hidden="true">
-        <div class="glass-modal">
-            <div class="glass-modal-header">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="help-circle" class="w-5 h-5 text-blue-300"></i>
-                    <h3 id="glassModalTitle" class="text-lg font-semibold">AI Learning Assistant</h3>
-                </div>
-                <button id="glassClose" class="glass-close">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-            <div id="glassBody" class="glass-modal-body"></div>
-            <div class="glass-modal-footer">
-                <button id="glassOk" class="btn btn-primary w-full">
-                    <i data-lucide="check" class="w-4 h-4"></i>
-                    Got it, thanks!
-                </button>
-            </div>
+    <div
+      id="glassModal"
+      class="glass-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="glassModalTitle"
+      aria-hidden="true"
+    >
+      <div class="glass-modal">
+        <div class="glass-modal-header">
+          <div class="flex items-center gap-2">
+            <i data-lucide="help-circle" class="w-5 h-5 text-blue-300"></i>
+            <h3 id="glassModalTitle" class="text-lg font-semibold">
+              AI Learning Assistant
+            </h3>
+          </div>
+          <button id="glassClose" class="glass-close">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
         </div>
+        <div id="glassBody" class="glass-modal-body"></div>
+        <div class="glass-modal-footer">
+          <button id="glassOk" class="btn btn-primary w-full">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            Got it, thanks!
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Add Note Modal -->
-    <div id="noteModal" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="noteModalTitle" aria-hidden="true">
-        <div class="glass-modal" style="width: min(90vw, 600px); height: min(85vh, 600px); display: flex; flex-direction: column;">
-            <div class="glass-modal-header">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="edit-3" class="w-5 h-5"></i>
-                    <h3 id="noteModalTitle" class="text-lg font-semibold">Add Note</h3>
-                </div>
-                <button id="closeNoteModal" class="glass-close">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-            <div class="glass-modal-body" style="display:flex; flex-direction: column; height: calc(100% - 140px); padding-bottom: 8px;">
-                <p class="text-white/80 text-sm mb-3">Write your notes about cellular organelles. Use markdown for formatting!</p>
-                <textarea 
-                    id="noteInput"
-                    placeholder="## My Notes on Cell Biology&#10;&#10;**Key Points:**&#10;- Mitochondria = powerhouse&#10;- Nucleus = control center&#10;&#10;*Add your thoughts here...*"
-                    class="flex-1 w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm text-white resize-none outline-none focus:border-blue-400 transition-colors font-mono"
-                    style="min-height: 250px; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; line-height: 1.5;"
-                ></textarea>
-            </div>
-            <div class="glass-modal-footer" style="display: flex; gap: 12px; justify-content: flex-end; padding: 16px 20px; margin-top: auto;">
-                <button id="cancelNote" class="btn btn-secondary">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                    Cancel
-                </button>
-                <button id="saveNote" class="btn btn-primary">
-                    <i data-lucide="save" class="w-4 h-4"></i>
-                    Save Note
-                </button>
-            </div>
+    <div
+      id="noteModal"
+      class="glass-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="noteModalTitle"
+      aria-hidden="true"
+    >
+      <div
+        class="glass-modal"
+        style="
+          width: min(90vw, 600px);
+          height: min(85vh, 600px);
+          display: flex;
+          flex-direction: column;
+        "
+      >
+        <div class="glass-modal-header">
+          <div class="flex items-center gap-2">
+            <i data-lucide="edit-3" class="w-5 h-5"></i>
+            <h3 id="noteModalTitle" class="text-lg font-semibold">Add Note</h3>
+          </div>
+          <button id="closeNoteModal" class="glass-close">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
         </div>
+        <div
+          class="glass-modal-body"
+          style="
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 140px);
+            padding-bottom: 8px;
+          "
+        >
+          <p class="text-white/80 text-sm mb-3">
+            Write your notes about cellular organelles. Use markdown for
+            formatting!
+          </p>
+          <textarea
+            id="noteInput"
+            placeholder="## My Notes on Cell Biology&#10;&#10;**Key Points:**&#10;- Mitochondria = powerhouse&#10;- Nucleus = control center&#10;&#10;*Add your thoughts here...*"
+            class="flex-1 w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm text-white resize-none outline-none focus:border-blue-400 transition-colors font-mono"
+            style="
+              min-height: 250px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              line-height: 1.5;
+            "
+          ></textarea>
+        </div>
+        <div
+          class="glass-modal-footer"
+          style="
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            padding: 16px 20px;
+            margin-top: auto;
+          "
+        >
+          <button id="cancelNote" class="btn btn-secondary">
+            <i data-lucide="x" class="w-4 h-4"></i>
+            Cancel
+          </button>
+          <button id="saveNote" class="btn btn-primary">
+            <i data-lucide="save" class="w-4 h-4"></i>
+            Save Note
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Notebook Glass Modal -->
-    <div id="notebookOverlay" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="notebookTitle" aria-hidden="true">
-        <div class="glass-modal" style="width: min(96vw, 1100px); height: min(92vh, 760px); display: flex; flex-direction: column;">
-            <div class="glass-modal-header">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="notebook-text" class="w-5 h-5"></i>
-                    <h3 id="notebookTitle" class="text-lg font-semibold">Advanced Cell Biology Notes</h3>
-                </div>
-                <button id="closeNotebook" class="glass-close">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-            <div class="glass-modal-body" style="display:flex; gap: 16px; flex: 1; overflow: hidden; padding: 16px 20px;">
-                <div class="glass-col" style="flex:2; overflow-y: auto; padding-right: 8px;">
-                    <h4 class="text-xl font-bold mb-3">Lecture: Organelles at Work</h4>
-                    <p class="text-white/85 mb-3">Use this mini‑lecture as a map of who does what inside cells. Link each organelle to its job and to the energy/materials it needs.</p>
-                    <div class="mermaid mb-4">
-flowchart TB
-  N["Nucleus\nDNA & Control"] -->|mRNA| R["Ribosome\nProtein Assembly"]
-  R --> ER["Rough ER\nFolding/Transport"]
-  ER --> G["Golgi\nPackaging"]
-  M["Mitochondria\nATP from Respiration"] --> E((ATP))
-  E --> R
-  E --> ActiveTransport["Active Transport"]
-  SER["Smooth ER\nLipids/Detox"]
-                    </div>
-                    <div class="mermaid mb-4">
-sequenceDiagram
-  participant N as Nucleus
-  participant R as Ribosome
-  participant ER as Rough ER
-  participant G as Golgi
-  N->>R: mRNA instructions
-  R->>ER: nascent protein
-  ER->>G: folded protein in vesicle
-  G-->>Cell: labeled protein to destination
-                    </div>
-                    <ul class="list-disc pl-5 space-y-1 text-white/85">
-                        <li>Ribosomes read mRNA and stitch amino acids into proteins.</li>
-                        <li>Rough ER helps fold/modify proteins; Smooth ER builds lipids and detoxifies.</li>
-                        <li>Mitochondria provide ATP to power synthesis and transport steps.</li>
-                        <li>Golgi tags and ships proteins to where they are needed.</li>
-                    </ul>
-                </div>
-                <div class="glass-col" style="flex:1; display: flex; flex-direction: column; min-height: 0;">
-                    <h4 class="text-lg font-semibold mb-2">Isaac's Notes</h4>
-                    <textarea class="notes-textarea" placeholder="Write your notes here... (mockup; not saved)" style="flex: 1; min-height: 300px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 12px; color: white; font-family: 'Monaco', monospace; font-size: 13px; line-height: 1.5; resize: none; outline: none;"></textarea>
-                </div>
-            </div>
+    <div
+      id="notebookOverlay"
+      class="glass-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="notebookTitle"
+      aria-hidden="true"
+    >
+      <div
+        class="glass-modal"
+        style="
+          width: min(96vw, 1100px);
+          height: min(92vh, 760px);
+          display: flex;
+          flex-direction: column;
+        "
+      >
+        <div class="glass-modal-header">
+          <div class="flex items-center gap-2">
+            <i data-lucide="notebook-text" class="w-5 h-5"></i>
+            <h3 id="notebookTitle" class="text-lg font-semibold">
+              Advanced Cell Biology Notes
+            </h3>
+          </div>
+          <button id="closeNotebook" class="glass-close">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
         </div>
+        <div
+          class="glass-modal-body"
+          style="
+            display: flex;
+            gap: 16px;
+            flex: 1;
+            overflow: hidden;
+            padding: 16px 20px;
+          "
+        >
+          <div
+            class="glass-col"
+            style="flex: 2; overflow-y: auto; padding-right: 8px"
+          >
+            <h4 class="text-xl font-bold mb-3">Lecture: Organelles at Work</h4>
+            <p class="text-white/85 mb-3">
+              Use this mini‑lecture as a map of who does what inside cells. Link
+              each organelle to its job and to the energy/materials it needs.
+            </p>
+            <div class="mermaid mb-4">
+              flowchart TB N["Nucleus\nDNA & Control"] -->|mRNA|
+              R["Ribosome\nProtein Assembly"] R --> ER["Rough
+              ER\nFolding/Transport"] ER --> G["Golgi\nPackaging"]
+              M["Mitochondria\nATP from Respiration"] --> E((ATP)) E --> R E -->
+              ActiveTransport["Active Transport"] SER["Smooth ER\nLipids/Detox"]
+            </div>
+            <div class="mermaid mb-4">
+              sequenceDiagram participant N as Nucleus participant R as Ribosome
+              participant ER as Rough ER participant G as Golgi N->>R: mRNA
+              instructions R->>ER: nascent protein ER->>G: folded protein in
+              vesicle G-->>Cell: labeled protein to destination
+            </div>
+            <ul class="list-disc pl-5 space-y-1 text-white/85">
+              <li>Ribosomes read mRNA and stitch amino acids into proteins.</li>
+              <li>
+                Rough ER helps fold/modify proteins; Smooth ER builds lipids and
+                detoxifies.
+              </li>
+              <li>
+                Mitochondria provide ATP to power synthesis and transport steps.
+              </li>
+              <li>Golgi tags and ships proteins to where they are needed.</li>
+            </ul>
+          </div>
+          <div
+            class="glass-col"
+            style="
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              min-height: 0;
+            "
+          >
+            <h4 class="text-lg font-semibold mb-2">Isaac's Notes</h4>
+            <textarea
+              class="notes-textarea"
+              placeholder="Write your notes here... (mockup; not saved)"
+              style="
+                flex: 1;
+                min-height: 300px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 8px;
+                padding: 12px;
+                color: white;
+                font-family: 'Monaco', monospace;
+                font-size: 13px;
+                line-height: 1.5;
+                resize: none;
+                outline: none;
+              "
+            ></textarea>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-        // Mermaid init - will be reinitialized with correct theme
-        if (window.mermaid) { mermaid.initialize({ startOnLoad: false, theme: 'dark' }); }
-        // Initialize Lucide icons
-        lucide.createIcons();
-        
-        // Theme Toggle Functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const themeCss = document.getElementById('theme-css');
-        const themeIconLight = document.querySelector('.theme-icon-light');
-        const themeIconDark = document.querySelector('.theme-icon-dark');
-        
-        // Get current theme from localStorage or default to dark
-        let currentTheme = localStorage.getItem('theme') || 'light';
-        
-        // Apply initial theme
-        function setTheme(theme) {
-            currentTheme = theme;
-            localStorage.setItem('theme', theme);
-            
-            if (theme === 'light') {
-                themeCss.href = 'css/light-mode.css';
-                themeIconLight.classList.add('hidden');
-                themeIconDark.classList.remove('hidden');
-                document.body.setAttribute('data-theme', 'light');
-                
-                // Update Mermaid theme
-                if (window.mermaid) {
-                    mermaid.initialize({ startOnLoad: false, theme: 'default' });
-                }
-            } else {
-                themeCss.href = 'css/dark-mode.css';
-                themeIconLight.classList.remove('hidden');
-                themeIconDark.classList.add('hidden');
-                document.body.setAttribute('data-theme', 'dark');
-                
-                // Update Mermaid theme
-                if (window.mermaid) {
-                    mermaid.initialize({ startOnLoad: false, theme: 'dark' });
-                }
-            }
+      // Mermaid init - will be reinitialized with correct theme
+      if (window.mermaid) {
+        mermaid.initialize({ startOnLoad: false, theme: "dark" });
+      }
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      // Theme Toggle Functionality
+      const themeToggle = document.getElementById("themeToggle");
+      const themeCss = document.getElementById("theme-css");
+      const themeIconLight = document.querySelector(".theme-icon-light");
+      const themeIconDark = document.querySelector(".theme-icon-dark");
+
+      // Get current theme from localStorage or default to dark
+      let currentTheme = localStorage.getItem("theme") || "light";
+
+      // Apply initial theme
+      function setTheme(theme) {
+        currentTheme = theme;
+        localStorage.setItem("theme", theme);
+
+        if (theme === "light") {
+          themeCss.href = "css/light-mode.css";
+          themeIconLight.classList.add("hidden");
+          themeIconDark.classList.remove("hidden");
+          document.body.setAttribute("data-theme", "light");
+
+          // Update Mermaid theme
+          if (window.mermaid) {
+            mermaid.initialize({ startOnLoad: false, theme: "default" });
+          }
+        } else {
+          themeCss.href = "css/dark-mode.css";
+          themeIconLight.classList.remove("hidden");
+          themeIconDark.classList.add("hidden");
+          document.body.setAttribute("data-theme", "dark");
+
+          // Update Mermaid theme
+          if (window.mermaid) {
+            mermaid.initialize({ startOnLoad: false, theme: "dark" });
+          }
         }
-        
-        // Set initial theme
-        setTheme(currentTheme);
-        
-        // Theme toggle click handler
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                setTheme(newTheme);
-            });
+      }
+
+      // Set initial theme
+      setTheme(currentTheme);
+
+      // Theme toggle click handler
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          setTheme(newTheme);
+        });
+      }
+
+      // Screen 2 Interactive Learning
+      class Screen2InteractiveLearning {
+        constructor() {
+          this.currentSection = 2;
+          this.totalSections = 5;
+          this.selectedQuizAnswer = null;
+          this.notes = [];
+          this.conceptsMatched = 0;
+          this.init();
         }
-        
-        // Screen 2 Interactive Learning
-        class Screen2InteractiveLearning {
-            constructor() {
-                this.currentSection = 2;
-                this.totalSections = 5;
-                this.selectedQuizAnswer = null;
-                this.notes = [];
-                this.conceptsMatched = 0;
-                this.init();
-            }
-            
-            init() {
-                this.setupEventListeners();
-                this.setupMOEBuddy();
-                this.setupInteractiveElements();
-                this.setupNotebook();
-                this.setupNoteModal();
-            }
-            
-            setupEventListeners() {
-                // Navigation buttons
-                document.getElementById('nextSectionBtn').addEventListener('click', () => this.nextSection());
-                document.getElementById('prevSectionBtn').addEventListener('click', () => this.prevSection());
-                document.getElementById('saveProgressBtn').addEventListener('click', () => this.saveProgress());
-                
-                // Note taking 
-                document.getElementById('addNoteBtn').addEventListener('click', () => this.openNoteModal());
-                
-                // Quiz
-                document.getElementById('checkAnswerBtn').addEventListener('click', () => this.checkQuizAnswer());
-            }
-            
-            setupMOEBuddy() {
-                this.moeBuddy = new MOEBuddy();
-            }
-            
-            setupInteractiveElements() {
-                // Concept cards interaction
-                const conceptCards = document.querySelectorAll('.concept-card');
-                conceptCards.forEach(card => {
-                    card.addEventListener('click', () => this.handleConceptClick(card));
-                });
-                
-                // Quiz options
-                const quizOptions = document.querySelectorAll('.quiz-option');
-                quizOptions.forEach(option => {
-                    option.addEventListener('click', () => this.selectQuizOption(option));
-                });
-            }
 
-            setupNotebook() {
-                const openBtn = document.getElementById('openNotebook');
-                const overlay = document.getElementById('notebookOverlay');
-                const closeBtn = document.getElementById('closeNotebook');
-                if (!(openBtn && overlay && closeBtn)) return;
-                const renderMermaid = () => {
-                    if (window.mermaid) {
-                        const blocks = overlay.querySelectorAll('.mermaid');
-                        blocks.forEach(b => b.removeAttribute('data-processed'));
-                        mermaid.init(undefined, blocks);
-                    }
-                };
-                openBtn.addEventListener('click', () => { overlay.style.display = 'flex'; renderMermaid(); lucide.createIcons(); });
-                closeBtn.addEventListener('click', () => overlay.style.display = 'none');
-                overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.style.display = 'none'; });
-                document.addEventListener('keydown', function esc(e){ if (e.key === 'Escape') overlay.style.display='none'; });
+        init() {
+          this.setupEventListeners();
+          this.setupMOEBuddy();
+          this.setupInteractiveElements();
+          this.setupNotebook();
+          this.setupNoteModal();
+        }
+
+        setupEventListeners() {
+          // Navigation buttons
+          document
+            .getElementById("nextSectionBtn")
+            .addEventListener("click", () => this.nextSection());
+          document
+            .getElementById("prevSectionBtn")
+            .addEventListener("click", () => this.prevSection());
+          document
+            .getElementById("saveProgressBtn")
+            .addEventListener("click", () => this.saveProgress());
+
+          // Note taking
+          document
+            .getElementById("addNoteBtn")
+            .addEventListener("click", () => this.openNoteModal());
+
+          // Quiz
+          document
+            .getElementById("checkAnswerBtn")
+            .addEventListener("click", () => this.checkQuizAnswer());
+        }
+
+        setupMOEBuddy() {
+          this.moeBuddy = new MOEBuddy();
+        }
+
+        setupInteractiveElements() {
+          // Concept cards interaction
+          const conceptCards = document.querySelectorAll(".concept-card");
+          conceptCards.forEach((card) => {
+            card.addEventListener("click", () => this.handleConceptClick(card));
+          });
+
+          // Quiz options
+          const quizOptions = document.querySelectorAll(".quiz-option");
+          quizOptions.forEach((option) => {
+            option.addEventListener("click", () =>
+              this.selectQuizOption(option)
+            );
+          });
+        }
+
+        setupNotebook() {
+          const openBtn = document.getElementById("openNotebook");
+          const overlay = document.getElementById("notebookOverlay");
+          const closeBtn = document.getElementById("closeNotebook");
+          if (!(openBtn && overlay && closeBtn)) return;
+          const renderMermaid = () => {
+            if (window.mermaid) {
+              const blocks = overlay.querySelectorAll(".mermaid");
+              blocks.forEach((b) => b.removeAttribute("data-processed"));
+              mermaid.init(undefined, blocks);
             }
+          };
+          openBtn.addEventListener("click", () => {
+            overlay.style.display = "flex";
+            renderMermaid();
+            lucide.createIcons();
+          });
+          closeBtn.addEventListener(
+            "click",
+            () => (overlay.style.display = "none")
+          );
+          overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) overlay.style.display = "none";
+          });
+          document.addEventListener("keydown", function esc(e) {
+            if (e.key === "Escape") overlay.style.display = "none";
+          });
+        }
 
-            setupNoteModal() {
-                const noteModal = document.getElementById('noteModal');
-                const closeBtn = document.getElementById('closeNoteModal');
-                const cancelBtn = document.getElementById('cancelNote');
-                const saveBtn = document.getElementById('saveNote');
-                const noteInput = document.getElementById('noteInput');
+        setupNoteModal() {
+          const noteModal = document.getElementById("noteModal");
+          const closeBtn = document.getElementById("closeNoteModal");
+          const cancelBtn = document.getElementById("cancelNote");
+          const saveBtn = document.getElementById("saveNote");
+          const noteInput = document.getElementById("noteInput");
 
-                if (!(noteModal && closeBtn && cancelBtn && saveBtn && noteInput)) return;
+          if (!(noteModal && closeBtn && cancelBtn && saveBtn && noteInput))
+            return;
 
-                const closeModal = () => {
-                    noteModal.style.display = 'none';
-                    noteInput.value = '';
-                };
+          const closeModal = () => {
+            noteModal.style.display = "none";
+            noteInput.value = "";
+          };
 
-                closeBtn.addEventListener('click', closeModal);
-                cancelBtn.addEventListener('click', closeModal);
-                saveBtn.addEventListener('click', () => this.saveNoteFromModal());
-                
-                // Close on backdrop click
-                noteModal.addEventListener('click', (e) => {
-                    if (e.target === noteModal) closeModal();
-                });
+          closeBtn.addEventListener("click", closeModal);
+          cancelBtn.addEventListener("click", closeModal);
+          saveBtn.addEventListener("click", () => this.saveNoteFromModal());
 
-                // Close on Escape key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && noteModal.style.display === 'flex') {
-                        closeModal();
-                    }
-                });
+          // Close on backdrop click
+          noteModal.addEventListener("click", (e) => {
+            if (e.target === noteModal) closeModal();
+          });
+
+          // Close on Escape key
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && noteModal.style.display === "flex") {
+              closeModal();
             }
-            
-            handleConceptClick(card) {
-                const organelle = card.dataset.organelle;
-                card.classList.toggle('selected');
-                
-                // Show detailed info based on organelle
-                const organelleInfo = {
-                    mitochondria: {
-                        title: "Mitochondria - The Powerhouse",
-                        content: `
+          });
+        }
+
+        handleConceptClick(card) {
+          const organelle = card.dataset.organelle;
+          card.classList.toggle("selected");
+
+          // Show detailed info based on organelle
+          const organelleInfo = {
+            mitochondria: {
+              title: "Mitochondria - The Powerhouse",
+              content: `
                             <div class="flex items-start gap-4">
                                 <div class="w-32 h-32 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0">
                                     <i data-lucide="zap" class="w-16 h-16 text-white"></i>
@@ -568,11 +806,11 @@ sequenceDiagram
                                     </ul>
                                 </div>
                             </div>
-                        `
-                    },
-                    nucleus: {
-                        title: "Nucleus - The Control Center",
-                        content: `
+                        `,
+            },
+            nucleus: {
+              title: "Nucleus - The Control Center",
+              content: `
                             <div class="flex items-start gap-4">
                                 <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
                                     <i data-lucide="command" class="w-16 h-16 text-white"></i>
@@ -597,11 +835,11 @@ sequenceDiagram
                                     </ul>
                                 </div>
                             </div>
-                        `
-                    },
-                    ribosome: {
-                        title: "Ribosomes - Protein Factories",
-                        content: `
+                        `,
+            },
+            ribosome: {
+              title: "Ribosomes - Protein Factories",
+              content: `
                             <div class="flex items-start gap-4">
                                 <div class="w-32 h-32 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0">
                                     <i data-lucide="cpu" class="w-16 h-16 text-white"></i>
@@ -626,11 +864,11 @@ sequenceDiagram
                                     </ul>
                                 </div>
                             </div>
-                        `
-                    },
-                    er: {
-                        title: "Endoplasmic Reticulum - Transport Network",
-                        content: `
+                        `,
+            },
+            er: {
+              title: "Endoplasmic Reticulum - Transport Network",
+              content: `
                             <div class="flex items-start gap-4">
                                 <div class="w-32 h-32 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0">
                                     <i data-lucide="truck" class="w-16 h-16 text-white"></i>
@@ -655,96 +893,108 @@ sequenceDiagram
                                     </ul>
                                 </div>
                             </div>
-                        `
-                    }
-                };
-                
-                if (organelleInfo[organelle]) {
-                    this.showGlassModal(organelleInfo[organelle].title, organelleInfo[organelle].content);
-                }
-            }
-            
-            selectQuizOption(option) {
-                // Clear previous selections
-                document.querySelectorAll('.quiz-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                
-                option.classList.add('selected');
-                this.selectedQuizAnswer = option.dataset.answer;
-                document.getElementById('checkAnswerBtn').disabled = false;
-            }
-            
-            checkQuizAnswer() {
-                const options = document.querySelectorAll('.quiz-option');
-                const checkBtn = document.getElementById('checkAnswerBtn');
-                
-                options.forEach(option => {
-                    if (option.dataset.answer === 'correct') {
-                        option.classList.add('correct');
-                    } else {
-                        option.classList.add('incorrect');
-                    }
-                });
-                
-                if (this.selectedQuizAnswer === 'correct') {
-                    this.showNotification('🎉 Correct! Mitochondria are the powerhouses of the cell!', 'success');
-                    this.updateProgress();
-                } else {
-                    this.showNotification('💡 Not quite right. Mitochondria produce ATP energy for the cell.', 'info');
-                }
-                
-                checkBtn.textContent = 'Next Question';
-                checkBtn.disabled = false;
-                checkBtn.onclick = () => this.nextSection();
-            }
-            
-            openNoteModal() {
-                const noteModal = document.getElementById('noteModal');
-                const noteInput = document.getElementById('noteInput');
-                
-                noteModal.style.display = 'flex';
-                noteInput.focus();
-                lucide.createIcons();
-            }
+                        `,
+            },
+          };
 
-            saveNoteFromModal() {
-                const noteInput = document.getElementById('noteInput');
-                const noteModal = document.getElementById('noteModal');
-                const noteText = noteInput.value.trim();
-                
-                if (noteText) {
-                    const note = {
-                        id: Date.now(),
-                        text: noteText,
-                        timestamp: new Date().toLocaleTimeString(),
-                        isMarkdown: true
-                    };
-                    
-                    this.notes.push(note);
-                    this.renderNote(note);
-                    this.showNotification('📝 Note saved successfully!', 'success');
-                    
-                    // Close modal and clear input
-                    noteModal.style.display = 'none';
-                    noteInput.value = '';
-                } else {
-                    this.showNotification('⚠️ Please write something before saving!', 'warning');
-                }
+          if (organelleInfo[organelle]) {
+            this.showGlassModal(
+              organelleInfo[organelle].title,
+              organelleInfo[organelle].content
+            );
+          }
+        }
+
+        selectQuizOption(option) {
+          // Clear previous selections
+          document.querySelectorAll(".quiz-option").forEach((opt) => {
+            opt.classList.remove("selected");
+          });
+
+          option.classList.add("selected");
+          this.selectedQuizAnswer = option.dataset.answer;
+          document.getElementById("checkAnswerBtn").disabled = false;
+        }
+
+        checkQuizAnswer() {
+          const options = document.querySelectorAll(".quiz-option");
+          const checkBtn = document.getElementById("checkAnswerBtn");
+
+          options.forEach((option) => {
+            if (option.dataset.answer === "correct") {
+              option.classList.add("correct");
+            } else {
+              option.classList.add("incorrect");
             }
-            
-            renderNote(note) {
-                const notesList = document.getElementById('notesList');
-                const noteElement = document.createElement('div');
-                noteElement.className = 'note-item';
-                
-                // Simple markdown parsing for display
-                let displayText = note.text;
-                if (note.isMarkdown) {
-                    displayText = this.parseMarkdown(note.text);
-                }
-                
-                noteElement.innerHTML = `
+          });
+
+          if (this.selectedQuizAnswer === "correct") {
+            this.showNotification(
+              "🎉 Correct! Mitochondria are the powerhouses of the cell!",
+              "success"
+            );
+            this.updateProgress();
+          } else {
+            this.showNotification(
+              "💡 Not quite right. Mitochondria produce ATP energy for the cell.",
+              "info"
+            );
+          }
+
+          checkBtn.textContent = "Next Question";
+          checkBtn.disabled = false;
+          checkBtn.onclick = () => this.nextSection();
+        }
+
+        openNoteModal() {
+          const noteModal = document.getElementById("noteModal");
+          const noteInput = document.getElementById("noteInput");
+
+          noteModal.style.display = "flex";
+          noteInput.focus();
+          lucide.createIcons();
+        }
+
+        saveNoteFromModal() {
+          const noteInput = document.getElementById("noteInput");
+          const noteModal = document.getElementById("noteModal");
+          const noteText = noteInput.value.trim();
+
+          if (noteText) {
+            const note = {
+              id: Date.now(),
+              text: noteText,
+              timestamp: new Date().toLocaleTimeString(),
+              isMarkdown: true,
+            };
+
+            this.notes.push(note);
+            this.renderNote(note);
+            this.showNotification("📝 Note saved successfully!", "success");
+
+            // Close modal and clear input
+            noteModal.style.display = "none";
+            noteInput.value = "";
+          } else {
+            this.showNotification(
+              "⚠️ Please write something before saving!",
+              "warning"
+            );
+          }
+        }
+
+        renderNote(note) {
+          const notesList = document.getElementById("notesList");
+          const noteElement = document.createElement("div");
+          noteElement.className = "note-item";
+
+          // Simple markdown parsing for display
+          let displayText = note.text;
+          if (note.isMarkdown) {
+            displayText = this.parseMarkdown(note.text);
+          }
+
+          noteElement.innerHTML = `
                     <div class="flex-1">
                         <div class="text-white text-sm markdown-content">${displayText}</div>
                         <p class="text-gray-400 text-xs mt-2">${note.timestamp}</p>
@@ -753,34 +1003,50 @@ sequenceDiagram
                         <i data-lucide="trash-2" class="w-3 h-3"></i>
                     </button>
                 `;
-                notesList.appendChild(noteElement);
-                lucide.createIcons();
-            }
+          notesList.appendChild(noteElement);
+          lucide.createIcons();
+        }
 
-            // Simple markdown parser for basic formatting
-            parseMarkdown(text) {
-                return text
-                    // Headers
-                    .replace(/^### (.*$)/gim, '<h3 class="text-lg font-bold text-yellow-400 mb-1">$1</h3>')
-                    .replace(/^## (.*$)/gim, '<h2 class="text-xl font-bold text-blue-400 mb-2">$1</h2>')
-                    .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-bold text-white mb-2">$1</h1>')
-                    // Bold and italic
-                    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-white">$1</strong>')
-                    .replace(/\*(.*?)\*/g, '<em class="italic text-blue-200">$1</em>')
-                    // Lists
-                    .replace(/^- (.*$)/gim, '<li class="ml-4 text-white">• $1</li>')
-                    // Line breaks
-                    .replace(/\n/g, '<br>');
-            }
-            
-            removeNote(noteId) {
-                this.notes = this.notes.filter(note => note.id !== noteId);
-                const noteElement = document.querySelector(`[onclick="learning.removeNote(${noteId})"]`).closest('.note-item');
-                noteElement.remove();
-            }
-            
-            showAIHelp() {
-                const helpContent = `
+        // Simple markdown parser for basic formatting
+        parseMarkdown(text) {
+          return (
+            text
+              // Headers
+              .replace(
+                /^### (.*$)/gim,
+                '<h3 class="text-lg font-bold text-yellow-400 mb-1">$1</h3>'
+              )
+              .replace(
+                /^## (.*$)/gim,
+                '<h2 class="text-xl font-bold text-blue-400 mb-2">$1</h2>'
+              )
+              .replace(
+                /^# (.*$)/gim,
+                '<h1 class="text-2xl font-bold text-white mb-2">$1</h1>'
+              )
+              // Bold and italic
+              .replace(
+                /\*\*(.*?)\*\*/g,
+                '<strong class="font-bold text-white">$1</strong>'
+              )
+              .replace(/\*(.*?)\*/g, '<em class="italic text-blue-200">$1</em>')
+              // Lists
+              .replace(/^- (.*$)/gim, '<li class="ml-4 text-white">• $1</li>')
+              // Line breaks
+              .replace(/\n/g, "<br>")
+          );
+        }
+
+        removeNote(noteId) {
+          this.notes = this.notes.filter((note) => note.id !== noteId);
+          const noteElement = document
+            .querySelector(`[onclick="learning.removeNote(${noteId})"]`)
+            .closest(".note-item");
+          noteElement.remove();
+        }
+
+        showAIHelp() {
+          const helpContent = `
                     <div class="space-y-4">
                         <div class="flex items-start gap-4">
                             <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -818,184 +1084,220 @@ sequenceDiagram
                         </div>
                     </div>
                 `;
-                
-                this.showGlassModal('AI Learning Assistant', helpContent);
-            }
-            
-            nextSection() {
-                if (this.currentSection < this.totalSections) {
-                    this.currentSection++;
-                    this.updateProgress();
-                    this.showNotification(`📚 Moving to Section ${this.currentSection}`, 'success');
-                } else {
-                    this.showNotification('🎉 Lesson Complete! Great work, Isaac!', 'success');
-                }
-            }
-            
-            prevSection() {
-                if (this.currentSection > 1) {
-                    this.currentSection--;
-                    this.updateProgress();
-                    this.showNotification(`📚 Back to Section ${this.currentSection}`, 'info');
-                }
-            }
-            
-            saveProgress() {
-                this.showNotification('💾 Progress saved! You can continue anytime.', 'success');
-            }
-            
-            updateProgress() {
-                const progressFill = document.getElementById('lessonProgressFill');
-                const progressText = document.getElementById('lessonProgress');
-                const newProgress = (this.currentSection / this.totalSections) * 100;
-                
-                progressFill.style.width = `${newProgress}%`;
-                progressText.textContent = `Section ${this.currentSection} of ${this.totalSections}`;
-            }
-            
-            showNotification(message, type = 'info') {
-                const notification = document.createElement('div');
-                notification.className = `fixed top-6 right-6 px-4 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 transform translate-x-full`;
-                
-                const colors = {
-                    info: 'bg-blue-500 text-white',
-                    success: 'bg-green-500 text-white', 
-                    warning: 'bg-yellow-500 text-white'
-                };
-                
-                notification.className += ` ${colors[type]}`;
-                notification.innerHTML = `
+
+          this.showGlassModal("AI Learning Assistant", helpContent);
+        }
+
+        nextSection() {
+          if (this.currentSection < this.totalSections) {
+            this.currentSection++;
+            this.updateProgress();
+            this.showNotification(
+              `📚 Moving to Section ${this.currentSection}`,
+              "success"
+            );
+          } else {
+            this.showNotification(
+              "🎉 Lesson Complete! Great work, Isaac!",
+              "success"
+            );
+          }
+        }
+
+        prevSection() {
+          if (this.currentSection > 1) {
+            this.currentSection--;
+            this.updateProgress();
+            this.showNotification(
+              `📚 Back to Section ${this.currentSection}`,
+              "info"
+            );
+          }
+        }
+
+        saveProgress() {
+          this.showNotification(
+            "💾 Progress saved! You can continue anytime.",
+            "success"
+          );
+        }
+
+        updateProgress() {
+          const progressFill = document.getElementById("lessonProgressFill");
+          const progressText = document.getElementById("lessonProgress");
+          const newProgress = (this.currentSection / this.totalSections) * 100;
+
+          progressFill.style.width = `${newProgress}%`;
+          progressText.textContent = `Section ${this.currentSection} of ${this.totalSections}`;
+        }
+
+        showNotification(message, type = "info") {
+          const notification = document.createElement("div");
+          notification.className = `fixed top-6 right-6 px-4 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 transform translate-x-full`;
+
+          const colors = {
+            info: "bg-blue-500 text-white",
+            success: "bg-green-500 text-white",
+            warning: "bg-yellow-500 text-white",
+          };
+
+          notification.className += ` ${colors[type]}`;
+          notification.innerHTML = `
                     <div class="flex items-center space-x-2">
                         <i data-lucide="info" class="w-4 h-4"></i>
                         <span class="text-sm font-semibold">${message}</span>
                     </div>
                 `;
-                
-                document.body.appendChild(notification);
-                lucide.createIcons();
-                
-                setTimeout(() => {
-                    notification.style.transform = 'translateX(0)';
-                }, 100);
-                
-                setTimeout(() => {
-                    notification.style.transform = 'translateX(100%)';
-                    setTimeout(() => notification.remove(), 300);
-                }, 3000);
-            }
-            
-            // Reusable Glass Modal API (from Screen 1)
-            showGlassModal(title, content) {
-                const overlay = document.getElementById('glassModal');
-                const titleEl = document.getElementById('glassModalTitle');
-                const body = document.getElementById('glassBody');
-                const closeBtn = document.getElementById('glassClose');
-                const okBtn = document.getElementById('glassOk');
-                
-                titleEl.textContent = title;
-                body.innerHTML = content;
-                overlay.style.display = 'flex';
-                
-                const close = () => { overlay.style.display = 'none'; };
-                closeBtn.onclick = close;
-                okBtn.onclick = close;
-                overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
-                document.addEventListener('keydown', function handler(e) {
-                    if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); }
-                });
-                lucide.createIcons();
-            }
+
+          document.body.appendChild(notification);
+          lucide.createIcons();
+
+          setTimeout(() => {
+            notification.style.transform = "translateX(0)";
+          }, 100);
+
+          setTimeout(() => {
+            notification.style.transform = "translateX(100%)";
+            setTimeout(() => notification.remove(), 300);
+          }, 3000);
         }
-        
-        // MOE Buddy Chat (adapted for Screen 2)
-        class MOEBuddy {
-            constructor() {
-                this.apiKey = window.ENV?.OPENROUTER_API_KEY;
-                this.chatMessages = [];
-                this.init();
+
+        // Reusable Glass Modal API (from Screen 1)
+        showGlassModal(title, content) {
+          const overlay = document.getElementById("glassModal");
+          const titleEl = document.getElementById("glassModalTitle");
+          const body = document.getElementById("glassBody");
+          const closeBtn = document.getElementById("glassClose");
+          const okBtn = document.getElementById("glassOk");
+
+          titleEl.textContent = title;
+          body.innerHTML = content;
+          overlay.style.display = "flex";
+
+          const close = () => {
+            overlay.style.display = "none";
+          };
+          closeBtn.onclick = close;
+          okBtn.onclick = close;
+          overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) close();
+          });
+          document.addEventListener("keydown", function handler(e) {
+            if (e.key === "Escape") {
+              close();
+              document.removeEventListener("keydown", handler);
             }
-            
-            init() {
-                this.setupEventListeners();
+          });
+          lucide.createIcons();
+        }
+      }
+
+      // MOE Buddy Chat (adapted for Screen 2)
+      class MOEBuddy {
+        constructor() {
+          this.apiKey = window.ENV?.OPENROUTER_API_KEY;
+          this.chatMessages = [];
+          this.init();
+        }
+
+        init() {
+          this.setupEventListeners();
+        }
+
+        setupEventListeners() {
+          const sendButton = document.getElementById("sendMessage");
+          const chatInput = document.getElementById("chatInput");
+          const quickActionBtns = document.querySelectorAll("[data-message]");
+
+          sendButton.addEventListener("click", () => this.sendMessage());
+          const autoResize = () => {
+            chatInput.style.height = "auto";
+            chatInput.style.height =
+              Math.min(chatInput.scrollHeight, 128) + "px";
+          };
+          autoResize();
+          chatInput.addEventListener("input", autoResize);
+          let isComposing = false;
+          const isEnter = (evt) =>
+            evt.key === "Enter" ||
+            evt.key === "NumpadEnter" ||
+            evt.keyCode === 13 ||
+            evt.which === 13;
+          chatInput.addEventListener("compositionstart", () => {
+            isComposing = true;
+          });
+          chatInput.addEventListener("compositionend", () => {
+            isComposing = false;
+          });
+          chatInput.addEventListener("keydown", (e) => {
+            if (isComposing || e.isComposing) return;
+            if (isEnter(e) && !e.shiftKey) {
+              e.preventDefault();
+              this.sendMessage();
             }
-            
-            setupEventListeners() {
-                const sendButton = document.getElementById('sendMessage');
-                const chatInput = document.getElementById('chatInput');
-                const quickActionBtns = document.querySelectorAll('[data-message]');
-                
-                sendButton.addEventListener('click', () => this.sendMessage());
-                const autoResize = () => {
-                    chatInput.style.height = 'auto';
-                    chatInput.style.height = Math.min(chatInput.scrollHeight, 128) + 'px';
-                };
-                autoResize();
-                chatInput.addEventListener('input', autoResize);
-                let isComposing = false;
-                const isEnter = (evt) => evt.key === 'Enter' || evt.key === 'NumpadEnter' || evt.keyCode === 13 || evt.which === 13;
-                chatInput.addEventListener('compositionstart', () => { isComposing = true; });
-                chatInput.addEventListener('compositionend', () => { isComposing = false; });
-                chatInput.addEventListener('keydown', (e) => {
-                    if (isComposing || e.isComposing) return;
-                    if (isEnter(e) && !e.shiftKey) {
-                        e.preventDefault();
-                        this.sendMessage();
-                    }
-                });
-                document.addEventListener('keydown', (e) => {
-                    if (document.activeElement === chatInput && !(isComposing || e.isComposing) && isEnter(e) && !e.shiftKey) {
-                        e.preventDefault();
-                        this.sendMessage();
-                    }
-                });
-                
-                quickActionBtns.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const message = btn.getAttribute('data-message');
-                        this.sendQuickMessage(message);
-                    });
-                });
+          });
+          document.addEventListener("keydown", (e) => {
+            if (
+              document.activeElement === chatInput &&
+              !(isComposing || e.isComposing) &&
+              isEnter(e) &&
+              !e.shiftKey
+            ) {
+              e.preventDefault();
+              this.sendMessage();
             }
-            
-            async sendMessage() {
-                const input = document.getElementById('chatInput');
-                const message = input.value.trim();
-                
-                if (!message) return;
-                
-                this.addMessage('user', message);
-                input.value = '';
-                
-                // Add empty assistant message for streaming
-                const assistantMessageId = this.addMessage('assistant', '');
-                
-                try {
-                    await this.getAIResponseStreaming(message, assistantMessageId);
-                } catch (error) {
-                    this.updateMessage(assistantMessageId, '🔬 Quest connection lost! Try again, Science Master Isaac!');
-                }
-            }
-            
-            sendQuickMessage(message) {
-                document.getElementById('chatInput').value = message;
-                this.sendMessage();
-            }
-            
-            addMessage(role, message) {
-                const chatContainer = document.getElementById('chatMessages');
-                const messageDiv = document.createElement('div');
-                const messageId = Date.now() + Math.random();
-                
-                if (role === 'user') {
-                    messageDiv.className = 'flex justify-end mb-4';
-                    messageDiv.innerHTML = `
+          });
+
+          quickActionBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const message = btn.getAttribute("data-message");
+              this.sendQuickMessage(message);
+            });
+          });
+        }
+
+        async sendMessage() {
+          const input = document.getElementById("chatInput");
+          const message = input.value.trim();
+
+          if (!message) return;
+
+          this.addMessage("user", message);
+          input.value = "";
+
+          // Add empty assistant message for streaming
+          const assistantMessageId = this.addMessage("assistant", "");
+
+          try {
+            await this.getAIResponseStreaming(message, assistantMessageId);
+          } catch (error) {
+            this.updateMessage(
+              assistantMessageId,
+              "🔬 Quest connection lost! Try again, Science Master Isaac!"
+            );
+          }
+        }
+
+        sendQuickMessage(message) {
+          document.getElementById("chatInput").value = message;
+          this.sendMessage();
+        }
+
+        addMessage(role, message) {
+          const chatContainer = document.getElementById("chatMessages");
+          const messageDiv = document.createElement("div");
+          const messageId = Date.now() + Math.random();
+
+          if (role === "user") {
+            messageDiv.className = "flex justify-end mb-4";
+            messageDiv.innerHTML = `
                         <div class="bg-blue-500/20 border border-blue-500/40 rounded-lg p-3 max-w-[80%]">
                             <p class="text-sm text-white whitespace-pre-wrap break-words">${message}</p>
                         </div>
                     `;
-                } else {
-                    messageDiv.className = 'flex justify-start mb-4';
-                    messageDiv.innerHTML = `
+          } else {
+            messageDiv.className = "flex justify-start mb-4";
+            messageDiv.innerHTML = `
                         <div class="flex items-start space-x-3 max-w-[85%]">
                             <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
                                 <i data-lucide="bot" class="w-4 h-4 text-white"></i>
@@ -1005,45 +1307,52 @@ sequenceDiagram
                             </div>
                         </div>
                     `;
-                }
-                
-                chatContainer.appendChild(messageDiv);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-                lucide.createIcons();
-                
-                // Only add to chat history if message has content
-                if (message.trim()) {
-                    this.chatMessages.push({ role, content: message });
-                }
-                
-                return messageId;
+          }
+
+          chatContainer.appendChild(messageDiv);
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+          lucide.createIcons();
+
+          // Only add to chat history if message has content
+          if (message.trim()) {
+            this.chatMessages.push({ role, content: message });
+          }
+
+          return messageId;
+        }
+
+        updateMessage(messageId, newContent) {
+          const messageElement = document.querySelector(
+            `[data-message-id="${messageId}"]`
+          );
+          if (messageElement) {
+            messageElement.textContent = newContent;
+
+            // Update or add to message history
+            const lastAssistantIndex = this.chatMessages.findLastIndex(
+              (msg) => msg.role === "assistant"
+            );
+            if (lastAssistantIndex !== -1) {
+              this.chatMessages[lastAssistantIndex].content = newContent;
+            } else {
+              this.chatMessages.push({
+                role: "assistant",
+                content: newContent,
+              });
             }
-            
-            updateMessage(messageId, newContent) {
-                const messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
-                if (messageElement) {
-                    messageElement.textContent = newContent;
-                    
-                    // Update or add to message history
-                    const lastAssistantIndex = this.chatMessages.findLastIndex(msg => msg.role === 'assistant');
-                    if (lastAssistantIndex !== -1) {
-                        this.chatMessages[lastAssistantIndex].content = newContent;
-                    } else {
-                        this.chatMessages.push({ role: 'assistant', content: newContent });
-                    }
-                    
-                    // Scroll to bottom
-                    const chatContainer = document.getElementById('chatMessages');
-                    chatContainer.scrollTop = chatContainer.scrollHeight;
-                }
-            }
-            
-            showThinking() {
-                const chatContainer = document.getElementById('chatMessages');
-                const thinkingDiv = document.createElement('div');
-                thinkingDiv.id = 'thinking-indicator';
-                thinkingDiv.className = 'flex justify-start mb-4';
-                thinkingDiv.innerHTML = `
+
+            // Scroll to bottom
+            const chatContainer = document.getElementById("chatMessages");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+          }
+        }
+
+        showThinking() {
+          const chatContainer = document.getElementById("chatMessages");
+          const thinkingDiv = document.createElement("div");
+          thinkingDiv.id = "thinking-indicator";
+          thinkingDiv.className = "flex justify-start mb-4";
+          thinkingDiv.innerHTML = `
                     <div class="flex items-start space-x-3">
                         <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                             <i data-lucide="bot" class="w-4 h-4 text-white"></i>
@@ -1058,33 +1367,36 @@ sequenceDiagram
                         </div>
                     </div>
                 `;
-                chatContainer.appendChild(thinkingDiv);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-                lucide.createIcons();
-            }
-            
-            hideThinking() {
-                const thinkingIndicator = document.getElementById('thinking-indicator');
-                if (thinkingIndicator) {
-                    thinkingIndicator.remove();
-                }
-            }
-            
-            async getAIResponseStreaming(userMessage, messageId) {
-                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${this.apiKey}`,
-                        'Content-Type': 'application/json',
-                        'HTTP-Referer': window.location.origin,
-                        'X-Title': 'Isaac Learning Platform'
-                    },
-                    body: JSON.stringify({
-                        model: 'openai/gpt-4o-mini',
-                        messages: [
-                            {
-                                role: 'system',
-                                content: `You are MOE Buddy, Isaac's wonderfully nerdy and overly enthusiastic science tutor! 🔬🤓
+          chatContainer.appendChild(thinkingDiv);
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+          lucide.createIcons();
+        }
+
+        hideThinking() {
+          const thinkingIndicator =
+            document.getElementById("thinking-indicator");
+          if (thinkingIndicator) {
+            thinkingIndicator.remove();
+          }
+        }
+
+        async getAIResponseStreaming(userMessage, messageId) {
+          const response = await fetch(
+            "https://openrouter.ai/api/v1/chat/completions",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${this.apiKey}`,
+                "Content-Type": "application/json",
+                "HTTP-Referer": window.location.origin,
+                "X-Title": "Isaac Learning Platform",
+              },
+              body: JSON.stringify({
+                model: "openai/gpt-4o-mini",
+                messages: [
+                  {
+                    role: "system",
+                    content: `You are MOE Buddy, Isaac's wonderfully nerdy and overly enthusiastic science tutor! 🔬🤓
 
 MEET ISAAC CHEN:
 - 14-year-old cellular biology detective from Singapore 🇸🇬
@@ -1115,61 +1427,62 @@ ISAAC'S CURRENT PAGE: Interactive Cell Biology Lesson (screen2.html)
 - Page vibe: Deep-dive science lab where Isaac becomes a cellular expert
 - Special features: Interactive organelle exploration, note-taking modal, detailed explanations with analogies
 
-Respond as Isaac's brilliantly enthusiastic, slightly dorky science mentor who makes cell biology actually fun! 🚀`
-                            },
-                            ...this.chatMessages,
-                            { role: 'user', content: userMessage }
-                        ],
-                        temperature: 0.7,
-                        max_tokens: 200,
-                        stream: true
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                let fullResponse = '';
-
-                try {
-                    while (true) {
-                        const { done, value } = await reader.read();
-                        if (done) break;
-
-                        const chunk = decoder.decode(value, { stream: true });
-                        const lines = chunk.split('\n');
-
-                        for (const line of lines) {
-                            if (line.startsWith('data: ')) {
-                                const data = line.slice(6);
-                                if (data === '[DONE]') continue;
-
-                                try {
-                                    const parsed = JSON.parse(data);
-                                    const content = parsed.choices?.[0]?.delta?.content;
-                                    if (content) {
-                                        fullResponse += content;
-                                        this.updateMessage(messageId, fullResponse);
-                                    }
-                                } catch (e) {
-                                    // Skip invalid JSON chunks
-                                }
-                            }
-                        }
-                    }
-                } finally {
-                    reader.releaseLock();
-                }
-
-                return fullResponse;
+Respond as Isaac's brilliantly enthusiastic, slightly dorky science mentor who makes cell biology actually fun! 🚀`,
+                  },
+                  ...this.chatMessages,
+                  { role: "user", content: userMessage },
+                ],
+                temperature: 0.7,
+                max_tokens: 200,
+                stream: true,
+              }),
             }
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let fullResponse = "";
+
+          try {
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              const chunk = decoder.decode(value, { stream: true });
+              const lines = chunk.split("\n");
+
+              for (const line of lines) {
+                if (line.startsWith("data: ")) {
+                  const data = line.slice(6);
+                  if (data === "[DONE]") continue;
+
+                  try {
+                    const parsed = JSON.parse(data);
+                    const content = parsed.choices?.[0]?.delta?.content;
+                    if (content) {
+                      fullResponse += content;
+                      this.updateMessage(messageId, fullResponse);
+                    }
+                  } catch (e) {
+                    // Skip invalid JSON chunks
+                  }
+                }
+              }
+            }
+          } finally {
+            reader.releaseLock();
+          }
+
+          return fullResponse;
         }
-        
-        // Initialize Screen 2
-        const learning = new Screen2InteractiveLearning();
+      }
+
+      // Initialize Screen 2
+      const learning = new Screen2InteractiveLearning();
     </script>
-</body>
+  </body>
 </html>

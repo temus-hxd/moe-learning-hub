@@ -1,586 +1,719 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Isaac's Academy - Science Discovery</title>
-    
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <!-- Mermaid for diagrams -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    
+
     <!-- Configuration script -->
     <script src="config.js"></script>
-    
+
     <!-- External CSS - AFTER Tailwind so our styles take precedence -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" />
     <!-- Theme CSS - Load dark mode by default -->
-    <link rel="stylesheet" href="css/dark-mode.css" id="theme-css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/dark-mode.css" id="theme-css" />
+  </head>
+  <body>
     <div class="flex h-screen desktop-layout">
-        <!-- Main Content Area -->
-        <div class="flex-1 overflow-y-auto">
-            <!-- Header -->
-            <header class="p-6 border-b border-white/10">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                            <i data-lucide="graduation-cap" class="w-7 h-7 text-white"></i>
-                        </div>
-                        <div>
-                            <h1 class="text-2xl font-bold">Learning Buddy</h1>
-                            <p class="text-sm text-gray-400">Science Discovery Path</p>
-                        </div>
-                    </div>
-                    
-                    <!-- User Info -->
-                    <div class="flex items-center space-x-4">
-                        <!-- Theme Toggle -->
-                        <button id="themeToggle" class="btn btn-ghost btn-icon" title="Toggle Light/Dark Mode">
-                            <i data-lucide="sun" class="w-4 h-4 theme-icon-light hidden"></i>
-                            <i data-lucide="moon" class="w-4 h-4 theme-icon-dark"></i>
-                        </button>
-                        <a href="screen4b.html" class="btn btn-outline" title="Share with Peers">
-                            <i data-lucide="share-2" class="w-4 h-4"></i>
-                            Share
-                        </a>
-                        <div class="text-right">
-                            <p class="font-bold">Isaac Chen</p>
-                            <a href="screen3.html" class="text-sm text-gray-400 hover:text-blue-400 transition-colors" title="View detailed progress">
-                                Level 7 • 1,245 XP
-                            </a>
-                    </div>
-                        <div class="w-12 h-12 rounded-full overflow-hidden">
-                            <img src="img/isaac-photo.png" alt="Isaac Chen" class="w-full h-full object-cover">
-                    </div>
-                    </div>
-                </div>
-            </header>
-            
-            <!-- Dashboard Content -->
-            <main class="p-6 space-y-6">
-                <!-- Welcome Section -->
-                <div class="academy-card p-8">
-                    <div class="flex items-center space-x-4 mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center">
-                            <i data-lucide="star" class="w-8 h-8 text-white"></i>
-                        </div>
-                        <div>
-                            <h2 class="text-3xl font-bold mb-2">Welcome back, Isaac!</h2>
-                            <p class="text-xl text-gray-300">Ready to continue your Science Discovery journey?</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Overall Progress -->
-                    <div class="mb-4">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="font-semibold">Overall Progress</span>
-                            <span class="font-bold text-blue-400">68%</span>
-                </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 68%"></div>
-                    </div>
-                    </div>
-                </div>
-                
-                <!-- Current Quest -->
-                <div class="grid lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2 academy-card p-6">
-                        <div class="flex items-center space-x-3 mb-4">
-                            <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                                <i data-lucide="book-open" class="w-5 h-5 text-white"></i>
-                            </div>
-                            <h3 class="text-xl font-bold">Current Quest</h3>
-                        </div>
-                        
-                        <div class="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4 mb-4">
-                            <h4 class="text-lg font-bold mb-2">Science Discovery Timeline Challenge</h4>
-                            <p class="text-gray-300 mb-4">Drag and drop key discoveries like Cell Theory, DNA, Photosynthesis, and Evolution into the right order</p>
-                            
-                            <div class="mb-4">
-                                <div class="flex justify-between text-sm mb-1">
-                                    <span>Quest Progress</span>
-                                    <span>3/5 Chapters</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 60%"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex space-x-3">
-                                <a href="screen2.html" class="btn btn-primary">
-                                    <i data-lucide="play-circle" class="w-5 h-5"></i>
-                                    Interactive Learning
-                                </a>
-                                <a href="screen1.html" class="btn btn-secondary">
-                                    <i data-lucide="clipboard-check" class="w-5 h-5"></i>
-                                    Take Pre‑Assessment
-                                </a>
-                                <a href="screen4.html" class="btn btn-success">
-                                    <i data-lucide="microscope" class="w-5 h-5"></i>
-                                    Start Cell Biology
-                                </a>
-                                <button id="openNotebook" class="btn btn-neutral">
-                                    <i data-lucide="book-open" class="w-5 h-5"></i>
-                                    Review Notes
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Quick Challenge -->
-                    <div class="academy-card p-6">
-                        <div class="text-center">
-                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i data-lucide="target" class="w-8 h-8 text-white"></i>
-                        </div>
-                            <h3 class="text-lg font-bold mb-2">Daily Challenge</h3>
-                            <p class="text-gray-300 mb-4">Random Game Challenge</p>
-                            <div class="text-2xl font-bold text-yellow-400 mb-4">+50 XP</div>
-                            <button onclick="startRandomChallenge()" class="btn btn-magic w-full text-center">
-                                <svg class="star-icon w-4 h-4" viewBox="0 0 784.11 815.53">
-                                    <path style="fill: #fffdef;" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"/>
-                                </svg>
-                                Start Challenge
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Stats Grid -->
-                <div class="grid md:grid-cols-4 gap-4">
-                    <a href="screen3.html" class="academy-card p-6 text-center" title="View detailed lesson progress">
-                        <div class="stat-number text-blue-400">24</div>
-                        <div class="text-sm text-gray-400">Lessons Completed</div>
-                    </a>
-                    <a href="screen3.html" class="academy-card p-6 text-center" title="View accuracy analytics">
-                        <div class="stat-number text-green-400">85%</div>
-                        <div class="text-sm text-gray-400">Accuracy Rate</div>
-            </a>
-                    <a href="screen3.html" class="academy-card p-6 text-center" title="View streak details">
-                        <div class="stat-number text-yellow-400">7</div>
-                        <div class="text-sm text-gray-400">Day Streak</div>
-                    </a>
-                    <a href="screen3.html" class="academy-card p-6 text-center" title="View achievement gallery">
-                        <div class="stat-number text-purple-400">12</div>
-                        <div class="text-sm text-gray-400">Achievements</div>
-                    </a>
-                </div>
-                
-                <!-- Recent Achievements -->
-                <div class="academy-card p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold flex items-center">
-                            <i data-lucide="trophy" class="w-6 h-6 mr-3 text-yellow-400"></i>
-                            Recent Achievements
-                        </h3>
-                        <a href="screen3.html?from=achievements" class="btn btn-secondary">
-                            <i data-lucide="eye" class="w-4 h-4"></i>
-                            View All
-                        </a>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="flex items-center space-x-4 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                            <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center">
-                                <i data-lucide="search" class="w-6 h-6 text-white"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold">History Detective</p>
-                                <p class="text-sm text-gray-400">Completed 5 research tasks</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center space-x-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                <i data-lucide="clock" class="w-6 h-6 text-white"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold">Timeline Master</p>
-                                <p class="text-sm text-gray-400">Perfect timeline accuracy</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-
-
-        <!-- Chat Sidebar -->
-        <div class="w-80 chat-area flex flex-col">
-            <!-- Chat Header -->
-            <div class="p-4 border-b border-white/10">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                        <i data-lucide="bot" class="w-5 h-5 text-white"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold">Learning Buddy</h4>
-                        <p class="text-xs text-green-400">🟢 Online • Ready to help!</p>
-                    </div>
+      <!-- Main Content Area -->
+      <div class="flex-1 overflow-y-auto">
+        <!-- Header -->
+        <header class="p-6 border-b border-white/10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <div
+                class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center"
+              >
+                <i data-lucide="graduation-cap" class="w-7 h-7 text-white"></i>
+              </div>
+              <div>
+                <h1 class="text-2xl font-bold">Learning Buddy</h1>
+                <p class="text-sm text-gray-400">Science Discovery Path</p>
+              </div>
             </div>
-        </div>
-        
-            <!-- Chat Messages -->
-            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
-                <!-- Initial welcome message -->
-        </div>
-        
-            <!-- Chat Input -->
-            <div class="p-4 border-t border-white/10">
+
+            <!-- User Info -->
+            <div class="flex items-center space-x-4">
+              <!-- Theme Toggle -->
+              <button
+                id="themeToggle"
+                class="btn btn-ghost btn-icon"
+                title="Toggle Light/Dark Mode"
+              >
+                <i
+                  data-lucide="sun"
+                  class="w-4 h-4 theme-icon-light hidden"
+                ></i>
+                <i data-lucide="moon" class="w-4 h-4 theme-icon-dark"></i>
+              </button>
+              <a
+                href="screen4b.html"
+                class="btn btn-outline"
+                title="Share with Peers"
+              >
+                <i data-lucide="share-2" class="w-4 h-4"></i>
+                Share
+              </a>
+              <div class="text-right">
+                <p class="font-bold">Isaac Chen</p>
+                <a
+                  href="screen3.html"
+                  class="text-sm text-gray-400 hover:text-blue-400 transition-colors"
+                  title="View detailed progress"
+                >
+                  Level 7 • 1,245 XP
+                </a>
+              </div>
+              <div class="w-12 h-12 rounded-full overflow-hidden">
+                <img
+                  src="img/isaac-photo.png"
+                  alt="Isaac Chen"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <main class="p-6 space-y-6">
+          <!-- Welcome Section -->
+          <div class="academy-card p-8">
+            <div class="flex items-center space-x-4 mb-6">
+              <div
+                class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center"
+              >
+                <i data-lucide="star" class="w-8 h-8 text-white"></i>
+              </div>
+              <div>
+                <h2 class="text-3xl font-bold mb-2">Welcome back, Isaac!</h2>
+                <p class="text-xl text-gray-300">
+                  Ready to continue your Science Discovery journey?
+                </p>
+              </div>
+            </div>
+
+            <!-- Overall Progress -->
+            <div class="mb-4">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold">Overall Progress</span>
+                <span class="font-bold text-blue-400">68%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 68%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Current Quest -->
+          <div class="grid lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2 academy-card p-6">
+              <div class="flex items-center space-x-3 mb-4">
+                <div
+                  class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center"
+                >
+                  <i data-lucide="book-open" class="w-5 h-5 text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold">Current Quest</h3>
+              </div>
+
+              <div
+                class="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4 mb-4"
+              >
+                <h4 class="text-lg font-bold mb-2">
+                  Science Discovery Timeline Challenge
+                </h4>
+                <p class="text-gray-300 mb-4">
+                  Drag and drop key discoveries like Cell Theory, DNA,
+                  Photosynthesis, and Evolution into the right order
+                </p>
+
+                <div class="mb-4">
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>Quest Progress</span>
+                    <span>3/5 Chapters</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%"></div>
+                  </div>
+                </div>
+
                 <div class="flex space-x-3">
-                    <input
-                        type="text"
-                        id="chatInput"
-                        placeholder="Hey Isaac! Ask me anything about Science Discovery..."
-                        class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors"
-                        onkeypress="handleEnterKey(event)"
-                    />
-                    <button id="sendButton" class="btn btn-primary btn-icon" onclick="sendChatMessage()">
-                        <i data-lucide="send" class="w-4 h-4"></i>
-                    </button>
+                  <a href="screen2.html" class="btn btn-primary">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                    Interactive Learning
+                  </a>
+                  <a href="screen1.html" class="btn btn-secondary">
+                    <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+                    Take Pre‑Assessment
+                  </a>
+                  <a href="screen4.html" class="btn btn-success">
+                    <i data-lucide="microscope" class="w-5 h-5"></i>
+                    Start Cell Biology
+                  </a>
+                  <button id="openNotebook" class="btn btn-neutral">
+                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                    Review Notes
+                  </button>
                 </div>
-            
-            <!-- Quick Action Buttons -->
-                <div class="mt-3 space-y-2">
-                    <button class="btn btn-ghost w-full justify-start" data-message="Give me a hint about Cell Theory timeline placement">
-                        🔬 Hint: Cell Theory timeline
-                </button>
-                    <button class="btn btn-ghost w-full justify-start" data-message="Explain how DNA evidence supported the double helix model">
-                        🧬 Explain DNA evidence
-                </button>
-                    <button class="btn btn-ghost w-full justify-start" data-message="What should I focus on to master photosynthesis concepts?">
-                        🌿 Photosynthesis study tips
-                </button>
-                </div>
+              </div>
             </div>
+
+            <!-- Quick Challenge -->
+            <div class="academy-card p-6">
+              <div class="text-center">
+                <div
+                  class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4"
+                >
+                  <i data-lucide="target" class="w-8 h-8 text-white"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Daily Challenge</h3>
+                <p class="text-gray-300 mb-4">Random Game Challenge</p>
+                <div class="text-2xl font-bold text-yellow-400 mb-4">
+                  +50 XP
+                </div>
+                <button
+                  onclick="startRandomChallenge()"
+                  class="btn btn-magic w-full text-center"
+                >
+                  <svg class="star-icon w-4 h-4" viewBox="0 0 784.11 815.53">
+                    <path
+                      style="fill: #fffdef"
+                      d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,392.05 207.96,13.64 371.15,181.97 392.05,392.05 20.9,-210.08 184.06,-378.41 392.05,-392.05 -207.96,-13.64 -371.15,-181.97 -392.05,-392.05z"
+                    />
+                  </svg>
+                  Start Challenge
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid md:grid-cols-4 gap-4">
+            <a
+              href="screen3.html"
+              class="academy-card p-6 text-center"
+              title="View detailed lesson progress"
+            >
+              <div class="stat-number text-blue-400">24</div>
+              <div class="text-sm text-gray-400">Lessons Completed</div>
+            </a>
+            <a
+              href="screen3.html"
+              class="academy-card p-6 text-center"
+              title="View accuracy analytics"
+            >
+              <div class="stat-number text-green-400">85%</div>
+              <div class="text-sm text-gray-400">Accuracy Rate</div>
+            </a>
+            <a
+              href="screen3.html"
+              class="academy-card p-6 text-center"
+              title="View streak details"
+            >
+              <div class="stat-number text-yellow-400">7</div>
+              <div class="text-sm text-gray-400">Day Streak</div>
+            </a>
+            <a
+              href="screen3.html"
+              class="academy-card p-6 text-center"
+              title="View achievement gallery"
+            >
+              <div class="stat-number text-purple-400">12</div>
+              <div class="text-sm text-gray-400">Achievements</div>
+            </a>
+          </div>
+
+          <!-- Recent Achievements -->
+          <div class="academy-card p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold flex items-center">
+                <i
+                  data-lucide="trophy"
+                  class="w-6 h-6 mr-3 text-yellow-400"
+                ></i>
+                Recent Achievements
+              </h3>
+              <a
+                href="screen3.html?from=achievements"
+                class="btn btn-secondary"
+              >
+                <i data-lucide="eye" class="w-4 h-4"></i>
+                View All
+              </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+              <div
+                class="flex items-center space-x-4 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg"
+              >
+                <div
+                  class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center"
+                >
+                  <i data-lucide="search" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                  <p class="font-bold">History Detective</p>
+                  <p class="text-sm text-gray-400">
+                    Completed 5 research tasks
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="flex items-center space-x-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg"
+              >
+                <div
+                  class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center"
+                >
+                  <i data-lucide="clock" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                  <p class="font-bold">Timeline Master</p>
+                  <p class="text-sm text-gray-400">Perfect timeline accuracy</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- Chat Sidebar -->
+      <div class="w-80 chat-area flex flex-col">
+        <!-- Chat Header -->
+        <div class="p-4 border-b border-white/10">
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center"
+            >
+              <i data-lucide="bot" class="w-5 h-5 text-white"></i>
+            </div>
+            <div>
+              <h4 class="font-bold">Learning Buddy</h4>
+              <p class="text-xs text-green-400">🟢 Online • Ready to help!</p>
+            </div>
+          </div>
         </div>
+        <div class="flex-1 flex flex-col overflow-hidden">
+          <!-- Chat Messages -->
+          <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-4">
+            <!-- Initial welcome message -->
+          </div>
+          <!-- Quick Action Buttons -->
+          <div class="mt-3 space-y-2">
+            <button
+              class="btn btn-ghost w-full justify-center"
+              data-message="Give me a hint about Cell Theory timeline placement"
+            >
+              🔬 Hint: Cell Theory timeline
+            </button>
+            <button
+              class="btn btn-ghost w-full justify-center"
+              data-message="Explain how DNA evidence supported the double helix model"
+            >
+              🧬 Explain DNA evidence
+            </button>
+            <button
+              class="btn btn-ghost w-full justify-center"
+              data-message="What should I focus on to master photosynthesis concepts?"
+            >
+              🌿 Photosynthesis study tips
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="p-4 border-t border-white/10">
+          <div class="flex space-x-3">
+            <input
+              type="text"
+              id="chatInput"
+              placeholder="Hey Isaac! Ask me anything about Science Discovery..."
+              class="flex-1 bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-400 transition-colors"
+              onkeypress="handleEnterKey(event)"
+            />
+            <button
+              id="sendButton"
+              class="btn btn-primary btn-icon"
+              onclick="sendChatMessage()"
+            >
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Notebook Glass Modal -->
-    <div id="notebookOverlay" class="glass-overlay" role="dialog" aria-modal="true" aria-labelledby="notebookTitle" aria-hidden="true">
-        <div class="glass-modal">
-            <div class="glass-header">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="notebook-text" class="w-5 h-5"></i>
-                    <h3 id="notebookTitle" class="text-lg font-semibold">Science Discovery Notes</h3>
-                </div>
-                <button id="closeNotebook" class="btn btn-outline btn-sm">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-            <div class="glass-body">
-                <!-- Lecture column -->
-                <div class="glass-col" style="flex: 2">
-                    <h4 class="text-xl font-bold mb-3">Lecture: From Cells to Evolution</h4>
-                    <p class="text-white/85 mb-3">Today we’ll build the chain of ideas that connects early microscopy to modern biology. Keep an eye on how tools (like microscopes and X‑ray cameras) unlocked new ways of seeing.</p>
-                    <div class="mermaid mb-4">
-flowchart LR
-  subgraph Foundations
-    A["Microscopy<br/>Hooke & Leeuwenhoek"] --> B["Cell Theory<br/>Schleiden & Schwann"]
-  end
-  B --> C["Heredity Questions"]
-  C --> D["DNA Structure<br/>Double Helix"]
-  D --> E["Gene Expression<br/>From DNA to Protein"]
-  E --> F["Traits & Variation"]
-  F --> G["Natural Selection<br/>Evolution"]
-                    </div>
-
-                    <h5 class="font-semibold mt-4 mb-2">Key Ideas</h5>
-                    <ul class="list-disc pl-5 space-y-1 text-white/85">
-                        <li>Cells are the basic unit of life; organisms can be single‑celled or multicellular.</li>
-                        <li>DNA stores heritable information; structure suggests how it copies itself.</li>
-                        <li>Photosynthesis turns light energy into chemical energy, sustaining food webs.</li>
-                        <li>Variation + selection over many generations leads to adaptation.</li>
-                    </ul>
-
-                    <div class="mermaid my-4">
-sequenceDiagram
-  participant L as Light (Sun)
-  participant P as Plant Cell
-  participant C as Chloroplast
-  L->>P: Photons
-  P->>C: CO2 + H2O
-  C-->>P: Glucose + O2
-  P-->>World: Oxygen for respiration
-                    </div>
-
-                    <h5 class="font-semibold mt-4 mb-2">Quick Checks</h5>
-                    <ol class="list-decimal pl-5 space-y-1 text-white/85">
-                        <li>Why did microscopy change how scientists defined “life”?</li>
-                        <li>How does DNA’s shape hint at copying mechanisms?</li>
-                        <li>What inputs/outputs connect photosynthesis and respiration?</li>
-                        <li>How does variation feed natural selection?</li>
-                    </ol>
-                </div>
-                <!-- Notes column -->
-                <div class="glass-col" style="flex: 1">
-                    <h4 class="text-lg font-semibold mb-2">Isaac’s Notes</h4>
-                    <textarea class="notes-textarea" placeholder="Write your notes here... (mockup; not saved)"></textarea>
-                </div>
-            </div>
+    <div
+      id="notebookOverlay"
+      class="glass-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="notebookTitle"
+      aria-hidden="true"
+    >
+      <div class="glass-modal">
+        <div class="glass-header">
+          <div class="flex items-center gap-2">
+            <i data-lucide="notebook-text" class="w-5 h-5"></i>
+            <h3 id="notebookTitle" class="text-lg font-semibold">
+              Science Discovery Notes
+            </h3>
+          </div>
+          <button id="closeNotebook" class="btn btn-outline btn-sm">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
         </div>
+        <div class="glass-body">
+          <!-- Lecture column -->
+          <div class="glass-col" style="flex: 2">
+            <h4 class="text-xl font-bold mb-3">
+              Lecture: From Cells to Evolution
+            </h4>
+            <p class="text-white/85 mb-3">
+              Today we’ll build the chain of ideas that connects early
+              microscopy to modern biology. Keep an eye on how tools (like
+              microscopes and X‑ray cameras) unlocked new ways of seeing.
+            </p>
+            <div class="mermaid mb-4">
+              flowchart LR subgraph Foundations A["Microscopy<br />Hooke &
+              Leeuwenhoek"] --> B["Cell Theory<br />Schleiden & Schwann"] end B
+              --> C["Heredity Questions"] C --> D["DNA Structure<br />Double
+              Helix"] D --> E["Gene Expression<br />From DNA to Protein"] E -->
+              F["Traits & Variation"] F --> G["Natural Selection<br />Evolution"]
+            </div>
+
+            <h5 class="font-semibold mt-4 mb-2">Key Ideas</h5>
+            <ul class="list-disc pl-5 space-y-1 text-white/85">
+              <li>
+                Cells are the basic unit of life; organisms can be single‑celled
+                or multicellular.
+              </li>
+              <li>
+                DNA stores heritable information; structure suggests how it
+                copies itself.
+              </li>
+              <li>
+                Photosynthesis turns light energy into chemical energy,
+                sustaining food webs.
+              </li>
+              <li>
+                Variation + selection over many generations leads to adaptation.
+              </li>
+            </ul>
+
+            <div class="mermaid my-4">
+              sequenceDiagram participant L as Light (Sun) participant P as
+              Plant Cell participant C as Chloroplast L->>P: Photons P->>C: CO2
+              + H2O C-->>P: Glucose + O2 P-->>World: Oxygen for respiration
+            </div>
+
+            <h5 class="font-semibold mt-4 mb-2">Quick Checks</h5>
+            <ol class="list-decimal pl-5 space-y-1 text-white/85">
+              <li>Why did microscopy change how scientists defined “life”?</li>
+              <li>How does DNA’s shape hint at copying mechanisms?</li>
+              <li>
+                What inputs/outputs connect photosynthesis and respiration?
+              </li>
+              <li>How does variation feed natural selection?</li>
+            </ol>
+          </div>
+          <!-- Notes column -->
+          <div class="glass-col" style="flex: 1">
+            <h4 class="text-lg font-semibold mb-2">Isaac’s Notes</h4>
+            <textarea
+              class="notes-textarea"
+              placeholder="Write your notes here... (mockup; not saved)"
+            ></textarea>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-        // Mermaid init - will be reinitialized with correct theme
-        if (window.mermaid) { mermaid.initialize({ startOnLoad: false, theme: 'dark' }); }
-        // Initialize Lucide icons
-        lucide.createIcons();
-        
-        // Theme Toggle Functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const themeCss = document.getElementById('theme-css');
-        const themeIconLight = document.querySelector('.theme-icon-light');
-        const themeIconDark = document.querySelector('.theme-icon-dark');
-        
-        // Get current theme from localStorage or default to dark
-        let currentTheme = localStorage.getItem('theme') || 'dark';
-        
-        // Apply initial theme
-        function setTheme(theme) {
-            currentTheme = theme;
-            localStorage.setItem('theme', theme);
-            
-            if (theme === 'light') {
-                themeCss.href = 'css/light-mode.css';
-                themeIconLight.classList.add('hidden');
-                themeIconDark.classList.remove('hidden');
-                document.body.setAttribute('data-theme', 'light');
-                
-                // Update Mermaid theme
-                if (window.mermaid) {
-                    mermaid.initialize({ startOnLoad: false, theme: 'default' });
-                }
-            } else {
-                themeCss.href = 'css/dark-mode.css';
-                themeIconLight.classList.remove('hidden');
-                themeIconDark.classList.add('hidden');
-                document.body.setAttribute('data-theme', 'dark');
-                
-                // Update Mermaid theme
-                if (window.mermaid) {
-                    mermaid.initialize({ startOnLoad: false, theme: 'dark' });
-                }
-            }
+      // Mermaid init - will be reinitialized with correct theme
+      if (window.mermaid) {
+        mermaid.initialize({ startOnLoad: false, theme: "dark" });
+      }
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      // Theme Toggle Functionality
+      const themeToggle = document.getElementById("themeToggle");
+      const themeCss = document.getElementById("theme-css");
+      const themeIconLight = document.querySelector(".theme-icon-light");
+      const themeIconDark = document.querySelector(".theme-icon-dark");
+
+      // Get current theme from localStorage or default to dark
+      let currentTheme = localStorage.getItem("theme") || "dark";
+
+      // Apply initial theme
+      function setTheme(theme) {
+        currentTheme = theme;
+        localStorage.setItem("theme", theme);
+
+        if (theme === "light") {
+          themeCss.href = "css/light-mode.css";
+          themeIconLight.classList.add("hidden");
+          themeIconDark.classList.remove("hidden");
+          document.body.setAttribute("data-theme", "light");
+
+          // Update Mermaid theme
+          if (window.mermaid) {
+            mermaid.initialize({ startOnLoad: false, theme: "default" });
+          }
+        } else {
+          themeCss.href = "css/dark-mode.css";
+          themeIconLight.classList.remove("hidden");
+          themeIconDark.classList.add("hidden");
+          document.body.setAttribute("data-theme", "dark");
+
+          // Update Mermaid theme
+          if (window.mermaid) {
+            mermaid.initialize({ startOnLoad: false, theme: "dark" });
+          }
         }
-        
-        // Set initial theme
-        setTheme(currentTheme);
-        
-        // Theme toggle click handler
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                setTheme(newTheme);
+      }
+
+      // Set initial theme
+      setTheme(currentTheme);
+
+      // Theme toggle click handler
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          setTheme(newTheme);
+        });
+      }
+
+      // Notebook modal wiring
+      const openNotebook = document.getElementById("openNotebook");
+      const notebookOverlay = document.getElementById("notebookOverlay");
+      const closeNotebook = document.getElementById("closeNotebook");
+      if (openNotebook && notebookOverlay && closeNotebook) {
+        const renderMermaid = () => {
+          if (window.mermaid) {
+            const blocks = notebookOverlay.querySelectorAll(".mermaid");
+            blocks.forEach((b) => {
+              b.removeAttribute("data-processed");
             });
+            mermaid.init(undefined, blocks);
+          }
+        };
+        openNotebook.addEventListener("click", () => {
+          notebookOverlay.style.display = "flex";
+          renderMermaid();
+          lucide.createIcons();
+        });
+        closeNotebook.addEventListener(
+          "click",
+          () => (notebookOverlay.style.display = "none")
+        );
+        notebookOverlay.addEventListener("click", (e) => {
+          if (e.target === notebookOverlay)
+            notebookOverlay.style.display = "none";
+        });
+        document.addEventListener("keydown", function escHandler(e) {
+          if (e.key === "Escape") {
+            notebookOverlay.style.display = "none";
+          }
+        });
+      }
+
+      // Random challenge function
+      function startRandomChallenge() {
+        const games = [
+          "screen-game.html", // Galaxian game
+          "pacman-game.html", // PacMath game
+        ];
+
+        const randomGame = games[Math.floor(Math.random() * games.length)];
+        window.location.href = randomGame;
+      }
+
+      // Global functions for inline event handlers
+      function handleEnterKey(event) {
+        console.log("=== INLINE ENTER HANDLER ===", event.key);
+        if (event.key === "Enter") {
+          event.preventDefault();
+          sendChatMessage();
+        }
+      }
+
+      function sendChatMessage() {
+        console.log("=== GLOBAL SEND MESSAGE ===");
+        const input = document.getElementById("chatInput");
+        const message = input ? input.value.trim() : "";
+        console.log("Message to send:", message);
+
+        if (!message) {
+          console.log("No message to send");
+          return;
         }
 
-        // Notebook modal wiring
-        const openNotebook = document.getElementById('openNotebook');
-        const notebookOverlay = document.getElementById('notebookOverlay');
-        const closeNotebook = document.getElementById('closeNotebook');
-        if (openNotebook && notebookOverlay && closeNotebook) {
-            const renderMermaid = () => {
-                if (window.mermaid) {
-                    const blocks = notebookOverlay.querySelectorAll('.mermaid');
-                    blocks.forEach(b => { b.removeAttribute('data-processed'); });
-                    mermaid.init(undefined, blocks);
-                }
-            };
-            openNotebook.addEventListener('click', () => {
-                notebookOverlay.style.display = 'flex';
-                renderMermaid();
-                lucide.createIcons();
-            });
-            closeNotebook.addEventListener('click', () => notebookOverlay.style.display = 'none');
-            notebookOverlay.addEventListener('click', (e) => { if (e.target === notebookOverlay) notebookOverlay.style.display = 'none'; });
-            document.addEventListener('keydown', function escHandler(e){ if (e.key === 'Escape'){ notebookOverlay.style.display = 'none'; }});
+        // Try to call the MOE Buddy send message if it exists
+        if (window.moeBuddy && window.moeBuddy.sendMessage) {
+          console.log("Calling MOE Buddy sendMessage");
+          window.moeBuddy.sendMessage();
+        } else {
+          console.log("MOE Buddy not found, adding message manually");
+          alert("Message: " + message); // Temporary fallback
         }
-        
-        // Random challenge function
-        function startRandomChallenge() {
-            const games = [
-                'screen-game.html',  // Galaxian game
-                'pacman-game.html'   // PacMath game
-            ];
-            
-            const randomGame = games[Math.floor(Math.random() * games.length)];
-            window.location.href = randomGame;
+      }
+
+      // MOE Buddy Chat Functionality
+      class MOEBuddy {
+        constructor() {
+          this.apiKey = null;
+          this.chatMessages = [];
+          this.init();
         }
 
-        // Global functions for inline event handlers
-        function handleEnterKey(event) {
-            console.log('=== INLINE ENTER HANDLER ===', event.key);
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                sendChatMessage();
-            }
+        async init() {
+          // Load API key securely
+          try {
+            const config = await ConfigLoader.loadConfig();
+            this.apiKey = config.OPENROUTER_API_KEY;
+          } catch (error) {
+            console.error("Failed to load API configuration:", error);
+            return;
+          }
+
+          this.setupEventListeners();
+          this.addWelcomeMessage();
         }
-        
-        function sendChatMessage() {
-            console.log('=== GLOBAL SEND MESSAGE ===');
-            const input = document.getElementById('chatInput');
-            const message = input ? input.value.trim() : '';
-            console.log('Message to send:', message);
-            
-            if (!message) {
-                console.log('No message to send');
-                return;
-            }
-            
-            // Try to call the MOE Buddy send message if it exists
-            if (window.moeBuddy && window.moeBuddy.sendMessage) {
-                console.log('Calling MOE Buddy sendMessage');
-                window.moeBuddy.sendMessage();
-            } else {
-                console.log('MOE Buddy not found, adding message manually');
-                alert('Message: ' + message); // Temporary fallback
-            }
-        }
-        
-        // MOE Buddy Chat Functionality
-        class MOEBuddy {
-            constructor() {
-                this.apiKey = null;
-                this.chatMessages = [];
-                this.init();
-            }
-            
-            async init() {
-                // Load API key securely
-                try {
-                    const config = await ConfigLoader.loadConfig();
-                    this.apiKey = config.OPENROUTER_API_KEY;
-                } catch (error) {
-                    console.error('Failed to load API configuration:', error);
-                    return;
-                }
-                
-                this.setupEventListeners();
-                this.addWelcomeMessage();
-            }
-            
-            setupEventListeners() {
-                console.log('=== SETTING UP EVENT LISTENERS ===');
-                const sendButton = document.getElementById('sendButton');
-                const chatInput = document.getElementById('chatInput');
-                const quickActionBtns = document.querySelectorAll('[data-message]');
-                
-                console.log('sendButton found:', sendButton);
-                console.log('chatInput found:', chatInput);
-                console.log('quickActionBtns found:', quickActionBtns.length);
-                
-                if (sendButton) {
-                    sendButton.addEventListener('click', () => {
-                        console.log('=== SEND BUTTON CLICKED ===');
-                        this.sendMessage();
-                    });
-                    console.log('Send button listener added');
-                } else {
-                    console.error('Send button not found!');
-                }
-                
-                if (chatInput) {
-                    // Try multiple event types
-                    chatInput.addEventListener('keypress', (e) => {
-                        console.log('KEYPRESS detected:', e.key, e.keyCode, e.which);
-                        if (e.key === 'Enter') {
-                            console.log('=== ENTER KEY PRESSED ===');
-                            this.sendMessage();
-                        }
-                    });
-                    
-                    chatInput.addEventListener('keydown', (e) => {
-                        console.log('KEYDOWN detected:', e.key, e.keyCode, e.which);
-                        if (e.key === 'Enter') {
-                            console.log('=== ENTER KEY DOWN ===');
-                            this.sendMessage();
-                        }
-                    });
-                    
-                    chatInput.addEventListener('keyup', (e) => {
-                        console.log('KEYUP detected:', e.key, e.keyCode, e.which);
-                    });
-                    
-                    console.log('Chat input listeners added');
-                } else {
-                    console.error('Chat input not found!');
-                }
-                
-                quickActionBtns.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const message = btn.getAttribute('data-message');
-                        this.sendQuickMessage(message);
-                    });
-                });
-                
-                console.log('=== EVENT LISTENERS SETUP COMPLETE ===');
-            }
-            
-            addWelcomeMessage() {
-                const welcomeMsg = "🧪 Hey Isaac! Ready for the Science Discovery Timeline Challenge? I can give you hints on Cell Theory, DNA, Photosynthesis, or Evolution—just ask!";
-                this.addMessage('assistant', welcomeMsg);
-            }
-            
-            async sendMessage() {
-                console.log('=== SEND MESSAGE CALLED ===');
-                const input = document.getElementById('chatInput');
-                console.log('Input element:', input);
-                console.log('Input value:', input ? input.value : 'NO INPUT ELEMENT');
-                
-                const message = input ? input.value.trim() : '';
-                console.log('Trimmed message:', message);
-                
-                if (!message) {
-                    console.log('No message, returning early');
-                    return;
-                }
-                
-                console.log('Adding message to chat:', message);
-                // Add user message to chat
-                this.addMessage('user', message);
-                input.value = '';
-                
-                // Add empty assistant message for streaming
-                const assistantMessageId = this.addMessage('assistant', '');
-                
-                try {
-                    await this.getAIResponseStreaming(message, assistantMessageId);
-                } catch (error) {
-                    console.error('Chat error:', error);
-                    this.updateMessage(assistantMessageId, '🎮 Oops! Quest connection failed. Try again, brave adventurer!');
-                }
-            }
-            
-            sendQuickMessage(message) {
-                document.getElementById('chatInput').value = message;
+
+        setupEventListeners() {
+          console.log("=== SETTING UP EVENT LISTENERS ===");
+          const sendButton = document.getElementById("sendButton");
+          const chatInput = document.getElementById("chatInput");
+          const quickActionBtns = document.querySelectorAll("[data-message]");
+
+          console.log("sendButton found:", sendButton);
+          console.log("chatInput found:", chatInput);
+          console.log("quickActionBtns found:", quickActionBtns.length);
+
+          if (sendButton) {
+            sendButton.addEventListener("click", () => {
+              console.log("=== SEND BUTTON CLICKED ===");
+              this.sendMessage();
+            });
+            console.log("Send button listener added");
+          } else {
+            console.error("Send button not found!");
+          }
+
+          if (chatInput) {
+            // Try multiple event types
+            chatInput.addEventListener("keypress", (e) => {
+              console.log("KEYPRESS detected:", e.key, e.keyCode, e.which);
+              if (e.key === "Enter") {
+                console.log("=== ENTER KEY PRESSED ===");
                 this.sendMessage();
-            }
-            
-            addMessage(role, message) {
-                const chatContainer = document.getElementById('chatMessages');
-                const messageDiv = document.createElement('div');
-                const messageId = Date.now() + Math.random();
-                
-                if (role === 'user') {
-                    messageDiv.className = 'flex justify-end mb-4';
-                    messageDiv.innerHTML = `
+              }
+            });
+
+            chatInput.addEventListener("keydown", (e) => {
+              console.log("KEYDOWN detected:", e.key, e.keyCode, e.which);
+              if (e.key === "Enter") {
+                console.log("=== ENTER KEY DOWN ===");
+                this.sendMessage();
+              }
+            });
+
+            chatInput.addEventListener("keyup", (e) => {
+              console.log("KEYUP detected:", e.key, e.keyCode, e.which);
+            });
+
+            console.log("Chat input listeners added");
+          } else {
+            console.error("Chat input not found!");
+          }
+
+          quickActionBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const message = btn.getAttribute("data-message");
+              this.sendQuickMessage(message);
+            });
+          });
+
+          console.log("=== EVENT LISTENERS SETUP COMPLETE ===");
+        }
+
+        addWelcomeMessage() {
+          const welcomeMsg =
+            "🧪 Hey Isaac! Ready for the Science Discovery Timeline Challenge? I can give you hints on Cell Theory, DNA, Photosynthesis, or Evolution—just ask!";
+          this.addMessage("assistant", welcomeMsg);
+        }
+
+        async sendMessage() {
+          console.log("=== SEND MESSAGE CALLED ===");
+          const input = document.getElementById("chatInput");
+          console.log("Input element:", input);
+          console.log("Input value:", input ? input.value : "NO INPUT ELEMENT");
+
+          const message = input ? input.value.trim() : "";
+          console.log("Trimmed message:", message);
+
+          if (!message) {
+            console.log("No message, returning early");
+            return;
+          }
+
+          console.log("Adding message to chat:", message);
+          // Add user message to chat
+          this.addMessage("user", message);
+          input.value = "";
+
+          // Add empty assistant message for streaming
+          const assistantMessageId = this.addMessage("assistant", "");
+
+          try {
+            await this.getAIResponseStreaming(message, assistantMessageId);
+          } catch (error) {
+            console.error("Chat error:", error);
+            this.updateMessage(
+              assistantMessageId,
+              "🎮 Oops! Quest connection failed. Try again, brave adventurer!"
+            );
+          }
+        }
+
+        sendQuickMessage(message) {
+          document.getElementById("chatInput").value = message;
+          this.sendMessage();
+        }
+
+        addMessage(role, message) {
+          const chatContainer = document.getElementById("chatMessages");
+          const messageDiv = document.createElement("div");
+          const messageId = Date.now() + Math.random();
+
+          if (role === "user") {
+            messageDiv.className = "flex justify-end mb-4";
+            messageDiv.innerHTML = `
                         <div class="bg-blue-500/20 border border-blue-500/40 rounded-lg p-3 max-w-[80%]">
                             <p class="text-sm text-white whitespace-pre-wrap break-words">${message}</p>
                         </div>
                     `;
-                } else {
-                    messageDiv.className = 'flex justify-start mb-4';
-                    messageDiv.innerHTML = `
+          } else {
+            messageDiv.className = "flex justify-start mb-4";
+            messageDiv.innerHTML = `
                         <div class="flex items-start space-x-3 max-w-[85%]">
                             <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
                                 <i data-lucide="bot" class="w-4 h-4 text-white"></i>
@@ -590,56 +723,65 @@ sequenceDiagram
                             </div>
                         </div>
                     `;
-                }
-                
-                chatContainer.appendChild(messageDiv);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-                lucide.createIcons();
-                
-                // Only add to chat history if message has content
-                if (message.trim()) {
-                    this.chatMessages.push({ role, content: message });
-                }
-                
-                return messageId;
+          }
+
+          chatContainer.appendChild(messageDiv);
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+          lucide.createIcons();
+
+          // Only add to chat history if message has content
+          if (message.trim()) {
+            this.chatMessages.push({ role, content: message });
+          }
+
+          return messageId;
+        }
+
+        updateMessage(messageId, newContent) {
+          const messageElement = document.querySelector(
+            `[data-message-id="${messageId}"]`
+          );
+          if (messageElement) {
+            messageElement.textContent = newContent;
+
+            // Update or add to message history
+            const lastAssistantIndex = this.chatMessages.findLastIndex(
+              (msg) => msg.role === "assistant"
+            );
+            if (lastAssistantIndex !== -1) {
+              this.chatMessages[lastAssistantIndex].content = newContent;
+            } else {
+              this.chatMessages.push({
+                role: "assistant",
+                content: newContent,
+              });
             }
-            
-            updateMessage(messageId, newContent) {
-                const messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
-                if (messageElement) {
-                    messageElement.textContent = newContent;
-                    
-                    // Update or add to message history
-                    const lastAssistantIndex = this.chatMessages.findLastIndex(msg => msg.role === 'assistant');
-                    if (lastAssistantIndex !== -1) {
-                        this.chatMessages[lastAssistantIndex].content = newContent;
-                    } else {
-                        this.chatMessages.push({ role: 'assistant', content: newContent });
-                    }
-                    
-                    // Scroll to bottom
-                    const chatContainer = document.getElementById('chatMessages');
-                    chatContainer.scrollTop = chatContainer.scrollHeight;
-                }
-            }
-            
-            appendToMessage(messageId, textChunk) {
-                const messageElement = document.querySelector(`[data-message-id="${messageId}"]`);
-                if (messageElement) {
-                    messageElement.textContent += textChunk;
-                    
-                    // Scroll to bottom
-                    const chatContainer = document.getElementById('chatMessages');
-                    chatContainer.scrollTop = chatContainer.scrollHeight;
-                }
-            }
-            
-            showThinking() {
-                const chatContainer = document.getElementById('chatMessages');
-                const thinkingDiv = document.createElement('div');
-                thinkingDiv.id = 'thinking-indicator';
-                thinkingDiv.className = 'flex justify-start mb-4';
-                thinkingDiv.innerHTML = `
+
+            // Scroll to bottom
+            const chatContainer = document.getElementById("chatMessages");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+          }
+        }
+
+        appendToMessage(messageId, textChunk) {
+          const messageElement = document.querySelector(
+            `[data-message-id="${messageId}"]`
+          );
+          if (messageElement) {
+            messageElement.textContent += textChunk;
+
+            // Scroll to bottom
+            const chatContainer = document.getElementById("chatMessages");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+          }
+        }
+
+        showThinking() {
+          const chatContainer = document.getElementById("chatMessages");
+          const thinkingDiv = document.createElement("div");
+          thinkingDiv.id = "thinking-indicator";
+          thinkingDiv.className = "flex justify-start mb-4";
+          thinkingDiv.innerHTML = `
                     <div class="flex items-center space-x-3">
                         <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                             <i data-lucide="bot" class="w-4 h-4 text-white"></i>
@@ -654,33 +796,36 @@ sequenceDiagram
                         </div>
                     </div>
                 `;
-                chatContainer.appendChild(thinkingDiv);
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-                lucide.createIcons();
-            }
-            
-            hideThinking() {
-                const thinkingIndicator = document.getElementById('thinking-indicator');
-                if (thinkingIndicator) {
-                    thinkingIndicator.remove();
-                }
-            }
-            
-            async getAIResponseStreaming(userMessage, messageId) {
-                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${this.apiKey}`,
-                        'Content-Type': 'application/json',
-                        'HTTP-Referer': window.location.origin,
-                        'X-Title': 'Isaac Learning Platform'
-                    },
-                    body: JSON.stringify({
-                        model: 'openai/gpt-4o-mini',
-                        messages: [
-                            {
-                                role: 'system',
-                                content: `You are MOE Buddy, Isaac's quirky and hilarious game companion AI! 🤖✨
+          chatContainer.appendChild(thinkingDiv);
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+          lucide.createIcons();
+        }
+
+        hideThinking() {
+          const thinkingIndicator =
+            document.getElementById("thinking-indicator");
+          if (thinkingIndicator) {
+            thinkingIndicator.remove();
+          }
+        }
+
+        async getAIResponseStreaming(userMessage, messageId) {
+          const response = await fetch(
+            "https://openrouter.ai/api/v1/chat/completions",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${this.apiKey}`,
+                "Content-Type": "application/json",
+                "HTTP-Referer": window.location.origin,
+                "X-Title": "Isaac Learning Platform",
+              },
+              body: JSON.stringify({
+                model: "openai/gpt-4o-mini",
+                messages: [
+                  {
+                    role: "system",
+                    content: `You are MOE Buddy, Isaac's quirky and hilarious game companion AI! 🤖✨
 
 MEET ISAAC CHEN:
 - 14-year-old science enthusiast from Singapore 🇸🇬
@@ -710,75 +855,76 @@ ISAAC'S CURRENT PAGE: Main Dashboard (index.html)
 - Guide Isaac to: Explore his options, ask about quest progress, or get pumped for his science journey
 - Page vibe: Mission control center where Isaac plans his next move
 
-Respond as Isaac's dramatically enthusiastic, slightly sarcastic science sidekick who genuinely wants to help him succeed! 🚀`
-                            },
-                            ...this.chatMessages,
-                            { role: 'user', content: userMessage }
-                        ],
-                        temperature: 0.7,
-                        max_tokens: 150,
-                        stream: true
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                let fullResponse = '';
-
-                try {
-                    while (true) {
-                        const { done, value } = await reader.read();
-                        if (done) break;
-
-                        const chunk = decoder.decode(value, { stream: true });
-                        const lines = chunk.split('\n');
-
-                        for (const line of lines) {
-                            if (line.startsWith('data: ')) {
-                                const data = line.slice(6);
-                                if (data === '[DONE]') continue;
-
-                                try {
-                                    const parsed = JSON.parse(data);
-                                    const content = parsed.choices?.[0]?.delta?.content;
-                                    if (content) {
-                                        fullResponse += content;
-                                        this.updateMessage(messageId, fullResponse);
-                                    }
-                                } catch (e) {
-                                    // Skip invalid JSON chunks
-                                }
-                            }
-                        }
-                    }
-                } finally {
-                    reader.releaseLock();
-                }
-
-                return fullResponse;
+Respond as Isaac's dramatically enthusiastic, slightly sarcastic science sidekick who genuinely wants to help him succeed! 🚀`,
+                  },
+                  ...this.chatMessages,
+                  { role: "user", content: userMessage },
+                ],
+                temperature: 0.7,
+                max_tokens: 150,
+                stream: true,
+              }),
             }
+          );
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let fullResponse = "";
+
+          try {
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              const chunk = decoder.decode(value, { stream: true });
+              const lines = chunk.split("\n");
+
+              for (const line of lines) {
+                if (line.startsWith("data: ")) {
+                  const data = line.slice(6);
+                  if (data === "[DONE]") continue;
+
+                  try {
+                    const parsed = JSON.parse(data);
+                    const content = parsed.choices?.[0]?.delta?.content;
+                    if (content) {
+                      fullResponse += content;
+                      this.updateMessage(messageId, fullResponse);
+                    }
+                  } catch (e) {
+                    // Skip invalid JSON chunks
+                  }
+                }
+              }
+            }
+          } finally {
+            reader.releaseLock();
+          }
+
+          return fullResponse;
         }
-        
-        // Initialize MOE Buddy
-        window.moeBuddy = new MOEBuddy();
-        console.log('MOE Buddy initialized:', window.moeBuddy);
-        
-        // Button interactions removed - CSS handles hover/active states properly
-        
-        // Animate progress bars on load
-        window.addEventListener('load', () => {
-            document.querySelectorAll('.progress-fill').forEach(bar => {
-                const width = bar.style.width;
-                bar.style.width = '0%';
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 500);
-            });
+      }
+
+      // Initialize MOE Buddy
+      window.moeBuddy = new MOEBuddy();
+      console.log("MOE Buddy initialized:", window.moeBuddy);
+
+      // Button interactions removed - CSS handles hover/active states properly
+
+      // Animate progress bars on load
+      window.addEventListener("load", () => {
+        document.querySelectorAll(".progress-fill").forEach((bar) => {
+          const width = bar.style.width;
+          bar.style.width = "0%";
+          setTimeout(() => {
+            bar.style.width = width;
+          }, 500);
         });
+      });
     </script>
-</body>
+  </body>
 </html>

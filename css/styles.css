@@ -3,49 +3,49 @@
 /* Settings - Atomic Design Tokens */
 :root {
   /* Color Tokens - Base Palette */
-  --color-blue-400: #60A5FA;
-  --color-blue-500: #3B82F6;
-  --color-blue-600: #2563EB;
-  --color-purple-500: #8B5CF6;
-  --color-purple-600: #7C3AED;
-  --color-pink-500: #EC4899;
-  --color-pink-600: #DB2777;
-  --color-cyan-500: #06B6D4;
-  --color-amber-500: #F59E0B;
-  --color-amber-600: #D97706;
-  --color-green-500: #10B981;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-purple-500: #8b5cf6;
+  --color-purple-600: #7c3aed;
+  --color-pink-500: #ec4899;
+  --color-pink-600: #db2777;
+  --color-cyan-500: #06b6d4;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-green-500: #10b981;
   --color-green-600: #059669;
-  --color-red-500: #EF4444;
-  
+  --color-red-500: #ef4444;
+
   /* Theme-specific tokens are now loaded from separate theme files */
   /* Base semantic tokens will be overridden by theme-specific values */
-  
+
   /* Spacing Tokens */
-  --spacing-xs: 0.25rem;   /* 4px */
-  --spacing-sm: 0.5rem;    /* 8px */
-  --spacing-md: 1rem;      /* 16px */
-  --spacing-lg: 1.5rem;    /* 24px */
-  --spacing-xl: 2rem;      /* 32px */
-  --spacing-2xl: 3rem;     /* 48px */
-  --spacing-3xl: 4rem;     /* 64px */
-  
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.5rem; /* 24px */
+  --spacing-xl: 2rem; /* 32px */
+  --spacing-2xl: 3rem; /* 48px */
+  --spacing-3xl: 4rem; /* 64px */
+
   /* Radius Tokens */
-  --radius-sm: 0.5rem;     /* 8px */
-  --radius-md: 0.75rem;    /* 12px */
-  --radius-lg: 1rem;       /* 16px */
-  --radius-xl: 1.25rem;    /* 20px */
+  --radius-sm: 0.5rem; /* 8px */
+  --radius-md: 0.75rem; /* 12px */
+  --radius-lg: 1rem; /* 16px */
+  --radius-xl: 1.25rem; /* 20px */
   --radius-full: 9999px;
-  
+
   /* Shadow Tokens - will be overridden by theme files */
-  
+
   /* Typography Tokens */
-  --font-family-primary: 'Poppins', sans-serif;
-  --font-size-xs: 0.75rem;   /* 12px */
-  --font-size-sm: 0.875rem;  /* 14px */
-  --font-size-base: 1rem;    /* 16px */
-  --font-size-lg: 1.125rem;  /* 18px */
-  --font-size-xl: 1.25rem;   /* 20px */
-  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-family-primary: "Poppins", sans-serif;
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
   --font-size-3xl: 1.875rem; /* 30px */
   --font-weight-normal: 400;
   --font-weight-medium: 500;
@@ -53,53 +53,53 @@
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
   --font-weight-black: 900;
-  
+
   /* Animation Tokens */
   --transition-fast: 0.15s ease;
   --transition-base: 0.3s ease;
   --transition-slow: 0.5s ease;
   --animation-bounce: cubic-bezier(0.4, 0, 0.2, 1);
   --animation-elastic: cubic-bezier(0.05, 0.83, 0.43, 0.96);
-  
+
   /* Elevation Tokens - will be overridden by theme files */
-  
+
   /* Button Intent Colors - Self-Contained Gradients */
-  --btn-primary-bg: linear-gradient(140deg, #3B82F6 15%, #1E40AF 115%);
-  --btn-primary-border: linear-gradient(142deg, #60A5FA 9%, #1D4ED8 89%);
+  --btn-primary-bg: linear-gradient(140deg, #3b82f6 15%, #1e40af 115%);
+  --btn-primary-border: linear-gradient(142deg, #60a5fa 9%, #1d4ed8 89%);
   --btn-primary-shadow: rgba(59, 130, 246, 0.35);
-  
-  --btn-secondary-bg: linear-gradient(140deg, #EC4899 15%, #BE185D 115%);
-  --btn-secondary-border: linear-gradient(142deg, #F472B6 9%, #C2185B 89%);
+
+  --btn-secondary-bg: linear-gradient(140deg, #ec4899 15%, #be185d 115%);
+  --btn-secondary-border: linear-gradient(142deg, #f472b6 9%, #c2185b 89%);
   --btn-secondary-shadow: rgba(236, 72, 153, 0.35);
-  
-  --btn-success-bg: linear-gradient(140deg, #10B981 15%, #047857 115%);
-  --btn-success-border: linear-gradient(142deg, #34D399 9%, #059669 89%);
+
+  --btn-success-bg: linear-gradient(140deg, #10b981 15%, #047857 115%);
+  --btn-success-border: linear-gradient(142deg, #34d399 9%, #059669 89%);
   --btn-success-shadow: rgba(16, 185, 129, 0.35);
-  
-  --btn-warning-bg: linear-gradient(140deg, #F59E0B 15%, #D97706 115%);
-  --btn-warning-border: linear-gradient(142deg, #FBBF24 9%, #B45309 89%);
+
+  --btn-warning-bg: linear-gradient(140deg, #f59e0b 15%, #d97706 115%);
+  --btn-warning-border: linear-gradient(142deg, #fbbf24 9%, #b45309 89%);
   --btn-warning-shadow: rgba(245, 158, 11, 0.35);
-  
-  --btn-danger-bg: linear-gradient(140deg, #EF4444 15%, #DC2626 115%);
-  --btn-danger-border: linear-gradient(142deg, #F87171 9%, #B91C1C 89%);
+
+  --btn-danger-bg: linear-gradient(140deg, #ef4444 15%, #dc2626 115%);
+  --btn-danger-border: linear-gradient(142deg, #f87171 9%, #b91c1c 89%);
   --btn-danger-shadow: rgba(239, 68, 68, 0.35);
-  
-  --btn-neutral-bg: linear-gradient(140deg, #64748B 15%, #475569 115%);
-  --btn-neutral-border: linear-gradient(142deg, #94A3B8 9%, #334155 89%);
+
+  --btn-neutral-bg: linear-gradient(140deg, #64748b 15%, #475569 115%);
+  --btn-neutral-border: linear-gradient(142deg, #94a3b8 9%, #334155 89%);
   --btn-neutral-shadow: rgba(100, 116, 139, 0.35);
 }
 
 /* Tools - Utility classes */
 .font-modern {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .font-tech {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .font-nunito {
-  font-family: 'Poppins', sans-serif; /* Override for modern feel */
+  font-family: "Poppins", sans-serif; /* Override for modern feel */
 }
 
 /* Generic - Box sizing, normalize */
@@ -119,15 +119,25 @@ body {
 }
 
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* Ensure main content takes available space */
@@ -191,7 +201,6 @@ button:hover {
 button:active {
   transform: translateY(0);
 }
-
 
 input {
   font-family: inherit;
@@ -293,44 +302,38 @@ button.card:hover {
 /* Button Intent Variants - Self-Contained */
 .btn-primary {
   background: var(--btn-primary-bg) padding-box,
-              var(--btn-primary-border) border-box;
-  box-shadow: var(--elevation-2-shadow), 
-              0 0 0 1px var(--btn-primary-shadow);
+    var(--btn-primary-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 0 0 0 1px var(--btn-primary-shadow);
 }
 
 .btn-secondary {
   background: var(--btn-secondary-bg) padding-box,
-              var(--btn-secondary-border) border-box;
-  box-shadow: var(--elevation-2-shadow), 
-              0 0 0 1px var(--btn-secondary-shadow);
+    var(--btn-secondary-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 0 0 0 1px var(--btn-secondary-shadow);
 }
 
 .btn-success {
   background: var(--btn-success-bg) padding-box,
-              var(--btn-success-border) border-box;
-  box-shadow: var(--elevation-2-shadow), 
-              0 0 0 1px var(--btn-success-shadow);
+    var(--btn-success-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 0 0 0 1px var(--btn-success-shadow);
 }
 
 .btn-warning {
   background: var(--btn-warning-bg) padding-box,
-              var(--btn-warning-border) border-box;
-  box-shadow: var(--elevation-2-shadow), 
-              0 0 0 1px var(--btn-warning-shadow);
+    var(--btn-warning-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 0 0 0 1px var(--btn-warning-shadow);
 }
 
 .btn-danger {
   background: var(--btn-danger-bg) padding-box,
-              var(--btn-danger-border) border-box;
-  box-shadow: var(--elevation-2-shadow), 
-              0 0 0 1px var(--btn-danger-shadow);
+    var(--btn-danger-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 0 0 0 1px var(--btn-danger-shadow);
 }
 
 .btn-neutral {
   background: var(--btn-neutral-bg) padding-box,
-              var(--btn-neutral-border) border-box;
-  box-shadow: var(--elevation-2-shadow), 
-              0 0 0 1px var(--btn-neutral-shadow);
+    var(--btn-neutral-border) border-box;
+  box-shadow: var(--elevation-2-shadow), 0 0 0 1px var(--btn-neutral-shadow);
 }
 
 /* Subtle Button Variants */
@@ -372,7 +375,7 @@ button.card:hover {
 }
 
 .btn-loading::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 1rem;
   height: 1rem;
@@ -415,7 +418,7 @@ button.card:hover {
 /* Magic Button - Challenge Button Style */
 .btn-magic {
   background: var(--btn-primary-bg) padding-box,
-              var(--btn-primary-border) border-box;
+    var(--btn-primary-border) border-box;
   box-shadow: var(--elevation-2-shadow);
   position: relative;
   overflow: visible;
@@ -433,7 +436,9 @@ button.card:hover {
 
 /* Animations */
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .buddy-chat-bubble {
@@ -497,10 +502,6 @@ footer {
   #moeBuddyPanel {
     max-height: calc(100vh - 200px);
   }
-  
-  #chatMessages {
-    max-height: 200px;
-  }
 }
 
 /* Utilities - Helper classes */
@@ -532,7 +533,8 @@ footer {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -561,7 +563,8 @@ footer {
 
 /* Notification badge pulse */
 @keyframes notification-pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
@@ -602,7 +605,11 @@ button.academy-card:hover {
 }
 
 .progress-fill {
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent-blue));
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-accent-blue)
+  );
   height: 100%;
   border-radius: inherit;
   transition: width 0.8s var(--animation-bounce);
@@ -675,7 +682,6 @@ button.academy-card:hover {
   overflow: auto;
 }
 
-
 .notes-textarea {
   width: 100%;
   height: calc(100% - 8px);
@@ -698,9 +704,16 @@ button.academy-card:hover {
 }
 
 /* Hide scrollbars */
-::-webkit-scrollbar { display: none; }
-* { scrollbar-width: none; }
-.overflow-y-auto { -ms-overflow-style: none; scrollbar-width: none; }
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  scrollbar-width: none;
+}
+.overflow-y-auto {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
 /* Utilities - Tailwind-compatible utilities and overrides */
 .academy-card {
@@ -710,7 +723,6 @@ button.academy-card:hover {
 .text-center {
   overflow: visible !important;
 }
-
 
 /* Desktop layout utility */
 .desktop-layout {
@@ -734,15 +746,24 @@ button.academy-card:hover {
   color: var(--text-secondary) !important;
 }
 
-
 /* Border utilities using design tokens */
-.border-white\/10 { border-color: var(--border-color-muted) !important; }
-.border-white\/20 { border-color: var(--border-color) !important; }
+.border-white\/10 {
+  border-color: var(--border-color-muted) !important;
+}
+.border-white\/20 {
+  border-color: var(--border-color) !important;
+}
 
 /* Text color utilities using design tokens */
-.text-gray-300 { color: var(--text-secondary) !important; }
-.text-gray-400 { color: var(--text-secondary) !important; }
-.text-white { color: var(--text-primary) !important; }
+.text-gray-300 {
+  color: var(--text-secondary) !important;
+}
+.text-gray-400 {
+  color: var(--text-secondary) !important;
+}
+.text-white {
+  color: var(--text-primary) !important;
+}
 
 /* Screen1 Interactive Components - Timeline Assessment */
 .timeline-container {
@@ -762,13 +783,17 @@ button.academy-card:hover {
 }
 
 .timeline::before {
-  content: '';
+  content: "";
   position: absolute;
   top: calc(50% - 0.5rem);
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent-blue));
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-accent-blue)
+  );
   transform: translateY(-50%);
   z-index: 0;
 }
@@ -902,7 +927,7 @@ button.academy-card:hover {
 }
 
 .remove-btn:hover {
-  background: #DC2626;
+  background: #dc2626;
   transform: scale(1.1);
 }
 
@@ -1012,7 +1037,11 @@ button.academy-card:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: linear-gradient(135deg, var(--color-accent-yellow), var(--color-amber-600));
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-yellow),
+    var(--color-amber-600)
+  );
   color: white;
   padding: 2rem;
   border-radius: var(--radius-lg);
@@ -1056,7 +1085,11 @@ button.academy-card:hover {
 }
 
 .badge-achievement {
-  background: linear-gradient(135deg, var(--color-accent-yellow), var(--color-amber-600));
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-yellow),
+    var(--color-amber-600)
+  );
   padding: 2rem;
   border-radius: var(--radius-lg);
   text-align: center;
@@ -1066,20 +1099,29 @@ button.academy-card:hover {
 }
 
 .badge-achievement::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
   transform: rotate(45deg);
   animation: shine 2s infinite;
 }
 
 @keyframes shine {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
 }
 
 .badge-icon {
@@ -1106,7 +1148,6 @@ button.academy-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--elevation-2-shadow);
 }
-
 
 .stat-label {
   font-size: var(--font-size-sm);
@@ -1137,7 +1178,11 @@ button.academy-card:hover {
 
 .module-card.recommended {
   border-color: var(--color-accent-yellow);
-  background: linear-gradient(135deg, rgba(255, 217, 61, 0.1), var(--bg-surface));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 217, 61, 0.1),
+    var(--bg-surface)
+  );
 }
 
 .module-tag {
@@ -1168,51 +1213,57 @@ button.academy-card:hover {
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .desktop-layout { flex-direction: column; }
-  .chat-area { height: 50vh; border-left: none; border-top: 2px solid var(--border-color); }
-  
+  .desktop-layout {
+    flex-direction: column;
+  }
+  .chat-area {
+    height: 50vh;
+    border-left: none;
+    border-top: 2px solid var(--border-color);
+  }
+
   #moeBuddyPanel {
     width: calc(100vw - 2rem);
     right: 1rem;
     left: 1rem;
   }
-  
+
   /* Fix grid layouts on mobile */
   .grid {
     gap: 1rem;
   }
-  
+
   /* Stack cards vertically on mobile */
   @media (max-width: 768px) {
     .md\:grid-cols-3,
     .md\:grid-cols-2 {
       grid-template-columns: 1fr !important;
     }
-    
+
     .md\:col-span-2 {
       grid-column: span 1 !important;
     }
   }
-  
+
   /* Better mobile spacing */
   .max-w-6xl {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   .timeline {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .timeline::before {
     display: none;
   }
-  
+
   .cards-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .score-display {
     top: 1rem;
     right: 1rem;
@@ -1554,20 +1605,20 @@ button.academy-card:hover {
   .concept-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .function-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .lesson-section {
     padding: 1rem;
   }
-  
+
   .notebook-modal {
     width: 95vw;
     height: 85vh;
   }
-  
+
   .add-note-modal {
     width: 95vw;
   }
@@ -1641,13 +1692,17 @@ button.academy-card:hover {
 }
 
 .learning-path::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 20px;
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(180deg, var(--color-accent-blue), var(--color-accent-pink));
+  background: linear-gradient(
+    180deg,
+    var(--color-accent-blue),
+    var(--color-accent-pink)
+  );
 }
 
 .learning-path-item {
@@ -1657,7 +1712,7 @@ button.academy-card:hover {
 }
 
 .learning-path-item::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 14px;
   top: 0.25rem;
@@ -1684,13 +1739,17 @@ button.academy-card:hover {
 }
 
 .milestone-track::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 20px;
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(180deg, var(--color-success), var(--color-accent-blue));
+  background: linear-gradient(
+    180deg,
+    var(--color-success),
+    var(--color-accent-blue)
+  );
 }
 
 .milestone-item {
@@ -1733,18 +1792,24 @@ button.academy-card:hover {
 }
 
 @keyframes milestone-blink {
-  0%, 50% { 
-    opacity: 1; 
+  0%,
+  50% {
+    opacity: 1;
     box-shadow: 0 0 15px var(--color-accent-yellow);
   }
-  25%, 75% { 
-    opacity: 0.4; 
+  25%,
+  75% {
+    opacity: 0.4;
     box-shadow: 0 0 25px var(--color-accent-yellow);
   }
 }
 
 .streak-counter {
-  background: linear-gradient(135deg, var(--color-success), var(--color-green-600));
+  background: linear-gradient(
+    135deg,
+    var(--color-success),
+    var(--color-green-600)
+  );
   border-radius: var(--radius-lg);
   padding: 2rem;
   text-align: center;
@@ -1753,20 +1818,29 @@ button.academy-card:hover {
 }
 
 .streak-counter::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
   transform: rotate(45deg);
   animation: shine 3s infinite;
 }
 
 @keyframes shine {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
 }
 
 .achievement-grid {
@@ -1815,8 +1889,12 @@ button.academy-card:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-accent-blue), var(--color-primary));
-  border: 3px solid rgba(255,255,255,0.3);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-blue),
+    var(--color-primary)
+  );
+  border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 .achievement-card.locked .achievement-icon {
@@ -1863,7 +1941,11 @@ button.academy-card:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-blue));
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-pink),
+    var(--color-accent-blue)
+  );
 }
 
 .activity-time {
@@ -1882,12 +1964,20 @@ button.academy-card:hover {
 }
 
 .recent-activities::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-pink));
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-blue),
+    var(--color-accent-pink)
+  );
   border-radius: 3px;
 }
 
 .recent-activities::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-blue));
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-pink),
+    var(--color-accent-blue)
+  );
 }
 
 /* Level Badge Component */
@@ -1897,7 +1987,11 @@ button.academy-card:hover {
   justify-content: center;
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, var(--color-accent-yellow), var(--color-amber-600));
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-yellow),
+    var(--color-amber-600)
+  );
   color: var(--text-inverse);
   font-size: 2rem;
   font-weight: var(--font-weight-black);
@@ -1910,31 +2004,40 @@ button.academy-card:hover {
 }
 
 .level-badge::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transform: rotate(45deg);
   animation: badge-shine 3s infinite;
 }
 
 @keyframes badge-shine {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
 }
 
 /* Screen3 responsive adjustments */
 @media (max-width: 768px) {
-  .achievement-grid { 
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+  .achievement-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
-  .stats-grid { 
-    grid-template-columns: 1fr; 
+  .stats-grid {
+    grid-template-columns: 1fr;
   }
-  
+
   .level-badge {
     width: 60px;
     height: 60px;
@@ -1990,7 +2093,6 @@ button.academy-card:hover {
   border-color: var(--color-accent-yellow);
   background: rgba(255, 217, 61, 0.1);
 }
-
 
 /* Screen4 responsive adjustments */
 @media (max-width: 768px) {
