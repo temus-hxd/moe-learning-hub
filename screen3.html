@@ -305,7 +305,7 @@
                 <i data-lucide="clock" class="w-6 h-6 mr-3 text-pink-400"></i>
                 Review Schedule
               </h3>
-              <button class="btn btn-secondary">
+              <button class="btn btn-secondary" id="customizeReviewBtn">
                 <i data-lucide="settings" class="w-4 h-4"></i>
                 Customize
               </button>
@@ -440,6 +440,302 @@
             </div>
           </div>
         </main>
+      </div>
+
+      <!-- Review Schedule Customization Modal -->
+      <div
+        id="customizeReviewModal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4"
+        style="display: none"
+      >
+        <div
+          class="academy-card max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden"
+        >
+          <div
+            class="flex items-center justify-between p-6 border-b border-white/10 flex-shrink-0"
+          >
+            <div>
+              <h2 class="text-2xl font-bold flex items-center">
+                <i
+                  data-lucide="settings"
+                  class="w-6 h-6 mr-3 text-pink-400"
+                ></i>
+                Customize Review Schedule
+              </h2>
+              <p class="text-sm text-gray-400 mt-1">
+                Adjust your spaced repetition preferences
+              </p>
+            </div>
+            <button id="closeCustomizeModal" class="btn btn-ghost btn-icon">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <div class="flex-1 overflow-y-auto p-6">
+            <div class="space-y-6">
+              <!-- Daily Review Goal -->
+              <div class="lesson-section">
+                <h3 class="text-lg font-bold mb-3 flex items-center">
+                  <i
+                    data-lucide="target"
+                    class="w-5 h-5 mr-2 text-blue-400"
+                  ></i>
+                  Daily Review Goal
+                </h3>
+                <p class="text-sm text-gray-400 mb-4">
+                  Set how many reviews you want to complete each day
+                </p>
+                <div class="flex items-center space-x-4">
+                  <input
+                    type="range"
+                    id="dailyGoalSlider"
+                    min="1"
+                    max="20"
+                    value="5"
+                    class="flex-1"
+                  />
+                  <span
+                    id="dailyGoalValue"
+                    class="text-xl font-bold text-blue-400 min-w-[3rem] text-center"
+                    >5</span
+                  >
+                  <span class="text-gray-400">reviews/day</span>
+                </div>
+              </div>
+
+              <!-- Review Frequency -->
+              <div class="lesson-section">
+                <h3 class="text-lg font-bold mb-3 flex items-center">
+                  <i
+                    data-lucide="clock"
+                    class="w-5 h-5 mr-2 text-green-400"
+                  ></i>
+                  Review Frequency
+                </h3>
+                <p class="text-sm text-gray-400 mb-4">
+                  How often should items be scheduled for review?
+                </p>
+                <div class="space-y-3">
+                  <label
+                    class="flex items-center space-x-3 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition"
+                  >
+                    <input
+                      type="radio"
+                      name="frequency"
+                      value="aggressive"
+                      class="w-4 h-4"
+                    />
+                    <div class="flex-1">
+                      <div class="font-semibold">Aggressive</div>
+                      <div class="text-xs text-gray-400">
+                        Review every 1-2 days (faster learning)
+                      </div>
+                    </div>
+                  </label>
+                  <label
+                    class="flex items-center space-x-3 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition"
+                  >
+                    <input
+                      type="radio"
+                      name="frequency"
+                      value="balanced"
+                      checked
+                      class="w-4 h-4"
+                    />
+                    <div class="flex-1">
+                      <div class="font-semibold">Balanced</div>
+                      <div class="text-xs text-gray-400">
+                        Review every 3-5 days (recommended)
+                      </div>
+                    </div>
+                  </label>
+                  <label
+                    class="flex items-center space-x-3 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition"
+                  >
+                    <input
+                      type="radio"
+                      name="frequency"
+                      value="relaxed"
+                      class="w-4 h-4"
+                    />
+                    <div class="flex-1">
+                      <div class="font-semibold">Relaxed</div>
+                      <div class="text-xs text-gray-400">
+                        Review every 5-7 days (longer retention)
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Review Priority -->
+              <div class="lesson-section">
+                <h3 class="text-lg font-bold mb-3 flex items-center">
+                  <i
+                    data-lucide="star"
+                    class="w-5 h-5 mr-2 text-yellow-400"
+                  ></i>
+                  Review Priority
+                </h3>
+                <p class="text-sm text-gray-400 mb-4">
+                  Prioritize reviews based on difficulty or performance
+                </p>
+                <div class="space-y-3">
+                  <label
+                    class="flex items-center space-x-3 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition"
+                  >
+                    <input
+                      type="radio"
+                      name="priority"
+                      value="difficulty"
+                      class="w-4 h-4"
+                    />
+                    <div class="flex-1">
+                      <div class="font-semibold">By Difficulty</div>
+                      <div class="text-xs text-gray-400">
+                        Review harder topics first
+                      </div>
+                    </div>
+                  </label>
+                  <label
+                    class="flex items-center space-x-3 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition"
+                  >
+                    <input
+                      type="radio"
+                      name="priority"
+                      value="performance"
+                      checked
+                      class="w-4 h-4"
+                    />
+                    <div class="flex-1">
+                      <div class="font-semibold">By Performance</div>
+                      <div class="text-xs text-gray-400">
+                        Review topics you struggle with first
+                      </div>
+                    </div>
+                  </label>
+                  <label
+                    class="flex items-center space-x-3 p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition"
+                  >
+                    <input
+                      type="radio"
+                      name="priority"
+                      value="chronological"
+                      class="w-4 h-4"
+                    />
+                    <div class="flex-1">
+                      <div class="font-semibold">Chronological</div>
+                      <div class="text-xs text-gray-400">
+                        Review oldest items first
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Auto-schedule -->
+              <div class="lesson-section">
+                <h3 class="text-lg font-bold mb-3 flex items-center">
+                  <i data-lucide="zap" class="w-5 h-5 mr-2 text-orange-400"></i>
+                  Auto-scheduling
+                </h3>
+                <div class="space-y-3">
+                  <label
+                    class="flex items-center justify-between p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition"
+                  >
+                    <div class="flex items-center space-x-3">
+                      <i
+                        data-lucide="refresh-cw"
+                        class="w-4 h-4 text-blue-400"
+                      ></i>
+                      <span>Automatically reschedule after review</span>
+                    </div>
+                    <input
+                      type="checkbox"
+                      id="autoReschedule"
+                      checked
+                      class="w-4 h-4"
+                    />
+                  </label>
+                  <label
+                    class="flex items-center justify-between p-3 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition"
+                  >
+                    <div class="flex items-center space-x-3">
+                      <i
+                        data-lucide="trending-up"
+                        class="w-4 h-4 text-green-400"
+                      ></i>
+                      <span>Adjust intervals based on performance</span>
+                    </div>
+                    <input
+                      type="checkbox"
+                      id="adaptiveIntervals"
+                      checked
+                      class="w-4 h-4"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Actions -->
+          <div
+            class="flex justify-between items-center p-6 border-t border-white/10 flex-shrink-0"
+          >
+            <button id="resetCustomizeBtn" class="btn btn-ghost">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              Reset to Defaults
+            </button>
+            <div class="flex space-x-3">
+              <button id="cancelCustomizeBtn" class="btn btn-secondary">
+                Cancel
+              </button>
+              <button id="saveCustomizeBtn" class="btn btn-primary">
+                <i data-lucide="save" class="w-4 h-4"></i>
+                Save Settings
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review Modules Modal -->
+      <div
+        id="reviewModal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4"
+        style="display: none"
+      >
+        <div
+          class="academy-card max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6"
+        >
+          <div
+            class="flex items-center justify-between mb-6 sticky top-0 bg-inherit pb-4 border-b border-white/10 -mx-6 px-6 pt-6"
+          >
+            <div>
+              <h2
+                id="reviewModalTitle"
+                class="text-2xl font-bold flex items-center"
+              >
+                <i
+                  data-lucide="book-open"
+                  class="w-6 h-6 mr-3 text-pink-400"
+                ></i>
+                Review Modules
+              </h2>
+              <p id="reviewModalSubtitle" class="text-sm text-gray-400 mt-1">
+                Select a module to review
+              </p>
+            </div>
+            <button id="closeReviewModal" class="btn btn-ghost btn-icon">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <div id="reviewModulesContainer" class="grid md:grid-cols-2 gap-4">
+            <!-- Modules will be dynamically inserted here -->
+          </div>
+        </div>
       </div>
 
       <!-- Chat Sidebar -->
@@ -625,6 +921,14 @@
               }
             });
           });
+
+          // Customize Review Schedule button
+          const customizeBtn = document.getElementById("customizeReviewBtn");
+          if (customizeBtn) {
+            customizeBtn.addEventListener("click", () => {
+              this.showCustomizeModal();
+            });
+          }
         }
 
         showAchievementDetail(title) {
@@ -645,18 +949,412 @@
           const reviewItem = button.closest(".spaced-card");
           const title = reviewItem.querySelector(".font-semibold").textContent;
 
-          button.textContent = "Starting...";
-          button.disabled = true;
+          // Show review modules modal
+          this.showReviewModules(title);
+        }
 
-          setTimeout(() => {
+        showReviewModules(reviewTitle) {
+          const modal = document.getElementById("reviewModal");
+          const titleElement = document.getElementById("reviewModalTitle");
+          const subtitleElement = document.getElementById(
+            "reviewModalSubtitle"
+          );
+          const container = document.getElementById("reviewModulesContainer");
+
+          // Set modal title
+          titleElement.innerHTML = `
+            <i data-lucide="book-open" class="w-6 h-6 mr-3 text-pink-400"></i>
+            ${reviewTitle}
+          `;
+          subtitleElement.textContent =
+            "Select a module to review and reinforce your learning";
+
+          // Get modules based on review topic
+          const modules = this.getReviewModules(reviewTitle);
+
+          // Clear and populate modules
+          container.innerHTML = "";
+          modules.forEach((module) => {
+            const moduleCard = document.createElement("div");
+            moduleCard.className =
+              "module-card cursor-pointer hover:scale-105 transition-transform";
+            moduleCard.innerHTML = `
+              <div class="module-tag" style="background: ${
+                module.tagColor || "var(--color-accent-yellow)"
+              };">
+                <i data-lucide="${
+                  module.icon || "book"
+                }" class="w-3 h-3 mr-1"></i>
+                ${module.tag || "Review Module"}
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-white">${module.title}</h3>
+              <p class="text-gray-300 mb-4">${module.description}</p>
+              <div class="module-meta">
+                <span><i data-lucide="clock" class="w-4 h-4"></i> ${
+                  module.duration
+                }</span>
+                <span><i data-lucide="signal" class="w-4 h-4"></i> ${
+                  module.level
+                }</span>
+              </div>
+              ${
+                module.progress
+                  ? `<div class="mt-3">
+                <div class="text-xs text-gray-400 mb-1">Progress</div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                  <div class="bg-blue-400 h-2 rounded-full" style="width: ${module.progress}%"></div>
+                </div>
+              </div>`
+                  : ""
+              }
+            `;
+
+            // Add click handler
+            moduleCard.addEventListener("click", () => {
+              this.startModuleReview(module);
+            });
+
+            container.appendChild(moduleCard);
+          });
+
+          // Show modal
+          modal.style.display = "flex";
+          lucide.createIcons();
+
+          // Close modal handlers
+          const closeBtn = document.getElementById("closeReviewModal");
+          const closeHandler = () => {
+            modal.style.display = "none";
+            closeBtn.removeEventListener("click", closeHandler);
+            modal.removeEventListener("click", backdropHandler);
+          };
+
+          const backdropHandler = (e) => {
+            if (e.target === modal) {
+              closeHandler();
+            }
+          };
+
+          closeBtn.addEventListener("click", closeHandler);
+          modal.addEventListener("click", backdropHandler);
+
+          // Close on Escape key
+          const escapeHandler = (e) => {
+            if (e.key === "Escape" && modal.style.display !== "none") {
+              closeHandler();
+              document.removeEventListener("keydown", escapeHandler);
+            }
+          };
+          document.addEventListener("keydown", escapeHandler);
+        }
+
+        getReviewModules(reviewTitle) {
+          // Define modules based on review topic
+          const moduleMap = {
+            "Cell Theory Review": [
+              {
+                title: "Cell Structure & Function",
+                description:
+                  "Review the fundamental components of cells, including organelles and their specific roles in cellular processes.",
+                duration: "20 min",
+                level: "Foundation",
+                icon: "microscope",
+                tag: "Core Concept",
+                tagColor: "#4FACFE",
+                progress: 85,
+              },
+              {
+                title: "Cell Types & Classification",
+                description:
+                  "Explore the differences between prokaryotic and eukaryotic cells, and understand cell diversity.",
+                duration: "15 min",
+                level: "Foundation",
+                icon: "layers",
+                tag: "Review",
+                tagColor: "#F093FB",
+                progress: 75,
+              },
+              {
+                title: "Cell Theory Quiz",
+                description:
+                  "Test your understanding with interactive questions covering all aspects of cell theory.",
+                duration: "10 min",
+                level: "Foundation",
+                icon: "clipboard-check",
+                tag: "Assessment",
+                tagColor: "#00C896",
+                progress: 90,
+              },
+              {
+                title: "Cell Division & Growth",
+                description:
+                  "Review mitosis, meiosis, and how cells reproduce and grow in living organisms.",
+                duration: "25 min",
+                level: "Intermediate",
+                icon: "divide",
+                tag: "Advanced",
+                tagColor: "#FF6B6B",
+                progress: 60,
+              },
+            ],
+            "DNA Structure Quiz": [
+              {
+                title: "DNA Double Helix Structure",
+                description:
+                  "Review the molecular structure of DNA, including base pairs, sugar-phosphate backbone, and helical shape.",
+                duration: "20 min",
+                level: "Intermediate",
+                icon: "dna",
+                tag: "Core Concept",
+                tagColor: "#4FACFE",
+                progress: 80,
+              },
+              {
+                title: "Base Pairing Rules",
+                description:
+                  "Master the complementary base pairing (A-T, G-C) and understand hydrogen bonding.",
+                duration: "15 min",
+                level: "Foundation",
+                icon: "link",
+                tag: "Review",
+                tagColor: "#F093FB",
+                progress: 88,
+              },
+              {
+                title: "DNA Replication Process",
+                description:
+                  "Learn how DNA copies itself during cell division, including enzymes and replication steps.",
+                duration: "25 min",
+                level: "Intermediate",
+                icon: "copy",
+                tag: "Process",
+                tagColor: "#00C896",
+                progress: 70,
+              },
+              {
+                title: "DNA Structure Assessment",
+                description:
+                  "Test your knowledge with interactive questions on DNA structure and function.",
+                duration: "12 min",
+                level: "Intermediate",
+                icon: "clipboard-check",
+                tag: "Assessment",
+                tagColor: "#FF6B6B",
+                progress: 85,
+              },
+            ],
+          };
+
+          // Return modules for the review topic, or default modules
+          return (
+            moduleMap[reviewTitle] || [
+              {
+                title: "Review Module 1",
+                description:
+                  "Comprehensive review of key concepts and principles.",
+                duration: "20 min",
+                level: "Foundation",
+                icon: "book",
+                tag: "Review",
+                tagColor: "#4FACFE",
+              },
+              {
+                title: "Practice Quiz",
+                description:
+                  "Test your understanding with interactive questions.",
+                duration: "15 min",
+                level: "Foundation",
+                icon: "clipboard-check",
+                tag: "Assessment",
+                tagColor: "#00C896",
+              },
+            ]
+          );
+        }
+
+        startModuleReview(module) {
+          // Close the modal
+          const modal = document.getElementById("reviewModal");
+          modal.style.display = "none";
+
+          // Navigate to the dynamic review module page with module title as parameter
+          // Pass the exact module title as it appears in the database
+          const moduleKey = module.title; // Use the exact title as the key
+          const encodedTitle = encodeURIComponent(moduleKey);
+          window.location.href = `review-module.html?module=${encodedTitle}`;
+        }
+
+        showCustomizeModal() {
+          const modal = document.getElementById("customizeReviewModal");
+
+          // Load saved settings
+          this.loadReviewSettings();
+
+          // Show modal
+          modal.style.display = "flex";
+          lucide.createIcons();
+
+          // Setup event listeners (using once to prevent duplicates)
+          const closeBtn = document.getElementById("closeCustomizeModal");
+          const cancelBtn = document.getElementById("cancelCustomizeBtn");
+          const saveBtn = document.getElementById("saveCustomizeBtn");
+          const resetBtn = document.getElementById("resetCustomizeBtn");
+          const dailyGoalSlider = document.getElementById("dailyGoalSlider");
+          const dailyGoalValue = document.getElementById("dailyGoalValue");
+
+          // Update daily goal display
+          if (dailyGoalSlider && dailyGoalValue) {
+            // Remove existing listener if any, then add new one
+            dailyGoalSlider.oninput = (e) => {
+              dailyGoalValue.textContent = e.target.value;
+            };
+          }
+
+          const closeHandler = () => {
+            modal.style.display = "none";
+          };
+
+          // Use onclick to prevent duplicate listeners
+          closeBtn.onclick = closeHandler;
+          cancelBtn.onclick = closeHandler;
+
+          modal.onclick = (e) => {
+            if (e.target === modal) {
+              closeHandler();
+            }
+          };
+
+          // Save settings - triggers toast and closes modal
+          saveBtn.onclick = () => {
+            this.saveReviewSettings();
             this.showNotification(
-              `🎯 Starting ${title} review session!`,
+              "✅ Review schedule settings saved!",
               "success"
             );
-            // Here you would normally redirect to the review content
-            button.textContent = "Review";
-            button.disabled = false;
-          }, 1000);
+            closeHandler();
+          };
+
+          // Reset to defaults
+          resetBtn.onclick = () => {
+            this.resetReviewSettings();
+            this.showNotification("🔄 Settings reset to defaults", "info");
+          };
+
+          // Close on Escape key
+          const escapeHandler = (e) => {
+            if (e.key === "Escape" && modal.style.display !== "none") {
+              closeHandler();
+              document.removeEventListener("keydown", escapeHandler);
+            }
+          };
+          document.addEventListener("keydown", escapeHandler);
+        }
+
+        loadReviewSettings() {
+          // Load from localStorage or use defaults
+          const settings = JSON.parse(
+            localStorage.getItem("reviewSettings") || "{}"
+          );
+
+          // Daily goal
+          const dailyGoal = settings.dailyGoal || 5;
+          const dailyGoalSlider = document.getElementById("dailyGoalSlider");
+          const dailyGoalValue = document.getElementById("dailyGoalValue");
+          if (dailyGoalSlider) dailyGoalSlider.value = dailyGoal;
+          if (dailyGoalValue) dailyGoalValue.textContent = dailyGoal;
+
+          // Frequency
+          const frequency = settings.frequency || "balanced";
+          const frequencyRadio = document.querySelector(
+            `input[name="frequency"][value="${frequency}"]`
+          );
+          if (frequencyRadio) frequencyRadio.checked = true;
+
+          // Notifications
+          if (document.getElementById("emailNotifications")) {
+            document.getElementById("emailNotifications").checked =
+              settings.emailNotifications || false;
+          }
+          if (document.getElementById("pushNotifications")) {
+            document.getElementById("pushNotifications").checked =
+              settings.pushNotifications !== false;
+          }
+          if (document.getElementById("dailySummary")) {
+            document.getElementById("dailySummary").checked =
+              settings.dailySummary !== false;
+          }
+
+          // Priority
+          const priority = settings.priority || "performance";
+          const priorityRadio = document.querySelector(
+            `input[name="priority"][value="${priority}"]`
+          );
+          if (priorityRadio) priorityRadio.checked = true;
+
+          // Auto-scheduling
+          if (document.getElementById("autoReschedule")) {
+            document.getElementById("autoReschedule").checked =
+              settings.autoReschedule !== false;
+          }
+          if (document.getElementById("adaptiveIntervals")) {
+            document.getElementById("adaptiveIntervals").checked =
+              settings.adaptiveIntervals !== false;
+          }
+        }
+
+        saveReviewSettings() {
+          // Get elements safely with null checks
+          const dailyGoalSlider = document.getElementById("dailyGoalSlider");
+          const frequencyRadio = document.querySelector(
+            'input[name="frequency"]:checked'
+          );
+          const emailNotifications =
+            document.getElementById("emailNotifications");
+          const pushNotifications =
+            document.getElementById("pushNotifications");
+          const dailySummary = document.getElementById("dailySummary");
+          const priorityRadio = document.querySelector(
+            'input[name="priority"]:checked'
+          );
+          const autoReschedule = document.getElementById("autoReschedule");
+          const adaptiveIntervals =
+            document.getElementById("adaptiveIntervals");
+
+          const settings = {
+            dailyGoal: dailyGoalSlider ? parseInt(dailyGoalSlider.value) : 5,
+            frequency: frequencyRadio ? frequencyRadio.value : "balanced",
+            emailNotifications: emailNotifications
+              ? emailNotifications.checked
+              : false,
+            pushNotifications: pushNotifications
+              ? pushNotifications.checked
+              : true,
+            dailySummary: dailySummary ? dailySummary.checked : true,
+            priority: priorityRadio ? priorityRadio.value : "performance",
+            autoReschedule: autoReschedule ? autoReschedule.checked : true,
+            adaptiveIntervals: adaptiveIntervals
+              ? adaptiveIntervals.checked
+              : true,
+          };
+
+          localStorage.setItem("reviewSettings", JSON.stringify(settings));
+        }
+
+        resetReviewSettings() {
+          // Reset to defaults
+          document.getElementById("dailyGoalSlider").value = 5;
+          document.getElementById("dailyGoalValue").textContent = "5";
+          document.querySelector(
+            'input[name="frequency"][value="balanced"]'
+          ).checked = true;
+          document.getElementById("emailNotifications").checked = false;
+          document.getElementById("pushNotifications").checked = true;
+          document.getElementById("dailySummary").checked = true;
+          document.querySelector(
+            'input[name="priority"][value="performance"]'
+          ).checked = true;
+          document.getElementById("autoReschedule").checked = true;
+          document.getElementById("adaptiveIntervals").checked = true;
         }
 
         showNotification(message, type = "info") {

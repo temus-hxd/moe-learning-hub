@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review Module</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="config.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/light-mode.css" id="theme-css" />
+  </head>
+  <body>
+    <div class="flex h-screen desktop-layout">
+      <div class="flex-1 overflow-y-auto">
+        <header class="p-6 border-b border-white/10">
+          <div class="flex items-center justify-between">
+            <a
+              href="screen3.html"
+              class="flex items-center space-x-4 hover:opacity-90 transition-opacity"
+              title="Back to Progress Dashboard"
+            >
+              <div
+                id="headerIcon"
+                class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center"
+              >
+                <i data-lucide="book-open" class="w-7 h-7 text-white"></i>
+              </div>
+              <div>
+                <h1 class="text-2xl font-bold">Review Module</h1>
+                <p id="headerSubtitle" class="text-sm text-gray-400">
+                  Loading...
+                </p>
+              </div>
+            </a>
+
+            <div class="flex items-center space-x-4">
+              <button
+                id="themeToggle"
+                class="btn btn-ghost btn-icon"
+                title="Toggle Light/Dark Mode"
+              >
+                <i data-lucide="sun" class="w-4 h-4 theme-icon-light"></i>
+                <i
+                  data-lucide="moon"
+                  class="w-4 h-4 theme-icon-dark hidden"
+                ></i>
+              </button>
+              <a href="screen3.html" class="btn btn-secondary">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span>Back to Reviews</span>
+              </a>
+              <div class="text-right">
+                <p class="font-bold">Isaac Chen</p>
+                <p class="text-sm text-gray-400">Level 7 • 1,245 XP</p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Progress Bar -->
+        <div
+          class="z-10 p-6 border-b border-white/10 sticky top-0 backdrop-blur supports-[backdrop-filter]:bg-white/5/10"
+        >
+          <div class="flex justify-between items-center mb-2">
+            <span class="font-semibold">Review Progress</span>
+            <span class="font-bold text-pink-400" id="reviewProgress"
+              >Section 1 of 3</span
+            >
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              id="reviewProgressFill"
+              style="width: 33%"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Review Content -->
+        <main class="p-6 space-y-6">
+          <div class="academy-card p-8">
+            <div class="flex items-center space-x-4 mb-6">
+              <div
+                id="moduleIcon"
+                class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center"
+              >
+                <i data-lucide="book-open" class="w-8 h-8 text-white"></i>
+              </div>
+              <div>
+                <h2 id="moduleTitle" class="text-3xl font-bold mb-2">
+                  Loading Module...
+                </h2>
+                <p id="moduleSubtitle" class="text-xl text-gray-300">
+                  Please wait...
+                </p>
+              </div>
+            </div>
+
+            <!-- Dynamic Content Container -->
+            <div id="moduleContent">
+              <!-- Content will be dynamically loaded here -->
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex justify-between items-center mt-8">
+              <button
+                onclick="window.location.href='screen3.html'"
+                class="btn btn-secondary"
+              >
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                Back to Reviews
+              </button>
+              <button onclick="completeReview()" class="btn btn-primary">
+                Mark as Reviewed
+                <i data-lucide="check" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      // Module content database
+      const moduleDatabase = {
+        "Cell Structure & Function": {
+          icon: "microscope",
+          iconColor: "from-pink-500 to-purple-600",
+          subtitle:
+            "Review the fundamental components of cells and their roles",
+          content: `
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Core Cell Components</h3>
+              <p class="text-lg text-gray-200 mb-6 leading-relaxed">
+                All cells share fundamental structures that enable life. Let's
+                review the key organelles and their essential functions:
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <div class="flex items-center space-x-3 mb-2">
+                    <i data-lucide="command" class="w-6 h-6 text-blue-400"></i>
+                    <h4 class="text-lg font-bold">Nucleus</h4>
+                  </div>
+                  <p class="text-gray-300 text-sm">
+                    Control center containing DNA. Regulates cell activities and
+                    contains genetic information.
+                  </p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <div class="flex items-center space-x-3 mb-2">
+                    <i data-lucide="zap" class="w-6 h-6 text-yellow-400"></i>
+                    <h4 class="text-lg font-bold">Mitochondria</h4>
+                  </div>
+                  <p class="text-gray-300 text-sm">
+                    Powerhouse of the cell. Produces ATP through cellular
+                    respiration.
+                  </p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <div class="flex items-center space-x-3 mb-2">
+                    <i data-lucide="cpu" class="w-6 h-6 text-green-400"></i>
+                    <h4 class="text-lg font-bold">Ribosomes</h4>
+                  </div>
+                  <p class="text-gray-300 text-sm">
+                    Protein synthesis factories. Read mRNA and assemble amino
+                    acids into proteins.
+                  </p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <div class="flex items-center space-x-3 mb-2">
+                    <i data-lucide="layers" class="w-6 h-6 text-purple-400"></i>
+                    <h4 class="text-lg font-bold">Endoplasmic Reticulum</h4>
+                  </div>
+                  <p class="text-gray-300 text-sm">
+                    Transportation network. Rough ER has ribosomes; smooth ER
+                    synthesizes lipids.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Quick Knowledge Check</h3>
+              <div class="space-y-4">
+                <div class="bg-white/5 p-4 rounded-lg">
+                  <p class="text-gray-200 mb-3">
+                    <strong>Q1:</strong> Which organelle is known as the
+                    "powerhouse of the cell"?
+                  </p>
+                  <div class="space-y-2">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="radio" name="q1" value="nucleus" class="w-4 h-4" />
+                      <span>Nucleus</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="radio" name="q1" value="mitochondria" class="w-4 h-4" />
+                      <span class="text-green-400 font-semibold">Mitochondria ✓</span>
+                    </label>
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                      <input type="radio" name="q1" value="ribosome" class="w-4 h-4" />
+                      <span>Ribosome</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Key Takeaways</h3>
+              <ul class="space-y-3 text-gray-200">
+                <li class="flex items-start space-x-3">
+                  <i data-lucide="check-circle" class="w-5 h-5 text-green-400 mt-1"></i>
+                  <span>Cells are the basic unit of life, each with specialized organelles</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                  <i data-lucide="check-circle" class="w-5 h-5 text-green-400 mt-1"></i>
+                  <span>Organelles work together to maintain cell function and survival</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                  <i data-lucide="check-circle" class="w-5 h-5 text-green-400 mt-1"></i>
+                  <span>Understanding organelle functions helps explain how cells operate</span>
+                </li>
+              </ul>
+            </div>
+          `,
+        },
+        "Cell Types & Classification": {
+          icon: "layers",
+          iconColor: "from-pink-500 to-purple-600",
+          subtitle: "Understanding prokaryotic vs eukaryotic cells",
+          content: `
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Two Main Cell Types</h3>
+              
+              <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-500/10 border-2 border-blue-500/30 p-6 rounded-lg">
+                  <h4 class="text-xl font-bold text-blue-400 mb-3 flex items-center">
+                    <i data-lucide="circle" class="w-5 h-5 mr-2"></i>
+                    Prokaryotic Cells
+                  </h4>
+                  <ul class="space-y-2 text-gray-200">
+                    <li class="flex items-start space-x-2">
+                      <i data-lucide="x" class="w-4 h-4 text-red-400 mt-1"></i>
+                      <span>No nucleus</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                      <i data-lucide="x" class="w-4 h-4 text-red-400 mt-1"></i>
+                      <span>No membrane-bound organelles</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                      <i data-lucide="check" class="w-4 h-4 text-green-400 mt-1"></i>
+                      <span>Smaller and simpler</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                      <i data-lucide="check" class="w-4 h-4 text-green-400 mt-1"></i>
+                      <span>Examples: Bacteria, Archaea</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="bg-green-500/10 border-2 border-green-500/30 p-6 rounded-lg">
+                  <h4 class="text-xl font-bold text-green-400 mb-3 flex items-center">
+                    <i data-lucide="circle-dot" class="w-5 h-5 mr-2"></i>
+                    Eukaryotic Cells
+                  </h4>
+                  <ul class="space-y-2 text-gray-200">
+                    <li class="flex items-start space-x-2">
+                      <i data-lucide="check" class="w-4 h-4 text-green-400 mt-1"></i>
+                      <span>Has a nucleus</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                      <i data-lucide="check" class="w-4 h-4 text-green-400 mt-1"></i>
+                      <span>Membrane-bound organelles</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                      <i data-lucide="check" class="w-4 h-4 text-green-400 mt-1"></i>
+                      <span>Larger and more complex</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                      <i data-lucide="check" class="w-4 h-4 text-green-400 mt-1"></i>
+                      <span>Examples: Plants, Animals, Fungi</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Comparison Table</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                  <thead>
+                    <tr class="border-b border-white/20">
+                      <th class="p-3 font-bold">Feature</th>
+                      <th class="p-3 font-bold text-blue-400">Prokaryotic</th>
+                      <th class="p-3 font-bold text-green-400">Eukaryotic</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-gray-200">
+                    <tr class="border-b border-white/10">
+                      <td class="p-3">Nucleus</td>
+                      <td class="p-3">❌ Absent</td>
+                      <td class="p-3">✅ Present</td>
+                    </tr>
+                    <tr class="border-b border-white/10">
+                      <td class="p-3">Organelles</td>
+                      <td class="p-3">❌ None</td>
+                      <td class="p-3">✅ Many</td>
+                    </tr>
+                    <tr class="border-b border-white/10">
+                      <td class="p-3">Size</td>
+                      <td class="p-3">0.1-5 μm</td>
+                      <td class="p-3">10-100 μm</td>
+                    </tr>
+                    <tr class="border-b border-white/10">
+                      <td class="p-3">DNA Location</td>
+                      <td class="p-3">Cytoplasm</td>
+                      <td class="p-3">Nucleus</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `,
+        },
+        "Cell Theory Quiz": {
+          icon: "clipboard-check",
+          iconColor: "from-green-500 to-blue-600",
+          subtitle: "Test your understanding with interactive questions",
+          content: `
+            <div id="quizContainer" class="space-y-6">
+              <div class="lesson-section">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold">Question 1 of 3</h3>
+                  <span class="text-sm text-gray-400">Score: <span id="score">0</span>/3</span>
+                </div>
+                <p class="text-lg text-gray-200 mb-4">
+                  What are the three main principles of cell theory?
+                </p>
+                <div class="space-y-3">
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="checkbox" name="q1" value="a" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">All living things are made of cells</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="checkbox" name="q1" value="b" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Cells are the basic unit of life</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="checkbox" name="q1" value="c" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">All cells come from pre-existing cells</span>
+                  </label>
+                </div>
+                <button onclick="checkAnswer(1, ['a','b','c'])" class="btn btn-primary mt-4">
+                  Check Answer
+                </button>
+                <div id="feedback1" class="mt-3 hidden"></div>
+              </div>
+
+              <div class="lesson-section">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold">Question 2 of 3</h3>
+                </div>
+                <p class="text-lg text-gray-200 mb-4">
+                  Which scientist first observed cells using a microscope?
+                </p>
+                <div class="space-y-3">
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q2" value="a" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Anton van Leeuwenhoek</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q2" value="b" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Robert Hooke</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q2" value="c" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Matthias Schleiden</span>
+                  </label>
+                </div>
+                <button onclick="checkAnswer(2, 'b')" class="btn btn-primary mt-4">
+                  Check Answer
+                </button>
+                <div id="feedback2" class="mt-3 hidden"></div>
+              </div>
+
+              <div class="lesson-section">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold">Question 3 of 3</h3>
+                </div>
+                <p class="text-lg text-gray-200 mb-4">
+                  What is the main difference between prokaryotic and eukaryotic cells?
+                </p>
+                <div class="space-y-3">
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q3" value="a" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Eukaryotic cells have a nucleus</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q3" value="b" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Prokaryotic cells are larger</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q3" value="c" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Eukaryotic cells have no organelles</span>
+                  </label>
+                </div>
+                <button onclick="checkAnswer(3, 'a')" class="btn btn-primary mt-4">
+                  Check Answer
+                </button>
+                <div id="feedback3" class="mt-3 hidden"></div>
+              </div>
+            </div>
+          `,
+        },
+        "Cell Division & Growth": {
+          icon: "divide",
+          iconColor: "from-red-500 to-orange-600",
+          subtitle: "Review mitosis, meiosis, and cell reproduction",
+          content: `
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Two Types of Cell Division</h3>
+              
+              <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-500/10 border-2 border-blue-500/30 p-6 rounded-lg">
+                  <h4 class="text-xl font-bold text-blue-400 mb-3">Mitosis</h4>
+                  <p class="text-gray-200 mb-3">Asexual cell division for growth and repair</p>
+                  <ul class="space-y-2 text-sm text-gray-300">
+                    <li>• Produces 2 identical daughter cells</li>
+                    <li>• Maintains chromosome number (diploid)</li>
+                    <li>• Used for growth and tissue repair</li>
+                    <li>• Stages: Prophase, Metaphase, Anaphase, Telophase</li>
+                  </ul>
+                </div>
+
+                <div class="bg-purple-500/10 border-2 border-purple-500/30 p-6 rounded-lg">
+                  <h4 class="text-xl font-bold text-purple-400 mb-3">Meiosis</h4>
+                  <p class="text-gray-200 mb-3">Sexual cell division for reproduction</p>
+                  <ul class="space-y-2 text-sm text-gray-300">
+                    <li>• Produces 4 genetically unique cells</li>
+                    <li>• Reduces chromosome number (haploid)</li>
+                    <li>• Creates gametes (sperm/egg)</li>
+                    <li>• Two divisions: Meiosis I and Meiosis II</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Mitosis Stages</h3>
+              <div class="space-y-4">
+                <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg">
+                  <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white font-bold">1</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-blue-400 mb-1">Prophase</h4>
+                    <p class="text-gray-300 text-sm">Chromosomes condense, nuclear envelope breaks down</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg">
+                  <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white font-bold">2</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-green-400 mb-1">Metaphase</h4>
+                    <p class="text-gray-300 text-sm">Chromosomes align at the cell equator</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg">
+                  <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white font-bold">3</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-yellow-400 mb-1">Anaphase</h4>
+                    <p class="text-gray-300 text-sm">Sister chromatids separate and move to opposite poles</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg">
+                  <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white font-bold">4</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-red-400 mb-1">Telophase</h4>
+                    <p class="text-gray-300 text-sm">Nuclear envelopes reform, chromosomes decondense</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `,
+        },
+        "DNA Double Helix Structure": {
+          icon: "dna",
+          iconColor: "from-green-500 to-blue-600",
+          subtitle: "Review the molecular structure of DNA",
+          content: `
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Key Components</h3>
+              <p class="text-lg text-gray-200 mb-6">
+                DNA (Deoxyribonucleic Acid) has a distinctive double helix structure discovered by Watson and Crick in 1953.
+              </p>
+
+              <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <h4 class="text-lg font-bold text-blue-400 mb-2">Sugar-Phosphate Backbone</h4>
+                  <p class="text-gray-300 text-sm">
+                    Alternating deoxyribose sugar and phosphate groups form the outer structure of each strand.
+                  </p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <h4 class="text-lg font-bold text-green-400 mb-2">Nitrogenous Bases</h4>
+                  <p class="text-gray-300 text-sm">
+                    Four bases: Adenine (A), Thymine (T), Guanine (G), and Cytosine (C) form the rungs.
+                  </p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <h4 class="text-lg font-bold text-purple-400 mb-2">Base Pairs</h4>
+                  <p class="text-gray-300 text-sm">
+                    A pairs with T, G pairs with C. Connected by hydrogen bonds.
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-r from-blue-500/20 to-green-500/20 p-6 rounded-lg mb-6">
+                <h4 class="text-xl font-bold mb-3">Double Helix Shape</h4>
+                <p class="text-gray-200">
+                  The two strands twist around each other in a right-handed spiral, forming the iconic double helix shape. 
+                  This structure allows DNA to store genetic information efficiently and replicate accurately.
+                </p>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Quick Review</h3>
+              <div class="space-y-3">
+                <div class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg">
+                  <i data-lucide="check-circle" class="w-5 h-5 text-green-400 mt-1"></i>
+                  <div>
+                    <p class="font-semibold text-gray-200">Two antiparallel strands</p>
+                    <p class="text-sm text-gray-400">One runs 5' to 3', the other runs 3' to 5'</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg">
+                  <i data-lucide="check-circle" class="w-5 h-5 text-green-400 mt-1"></i>
+                  <div>
+                    <p class="font-semibold text-gray-200">Complementary base pairing</p>
+                    <p class="text-sm text-gray-400">A-T (2 hydrogen bonds), G-C (3 hydrogen bonds)</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg">
+                  <i data-lucide="check-circle" class="w-5 h-5 text-green-400 mt-1"></i>
+                  <div>
+                    <p class="font-semibold text-gray-200">Right-handed helix</p>
+                    <p class="text-sm text-gray-400">Complete turn every 10 base pairs</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `,
+        },
+        "Base Pairing Rules": {
+          icon: "link",
+          iconColor: "from-purple-500 to-pink-600",
+          subtitle: "Master complementary base pairing and hydrogen bonding",
+          content: `
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">The Four Bases</h3>
+              <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-blue-500/10 border-2 border-blue-500/30 p-4 rounded-lg">
+                  <h4 class="text-lg font-bold text-blue-400 mb-2">Purines</h4>
+                  <div class="space-y-2">
+                    <div class="flex items-center space-x-2">
+                      <span class="font-bold text-white">Adenine (A)</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <span class="font-bold text-white">Guanine (G)</span>
+                    </div>
+                    <p class="text-sm text-gray-300 mt-2">Double-ring structures</p>
+                  </div>
+                </div>
+
+                <div class="bg-green-500/10 border-2 border-green-500/30 p-4 rounded-lg">
+                  <h4 class="text-lg font-bold text-green-400 mb-2">Pyrimidines</h4>
+                  <div class="space-y-2">
+                    <div class="flex items-center space-x-2">
+                      <span class="font-bold text-white">Thymine (T)</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <span class="font-bold text-white">Cytosine (C)</span>
+                    </div>
+                    <p class="text-sm text-gray-300 mt-2">Single-ring structures</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Complementary Pairing</h3>
+              <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-gradient-to-br from-blue-500/20 to-purple-500/20 p-6 rounded-lg">
+                  <h4 class="text-xl font-bold mb-3 flex items-center">
+                    <span class="text-2xl mr-2">A</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5 mx-2"></i>
+                    <span class="text-2xl">T</span>
+                  </h4>
+                  <p class="text-gray-200 mb-2">Adenine pairs with Thymine</p>
+                  <p class="text-sm text-gray-400">Connected by 2 hydrogen bonds</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-500/20 to-teal-500/20 p-6 rounded-lg">
+                  <h4 class="text-xl font-bold mb-3 flex items-center">
+                    <span class="text-2xl mr-2">G</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5 mx-2"></i>
+                    <span class="text-2xl">C</span>
+                  </h4>
+                  <p class="text-gray-200 mb-2">Guanine pairs with Cytosine</p>
+                  <p class="text-sm text-gray-400">Connected by 3 hydrogen bonds</p>
+                </div>
+              </div>
+
+              <div class="bg-white/5 p-4 rounded-lg">
+                <h4 class="text-lg font-bold mb-2">Key Rule to Remember:</h4>
+                <p class="text-gray-200">
+                  <strong class="text-blue-400">Purines always pair with Pyrimidines</strong> - This ensures the DNA double helix maintains a consistent width.
+                </p>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Practice Exercise</h3>
+              <p class="text-gray-200 mb-4">Given one strand, what is the complementary strand?</p>
+              <div class="bg-white/5 p-6 rounded-lg">
+                <div class="mb-4">
+                  <p class="text-sm text-gray-400 mb-2">Original Strand:</p>
+                  <p class="text-xl font-mono text-blue-400">A T G C A T G</p>
+                </div>
+                <div class="mb-4">
+                  <p class="text-sm text-gray-400 mb-2">Complementary Strand:</p>
+                  <p class="text-xl font-mono text-green-400">T A C G T A C</p>
+                </div>
+                <p class="text-sm text-gray-300">
+                  Remember: A→T, T→A, G→C, C→G
+                </p>
+              </div>
+            </div>
+          `,
+        },
+        "DNA Replication Process": {
+          icon: "copy",
+          iconColor: "from-teal-500 to-cyan-600",
+          subtitle: "Learn how DNA copies itself during cell division",
+          content: `
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Overview</h3>
+              <p class="text-lg text-gray-200 mb-6">
+                DNA replication is the process by which a cell makes an identical copy of its DNA before cell division. 
+                This ensures each daughter cell receives a complete set of genetic information.
+              </p>
+
+              <div class="bg-gradient-to-r from-teal-500/20 to-cyan-500/20 p-6 rounded-lg mb-6">
+                <h4 class="text-xl font-bold mb-3">Key Principle</h4>
+                <p class="text-gray-200">
+                  DNA replication is <strong class="text-teal-400">semi-conservative</strong> - each new DNA molecule contains 
+                  one original strand and one newly synthesized strand.
+                </p>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Key Enzymes</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <h4 class="text-lg font-bold text-blue-400 mb-2">Helicase</h4>
+                  <p class="text-gray-300 text-sm">Unwinds and separates the DNA double helix</p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <h4 class="text-lg font-bold text-green-400 mb-2">DNA Polymerase</h4>
+                  <p class="text-gray-300 text-sm">Adds nucleotides to build the new DNA strand</p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <h4 class="text-lg font-bold text-purple-400 mb-2">Primase</h4>
+                  <p class="text-gray-300 text-sm">Creates RNA primers to start replication</p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <h4 class="text-lg font-bold text-yellow-400 mb-2">Ligase</h4>
+                  <p class="text-gray-300 text-sm">Joins DNA fragments together</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Replication Steps</h3>
+              <div class="space-y-4">
+                <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg">
+                  <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white font-bold">1</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-blue-400 mb-1">Unwinding</h4>
+                    <p class="text-gray-300 text-sm">Helicase breaks hydrogen bonds, separating the two strands</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg">
+                  <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white font-bold">2</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-green-400 mb-1">Priming</h4>
+                    <p class="text-gray-300 text-sm">Primase adds RNA primers to template strands</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg">
+                  <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white font-bold">3</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-purple-400 mb-1">Synthesis</h4>
+                    <p class="text-gray-300 text-sm">DNA polymerase adds nucleotides following base pairing rules</p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4 p-4 bg-white/5 rounded-lg">
+                  <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <span class="text-white font-bold">4</span>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-yellow-400 mb-1">Joining</h4>
+                    <p class="text-gray-300 text-sm">Ligase connects Okazaki fragments on the lagging strand</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Leading vs Lagging Strand</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-blue-500/10 border-2 border-blue-500/30 p-4 rounded-lg">
+                  <h4 class="font-bold text-blue-400 mb-2">Leading Strand</h4>
+                  <p class="text-gray-300 text-sm">Synthesized continuously in the 5' to 3' direction</p>
+                </div>
+                <div class="bg-green-500/10 border-2 border-green-500/30 p-4 rounded-lg">
+                  <h4 class="font-bold text-green-400 mb-2">Lagging Strand</h4>
+                  <p class="text-gray-300 text-sm">Synthesized in fragments (Okazaki fragments) due to opposite direction</p>
+                </div>
+              </div>
+            </div>
+          `,
+        },
+        "DNA Structure Assessment": {
+          icon: "clipboard-check",
+          iconColor: "from-red-500 to-pink-600",
+          subtitle: "Test your knowledge of DNA structure and function",
+          content: `
+            <div id="quizContainer" class="space-y-6">
+              <div class="lesson-section">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold">Question 1 of 3</h3>
+                  <span class="text-sm text-gray-400">Score: <span id="score">0</span>/3</span>
+                </div>
+                <p class="text-lg text-gray-200 mb-4">
+                  Which bases pair together in DNA?
+                </p>
+                <div class="space-y-3">
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q1" value="a" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">A with G, T with C</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q1" value="b" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">A with T, G with C</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q1" value="c" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">A with C, T with G</span>
+                  </label>
+                </div>
+                <button onclick="checkAnswer(1, 'b')" class="btn btn-primary mt-4">
+                  Check Answer
+                </button>
+                <div id="feedback1" class="mt-3 hidden"></div>
+              </div>
+
+              <div class="lesson-section">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold">Question 2 of 3</h3>
+                </div>
+                <p class="text-lg text-gray-200 mb-4">
+                  How many hydrogen bonds connect A-T base pairs?
+                </p>
+                <div class="space-y-3">
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q2" value="a" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">1</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q2" value="b" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">2</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q2" value="c" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">3</span>
+                  </label>
+                </div>
+                <button onclick="checkAnswer(2, 'b')" class="btn btn-primary mt-4">
+                  Check Answer
+                </button>
+                <div id="feedback2" class="mt-3 hidden"></div>
+              </div>
+
+              <div class="lesson-section">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold">Question 3 of 3</h3>
+                </div>
+                <p class="text-lg text-gray-200 mb-4">
+                  What is the shape of DNA?
+                </p>
+                <div class="space-y-3">
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q3" value="a" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Single helix</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q3" value="b" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Double helix</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q3" value="c" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Triple helix</span>
+                  </label>
+                </div>
+                <button onclick="checkAnswer(3, 'b')" class="btn btn-primary mt-4">
+                  Check Answer
+                </button>
+                <div id="feedback3" class="mt-3 hidden"></div>
+              </div>
+            </div>
+          `,
+        },
+        "Practice Quiz": {
+          icon: "clipboard-check",
+          iconColor: "from-green-500 to-blue-600",
+          subtitle: "Test your understanding with interactive questions",
+          content: `
+            <div id="quizContainer" class="space-y-6">
+              <div class="lesson-section">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold">Question 1 of 3</h3>
+                  <span class="text-sm text-gray-400">Score: <span id="score">0</span>/3</span>
+                </div>
+                <p class="text-lg text-gray-200 mb-4">
+                  What is the basic unit of life?
+                </p>
+                <div class="space-y-3">
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q1" value="a" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Atom</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q1" value="b" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Cell</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q1" value="c" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Molecule</span>
+                  </label>
+                </div>
+                <button onclick="checkAnswer(1, 'b')" class="btn btn-primary mt-4">
+                  Check Answer
+                </button>
+                <div id="feedback1" class="mt-3 hidden"></div>
+              </div>
+
+              <div class="lesson-section">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold">Question 2 of 3</h3>
+                </div>
+                <p class="text-lg text-gray-200 mb-4">
+                  Which organelle produces energy for the cell?
+                </p>
+                <div class="space-y-3">
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q2" value="a" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Nucleus</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q2" value="b" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Mitochondria</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q2" value="c" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Ribosome</span>
+                  </label>
+                </div>
+                <button onclick="checkAnswer(2, 'b')" class="btn btn-primary mt-4">
+                  Check Answer
+                </button>
+                <div id="feedback2" class="mt-3 hidden"></div>
+              </div>
+
+              <div class="lesson-section">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xl font-bold">Question 3 of 3</h3>
+                </div>
+                <p class="text-lg text-gray-200 mb-4">
+                  DNA stands for:
+                </p>
+                <div class="space-y-3">
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q3" value="a" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Deoxyribonucleic Acid</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q3" value="b" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Ribonucleic Acid</span>
+                  </label>
+                  <label class="flex items-start space-x-3 p-4 bg-white/5 rounded-lg cursor-pointer hover:bg-white/10 transition">
+                    <input type="radio" name="q3" value="c" class="mt-1 w-4 h-4" />
+                    <span class="text-gray-200">Deoxyribose Nucleic Acid</span>
+                  </label>
+                </div>
+                <button onclick="checkAnswer(3, 'a')" class="btn btn-primary mt-4">
+                  Check Answer
+                </button>
+                <div id="feedback3" class="mt-3 hidden"></div>
+              </div>
+            </div>
+          `,
+        },
+        "Review Module 1": {
+          icon: "book",
+          iconColor: "from-blue-500 to-purple-600",
+          subtitle: "Comprehensive review of key concepts and principles",
+          content: `
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Key Concepts Review</h3>
+              <p class="text-lg text-gray-200 mb-6 leading-relaxed">
+                This module provides a comprehensive review of fundamental scientific concepts and principles.
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <div class="flex items-center space-x-3 mb-2">
+                    <i data-lucide="lightbulb" class="w-6 h-6 text-yellow-400"></i>
+                    <h4 class="text-lg font-bold">Core Principles</h4>
+                  </div>
+                  <p class="text-gray-300 text-sm">
+                    Review the fundamental principles that form the foundation of scientific understanding.
+                  </p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <div class="flex items-center space-x-3 mb-2">
+                    <i data-lucide="target" class="w-6 h-6 text-green-400"></i>
+                    <h4 class="text-lg font-bold">Key Concepts</h4>
+                  </div>
+                  <p class="text-gray-300 text-sm">
+                    Reinforce your understanding of essential concepts through structured review.
+                  </p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <div class="flex items-center space-x-3 mb-2">
+                    <i data-lucide="bookmark" class="w-6 h-6 text-blue-400"></i>
+                    <h4 class="text-lg font-bold">Important Terms</h4>
+                  </div>
+                  <p class="text-gray-300 text-sm">
+                    Refresh your memory of critical scientific terminology and definitions.
+                  </p>
+                </div>
+
+                <div class="bg-white/5 p-4 rounded-lg border border-white/10">
+                  <div class="flex items-center space-x-3 mb-2">
+                    <i data-lucide="link" class="w-6 h-6 text-purple-400"></i>
+                    <h4 class="text-lg font-bold">Connections</h4>
+                  </div>
+                  <p class="text-gray-300 text-sm">
+                    Understand how different concepts relate to and build upon each other.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="lesson-section">
+              <h3 class="text-2xl font-bold mb-4">Review Summary</h3>
+              <ul class="space-y-3 text-gray-200">
+                <li class="flex items-start space-x-3">
+                  <i data-lucide="check-circle" class="w-5 h-5 text-green-400 mt-1"></i>
+                  <span>Reinforce fundamental scientific principles</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                  <i data-lucide="check-circle" class="w-5 h-5 text-green-400 mt-1"></i>
+                  <span>Review key concepts and terminology</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                  <i data-lucide="check-circle" class="w-5 h-5 text-green-400 mt-1"></i>
+                  <span>Build connections between related topics</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                  <i data-lucide="check-circle" class="w-5 h-5 text-green-400 mt-1"></i>
+                  <span>Prepare for advanced learning modules</span>
+                </li>
+              </ul>
+            </div>
+          `,
+        },
+      };
+
+      // Initialize
+      lucide.createIcons();
+
+      // Get module title from URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      let moduleTitle = urlParams.get("module");
+
+      // Decode the module title (URLSearchParams should auto-decode, but ensure it's correct)
+      if (moduleTitle) {
+        moduleTitle = decodeURIComponent(moduleTitle);
+      } else {
+        moduleTitle = "Cell Structure & Function"; // Default fallback
+      }
+
+      // Load module content
+      function loadModule(title) {
+        // Trim whitespace and ensure exact match
+        const trimmedTitle = title.trim();
+        const module = moduleDatabase[trimmedTitle];
+
+        if (!module) {
+          console.warn(
+            `Module not found: "${trimmedTitle}". Available modules:`,
+            Object.keys(moduleDatabase)
+          );
+          // Try to find a case-insensitive match
+          const foundKey = Object.keys(moduleDatabase).find(
+            (key) => key.toLowerCase() === trimmedTitle.toLowerCase()
+          );
+
+          if (foundKey) {
+            console.log(`Found case-insensitive match: "${foundKey}"`);
+            loadModule(foundKey);
+            return;
+          }
+
+          // Default to first module if not found
+          const firstModule = Object.keys(moduleDatabase)[0];
+          console.log(`Loading default module: "${firstModule}"`);
+          loadModule(firstModule);
+          return;
+        }
+
+        // Update page title
+        document.title = `Review: ${title}`;
+
+        // Update header
+        document.getElementById("headerSubtitle").textContent = title;
+        document.getElementById("moduleTitle").textContent = title;
+        document.getElementById("moduleSubtitle").textContent = module.subtitle;
+
+        // Update icons
+        const headerIcon = document.getElementById("headerIcon");
+        const moduleIcon = document.getElementById("moduleIcon");
+        headerIcon.className = `w-12 h-12 bg-gradient-to-br ${module.iconColor} rounded-lg flex items-center justify-center`;
+        moduleIcon.className = `w-16 h-16 bg-gradient-to-br ${module.iconColor} rounded-full flex items-center justify-center`;
+
+        // Update icon lucide
+        headerIcon.innerHTML = `<i data-lucide="${module.icon}" class="w-7 h-7 text-white"></i>`;
+        moduleIcon.innerHTML = `<i data-lucide="${module.icon}" class="w-8 h-8 text-white"></i>`;
+
+        // Load content
+        document.getElementById("moduleContent").innerHTML = module.content;
+
+        // Reinitialize icons after content load
+        lucide.createIcons();
+      }
+
+      // Load the module
+      loadModule(moduleTitle);
+
+      // Theme Toggle
+      const themeToggle = document.getElementById("themeToggle");
+      const themeCss = document.getElementById("theme-css");
+      let currentTheme = localStorage.getItem("theme") || "light";
+
+      function setTheme(theme) {
+        currentTheme = theme;
+        localStorage.setItem("theme", theme);
+        if (theme === "light") {
+          themeCss.href = "css/light-mode.css";
+          document
+            .querySelector(".theme-icon-light")
+            .classList.remove("hidden");
+          document.querySelector(".theme-icon-dark").classList.add("hidden");
+        } else {
+          themeCss.href = "css/dark-mode.css";
+          document.querySelector(".theme-icon-light").classList.add("hidden");
+          document.querySelector(".theme-icon-dark").classList.remove("hidden");
+        }
+      }
+
+      setTheme(currentTheme);
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          setTheme(currentTheme === "dark" ? "light" : "dark");
+        });
+      }
+
+      // Quiz functions (for quiz modules)
+      let quizScore = 0;
+
+      function checkAnswer(qNum, correctAnswer) {
+        const feedback = document.getElementById(`feedback${qNum}`);
+        if (!feedback) return;
+
+        feedback.classList.remove("hidden");
+
+        let userAnswer;
+        if (Array.isArray(correctAnswer)) {
+          // Multiple choice
+          const checked = Array.from(
+            document.querySelectorAll(`input[name="q${qNum}"]:checked`)
+          ).map((el) => el.value);
+          const isCorrect =
+            checked.length === correctAnswer.length &&
+            correctAnswer.every((ans) => checked.includes(ans));
+          if (isCorrect) {
+            quizScore++;
+            feedback.innerHTML =
+              '<p class="text-green-400 font-semibold">✅ Correct! Well done!</p>';
+          } else {
+            feedback.innerHTML =
+              '<p class="text-red-400 font-semibold">❌ Not quite. Try again!</p>';
+          }
+        } else {
+          // Single choice
+          const selected = document.querySelector(
+            `input[name="q${qNum}"]:checked`
+          );
+          if (selected && selected.value === correctAnswer) {
+            quizScore++;
+            feedback.innerHTML =
+              '<p class="text-green-400 font-semibold">✅ Correct! Well done!</p>';
+          } else {
+            feedback.innerHTML =
+              '<p class="text-red-400 font-semibold">❌ Incorrect. Try again!</p>';
+          }
+        }
+
+        const scoreElement = document.getElementById("score");
+        if (scoreElement) {
+          scoreElement.textContent = quizScore;
+        }
+      }
+
+      // Toast notification function
+      function showNotification(message, type = "info") {
+        const notification = document.createElement("div");
+        notification.className = `fixed top-6 right-6 px-4 py-3 rounded-xl shadow-lg z-50 transition-all duration-300 transform translate-x-full`;
+
+        const colors = {
+          info: "bg-blue-500 text-white",
+          success: "bg-green-500 text-white",
+          warning: "bg-yellow-500 text-white",
+        };
+
+        notification.className += ` ${colors[type]}`;
+        notification.innerHTML = `
+          <div class="flex items-center space-x-2">
+            <i data-lucide="info" class="w-4 h-4"></i>
+            <span class="text-sm font-semibold whitespace-pre-line">${message}</span>
+          </div>
+        `;
+
+        document.body.appendChild(notification);
+        lucide.createIcons();
+
+        setTimeout(() => {
+          notification.style.transform = "translateX(0)";
+        }, 100);
+
+        setTimeout(() => {
+          notification.style.transform = "translateX(100%)";
+          setTimeout(() => notification.remove(), 300);
+        }, 4000);
+      }
+
+      function completeReview() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const moduleTitle = urlParams.get("module") || "Review Module";
+
+        if (
+          moduleTitle.includes("Quiz") ||
+          moduleTitle.includes("Assessment")
+        ) {
+          showNotification(
+            `🎉 Assessment completed! Your score: ${quizScore}/3\nGreat job reviewing!`,
+            "success"
+          );
+          // Delay navigation to allow toast to be seen
+          setTimeout(() => {
+            window.location.href = "screen3.html";
+          }, 2000);
+        } else {
+          showNotification(
+            "✅ Review completed! Great job reinforcing your knowledge!",
+            "success"
+          );
+          // Delay navigation to allow toast to be seen
+          setTimeout(() => {
+            window.location.href = "screen3.html";
+          }, 2000);
+        }
+      }
+
+      // Make checkAnswer available globally
+      window.checkAnswer = checkAnswer;
+      window.completeReview = completeReview;
+    </script>
+  </body>
+</html>
