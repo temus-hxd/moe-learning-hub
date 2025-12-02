@@ -1,7 +1,5 @@
 {
   "version": 2,
-  "installCommand": "npm install",
-  "buildCommand": "npm run build",
   "builds": [
     {
       "src": "server.js",
@@ -9,6 +7,10 @@
     }
   ],
   "routes": [
+    {
+      "src": "/api/health",
+      "dest": "/server.js"
+    },
     {
       "src": "/(.*\\.(html|js|css|png|jpg|jpeg|gif|svg|ico|mp3|woff|woff2|ttf|eot))",
       "headers": {
