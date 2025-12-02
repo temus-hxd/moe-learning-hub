@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(find:*)",
+      "Bash(./recraft-generate.sh:*)",
+      "Bash(grep:*)",
+      "Bash(rm:*)",
+      "Bash(git add:*)",
+      "Bash(sed:*)",
+      "Bash(open:*)",
+      "Bash(cp:*)",
+      "Bash(git commit:*)",
+      "Bash(vercel:*)",
+      "Bash(curl:*)",
+      "Bash(mkdir:*)",
+      "Bash(export:*)",
+    ],
+    "deny": []
+  }
+}
