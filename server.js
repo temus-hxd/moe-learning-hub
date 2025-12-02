@@ -63,21 +63,20 @@ app.use((req, res, next) => {
 });
 
 // Serve static files (CSS, JS, images, etc.) AFTER HTML injection
-// Serve static files from public directory
+// Serve static files from public directory (works in both local and Vercel)
+const publicPath = join(__dirname, "public");
 app.use(
-  express.static(join(__dirname, "public"), {
+  express.static(publicPath, {
     maxAge: "1y",
     etag: true,
   })
 );
-// Also serve root files (like HTML files) - but not in Vercel as they're handled by routing
-if (process.env.VERCEL !== "1") {
-  app.use(
-    express.static(__dirname, {
-      maxAge: "1y",
-      etag: true,
-    })
-  );
+
+// Debug logging for Vercel (remove in production if needed)
+if (process.env.VERCEL) {
+  console.log("Vercel environment detected");
+  console.log("Public path:", publicPath);
+  console.log("Public exists:", existsSync(publicPath));
 }
 
 // Health check endpoint for Vercel
