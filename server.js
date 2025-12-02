@@ -97,6 +97,14 @@ app.use((req, res, next) => {
 // Serve static files (CSS, JS, images, etc.) AFTER HTML injection
 // Only in local development - Vercel serves static files directly
 if (process.env.VERCEL !== "1") {
+  // Serve static files from public directory
+  app.use(
+    express.static(join(__dirname, "public"), {
+      maxAge: "1y",
+      etag: true,
+    })
+  );
+  // Also serve root files (like config.js, HTML files)
   app.use(
     express.static(__dirname, {
       maxAge: "1y",
