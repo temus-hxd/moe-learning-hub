@@ -63,16 +63,15 @@ app.use((req, res, next) => {
 });
 
 // Serve static files (CSS, JS, images, etc.) AFTER HTML injection
-// Only in local development - Vercel serves static files directly
+// Serve static files from public directory
+app.use(
+  express.static(join(__dirname, "public"), {
+    maxAge: "1y",
+    etag: true,
+  })
+);
+// Also serve root files (like HTML files) - but not in Vercel as they're handled by routing
 if (process.env.VERCEL !== "1") {
-  // Serve static files from public directory
-  app.use(
-    express.static(join(__dirname, "public"), {
-      maxAge: "1y",
-      etag: true,
-    })
-  );
-  // Also serve root files (like config.js, HTML files)
   app.use(
     express.static(__dirname, {
       maxAge: "1y",
@@ -94,9 +93,11 @@ app.get("/api/health", (req, res) => {
 // Catch-all handler for requests that don't match HTML or API routes
 // In Vercel, static files are served automatically from public/, so this
 // will only catch HTML files and API routes (which are handled above)
+// For static files, we should let Vercel handle them (they shouldn't reach here)
 app.use((req, res) => {
-  // If we reach here, it's likely a request that should have been handled
-  // Return 404 for anything that doesn't match our handlers
+  // Check if this is a static file request (shouldn't happen on Vercel)
+  // On Vercel, static files are served before reaching this handler
+  // Only return 404 for actual missing routes
   res.status(404).json({
     error: "Not Found",
     path: req.path,
