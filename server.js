@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import { readFileSync, existsSync } from "fs";
+import { readFileSync, existsSync, readdirSync } from "fs";
 
 // Load environment variables (only in local development)
 // Vercel automatically provides environment variables
@@ -13,10 +13,43 @@ if (process.env.VERCEL !== "1") {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Use process.cwd() in Vercel, __dirname in local development
-// In Vercel serverless, __dirname points to the function directory,
-// but process.cwd() points to the project root where HTML files are
-const rootDir = process.env.VERCEL ? process.cwd() : __dirname;
+// Determine the root directory where HTML files are located
+// In Vercel serverless, we need to find where the files actually are
+let rootDir = __dirname;
+
+if (process.env.VERCEL) {
+  // Try multiple possible locations in Vercel
+  const possibleRoots = [
+    __dirname, // Function directory
+    process.cwd(), // Current working directory
+    join(__dirname, ".."), // Parent of function directory
+    join(process.cwd(), ".."), // Parent of cwd
+  ];
+
+  // Debug: List files in each possible location
+  console.log("Checking for HTML files in possible locations:");
+  for (const possibleRoot of possibleRoots) {
+    try {
+      const files = readdirSync(possibleRoot);
+      const htmlFiles = files.filter((f) => f.endsWith(".html"));
+      console.log(`  ${possibleRoot}: ${htmlFiles.length} HTML files found`);
+      if (htmlFiles.length > 0) {
+        console.log(`    Files: ${htmlFiles.join(", ")}`);
+      }
+    } catch (err) {
+      console.log(`  ${possibleRoot}: Cannot read directory`);
+    }
+  }
+
+  // Find the first location that has index.html
+  for (const possibleRoot of possibleRoots) {
+    if (existsSync(join(possibleRoot, "index.html"))) {
+      rootDir = possibleRoot;
+      console.log(`✓ Found HTML files in: ${rootDir}`);
+      break;
+    }
+  }
+}
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -27,31 +60,53 @@ app.use((req, res, next) => {
   // Only process HTML files and root path
   if (req.path.endsWith(".html") || req.path === "/" || req.path === "") {
     // Remove leading slash from path for file system operations
-    const cleanPath = req.path === "/" || req.path === "" 
-      ? "index.html" 
-      : req.path.startsWith("/") 
-        ? req.path.slice(1) 
+    const cleanPath =
+      req.path === "/" || req.path === ""
+        ? "index.html"
+        : req.path.startsWith("/")
+        ? req.path.slice(1)
         : req.path;
-    
-    const filePath = join(rootDir, cleanPath);
+
+    let filePath = join(rootDir, cleanPath);
 
     // Debug logging for Vercel
     if (process.env.VERCEL) {
       console.log(`HTML request: ${req.path} -> ${filePath}`);
-      console.log(`Root dir: ${rootDir}, __dirname: ${__dirname}, cwd: ${process.cwd()}`);
+      console.log(
+        `Root dir: ${rootDir}, __dirname: ${__dirname}, cwd: ${process.cwd()}`
+      );
       console.log(`File exists: ${existsSync(filePath)}`);
     }
 
-    // Check if file exists
+    // Check if file exists, try multiple locations if not found
+    if (!existsSync(filePath) && process.env.VERCEL) {
+      // Try alternative locations
+      const alternatives = [
+        join(__dirname, cleanPath),
+        join(process.cwd(), cleanPath),
+        join(__dirname, "..", cleanPath),
+        join(process.cwd(), "..", cleanPath),
+      ];
+
+      for (const altPath of alternatives) {
+        if (existsSync(altPath)) {
+          filePath = altPath;
+          console.log(`Found HTML file at alternative location: ${filePath}`);
+          break;
+        }
+      }
+    }
+
     if (!existsSync(filePath)) {
       console.error(`HTML file not found: ${filePath}`);
+      console.error(`Tried alternatives, none found`);
       return res.status(404).json({
         error: "Not Found",
         path: req.path,
         filePath: filePath,
         rootDir: rootDir,
         __dirname: __dirname,
-        cwd: process.cwd()
+        cwd: process.cwd(),
       });
     }
 
@@ -82,7 +137,7 @@ app.use((req, res, next) => {
       return res.status(500).json({
         error: "Internal Server Error",
         path: req.path,
-        message: err.message
+        message: err.message,
       });
     }
   } else {
@@ -107,7 +162,10 @@ if (process.env.VERCEL) {
   console.log("Public path:", publicPath);
   console.log("Public exists:", existsSync(publicPath));
   console.log("Index.html exists:", existsSync(join(rootDir, "index.html")));
-  console.log("Screen1.html exists:", existsSync(join(rootDir, "screen1.html")));
+  console.log(
+    "Screen1.html exists:",
+    existsSync(join(rootDir, "screen1.html"))
+  );
 }
 
 // Health check endpoint for Vercel
