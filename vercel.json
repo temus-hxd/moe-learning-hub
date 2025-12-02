@@ -12,15 +12,19 @@
       "dest": "/server.js"
     },
     {
-      "src": "/(.*\\.(html|js|css|png|jpg|jpeg|gif|svg|ico|mp3|woff|woff2|ttf|eot))",
-      "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
-      },
-      "dest": "/$1"
-    },
-    {
-      "src": "/(.*)",
+      "src": "/(.*\\.html|^/$)",
       "dest": "/server.js"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|mp3|woff|woff2|ttf|eot|json))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }
