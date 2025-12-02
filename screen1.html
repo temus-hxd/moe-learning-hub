@@ -27,7 +27,7 @@
     <div class="floating-particles" id="particlesContainer"></div>
 
     <!-- Score Display -->
-    <div class="score-display">
+    <div class="score-display cursor-grab">
       <div class="score-number" id="scoreNumber">0</div>
       <div class="text-xs text-gray-400">Quest Score</div>
     </div>
@@ -1335,11 +1335,122 @@ Respond as Isaac's enthusiastic, slightly sarcastic science quest sidekick who b
         }
       }
 
+      // Make Score Display Draggable
+      function makeScoreDisplayDraggable() {
+        const scoreDisplay = document.querySelector(".score-display");
+        if (!scoreDisplay) return;
+
+        // Load saved position from localStorage
+        const savedPosition = localStorage.getItem("scoreDisplayPosition");
+        if (savedPosition) {
+          try {
+            const { top, left } = JSON.parse(savedPosition);
+            scoreDisplay.style.top = top;
+            scoreDisplay.style.right = "auto";
+            scoreDisplay.style.left = left;
+          } catch (e) {
+            // If parsing fails, use default position
+          }
+        }
+
+        let isDragging = false;
+        let startX;
+        let startY;
+        let initialLeft;
+        let initialTop;
+
+        scoreDisplay.addEventListener("mousedown", dragStart);
+        scoreDisplay.addEventListener("touchstart", dragStart);
+
+        function dragStart(e) {
+          // Don't start dragging if clicking on text/child elements (allow text selection)
+          if (e.target !== scoreDisplay && !scoreDisplay.contains(e.target)) {
+            return;
+          }
+
+          isDragging = true;
+          scoreDisplay.style.transition = "none";
+
+          const rect = scoreDisplay.getBoundingClientRect();
+          initialLeft = rect.left;
+          initialTop = rect.top;
+
+          if (e.type === "touchstart") {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+          } else {
+            startX = e.clientX;
+            startY = e.clientY;
+          }
+
+          e.preventDefault();
+        }
+
+        function drag(e) {
+          if (!isDragging) return;
+
+          e.preventDefault();
+
+          let currentX, currentY;
+          if (e.type === "touchmove") {
+            currentX = e.touches[0].clientX;
+            currentY = e.touches[0].clientY;
+          } else {
+            currentX = e.clientX;
+            currentY = e.clientY;
+          }
+
+          const deltaX = currentX - startX;
+          const deltaY = currentY - startY;
+
+          const newLeft = initialLeft + deltaX;
+          const newTop = initialTop + deltaY;
+
+          // Keep within viewport bounds
+          const maxLeft = window.innerWidth - scoreDisplay.offsetWidth;
+          const maxTop = window.innerHeight - scoreDisplay.offsetHeight;
+
+          const constrainedLeft = Math.max(0, Math.min(newLeft, maxLeft));
+          const constrainedTop = Math.max(0, Math.min(newTop, maxTop));
+
+          scoreDisplay.style.left = `${constrainedLeft}px`;
+          scoreDisplay.style.top = `${constrainedTop}px`;
+          scoreDisplay.style.right = "auto";
+        }
+
+        document.addEventListener("mousemove", drag);
+        document.addEventListener("touchmove", drag);
+
+        function dragEnd() {
+          if (!isDragging) return;
+
+          isDragging = false;
+          scoreDisplay.style.transition = "";
+
+          // Save position to localStorage
+          const rect = scoreDisplay.getBoundingClientRect();
+          const position = {
+            top: `${rect.top}px`,
+            left: `${rect.left}px`,
+          };
+          localStorage.setItem(
+            "scoreDisplayPosition",
+            JSON.stringify(position)
+          );
+        }
+
+        document.addEventListener("mouseup", dragEnd);
+        document.addEventListener("touchend", dragEnd);
+      }
+
       // Initialize Screen 1
       const assessment = new Screen1Assessment();
 
       // Initialize Particle System
       const particles = new ParticleSystem();
+
+      // Initialize draggable score display
+      makeScoreDisplayDraggable();
     </script>
   </body>
 </html>
