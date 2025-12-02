@@ -5,9 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "node server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "vercel": "vercel",
+    "vercel:prod": "vercel --prod",
+    "vercel:dev": "vercel dev",
+    "deploy": "vercel --prod"
   },
-  "keywords": ["education", "singapore", "history", "learning"],
+  "keywords": [
+    "education",
+    "singapore",
+    "history",
+    "learning"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
