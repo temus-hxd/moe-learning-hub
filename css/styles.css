@@ -1359,6 +1359,13 @@ button.academy-card:hover {
   box-shadow: var(--elevation-2-shadow), 0 0 0 2px rgba(79, 70, 229, 0.2);
 }
 
+.concept-card.active {
+  border-color: var(--color-accent-blue);
+  background: rgba(59, 130, 246, 0.15);
+  box-shadow: var(--elevation-3-shadow), 0 0 0 3px rgba(59, 130, 246, 0.2);
+  transform: translateY(-2px);
+}
+
 .concept-card.dragging {
   opacity: 0.7;
   transform: rotate(5deg) scale(0.95);
@@ -2092,6 +2099,13 @@ button.academy-card:hover {
 .timeline-step.completed {
   border-color: var(--color-accent-yellow);
   background: rgba(255, 217, 61, 0.1);
+}
+
+.timeline-step.active {
+  border-color: var(--color-accent-purple);
+  background: rgba(168, 85, 247, 0.15);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+  transform: translateY(-2px);
 }
 
 /* Screen4 responsive adjustments */

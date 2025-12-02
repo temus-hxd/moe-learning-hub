@@ -19,6 +19,9 @@
     <!-- Mermaid for diagrams -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
 
+    <!-- Configuration script -->
+    <script src="config.js"></script>
+
     <!-- External CSS - AFTER Tailwind so our styles take precedence -->
     <link rel="stylesheet" href="css/styles.css" />
     <!-- Theme CSS - Load light mode by default -->
@@ -1828,12 +1831,21 @@
       // MOE Buddy Chat (adapted for Screen 2)
       class MOEBuddy {
         constructor() {
-          this.apiKey = window.ENV?.OPENROUTER_API_KEY;
+          this.apiKey = null;
           this.chatMessages = [];
           this.init();
         }
 
-        init() {
+        async init() {
+          // Load API key securely
+          try {
+            const config = await ConfigLoader.loadConfig();
+            this.apiKey = config.OPENROUTER_API_KEY;
+          } catch (error) {
+            console.error("Failed to load API configuration:", error);
+            return;
+          }
+
           this.setupEventListeners();
         }
 

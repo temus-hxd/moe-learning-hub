@@ -17,6 +17,9 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
+    <!-- Configuration script -->
+    <script src="config.js"></script>
+
     <!-- External CSS - AFTER Tailwind so our styles take precedence -->
     <link rel="stylesheet" href="css/styles.css" />
     <!-- Theme CSS - Load light mode by default -->
@@ -691,12 +694,21 @@
       // MOE Buddy Chat (adapted for Screen 3)
       class MOEBuddy {
         constructor() {
-          this.apiKey = window.ENV?.OPENROUTER_API_KEY;
+          this.apiKey = null;
           this.chatMessages = [];
           this.init();
         }
 
-        init() {
+        async init() {
+          // Load API key securely
+          try {
+            const config = await ConfigLoader.loadConfig();
+            this.apiKey = config.OPENROUTER_API_KEY;
+          } catch (error) {
+            console.error("Failed to load API configuration:", error);
+            return;
+          }
+
           this.setupEventListeners();
         }
 

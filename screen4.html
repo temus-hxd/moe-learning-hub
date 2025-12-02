@@ -17,6 +17,9 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
+    <!-- Configuration script -->
+    <script src="config.js"></script>
+
     <!-- External CSS - AFTER Tailwind so our styles take precedence -->
     <link rel="stylesheet" href="css/styles.css" />
     <!-- Theme CSS - Load light mode by default -->
@@ -85,7 +88,7 @@
 
         <!-- Progress Bar -->
         <div
-          class="p-6 border-b border-white/10 sticky top-0 backdrop-blur supports-[backdrop-filter]:bg-white/5/10"
+          class="z-10 p-6 border-b border-white/10 sticky top-0 backdrop-blur supports-[backdrop-filter]:bg-white/5/10"
         >
           <div class="flex justify-between items-center mb-2">
             <span class="font-semibold"
@@ -236,6 +239,43 @@
                 <p class="text-sm text-gray-400">Photosynthesis center</p>
               </div>
             </div>
+
+            <!-- Organelle Detail Display -->
+            <div id="organelleDetail" class="mt-4 hidden">
+              <div
+                class="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4"
+              >
+                <div class="flex items-start justify-between mb-3">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-2">
+                      <div
+                        id="organelleIcon"
+                        class="w-10 h-10 rounded-full flex items-center justify-center"
+                      ></div>
+                      <h4
+                        id="organelleDetailTitle"
+                        class="font-bold text-lg"
+                      ></h4>
+                    </div>
+                    <p id="organelleDetailContent" class="text-gray-300"></p>
+                  </div>
+                  <button
+                    onclick="closeOrganelleDetail()"
+                    class="text-gray-400 hover:text-white transition-colors"
+                    title="Close"
+                  >
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                  </button>
+                </div>
+                <button
+                  onclick="askAboutOrganelle()"
+                  class="btn btn-ghost btn-sm mt-2"
+                >
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  Ask MOE Buddy about this
+                </button>
+              </div>
+            </div>
           </div>
 
           <!-- Interactive Timeline Activity -->
@@ -285,6 +325,37 @@
                   </div>
                   <i data-lucide="lightbulb" class="w-6 h-6 text-gray-400"></i>
                 </div>
+              </div>
+            </div>
+
+            <!-- Timeline Detail Display -->
+            <div id="timelineDetail" class="mt-4 hidden">
+              <div
+                class="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4"
+              >
+                <div class="flex items-start justify-between mb-3">
+                  <div class="flex-1">
+                    <h4
+                      id="timelineDetailTitle"
+                      class="font-bold text-lg mb-2"
+                    ></h4>
+                    <p id="timelineDetailContent" class="text-gray-300"></p>
+                  </div>
+                  <button
+                    onclick="closeTimelineDetail()"
+                    class="text-gray-400 hover:text-white transition-colors"
+                    title="Close"
+                  >
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                  </button>
+                </div>
+                <button
+                  onclick="askAboutTimelineStep()"
+                  class="btn btn-ghost btn-sm mt-2"
+                >
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  Ask MOE Buddy about this
+                </button>
               </div>
             </div>
           </div>
@@ -402,6 +473,81 @@
       </div>
     </div>
 
+    <!-- Note Modal -->
+    <div
+      id="noteModal"
+      class="glass-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="noteModalTitle"
+      aria-hidden="true"
+      style="display: none"
+    >
+      <div
+        class="glass-modal"
+        style="
+          width: min(90vw, 600px);
+          height: min(85vh, 600px);
+          display: flex;
+          flex-direction: column;
+        "
+      >
+        <div class="glass-modal-header">
+          <div class="flex items-center gap-2">
+            <i data-lucide="edit-3" class="w-5 h-5"></i>
+            <h3 id="noteModalTitle" class="text-lg font-semibold">
+              Add Video Note
+            </h3>
+          </div>
+          <button id="closeNoteModal" class="glass-close">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <div
+          class="glass-modal-body"
+          style="
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - 140px);
+            padding-bottom: 8px;
+          "
+        >
+          <p class="text-white/80 text-sm mb-3">
+            Write your notes about the video. Use markdown for formatting!
+          </p>
+          <textarea
+            id="noteInput"
+            placeholder="## My Video Notes&#10;&#10;**Key Points:**&#10;- Cell structure overview&#10;- Organelle functions&#10;&#10;*Add your thoughts here...*"
+            class="flex-1 w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-sm text-white resize-none outline-none focus:border-blue-400 transition-colors font-mono"
+            style="
+              min-height: 250px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              line-height: 1.5;
+            "
+          ></textarea>
+        </div>
+        <div
+          class="glass-modal-footer"
+          style="
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            padding: 16px 20px;
+            margin-top: auto;
+          "
+        >
+          <button id="cancelNote" class="btn btn-secondary">
+            <i data-lucide="x" class="w-4 h-4"></i>
+            Cancel
+          </button>
+          <button id="saveNote" class="btn btn-primary">
+            <i data-lucide="save" class="w-4 h-4"></i>
+            Save Note
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script>
       // Initialize Lucide icons
       lucide.createIcons();
@@ -450,11 +596,13 @@
           this.currentStep = 3;
           this.totalSteps = 6;
           this.selectedConcepts = [];
+          this.notes = [];
           this.init();
         }
 
         init() {
           this.setupMOEBuddy();
+          this.setupNoteModal();
         }
 
         setupMOEBuddy() {
@@ -511,17 +659,99 @@
             setTimeout(() => notification.remove(), 300);
           }, 4000);
         }
+
+        setupNoteModal() {
+          const noteModal = document.getElementById("noteModal");
+          const closeBtn = document.getElementById("closeNoteModal");
+          const cancelBtn = document.getElementById("cancelNote");
+          const saveBtn = document.getElementById("saveNote");
+          const noteInput = document.getElementById("noteInput");
+
+          if (!(noteModal && closeBtn && cancelBtn && saveBtn && noteInput))
+            return;
+
+          const closeModal = () => {
+            noteModal.style.display = "none";
+            noteInput.value = "";
+          };
+
+          closeBtn.addEventListener("click", closeModal);
+          cancelBtn.addEventListener("click", closeModal);
+          saveBtn.addEventListener("click", () => this.saveNoteFromModal());
+
+          // Close on backdrop click
+          noteModal.addEventListener("click", (e) => {
+            if (e.target === noteModal) closeModal();
+          });
+
+          // Close on Escape key
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && noteModal.style.display === "flex") {
+              closeModal();
+            }
+          });
+        }
+
+        openNoteModal() {
+          const noteModal = document.getElementById("noteModal");
+          const noteInput = document.getElementById("noteInput");
+
+          if (noteModal && noteInput) {
+            noteModal.style.display = "flex";
+            noteInput.focus();
+            lucide.createIcons();
+          }
+        }
+
+        saveNoteFromModal() {
+          const noteInput = document.getElementById("noteInput");
+          const noteModal = document.getElementById("noteModal");
+          const noteText = noteInput.value.trim();
+
+          if (noteText) {
+            const note = {
+              id: Date.now(),
+              text: noteText,
+              timestamp: new Date().toLocaleTimeString(),
+              isMarkdown: true,
+            };
+
+            this.notes.push(note);
+            this.showNotification(
+              "📝 Video note saved successfully!",
+              "success"
+            );
+
+            // Close modal and clear input
+            noteModal.style.display = "none";
+            noteInput.value = "";
+          } else {
+            this.showNotification(
+              "⚠️ Please write something before saving!",
+              "warning"
+            );
+          }
+        }
       }
 
       // MOE Buddy Chat (adapted for Screen 4)
       class MOEBuddy {
         constructor() {
-          this.apiKey = window.ENV?.OPENROUTER_API_KEY;
+          this.apiKey = null;
           this.chatMessages = [];
           this.init();
         }
 
-        init() {
+        async init() {
+          // Load API key securely
+          try {
+            const config = await ConfigLoader.loadConfig();
+            this.apiKey = config.OPENROUTER_API_KEY;
+          } catch (error) {
+            console.error("Failed to load API configuration:", error);
+            return;
+          }
+
           this.setupEventListeners();
         }
 
@@ -575,16 +805,15 @@
           input.value = "";
           input.style.height = "auto";
 
-          this.showThinking();
+          // Add empty assistant message for streaming
+          const assistantMessageId = this.addMessage("assistant", "");
 
           try {
-            const response = await this.getAIResponse(message);
-            this.hideThinking();
-            this.addMessage("assistant", response);
+            await this.getAIResponseStreaming(message, assistantMessageId);
           } catch (error) {
-            this.hideThinking();
-            this.addMessage(
-              "assistant",
+            console.error("Chat error:", error);
+            this.updateMessage(
+              assistantMessageId,
               "🧬 Connection failed! But I can still help - try asking me about specific organelles or cell processes!"
             );
           }
@@ -598,6 +827,7 @@
         addMessage(role, message) {
           const chatContainer = document.getElementById("chatMessages");
           const messageDiv = document.createElement("div");
+          const messageId = Date.now() + Math.random();
 
           if (role === "user") {
             messageDiv.className = "flex justify-end mb-4";
@@ -614,7 +844,7 @@
                                 <i data-lucide="bot" class="w-4 h-4 text-white"></i>
                             </div>
                             <div class="chat-message">
-                                <p class="text-sm text-white">${message}</p>
+                                <p class="text-sm text-white whitespace-pre-wrap break-words" data-message-id="${messageId}">${message}</p>
                             </div>
                         </div>
                     `;
@@ -624,43 +854,41 @@
           chatContainer.scrollTop = chatContainer.scrollHeight;
           lucide.createIcons();
 
-          this.chatMessages.push({ role, content: message });
+          // Only add to chat history if message has content
+          if (message.trim()) {
+            this.chatMessages.push({ role, content: message });
+          }
+
+          return messageId;
         }
 
-        showThinking() {
-          const chatContainer = document.getElementById("chatMessages");
-          const thinkingDiv = document.createElement("div");
-          thinkingDiv.id = "thinking-indicator";
-          thinkingDiv.className = "flex justify-start mb-4";
-          thinkingDiv.innerHTML = `
-                    <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center">
-                            <i data-lucide="bot" class="w-4 h-4 text-white"></i>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <div class="flex space-x-1">
-                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
-                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
-                            </div>
-                            <span class="text-xs text-gray-400">Analyzing cell biology...</span>
-                        </div>
-                    </div>
-                `;
-          chatContainer.appendChild(thinkingDiv);
-          chatContainer.scrollTop = chatContainer.scrollHeight;
-          lucide.createIcons();
-        }
+        updateMessage(messageId, newContent) {
+          const messageElement = document.querySelector(
+            `[data-message-id="${messageId}"]`
+          );
+          if (messageElement) {
+            messageElement.textContent = newContent;
 
-        hideThinking() {
-          const thinkingIndicator =
-            document.getElementById("thinking-indicator");
-          if (thinkingIndicator) {
-            thinkingIndicator.remove();
+            // Update or add to message history
+            const lastAssistantIndex = this.chatMessages.findLastIndex(
+              (msg) => msg.role === "assistant"
+            );
+            if (lastAssistantIndex !== -1) {
+              this.chatMessages[lastAssistantIndex].content = newContent;
+            } else {
+              this.chatMessages.push({
+                role: "assistant",
+                content: newContent,
+              });
+            }
+
+            // Scroll to bottom
+            const chatContainer = document.getElementById("chatMessages");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
           }
         }
 
-        async getAIResponse(userMessage) {
+        async getAIResponseStreaming(userMessage, messageId) {
           const response = await fetch(
             "https://openrouter.ai/api/v1/chat/completions",
             {
@@ -706,6 +934,7 @@ Respond as Isaac's enthusiastic cell biology sidekick who makes microscopic worl
                 ],
                 temperature: 0.7,
                 max_tokens: 150,
+                stream: true,
               }),
             }
           );
@@ -714,34 +943,153 @@ Respond as Isaac's enthusiastic cell biology sidekick who makes microscopic worl
             throw new Error(`HTTP error! status: ${response.status}`);
           }
 
-          const data = await response.json();
-          return data.choices[0].message.content;
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let fullResponse = "";
+
+          try {
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+
+              const chunk = decoder.decode(value, { stream: true });
+              const lines = chunk.split("\n");
+
+              for (const line of lines) {
+                if (line.startsWith("data: ")) {
+                  const data = line.slice(6);
+                  if (data === "[DONE]") continue;
+
+                  try {
+                    const parsed = JSON.parse(data);
+                    const content = parsed.choices?.[0]?.delta?.content;
+                    if (content) {
+                      fullResponse += content;
+                      this.updateMessage(messageId, fullResponse);
+                    }
+                  } catch (e) {
+                    // Skip invalid JSON chunks
+                  }
+                }
+              }
+            }
+          } finally {
+            reader.releaseLock();
+          }
+
+          return fullResponse;
         }
       }
 
       // Global functions for onclick handlers
-      function exploreOrganelle(organelle) {
-        const card = event.target.closest(".concept-card");
-        card.classList.toggle("selected");
+      let currentOrganelle = null;
 
-        const explanations = {
-          nucleus:
-            "The nucleus controls all cell activities and contains the DNA - like the cell's command center!",
-          mitochondria:
-            "Mitochondria produce ATP energy through cellular respiration - the cell's power plants!",
-          ribosome:
-            "Ribosomes translate mRNA into proteins - the cell's protein factories!",
-          membrane:
-            "The cell membrane controls what enters and exits - a selective barrier!",
-          vacuole:
-            "Vacuoles store materials and maintain turgor pressure in plants!",
-          chloroplast:
-            "Chloroplasts conduct photosynthesis in plant cells - converting light to energy!",
+      function exploreOrganelle(organelle) {
+        const cards = document.querySelectorAll(".concept-card");
+        cards.forEach((card) => card.classList.remove("selected", "active"));
+
+        const card = event.target.closest(".concept-card");
+        card.classList.add("selected", "active");
+
+        const organelleData = {
+          nucleus: {
+            title: "Nucleus",
+            icon: "circle-dot",
+            iconColor: "bg-purple-500",
+            content:
+              "The nucleus is the control center of the cell! It contains the cell's DNA, which holds all the genetic information needed for the cell to function. The nucleus is surrounded by a nuclear membrane that protects the DNA and controls what enters and exits. Think of it as the cell's command center - it tells all the other organelles what to do and when to do it. Without the nucleus, the cell wouldn't know how to function properly!",
+          },
+          mitochondria: {
+            title: "Mitochondria",
+            icon: "zap",
+            iconColor: "bg-red-500",
+            content:
+              "Mitochondria are the powerhouse of the cell! These organelles produce ATP (adenosine triphosphate) through a process called cellular respiration. ATP is the energy currency that powers all cellular activities. Mitochondria have their own DNA and can reproduce independently, which suggests they evolved from ancient bacteria that were engulfed by larger cells. The more energy a cell needs, the more mitochondria it has - like muscle cells have many mitochondria to power movement!",
+          },
+          ribosome: {
+            title: "Ribosomes",
+            icon: "settings",
+            iconColor: "bg-blue-500",
+            content:
+              "Ribosomes are the protein factories of the cell! They read the genetic code from mRNA (messenger RNA) and assemble amino acids into proteins according to that code. Ribosomes can be found floating freely in the cytoplasm or attached to the rough endoplasmic reticulum. Proteins are essential for almost everything the cell does - from structural support to enzymes that catalyze chemical reactions. Without ribosomes, cells couldn't make the proteins they need to survive!",
+          },
+          membrane: {
+            title: "Cell Membrane",
+            icon: "shield",
+            iconColor: "bg-green-500",
+            content:
+              "The cell membrane is a protective barrier that surrounds the cell! It's made of a phospholipid bilayer with embedded proteins. The membrane is selectively permeable, meaning it controls what enters and exits the cell. It allows nutrients and oxygen to enter while keeping harmful substances out. The membrane also helps maintain the cell's shape and allows cells to communicate with each other. Think of it as a smart security system that knows what to let in and what to keep out!",
+          },
+          vacuole: {
+            title: "Vacuole",
+            icon: "droplets",
+            iconColor: "bg-yellow-500",
+            content:
+              "Vacuoles are storage compartments within the cell! In plant cells, there's usually one large central vacuole that stores water, nutrients, and waste products. The vacuole helps maintain turgor pressure, which keeps plant cells rigid and helps plants stand upright. In animal cells, vacuoles are smaller and more numerous, storing various materials. Vacuoles can also help break down waste materials and old cell parts, similar to a recycling center!",
+          },
+          chloroplast: {
+            title: "Chloroplast",
+            icon: "leaf",
+            iconColor: "bg-emerald-500",
+            content:
+              "Chloroplasts are the photosynthesis centers found in plant cells! They contain chlorophyll, a green pigment that captures light energy from the sun. During photosynthesis, chloroplasts convert carbon dioxide and water into glucose (sugar) and oxygen using the captured light energy. Like mitochondria, chloroplasts have their own DNA, suggesting they also evolved from ancient bacteria. This is why plants are green - the chlorophyll in chloroplasts absorbs red and blue light but reflects green light!",
+          },
         };
 
-        const message = `Tell me more about the ${organelle}: ${explanations[organelle]}`;
-        window.learning.moeBuddy.sendQuickMessage(message);
+        const data = organelleData[organelle];
+        const detailDiv = document.getElementById("organelleDetail");
+        const titleEl = document.getElementById("organelleDetailTitle");
+        const contentEl = document.getElementById("organelleDetailContent");
+        const iconEl = document.getElementById("organelleIcon");
+
+        if (detailDiv && titleEl && contentEl && iconEl) {
+          titleEl.textContent = data.title;
+          contentEl.textContent = data.content;
+
+          // Update icon
+          iconEl.className = `${data.iconColor} w-10 h-10 rounded-full flex items-center justify-center`;
+          iconEl.innerHTML = `<i data-lucide="${data.icon}" class="w-5 h-5 text-white"></i>`;
+
+          detailDiv.classList.remove("hidden");
+          currentOrganelle = organelle;
+
+          // Scroll detail into view smoothly
+          detailDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          lucide.createIcons();
+        }
       }
+
+      function closeOrganelleDetail() {
+        const detailDiv = document.getElementById("organelleDetail");
+        const cards = document.querySelectorAll(".concept-card");
+        if (detailDiv) {
+          detailDiv.classList.add("hidden");
+          cards.forEach((card) => card.classList.remove("selected", "active"));
+          currentOrganelle = null;
+        }
+      }
+
+      function askAboutOrganelle() {
+        if (!currentOrganelle) return;
+
+        const organelleQuestions = {
+          nucleus:
+            "Tell me more about how the nucleus controls cell activities",
+          mitochondria: "Tell me more about how mitochondria produce energy",
+          ribosome: "Tell me more about how ribosomes make proteins",
+          membrane: "Tell me more about how the cell membrane works",
+          vacuole: "Tell me more about the function of vacuoles",
+          chloroplast:
+            "Tell me more about how chloroplasts perform photosynthesis",
+        };
+
+        const question = organelleQuestions[currentOrganelle];
+        if (question) {
+          window.learning.moeBuddy.sendQuickMessage(question);
+        }
+      }
+
+      let currentTimelineStep = null;
 
       function showTimelineStep(step) {
         const steps = document.querySelectorAll(".timeline-step");
@@ -749,20 +1097,75 @@ Respond as Isaac's enthusiastic cell biology sidekick who makes microscopic worl
           steps[i].classList.add("completed");
         }
 
-        const timelineDetails = {
-          1: "Isaac, in 1665 Robert Hooke first saw cell structures in cork using a microscope! This started our understanding of cells.",
-          2: "Then in 1674, Leeuwenhoek improved microscopes and discovered living cells - including bacteria!",
-          3: "Finally, Schleiden and Schwann formulated cell theory in 1838-39: all living things are made of cells!",
+        // Mark current step as active
+        steps.forEach((s, index) => {
+          if (index === step - 1) {
+            s.classList.add("active");
+          } else {
+            s.classList.remove("active");
+          }
+        });
+
+        const timelineData = {
+          1: {
+            title: "1665 - Robert Hooke",
+            content:
+              "Isaac, in 1665 Robert Hooke first saw cell structures in cork using a microscope! He called them 'cells' because they reminded him of the small rooms monks lived in. This groundbreaking observation started our understanding of cells and marked the beginning of cell biology as a field of study.",
+          },
+          2: {
+            title: "1674 - Anton van Leeuwenhoek",
+            content:
+              "Then in 1674, Leeuwenhoek improved microscopes and discovered living cells - including bacteria! He was the first person to observe single-celled organisms, which he called 'animalcules'. His superior lens-making skills allowed him to see details that Hooke couldn't, revolutionizing our understanding of the microscopic world.",
+          },
+          3: {
+            title: "1838-1839 - Schleiden & Schwann",
+            content:
+              "Finally, Schleiden and Schwann formulated cell theory in 1838-39: all living things are made of cells! This fundamental principle states that (1) all organisms are composed of cells, (2) cells are the basic unit of life, and (3) all cells come from pre-existing cells. This theory became the foundation of modern biology!",
+          },
         };
 
-        window.learning.moeBuddy.sendQuickMessage(timelineDetails[step]);
+        const data = timelineData[step];
+        const detailDiv = document.getElementById("timelineDetail");
+        const titleEl = document.getElementById("timelineDetailTitle");
+        const contentEl = document.getElementById("timelineDetailContent");
+
+        if (detailDiv && titleEl && contentEl) {
+          titleEl.textContent = data.title;
+          contentEl.textContent = data.content;
+          detailDiv.classList.remove("hidden");
+          currentTimelineStep = step;
+
+          // Scroll detail into view smoothly
+          detailDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          lucide.createIcons();
+        }
+      }
+
+      function closeTimelineDetail() {
+        const detailDiv = document.getElementById("timelineDetail");
+        if (detailDiv) {
+          detailDiv.classList.add("hidden");
+          currentTimelineStep = null;
+        }
+      }
+
+      function askAboutTimelineStep() {
+        if (!currentTimelineStep) return;
+
+        const timelineQuestions = {
+          1: "Tell me more about Robert Hooke's discovery of cells in 1665",
+          2: "Tell me more about Anton van Leeuwenhoek's discovery of living cells in 1674",
+          3: "Tell me more about how Schleiden and Schwann formulated cell theory in 1838-1839",
+        };
+
+        const question = timelineQuestions[currentTimelineStep];
+        if (question) {
+          window.learning.moeBuddy.sendQuickMessage(question);
+        }
       }
 
       function addVideoNote() {
-        window.learning.showNotification(
-          "📝 Video note added to your study materials!",
-          "success"
-        );
+        window.learning.openNoteModal();
       }
 
       function askAboutVideo() {
