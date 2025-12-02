@@ -379,7 +379,7 @@
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
-        <div class="glass-body">
+        <div class="glass-body overflow-auto">
           <!-- Lecture column -->
           <div class="glass-col" style="flex: 2">
             <h4 class="text-xl font-bold mb-3">
@@ -390,13 +390,7 @@
               microscopy to modern biology. Keep an eye on how tools (like
               microscopes and X‑ray cameras) unlocked new ways of seeing.
             </p>
-            <div class="mermaid mb-4">
-              flowchart LR subgraph Foundations A["Microscopy<br />Hooke &
-              Leeuwenhoek"] --> B["Cell Theory<br />Schleiden & Schwann"] end B
-              --> C["Heredity Questions"] C --> D["DNA Structure<br />Double
-              Helix"] D --> E["Gene Expression<br />From DNA to Protein"] E -->
-              F["Traits & Variation"] F --> G["Natural Selection<br />Evolution"]
-            </div>
+            <div class="mermaid mb-4" id="mermaid-flowchart"></div>
 
             <h5 class="font-semibold mt-4 mb-2">Key Ideas</h5>
             <ul class="list-disc pl-5 space-y-1 text-white/85">
@@ -417,11 +411,7 @@
               </li>
             </ul>
 
-            <div class="mermaid my-4">
-              sequenceDiagram participant L as Light (Sun) participant P as
-              Plant Cell participant C as Chloroplast L->>P: Photons P->>C: CO2
-              + H2O C-->>P: Glucose + O2 P-->>World: Oxygen for respiration
-            </div>
+            <div class="mermaid my-4" id="mermaid-sequence"></div>
 
             <h5 class="font-semibold mt-4 mb-2">Quick Checks</h5>
             <ol class="list-decimal pl-5 space-y-1 text-white/85">
@@ -438,7 +428,7 @@
             <h4 class="text-lg font-semibold mb-2">Isaac’s Notes</h4>
             <textarea
               class="notes-textarea"
-              placeholder="Write your notes here... (mockup; not saved)"
+              placeholder="Write your notes here..."
             ></textarea>
           </div>
         </div>
@@ -501,6 +491,32 @@
         });
       }
 
+      // Mermaid diagram code
+      const mermaidFlowchartCode = `
+flowchart LR
+    subgraph Foundations["Foundations"]
+        A["Microscopy<br/>Hooke & Leeuwenhoek"]
+        B["Cell Theory<br/>Schleiden & Schwann"]
+        A --> B
+    end
+    B --> C["Heredity Questions"]
+    C --> D["DNA Structure<br/>Double Helix"]
+    D --> E["Gene Expression<br/>From DNA to Protein"]
+    E --> F["Traits & Variation"]
+    F --> G["Natural Selection<br/>Evolution"]
+      `;
+
+      const mermaidSequenceCode = `
+sequenceDiagram
+    participant L as Light (Sun)
+    participant P as Plant Cell
+    participant C as Chloroplast
+    L->>P: Photons
+    P->>C: CO2 + H2O
+    C-->>P: Glucose + O2
+    P-->>World: Oxygen for respiration
+      `;
+
       // Notebook modal wiring
       const openNotebook = document.getElementById("openNotebook");
       const notebookOverlay = document.getElementById("notebookOverlay");
@@ -508,11 +524,34 @@
       if (openNotebook && notebookOverlay && closeNotebook) {
         const renderMermaid = () => {
           if (window.mermaid) {
+            // Inject Mermaid code into the divs
+            const flowchartDiv = document.getElementById("mermaid-flowchart");
+            const sequenceDiv = document.getElementById("mermaid-sequence");
+
+            if (flowchartDiv) {
+              flowchartDiv.removeAttribute("data-processed");
+              flowchartDiv.textContent = mermaidFlowchartCode.trim();
+            }
+
+            if (sequenceDiv) {
+              sequenceDiv.removeAttribute("data-processed");
+              sequenceDiv.textContent = mermaidSequenceCode.trim();
+            }
+
             const blocks = notebookOverlay.querySelectorAll(".mermaid");
-            blocks.forEach((b) => {
-              b.removeAttribute("data-processed");
-            });
-            mermaid.init(undefined, blocks);
+            // Use mermaid.run() for v10+ or fallback to init()
+            try {
+              if (typeof mermaid.run === "function") {
+                mermaid.run({ nodes: blocks }).catch((err) => {
+                  console.error("Mermaid run() error:", err);
+                  mermaid.init(undefined, blocks);
+                });
+              } else {
+                mermaid.init(undefined, blocks);
+              }
+            } catch (err) {
+              console.error("Mermaid rendering error:", err);
+            }
           }
         };
         openNotebook.addEventListener("click", () => {
